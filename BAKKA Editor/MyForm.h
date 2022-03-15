@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <map>
 #include "Chart.h"
 
 Chart theChart;
@@ -207,6 +208,7 @@ namespace BAKKAEditor {
 			// 
 			this->saveAsToolStripMenuItem->Name = L"saveAsToolStripMenuItem";
 			resources->ApplyResources(this->saveAsToolStripMenuItem, L"saveAsToolStripMenuItem");
+			this->saveAsToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::saveAsToolStripMenuItem_Click);
 			// 
 			// exitToolStripMenuItem
 			// 
@@ -385,27 +387,29 @@ namespace BAKKAEditor {
 		std::ofstream chartFile;
 		chartFile.open("chart.mer");
 
-		chartFile
+		chartFile << std::fixed << std::setprecision(6)
 			<< "#MUSIC_SCORE_ID 0\n"
 			<< "#MUSIC_SCORE_VERSION 0\n"
 			<< "#GAME_VERSION \n"
 			<< "#MUSIC_FILE_PATH MER_BGM_S00_004 [replace name with actual file name]\n"
 			<< "#OFFSET " << theChart.offset << "\n"
-			<< "#MOVIEOFFSET 0.000000\n"
+			<< "#MOVIEOFFSET " << theChart.movieOffset << "\n"
 			<< "#BODY\n";
 
-		chartFile << std::setw(5);
 		for (std::list<PreChartNode>::iterator itr = theChart.PreChart.begin(); itr != theChart.PreChart.end(); itr++) {
-			chartFile << (itr)->beat << " " << (itr)->subBeat << " " << (itr)->type << " ";
+			chartFile << std::right << std::fixed << std::setw(4) << (itr)->beat 
+					  << std::right << std::fixed << std::setw(5) << (itr)->subBeat
+					  << std::right << std::fixed << std::setw(5) << (itr)->type;
 			switch ((itr)->type) {
 			case 2:
-				chartFile << (itr)->BPM;
+				chartFile << " " << std::right << std::fixed << std::setw(5) << (itr)->BPM;
 				break;
 			case 3:
-				chartFile << (itr)->beatDiv1 << " " << (itr)->beatDiv2;
+				chartFile << std::right << std::fixed << std::setw(5) << (itr)->beatDiv1
+						  << std::right << std::fixed << std::setw(5) << (itr)->beatDiv2;
 				break;
 			case 5:
-				chartFile << (itr)->hiSpeed;
+				chartFile << " " << std::right << std::fixed << std::setw(5) << (itr)->hiSpeed;
 				break;
 			default:
 				chartFile << "";
@@ -415,35 +419,29 @@ namespace BAKKAEditor {
 
 		int line = 0;
 		for (std::list<NotesNode>::iterator itr = theChart.Notes.begin(); itr != theChart.Notes.end(); itr++) {
-			chartFile 
-				<< (itr)->beat << " " 
-				<< (itr)->subBeat << " " 
-				<< "1" << " " 
-				<< (itr)->noteType << " " 
-				<< line << " " 
-				<< (itr)->position << " "
-				<< (itr)->size << " ";
+			chartFile << std::right << std::fixed << std::setw(4) << (itr)->beat
+					  << std::right << std::fixed << std::setw(5) << (itr)->subBeat
+					  << std::right << std::fixed << std::setw(5) << 1
+					  << std::right << std::fixed << std::setw(5) << (itr)->noteType
+					  << std::right << std::fixed << std::setw(5) << line
+					  << std::right << std::fixed << std::setw(5) << (itr)->position
+					  << std::right << std::fixed << std::setw(5) << (itr)->size
+					  << std::right << std::fixed << std::setw(5) << (itr)->holdChange;
 			switch ((itr)->noteType) {
 			case 9:
-				chartFile << 1 << " " << findLine((itr)->nextNode);
+				chartFile << std::right << std::fixed << std::setw(5) << findLine((itr)->nextNode);
 				break;
 			case 10:
-				if (((itr)->nextNode->position > (itr)->position && (itr)->prevNode->position > (itr)->position) || 
-					((itr)->nextNode->position < (itr)->position && (itr)->prevNode->position < (itr)->position)) {
-					chartFile << 1 << " " << findLine((itr)->nextNode);
-				}
-				else {
-					chartFile << 0 << " " << findLine((itr)->nextNode);
-				}
+				chartFile << std::right << std::fixed << std::setw(5) << findLine((itr)->nextNode);
 				break;
 			case 12:
-				chartFile << 1 << " " << (itr)->BGType;
+				chartFile << std::right << std::fixed << std::setw(5) << (itr)->BGType;
 				break;
 			case 13:
-				chartFile << 1 << " " << (itr)->BGType;
+				chartFile << std::right << std::fixed << std::setw(5) << (itr)->BGType;
 				break;
 			default:
-				chartFile << 1;
+				chartFile << "";
 			}
 			chartFile << "\n";
 			line++;
@@ -452,14 +450,101 @@ namespace BAKKAEditor {
 		chartFile.close();
 	}
 	private: System::Void openToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		theChart.offset = 0.000000;
+		theChart.movieOffset = 0.000000;
+		theChart.Notes.clear();
+		theChart.PreChart.clear();
+
 		std::ifstream chartFile;
 		chartFile.open("chart.mer");
 
+		std::string temp;
 		while (!chartFile.eof()) {
-
+			if (temp == "#OFFSET") {
+				chartFile >> theChart.offset;
+			}
+			if (temp == "#MOVIEOFFSET") {
+				chartFile >> theChart.movieOffset;
+			}
+			if (temp == "#BODY") {
+				break;
+			}
+			chartFile >> temp;
 		}
 
+		int beat;
+		int subBeat;
+		int type;
+		int lineTemp;
+		std::map<int, int> Holds;
+		NotesNode tempNotes;
+		PreChartNode tempPCNode;
+		while (!chartFile.eof()) {
+			chartFile >> beat >> subBeat >> type;
+			if (chartFile.eof()) break;
+
+			switch (type) {
+			case 1:
+				tempNotes.beat = beat;
+				tempNotes.subBeat = subBeat;
+				chartFile >> tempNotes.noteType >> lineTemp >> tempNotes.position >> tempNotes.size >> tempNotes.holdChange;
+				if (tempNotes.noteType == 12 || tempNotes.noteType == 13) {
+					chartFile >> tempNotes.BGType;
+				}
+				if (tempNotes.noteType == 9 || tempNotes.noteType == 10) {
+					chartFile >> Holds[lineTemp];
+				}
+				theChart.Notes.push_back(tempNotes);
+				break;
+			case 2:
+				tempPCNode.beat = beat;
+				tempPCNode.subBeat = subBeat;
+				tempPCNode.type = type;
+				chartFile >> tempPCNode.BPM;
+				theChart.PreChart.push_back(tempPCNode);
+				break;
+			case 3:
+				tempPCNode.beat = beat;
+				tempPCNode.subBeat = subBeat;
+				tempPCNode.type = type;
+				chartFile >> tempPCNode.beatDiv1 >> tempPCNode.beatDiv2;
+				theChart.PreChart.push_back(tempPCNode);
+				break;
+			case 5:
+				tempPCNode.beat = beat;
+				tempPCNode.subBeat = subBeat;
+				tempPCNode.type = type;
+				chartFile >> tempPCNode.hiSpeed;
+				theChart.PreChart.push_back(tempPCNode);
+				break;
+			default:
+				tempPCNode.beat = beat;
+				tempPCNode.subBeat = subBeat;
+				tempPCNode.type = type;
+				theChart.PreChart.push_back(tempPCNode);
+			}
+		}
 		chartFile.close();
+
+		std::map<int, int>::iterator mapitr;
+		std::list<NotesNode>::iterator noteitr;
+		for (mapitr = Holds.begin(); mapitr != Holds.end(); ++mapitr) {
+			lineTemp = 0;
+			for (noteitr = theChart.Notes.begin(); noteitr != theChart.Notes.end(); ++noteitr) {
+				if (lineTemp == mapitr->first) {
+					std::list<NotesNode>::iterator tempitr = noteitr;
+					std::advance(tempitr, (mapitr->second - lineTemp));
+					(noteitr)->nextNode = tempitr;
+					(tempitr)->prevNode = noteitr;
+					noteitr = theChart.Notes.end();
+					noteitr--;
+				}
+				lineTemp++;
+			}
+		}
+	}
+	private: System::Void saveAsToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		saveToolStripMenuItem_Click(sender, e);
 	}
 };
 }

@@ -30,4 +30,5 @@ struct Chart {
 	std::list<NotesNode> Notes;
 	std::list<PreChartNode> PreChart;
 	double offset;
+	double movieOffset;
 };
