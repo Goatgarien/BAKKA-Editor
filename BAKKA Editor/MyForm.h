@@ -219,6 +219,7 @@ private: System::Windows::Forms::Label^ NotesPosLabel;
 private: System::Windows::Forms::Label^ NotesTypeLabel;
 private: System::Windows::Forms::Label^ NotesSubBeatLabel;
 private: System::Windows::Forms::Label^ NotesBeatLabel;
+private: System::Windows::Forms::Label^ MadeByLabel;
 
 
 
@@ -381,6 +382,7 @@ private: System::Windows::Forms::Label^ NotesBeatLabel;
 			this->NextNoteButton = (gcnew System::Windows::Forms::Button());
 			this->PrevNoteButton = (gcnew System::Windows::Forms::Button());
 			this->DeleteNoteButton = (gcnew System::Windows::Forms::Button());
+			this->MadeByLabel = (gcnew System::Windows::Forms::Label());
 			this->menuStrip->SuspendLayout();
 			this->NoteTypeBox->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeNum))->BeginInit();
@@ -1233,11 +1235,17 @@ private: System::Windows::Forms::Label^ NotesBeatLabel;
 			this->DeleteNoteButton->UseVisualStyleBackColor = true;
 			this->DeleteNoteButton->Click += gcnew System::EventHandler(this, &MyForm::DeleteNoteButton_Click);
 			// 
+			// MadeByLabel
+			// 
+			resources->ApplyResources(this->MadeByLabel, L"MadeByLabel");
+			this->MadeByLabel->Name = L"MadeByLabel";
+			// 
 			// MyForm
 			// 
 			this->AllowDrop = true;
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->Controls->Add(this->MadeByLabel);
 			this->Controls->Add(this->NotesViewBox);
 			this->Controls->Add(this->PreChartViewBox);
 			this->Controls->Add(this->CurrentObjectText);

@@ -120,11 +120,42 @@
   <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>981, 24</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="menuStrip.Text" xml:space="preserve">
+    <value>Menu Strip</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
+    <value>menuStrip</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 20</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>File</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="newToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+N</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="newToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>186, 22</value>
   </data>
@@ -163,37 +194,6 @@
   </data>
   <data name="exitToolStripMenuItem.Text" xml:space="preserve">
     <value>Exit</value>
-  </data>
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 20</value>
-  </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>981, 24</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="menuStrip.Text" xml:space="preserve">
-    <value>Menu Strip</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
-    <value>menuStrip</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
-    <value>12</value>
   </data>
   <data name="TapButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -360,6 +360,9 @@
   <data name="&gt;&gt;YellowButton.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <metadata name="ToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>124, 17</value>
+  </metadata>
   <data name="HoldButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -375,9 +378,6 @@
   <data name="HoldButton.Text" xml:space="preserve">
     <value>Hold</value>
   </data>
-  <metadata name="ToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>124, 17</value>
-  </metadata>
   <data name="HoldButton.ToolTip" xml:space="preserve">
     <value>After first insert of a hold,
 you must continue adding to the hold until end.
@@ -426,6 +426,78 @@ otherwise it will crash.</value>
   </data>
   <data name="&gt;&gt;EndChartButton.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="&gt;&gt;BonusFlairRadioButton.Name" xml:space="preserve">
+    <value>BonusFlairRadioButton</value>
+  </data>
+  <data name="&gt;&gt;BonusFlairRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BonusFlairRadioButton.Parent" xml:space="preserve">
+    <value>NoteTypeBox</value>
+  </data>
+  <data name="&gt;&gt;BonusFlairRadioButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;BonusGetRadioButton.Name" xml:space="preserve">
+    <value>BonusGetRadioButton</value>
+  </data>
+  <data name="&gt;&gt;BonusGetRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BonusGetRadioButton.Parent" xml:space="preserve">
+    <value>NoteTypeBox</value>
+  </data>
+  <data name="&gt;&gt;BonusGetRadioButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;NoBonusRadioButton.Name" xml:space="preserve">
+    <value>NoBonusRadioButton</value>
+  </data>
+  <data name="&gt;&gt;NoBonusRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NoBonusRadioButton.Parent" xml:space="preserve">
+    <value>NoteTypeBox</value>
+  </data>
+  <data name="&gt;&gt;NoBonusRadioButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;EndHoldBox.Name" xml:space="preserve">
+    <value>EndHoldBox</value>
+  </data>
+  <data name="&gt;&gt;EndHoldBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EndHoldBox.Parent" xml:space="preserve">
+    <value>NoteTypeBox</value>
+  </data>
+  <data name="&gt;&gt;EndHoldBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="NoteTypeBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 27</value>
+  </data>
+  <data name="NoteTypeBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>678, 77</value>
+  </data>
+  <data name="NoteTypeBox.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="NoteTypeBox.Text" xml:space="preserve">
+    <value>Note Types</value>
+  </data>
+  <data name="&gt;&gt;NoteTypeBox.Name" xml:space="preserve">
+    <value>NoteTypeBox</value>
+  </data>
+  <data name="&gt;&gt;NoteTypeBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NoteTypeBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;NoteTypeBox.ZOrder" xml:space="preserve">
+    <value>12</value>
   </data>
   <data name="BonusFlairRadioButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -552,30 +624,9 @@ Tap, Orange Flicks, and Green Flicks
   <data name="&gt;&gt;EndHoldBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="NoteTypeBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 27</value>
-  </data>
-  <data name="NoteTypeBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>678, 77</value>
-  </data>
-  <data name="NoteTypeBox.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="NoteTypeBox.Text" xml:space="preserve">
-    <value>Note Types</value>
-  </data>
-  <data name="&gt;&gt;NoteTypeBox.Name" xml:space="preserve">
-    <value>NoteTypeBox</value>
-  </data>
-  <data name="&gt;&gt;NoteTypeBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;NoteTypeBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;NoteTypeBox.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
+  <metadata name="ToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>124, 17</value>
+  </metadata>
   <data name="BPMChange.Location" type="System.Drawing.Point, System.Drawing">
     <value>87, 19</value>
   </data>
@@ -773,7 +824,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;InsertButton.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="PosLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -943,6 +994,99 @@ Notes that appear are from End 1 -&gt; End 2</value>
   <data name="&gt;&gt;PosNum.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>NoteSizeBox</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;SubBeat2Num.Name" xml:space="preserve">
+    <value>SubBeat2Num</value>
+  </data>
+  <data name="&gt;&gt;SubBeat2Num.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SubBeat2Num.Parent" xml:space="preserve">
+    <value>NoteSizeBox</value>
+  </data>
+  <data name="&gt;&gt;SubBeat2Num.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;SubBeat1Num.Name" xml:space="preserve">
+    <value>SubBeat1Num</value>
+  </data>
+  <data name="&gt;&gt;SubBeat1Num.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SubBeat1Num.Parent" xml:space="preserve">
+    <value>NoteSizeBox</value>
+  </data>
+  <data name="&gt;&gt;SubBeat1Num.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;BeatNum.Name" xml:space="preserve">
+    <value>BeatNum</value>
+  </data>
+  <data name="&gt;&gt;BeatNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BeatNum.Parent" xml:space="preserve">
+    <value>NoteSizeBox</value>
+  </data>
+  <data name="&gt;&gt;BeatNum.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>NoteSizeBox</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;Beat.Name" xml:space="preserve">
+    <value>Beat</value>
+  </data>
+  <data name="&gt;&gt;Beat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Beat.Parent" xml:space="preserve">
+    <value>NoteSizeBox</value>
+  </data>
+  <data name="&gt;&gt;Beat.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="NoteSizeBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 193</value>
+  </data>
+  <data name="NoteSizeBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>203, 128</value>
+  </data>
+  <data name="NoteSizeBox.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="&gt;&gt;NoteSizeBox.Name" xml:space="preserve">
+    <value>NoteSizeBox</value>
+  </data>
+  <data name="&gt;&gt;NoteSizeBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NoteSizeBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;NoteSizeBox.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1105,25 +1249,52 @@ Notes that appear are from End 1 -&gt; End 2</value>
   <data name="&gt;&gt;Beat.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="NoteSizeBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 193</value>
+  <data name="&gt;&gt;RemoveMask.Name" xml:space="preserve">
+    <value>RemoveMask</value>
   </data>
-  <data name="NoteSizeBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 128</value>
+  <data name="&gt;&gt;RemoveMask.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="NoteSizeBox.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
+  <data name="&gt;&gt;RemoveMask.Parent" xml:space="preserve">
+    <value>GimmickBox</value>
   </data>
-  <data name="&gt;&gt;NoteSizeBox.Name" xml:space="preserve">
-    <value>NoteSizeBox</value>
+  <data name="&gt;&gt;RemoveMask.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
-  <data name="&gt;&gt;NoteSizeBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;AddMask.Name" xml:space="preserve">
+    <value>AddMask</value>
   </data>
-  <data name="&gt;&gt;NoteSizeBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;AddMask.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AddMask.Parent" xml:space="preserve">
+    <value>GimmickBox</value>
+  </data>
+  <data name="&gt;&gt;AddMask.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="GimmickBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 110</value>
+  </data>
+  <data name="GimmickBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>496, 77</value>
+  </data>
+  <data name="GimmickBox.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="GimmickBox.Text" xml:space="preserve">
+    <value>Gimmick Types</value>
+  </data>
+  <data name="&gt;&gt;GimmickBox.Name" xml:space="preserve">
+    <value>GimmickBox</value>
+  </data>
+  <data name="&gt;&gt;GimmickBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GimmickBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;NoteSizeBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;GimmickBox.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
   <data name="RemoveMask.AutoSize" type="System.Boolean, mscorlib">
@@ -1183,28 +1354,304 @@ Notes that appear are from End 1 -&gt; End 2</value>
   <data name="&gt;&gt;AddMask.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="GimmickBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 110</value>
+  <data name="&gt;&gt;ReverseEnd2SBNum2.Name" xml:space="preserve">
+    <value>ReverseEnd2SBNum2</value>
   </data>
-  <data name="GimmickBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>496, 77</value>
+  <data name="&gt;&gt;ReverseEnd2SBNum2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="GimmickBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;ReverseEnd2SBNum2.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2SBNum2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label12.Name" xml:space="preserve">
+    <value>label12</value>
+  </data>
+  <data name="&gt;&gt;label12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label12.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2SBNum1.Name" xml:space="preserve">
+    <value>ReverseEnd2SBNum1</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2SBNum1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2SBNum1.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2SBNum1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2BNum.Name" xml:space="preserve">
+    <value>ReverseEnd2BNum</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2BNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2BNum.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2BNum.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum2.Name" xml:space="preserve">
+    <value>ReverseEnd1SBNum2</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum2.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum2.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum1.Name" xml:space="preserve">
+    <value>ReverseEnd1SBNum1</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum1.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum1.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1BNum.Name" xml:space="preserve">
+    <value>ReverseEnd1BNum</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1BNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1BNum.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1BNum.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;StopEndBNum.Name" xml:space="preserve">
+    <value>StopEndBNum</value>
+  </data>
+  <data name="&gt;&gt;StopEndBNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StopEndBNum.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;StopEndBNum.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum2.Name" xml:space="preserve">
+    <value>StopEndSBNum2</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum2.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum2.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;label10.Name" xml:space="preserve">
+    <value>label10</value>
+  </data>
+  <data name="&gt;&gt;label10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum1.Name" xml:space="preserve">
+    <value>StopEndSBNum1</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum1.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum1.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;HiSpeedChangeNum.Name" xml:space="preserve">
+    <value>HiSpeedChangeNum</value>
+  </data>
+  <data name="&gt;&gt;HiSpeedChangeNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HiSpeedChangeNum.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;HiSpeedChangeNum.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum2.Name" xml:space="preserve">
+    <value>TimeSigNum2</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum2.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum2.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum1.Name" xml:space="preserve">
+    <value>TimeSigNum1</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum1.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum1.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
-  <data name="GimmickBox.Text" xml:space="preserve">
-    <value>Gimmick Types</value>
+  <data name="&gt;&gt;BPMChangeNum.Name" xml:space="preserve">
+    <value>BPMChangeNum</value>
   </data>
-  <data name="&gt;&gt;GimmickBox.Name" xml:space="preserve">
-    <value>GimmickBox</value>
+  <data name="&gt;&gt;BPMChangeNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;GimmickBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;BPMChangeNum.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;BPMChangeNum.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="GimmickSettingsBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>216, 194</value>
+  </data>
+  <data name="GimmickSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>468, 127</value>
+  </data>
+  <data name="GimmickSettingsBox.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="GimmickSettingsBox.Text" xml:space="preserve">
+    <value>Gimmick Settings</value>
+  </data>
+  <data name="&gt;&gt;GimmickSettingsBox.Name" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;GimmickSettingsBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;GimmickBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;GimmickSettingsBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;GimmickBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;GimmickSettingsBox.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
   <data name="ReverseEnd2SBNum2.Location" type="System.Drawing.Point, System.Drawing">
@@ -1810,32 +2257,164 @@ Notes that appear are from End 1 -&gt; End 2</value>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>22</value>
   </data>
-  <data name="GimmickSettingsBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>216, 194</value>
-  </data>
-  <data name="GimmickSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>468, 127</value>
-  </data>
-  <data name="GimmickSettingsBox.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
-  </data>
-  <data name="GimmickSettingsBox.Text" xml:space="preserve">
-    <value>Gimmick Settings</value>
-  </data>
-  <data name="&gt;&gt;GimmickSettingsBox.Name" xml:space="preserve">
-    <value>GimmickSettingsBox</value>
-  </data>
-  <data name="&gt;&gt;GimmickSettingsBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GimmickSettingsBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;GimmickSettingsBox.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
   <data name="InitialSettingsPane.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;InitialSetSave.Name" xml:space="preserve">
+    <value>InitialSetSave</value>
+  </data>
+  <data name="&gt;&gt;InitialSetSave.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InitialSetSave.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;InitialSetSave.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;MovieOffsetNum.Name" xml:space="preserve">
+    <value>MovieOffsetNum</value>
+  </data>
+  <data name="&gt;&gt;MovieOffsetNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MovieOffsetNum.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;MovieOffsetNum.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label17.Name" xml:space="preserve">
+    <value>label17</value>
+  </data>
+  <data name="&gt;&gt;label17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label17.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;OffsetNum.Name" xml:space="preserve">
+    <value>OffsetNum</value>
+  </data>
+  <data name="&gt;&gt;OffsetNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OffsetNum.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;OffsetNum.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;label16.Name" xml:space="preserve">
+    <value>label16</value>
+  </data>
+  <data name="&gt;&gt;label16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label16.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum2.Name" xml:space="preserve">
+    <value>InitTimeSigNum2</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum2.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum2.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label15.Name" xml:space="preserve">
+    <value>label15</value>
+  </data>
+  <data name="&gt;&gt;label15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum1.Name" xml:space="preserve">
+    <value>InitTimeSigNum1</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum1.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum1.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;label14.Name" xml:space="preserve">
+    <value>label14</value>
+  </data>
+  <data name="&gt;&gt;label14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label14.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;InitialBPMNum.Name" xml:space="preserve">
+    <value>InitialBPMNum</value>
+  </data>
+  <data name="&gt;&gt;InitialBPMNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InitialBPMNum.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;InitialBPMNum.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;label13.Name" xml:space="preserve">
+    <value>label13</value>
+  </data>
+  <data name="&gt;&gt;label13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="InitialSettingsPane.Location" type="System.Drawing.Point, System.Drawing">
+    <value>699, 27</value>
+  </data>
+  <data name="InitialSettingsPane.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 160</value>
+  </data>
+  <data name="InitialSettingsPane.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="InitialSettingsPane.Text" xml:space="preserve">
+    <value>Initial Chart Settings </value>
+  </data>
+  <data name="&gt;&gt;InitialSettingsPane.Name" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;InitialSettingsPane.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InitialSettingsPane.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;InitialSettingsPane.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="InitialSetSave.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
@@ -2133,30 +2712,6 @@ Notes that appear are from End 1 -&gt; End 2</value>
   </data>
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
     <value>10</value>
-  </data>
-  <data name="InitialSettingsPane.Location" type="System.Drawing.Point, System.Drawing">
-    <value>699, 27</value>
-  </data>
-  <data name="InitialSettingsPane.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 160</value>
-  </data>
-  <data name="InitialSettingsPane.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
-  </data>
-  <data name="InitialSettingsPane.Text" xml:space="preserve">
-    <value>Initial Chart Settings </value>
-  </data>
-  <data name="&gt;&gt;InitialSettingsPane.Name" xml:space="preserve">
-    <value>InitialSettingsPane</value>
-  </data>
-  <data name="&gt;&gt;InitialSettingsPane.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;InitialSettingsPane.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;InitialSettingsPane.ZOrder" xml:space="preserve">
-    <value>6</value>
   </data>
   <data name="pictureBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -32687,6 +33242,66 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;MaskCenter.Name" xml:space="preserve">
+    <value>MaskCenter</value>
+  </data>
+  <data name="&gt;&gt;MaskCenter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MaskCenter.Parent" xml:space="preserve">
+    <value>MaskSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;MaskCenter.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;MaskCClockwise.Name" xml:space="preserve">
+    <value>MaskCClockwise</value>
+  </data>
+  <data name="&gt;&gt;MaskCClockwise.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MaskCClockwise.Parent" xml:space="preserve">
+    <value>MaskSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;MaskCClockwise.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;MaskClockwise.Name" xml:space="preserve">
+    <value>MaskClockwise</value>
+  </data>
+  <data name="&gt;&gt;MaskClockwise.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MaskClockwise.Parent" xml:space="preserve">
+    <value>MaskSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;MaskClockwise.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="MaskSettingsBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>509, 110</value>
+  </data>
+  <data name="MaskSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 77</value>
+  </data>
+  <data name="MaskSettingsBox.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="MaskSettingsBox.Text" xml:space="preserve">
+    <value>Mask Setting</value>
+  </data>
+  <data name="&gt;&gt;MaskSettingsBox.Name" xml:space="preserve">
+    <value>MaskSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;MaskSettingsBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MaskSettingsBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MaskSettingsBox.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
   <data name="MaskCenter.AutoSize" type="System.Boolean, mscorlib">
@@ -32770,30 +33385,6 @@ Notes that appear are from End 1 -&gt; End 2</value>
   <data name="&gt;&gt;MaskClockwise.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="MaskSettingsBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>509, 110</value>
-  </data>
-  <data name="MaskSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 77</value>
-  </data>
-  <data name="MaskSettingsBox.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="MaskSettingsBox.Text" xml:space="preserve">
-    <value>Mask Setting</value>
-  </data>
-  <data name="&gt;&gt;MaskSettingsBox.Name" xml:space="preserve">
-    <value>MaskSettingsBox</value>
-  </data>
-  <data name="&gt;&gt;MaskSettingsBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MaskSettingsBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;MaskSettingsBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
   <data name="label18.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -32825,7 +33416,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="CurrentObjectText.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -32852,10 +33443,166 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;CurrentObjectText.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="PreChartViewBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
+  </data>
+  <data name="&gt;&gt;GimmickValueLabel.Name" xml:space="preserve">
+    <value>GimmickValueLabel</value>
+  </data>
+  <data name="&gt;&gt;GimmickValueLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GimmickValueLabel.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;GimmickValueLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;GimmickTypeLabel.Name" xml:space="preserve">
+    <value>GimmickTypeLabel</value>
+  </data>
+  <data name="&gt;&gt;GimmickTypeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GimmickTypeLabel.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;GimmickTypeLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;GimmickSubBeatLabel.Name" xml:space="preserve">
+    <value>GimmickSubBeatLabel</value>
+  </data>
+  <data name="&gt;&gt;GimmickSubBeatLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GimmickSubBeatLabel.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;GimmickSubBeatLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;GimmickBeatLabel.Name" xml:space="preserve">
+    <value>GimmickBeatLabel</value>
+  </data>
+  <data name="&gt;&gt;GimmickBeatLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GimmickBeatLabel.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;GimmickBeatLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;label22.Name" xml:space="preserve">
+    <value>label22</value>
+  </data>
+  <data name="&gt;&gt;label22.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label22.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;label22.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;label21.Name" xml:space="preserve">
+    <value>label21</value>
+  </data>
+  <data name="&gt;&gt;label21.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label21.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label20.Name" xml:space="preserve">
+    <value>label20</value>
+  </data>
+  <data name="&gt;&gt;label20.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label20.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;label20.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;label19.Name" xml:space="preserve">
+    <value>label19</value>
+  </data>
+  <data name="&gt;&gt;label19.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label19.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;NextGimmickButton.Name" xml:space="preserve">
+    <value>NextGimmickButton</value>
+  </data>
+  <data name="&gt;&gt;NextGimmickButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NextGimmickButton.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;NextGimmickButton.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;PrevGimmickButton.Name" xml:space="preserve">
+    <value>PrevGimmickButton</value>
+  </data>
+  <data name="&gt;&gt;PrevGimmickButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PrevGimmickButton.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;PrevGimmickButton.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;DeleteGimmickButton.Name" xml:space="preserve">
+    <value>DeleteGimmickButton</value>
+  </data>
+  <data name="&gt;&gt;DeleteGimmickButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DeleteGimmickButton.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;DeleteGimmickButton.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="PreChartViewBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 450</value>
+  </data>
+  <data name="PreChartViewBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>482, 208</value>
+  </data>
+  <data name="PreChartViewBox.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="PreChartViewBox.Text" xml:space="preserve">
+    <value>Gimmicks View</value>
+  </data>
+  <data name="&gt;&gt;PreChartViewBox.Name" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;PreChartViewBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PreChartViewBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PreChartViewBox.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="GimmickValueLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -33181,32 +33928,212 @@ Notes that appear are from End 1 -&gt; End 2</value>
   <data name="&gt;&gt;DeleteGimmickButton.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="PreChartViewBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 450</value>
-  </data>
-  <data name="PreChartViewBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>482, 208</value>
-  </data>
-  <data name="PreChartViewBox.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="PreChartViewBox.Text" xml:space="preserve">
-    <value>Gimmicks View</value>
-  </data>
-  <data name="&gt;&gt;PreChartViewBox.Name" xml:space="preserve">
-    <value>PreChartViewBox</value>
-  </data>
-  <data name="&gt;&gt;PreChartViewBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PreChartViewBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;PreChartViewBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="NotesViewBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;NotesMaskLabel.Name" xml:space="preserve">
+    <value>NotesMaskLabel</value>
+  </data>
+  <data name="&gt;&gt;NotesMaskLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NotesMaskLabel.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NotesMaskLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;NotesSizeLabel.Name" xml:space="preserve">
+    <value>NotesSizeLabel</value>
+  </data>
+  <data name="&gt;&gt;NotesSizeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NotesSizeLabel.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NotesSizeLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;NotesPosLabel.Name" xml:space="preserve">
+    <value>NotesPosLabel</value>
+  </data>
+  <data name="&gt;&gt;NotesPosLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NotesPosLabel.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NotesPosLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;NotesTypeLabel.Name" xml:space="preserve">
+    <value>NotesTypeLabel</value>
+  </data>
+  <data name="&gt;&gt;NotesTypeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NotesTypeLabel.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NotesTypeLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;NotesSubBeatLabel.Name" xml:space="preserve">
+    <value>NotesSubBeatLabel</value>
+  </data>
+  <data name="&gt;&gt;NotesSubBeatLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NotesSubBeatLabel.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NotesSubBeatLabel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;NotesBeatLabel.Name" xml:space="preserve">
+    <value>NotesBeatLabel</value>
+  </data>
+  <data name="&gt;&gt;NotesBeatLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NotesBeatLabel.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NotesBeatLabel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label28.Name" xml:space="preserve">
+    <value>label28</value>
+  </data>
+  <data name="&gt;&gt;label28.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label28.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;label28.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;label27.Name" xml:space="preserve">
+    <value>label27</value>
+  </data>
+  <data name="&gt;&gt;label27.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label27.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;label27.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;label26.Name" xml:space="preserve">
+    <value>label26</value>
+  </data>
+  <data name="&gt;&gt;label26.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label26.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;label26.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;label25.Name" xml:space="preserve">
+    <value>label25</value>
+  </data>
+  <data name="&gt;&gt;label25.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label25.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;label24.Name" xml:space="preserve">
+    <value>label24</value>
+  </data>
+  <data name="&gt;&gt;label24.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label24.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;label24.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;label23.Name" xml:space="preserve">
+    <value>label23</value>
+  </data>
+  <data name="&gt;&gt;label23.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label23.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;label23.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;NextNoteButton.Name" xml:space="preserve">
+    <value>NextNoteButton</value>
+  </data>
+  <data name="&gt;&gt;NextNoteButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NextNoteButton.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NextNoteButton.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;PrevNoteButton.Name" xml:space="preserve">
+    <value>PrevNoteButton</value>
+  </data>
+  <data name="&gt;&gt;PrevNoteButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PrevNoteButton.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;PrevNoteButton.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;DeleteNoteButton.Name" xml:space="preserve">
+    <value>DeleteNoteButton</value>
+  </data>
+  <data name="&gt;&gt;DeleteNoteButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DeleteNoteButton.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;DeleteNoteButton.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="NotesViewBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>497, 450</value>
+  </data>
+  <data name="NotesViewBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>472, 208</value>
+  </data>
+  <data name="NotesViewBox.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="NotesViewBox.Text" xml:space="preserve">
+    <value>Notes View</value>
+  </data>
+  <data name="&gt;&gt;NotesViewBox.Name" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NotesViewBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NotesViewBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;NotesViewBox.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="NotesMaskLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -33670,28 +34597,34 @@ Notes that appear are from End 1 -&gt; End 2</value>
   <data name="&gt;&gt;DeleteNoteButton.ZOrder" xml:space="preserve">
     <value>14</value>
   </data>
-  <data name="NotesViewBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>497, 450</value>
+  <data name="MadeByLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="NotesViewBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>472, 208</value>
+  <data name="MadeByLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Javanese Text, 12pt, style=Bold</value>
   </data>
-  <data name="NotesViewBox.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
+  <data name="MadeByLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>177, 389</value>
   </data>
-  <data name="NotesViewBox.Text" xml:space="preserve">
-    <value>Notes View</value>
+  <data name="MadeByLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>307, 36</value>
   </data>
-  <data name="&gt;&gt;NotesViewBox.Name" xml:space="preserve">
-    <value>NotesViewBox</value>
+  <data name="MadeByLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
   </data>
-  <data name="&gt;&gt;NotesViewBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="MadeByLabel.Text" xml:space="preserve">
+    <value>BAKKA Editor Made By: Goatgarien</value>
   </data>
-  <data name="&gt;&gt;NotesViewBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;MadeByLabel.Name" xml:space="preserve">
+    <value>MadeByLabel</value>
+  </data>
+  <data name="&gt;&gt;MadeByLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MadeByLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;NotesViewBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;MadeByLabel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
