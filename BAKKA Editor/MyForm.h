@@ -1,13 +1,19 @@
 #pragma once
 #include <iostream>
+#include <string>
 #include <fstream>
 #include <iomanip>
 #include <map>
 #include "Chart.h"
 
+using std::to_string;
+
 Chart theChart;
 int SelectedLineType = 1;
 int SelectedNoteType = 1;
+std::list<NotesNode>::iterator viewNotesITR = theChart.Notes.begin();
+std::list<PreChartNode>::iterator viewGimmicksITR = theChart.PreChart.begin();
+std::list<NotesNode>::iterator holdNoteitr = theChart.Notes.end();
 
 int findLine(std::list<NotesNode>::iterator nextNode) {
 	int outputLine = 0;
@@ -36,6 +42,11 @@ bool sortPreChartListByBeat(const PreChartNode& lhs, const PreChartNode& rhs) {
 		return true;
 	else
 		return false;
+}
+int findGCD(int a, int b) {
+	if (b == 0)
+		return a;
+	return findGCD(b, a % b);
 }
 
 namespace BAKKAEditor {
@@ -176,6 +187,39 @@ private: System::Windows::Forms::RadioButton^ MaskCClockwise;
 private: System::Windows::Forms::RadioButton^ MaskClockwise;
 private: System::Windows::Forms::Label^ label18;
 private: System::Windows::Forms::Label^ CurrentObjectText;
+private: System::Windows::Forms::GroupBox^ PreChartViewBox;
+private: System::Windows::Forms::Button^ NextGimmickButton;
+private: System::Windows::Forms::Button^ PrevGimmickButton;
+
+
+private: System::Windows::Forms::Button^ DeleteGimmickButton;
+private: System::Windows::Forms::GroupBox^ NotesViewBox;
+private: System::Windows::Forms::Button^ DeleteNoteButton;
+private: System::Windows::Forms::Button^ NextNoteButton;
+
+private: System::Windows::Forms::Button^ PrevNoteButton;
+private: System::Windows::Forms::Label^ GimmickBeatLabel;
+
+private: System::Windows::Forms::Label^ label22;
+private: System::Windows::Forms::Label^ label21;
+private: System::Windows::Forms::Label^ label20;
+private: System::Windows::Forms::Label^ label19;
+private: System::Windows::Forms::Label^ label28;
+private: System::Windows::Forms::Label^ label27;
+private: System::Windows::Forms::Label^ label26;
+private: System::Windows::Forms::Label^ label25;
+private: System::Windows::Forms::Label^ label24;
+private: System::Windows::Forms::Label^ label23;
+private: System::Windows::Forms::Label^ GimmickValueLabel;
+private: System::Windows::Forms::Label^ GimmickTypeLabel;
+private: System::Windows::Forms::Label^ GimmickSubBeatLabel;
+private: System::Windows::Forms::Label^ NotesMaskLabel;
+private: System::Windows::Forms::Label^ NotesSizeLabel;
+private: System::Windows::Forms::Label^ NotesPosLabel;
+private: System::Windows::Forms::Label^ NotesTypeLabel;
+private: System::Windows::Forms::Label^ NotesSubBeatLabel;
+private: System::Windows::Forms::Label^ NotesBeatLabel;
+
 
 
 
@@ -248,6 +292,7 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			this->Hispeed = (gcnew System::Windows::Forms::Button());
 			this->Stop = (gcnew System::Windows::Forms::Button());
 			this->Reverse = (gcnew System::Windows::Forms::Button());
+			this->Mask = (gcnew System::Windows::Forms::Button());
 			this->InsertButton = (gcnew System::Windows::Forms::Button());
 			this->PosLabel = (gcnew System::Windows::Forms::Label());
 			this->posInfo = (gcnew System::Windows::Forms::Label());
@@ -265,7 +310,6 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			this->GimmickBox = (gcnew System::Windows::Forms::GroupBox());
 			this->RemoveMask = (gcnew System::Windows::Forms::RadioButton());
 			this->AddMask = (gcnew System::Windows::Forms::RadioButton());
-			this->Mask = (gcnew System::Windows::Forms::Button());
 			this->GimmickSettingsBox = (gcnew System::Windows::Forms::GroupBox());
 			this->ReverseEnd2SBNum2 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label12 = (gcnew System::Windows::Forms::Label());
@@ -309,6 +353,34 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			this->MaskClockwise = (gcnew System::Windows::Forms::RadioButton());
 			this->label18 = (gcnew System::Windows::Forms::Label());
 			this->CurrentObjectText = (gcnew System::Windows::Forms::Label());
+			this->PreChartViewBox = (gcnew System::Windows::Forms::GroupBox());
+			this->GimmickValueLabel = (gcnew System::Windows::Forms::Label());
+			this->GimmickTypeLabel = (gcnew System::Windows::Forms::Label());
+			this->GimmickSubBeatLabel = (gcnew System::Windows::Forms::Label());
+			this->GimmickBeatLabel = (gcnew System::Windows::Forms::Label());
+			this->label22 = (gcnew System::Windows::Forms::Label());
+			this->label21 = (gcnew System::Windows::Forms::Label());
+			this->label20 = (gcnew System::Windows::Forms::Label());
+			this->label19 = (gcnew System::Windows::Forms::Label());
+			this->NextGimmickButton = (gcnew System::Windows::Forms::Button());
+			this->PrevGimmickButton = (gcnew System::Windows::Forms::Button());
+			this->DeleteGimmickButton = (gcnew System::Windows::Forms::Button());
+			this->NotesViewBox = (gcnew System::Windows::Forms::GroupBox());
+			this->NotesMaskLabel = (gcnew System::Windows::Forms::Label());
+			this->NotesSizeLabel = (gcnew System::Windows::Forms::Label());
+			this->NotesPosLabel = (gcnew System::Windows::Forms::Label());
+			this->NotesTypeLabel = (gcnew System::Windows::Forms::Label());
+			this->NotesSubBeatLabel = (gcnew System::Windows::Forms::Label());
+			this->NotesBeatLabel = (gcnew System::Windows::Forms::Label());
+			this->label28 = (gcnew System::Windows::Forms::Label());
+			this->label27 = (gcnew System::Windows::Forms::Label());
+			this->label26 = (gcnew System::Windows::Forms::Label());
+			this->label25 = (gcnew System::Windows::Forms::Label());
+			this->label24 = (gcnew System::Windows::Forms::Label());
+			this->label23 = (gcnew System::Windows::Forms::Label());
+			this->NextNoteButton = (gcnew System::Windows::Forms::Button());
+			this->PrevNoteButton = (gcnew System::Windows::Forms::Button());
+			this->DeleteNoteButton = (gcnew System::Windows::Forms::Button());
 			this->menuStrip->SuspendLayout();
 			this->NoteTypeBox->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeNum))->BeginInit();
@@ -340,6 +412,8 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitialBPMNum))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->MaskSettingsBox->SuspendLayout();
+			this->PreChartViewBox->SuspendLayout();
+			this->NotesViewBox->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// menuStrip
@@ -535,6 +609,14 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			this->Reverse->UseVisualStyleBackColor = true;
 			this->Reverse->Click += gcnew System::EventHandler(this, &MyForm::Reverse_Click);
 			// 
+			// Mask
+			// 
+			resources->ApplyResources(this->Mask, L"Mask");
+			this->Mask->Name = L"Mask";
+			this->ToolTip->SetToolTip(this->Mask, resources->GetString(L"Mask.ToolTip"));
+			this->Mask->UseVisualStyleBackColor = true;
+			this->Mask->Click += gcnew System::EventHandler(this, &MyForm::Mask_Click);
+			// 
 			// InsertButton
 			// 
 			resources->ApplyResources(this->InsertButton, L"InsertButton");
@@ -611,6 +693,7 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			resources->ApplyResources(this->SubBeat1Num, L"SubBeat1Num");
 			this->SubBeat1Num->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
 			this->SubBeat1Num->Name = L"SubBeat1Num";
+			this->SubBeat1Num->ValueChanged += gcnew System::EventHandler(this, &MyForm::SubBeat1Num_ValueChanged);
 			// 
 			// BeatNum
 			// 
@@ -658,13 +741,6 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			this->AddMask->UseVisualStyleBackColor = true;
 			this->AddMask->CheckedChanged += gcnew System::EventHandler(this, &MyForm::AddMask_CheckedChanged);
 			// 
-			// Mask
-			// 
-			resources->ApplyResources(this->Mask, L"Mask");
-			this->Mask->Name = L"Mask";
-			this->Mask->UseVisualStyleBackColor = true;
-			this->Mask->Click += gcnew System::EventHandler(this, &MyForm::Mask_Click);
-			// 
 			// GimmickSettingsBox
 			// 
 			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd2SBNum2);
@@ -698,7 +774,7 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			// 
 			resources->ApplyResources(this->ReverseEnd2SBNum2, L"ReverseEnd2SBNum2");
 			this->ReverseEnd2SBNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
-			this->ReverseEnd2SBNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2, 0, 0, 0 });
+			this->ReverseEnd2SBNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->ReverseEnd2SBNum2->Name = L"ReverseEnd2SBNum2";
 			this->ReverseEnd2SBNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
 			// 
@@ -712,6 +788,7 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			resources->ApplyResources(this->ReverseEnd2SBNum1, L"ReverseEnd2SBNum1");
 			this->ReverseEnd2SBNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
 			this->ReverseEnd2SBNum1->Name = L"ReverseEnd2SBNum1";
+			this->ReverseEnd2SBNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::ReverseEnd2SBNum1_ValueChanged);
 			// 
 			// ReverseEnd2BNum
 			// 
@@ -723,7 +800,7 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			// 
 			resources->ApplyResources(this->ReverseEnd1SBNum2, L"ReverseEnd1SBNum2");
 			this->ReverseEnd1SBNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
-			this->ReverseEnd1SBNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2, 0, 0, 0 });
+			this->ReverseEnd1SBNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->ReverseEnd1SBNum2->Name = L"ReverseEnd1SBNum2";
 			this->ReverseEnd1SBNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
 			// 
@@ -737,6 +814,7 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			resources->ApplyResources(this->ReverseEnd1SBNum1, L"ReverseEnd1SBNum1");
 			this->ReverseEnd1SBNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
 			this->ReverseEnd1SBNum1->Name = L"ReverseEnd1SBNum1";
+			this->ReverseEnd1SBNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::ReverseEnd1SBNum1_ValueChanged);
 			// 
 			// ReverseEnd1BNum
 			// 
@@ -754,7 +832,7 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			// 
 			resources->ApplyResources(this->StopEndSBNum2, L"StopEndSBNum2");
 			this->StopEndSBNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
-			this->StopEndSBNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2, 0, 0, 0 });
+			this->StopEndSBNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->StopEndSBNum2->Name = L"StopEndSBNum2";
 			this->StopEndSBNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
 			// 
@@ -768,6 +846,7 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			resources->ApplyResources(this->StopEndSBNum1, L"StopEndSBNum1");
 			this->StopEndSBNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
 			this->StopEndSBNum1->Name = L"StopEndSBNum1";
+			this->StopEndSBNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::StopEndSBNum1_ValueChanged);
 			// 
 			// HiSpeedChangeNum
 			// 
@@ -840,6 +919,7 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			// 
 			// InitialSettingsPane
 			// 
+			resources->ApplyResources(this->InitialSettingsPane, L"InitialSettingsPane");
 			this->InitialSettingsPane->Controls->Add(this->InitialSetSave);
 			this->InitialSettingsPane->Controls->Add(this->MovieOffsetNum);
 			this->InitialSettingsPane->Controls->Add(this->label17);
@@ -851,7 +931,6 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			this->InitialSettingsPane->Controls->Add(this->label14);
 			this->InitialSettingsPane->Controls->Add(this->InitialBPMNum);
 			this->InitialSettingsPane->Controls->Add(this->label13);
-			resources->ApplyResources(this->InitialSettingsPane, L"InitialSettingsPane");
 			this->InitialSettingsPane->Name = L"InitialSettingsPane";
 			this->InitialSettingsPane->TabStop = false;
 			// 
@@ -974,11 +1053,193 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			resources->ApplyResources(this->CurrentObjectText, L"CurrentObjectText");
 			this->CurrentObjectText->Name = L"CurrentObjectText";
 			// 
+			// PreChartViewBox
+			// 
+			resources->ApplyResources(this->PreChartViewBox, L"PreChartViewBox");
+			this->PreChartViewBox->Controls->Add(this->GimmickValueLabel);
+			this->PreChartViewBox->Controls->Add(this->GimmickTypeLabel);
+			this->PreChartViewBox->Controls->Add(this->GimmickSubBeatLabel);
+			this->PreChartViewBox->Controls->Add(this->GimmickBeatLabel);
+			this->PreChartViewBox->Controls->Add(this->label22);
+			this->PreChartViewBox->Controls->Add(this->label21);
+			this->PreChartViewBox->Controls->Add(this->label20);
+			this->PreChartViewBox->Controls->Add(this->label19);
+			this->PreChartViewBox->Controls->Add(this->NextGimmickButton);
+			this->PreChartViewBox->Controls->Add(this->PrevGimmickButton);
+			this->PreChartViewBox->Controls->Add(this->DeleteGimmickButton);
+			this->PreChartViewBox->Name = L"PreChartViewBox";
+			this->PreChartViewBox->TabStop = false;
+			// 
+			// GimmickValueLabel
+			// 
+			resources->ApplyResources(this->GimmickValueLabel, L"GimmickValueLabel");
+			this->GimmickValueLabel->Name = L"GimmickValueLabel";
+			// 
+			// GimmickTypeLabel
+			// 
+			resources->ApplyResources(this->GimmickTypeLabel, L"GimmickTypeLabel");
+			this->GimmickTypeLabel->Name = L"GimmickTypeLabel";
+			// 
+			// GimmickSubBeatLabel
+			// 
+			resources->ApplyResources(this->GimmickSubBeatLabel, L"GimmickSubBeatLabel");
+			this->GimmickSubBeatLabel->Name = L"GimmickSubBeatLabel";
+			// 
+			// GimmickBeatLabel
+			// 
+			resources->ApplyResources(this->GimmickBeatLabel, L"GimmickBeatLabel");
+			this->GimmickBeatLabel->Name = L"GimmickBeatLabel";
+			// 
+			// label22
+			// 
+			resources->ApplyResources(this->label22, L"label22");
+			this->label22->Name = L"label22";
+			// 
+			// label21
+			// 
+			resources->ApplyResources(this->label21, L"label21");
+			this->label21->Name = L"label21";
+			// 
+			// label20
+			// 
+			resources->ApplyResources(this->label20, L"label20");
+			this->label20->Name = L"label20";
+			// 
+			// label19
+			// 
+			resources->ApplyResources(this->label19, L"label19");
+			this->label19->Name = L"label19";
+			// 
+			// NextGimmickButton
+			// 
+			resources->ApplyResources(this->NextGimmickButton, L"NextGimmickButton");
+			this->NextGimmickButton->Name = L"NextGimmickButton";
+			this->NextGimmickButton->UseVisualStyleBackColor = true;
+			this->NextGimmickButton->Click += gcnew System::EventHandler(this, &MyForm::NextGimmickButton_Click);
+			// 
+			// PrevGimmickButton
+			// 
+			resources->ApplyResources(this->PrevGimmickButton, L"PrevGimmickButton");
+			this->PrevGimmickButton->Name = L"PrevGimmickButton";
+			this->PrevGimmickButton->UseVisualStyleBackColor = true;
+			this->PrevGimmickButton->Click += gcnew System::EventHandler(this, &MyForm::PrevGimmickButton_Click);
+			// 
+			// DeleteGimmickButton
+			// 
+			resources->ApplyResources(this->DeleteGimmickButton, L"DeleteGimmickButton");
+			this->DeleteGimmickButton->Name = L"DeleteGimmickButton";
+			this->DeleteGimmickButton->UseVisualStyleBackColor = true;
+			this->DeleteGimmickButton->Click += gcnew System::EventHandler(this, &MyForm::DeleteGimmickButton_Click);
+			// 
+			// NotesViewBox
+			// 
+			resources->ApplyResources(this->NotesViewBox, L"NotesViewBox");
+			this->NotesViewBox->Controls->Add(this->NotesMaskLabel);
+			this->NotesViewBox->Controls->Add(this->NotesSizeLabel);
+			this->NotesViewBox->Controls->Add(this->NotesPosLabel);
+			this->NotesViewBox->Controls->Add(this->NotesTypeLabel);
+			this->NotesViewBox->Controls->Add(this->NotesSubBeatLabel);
+			this->NotesViewBox->Controls->Add(this->NotesBeatLabel);
+			this->NotesViewBox->Controls->Add(this->label28);
+			this->NotesViewBox->Controls->Add(this->label27);
+			this->NotesViewBox->Controls->Add(this->label26);
+			this->NotesViewBox->Controls->Add(this->label25);
+			this->NotesViewBox->Controls->Add(this->label24);
+			this->NotesViewBox->Controls->Add(this->label23);
+			this->NotesViewBox->Controls->Add(this->NextNoteButton);
+			this->NotesViewBox->Controls->Add(this->PrevNoteButton);
+			this->NotesViewBox->Controls->Add(this->DeleteNoteButton);
+			this->NotesViewBox->Name = L"NotesViewBox";
+			this->NotesViewBox->TabStop = false;
+			// 
+			// NotesMaskLabel
+			// 
+			resources->ApplyResources(this->NotesMaskLabel, L"NotesMaskLabel");
+			this->NotesMaskLabel->Name = L"NotesMaskLabel";
+			// 
+			// NotesSizeLabel
+			// 
+			resources->ApplyResources(this->NotesSizeLabel, L"NotesSizeLabel");
+			this->NotesSizeLabel->Name = L"NotesSizeLabel";
+			// 
+			// NotesPosLabel
+			// 
+			resources->ApplyResources(this->NotesPosLabel, L"NotesPosLabel");
+			this->NotesPosLabel->Name = L"NotesPosLabel";
+			// 
+			// NotesTypeLabel
+			// 
+			resources->ApplyResources(this->NotesTypeLabel, L"NotesTypeLabel");
+			this->NotesTypeLabel->Name = L"NotesTypeLabel";
+			// 
+			// NotesSubBeatLabel
+			// 
+			resources->ApplyResources(this->NotesSubBeatLabel, L"NotesSubBeatLabel");
+			this->NotesSubBeatLabel->Name = L"NotesSubBeatLabel";
+			// 
+			// NotesBeatLabel
+			// 
+			resources->ApplyResources(this->NotesBeatLabel, L"NotesBeatLabel");
+			this->NotesBeatLabel->Name = L"NotesBeatLabel";
+			// 
+			// label28
+			// 
+			resources->ApplyResources(this->label28, L"label28");
+			this->label28->Name = L"label28";
+			// 
+			// label27
+			// 
+			resources->ApplyResources(this->label27, L"label27");
+			this->label27->Name = L"label27";
+			// 
+			// label26
+			// 
+			resources->ApplyResources(this->label26, L"label26");
+			this->label26->Name = L"label26";
+			// 
+			// label25
+			// 
+			resources->ApplyResources(this->label25, L"label25");
+			this->label25->Name = L"label25";
+			// 
+			// label24
+			// 
+			resources->ApplyResources(this->label24, L"label24");
+			this->label24->Name = L"label24";
+			// 
+			// label23
+			// 
+			resources->ApplyResources(this->label23, L"label23");
+			this->label23->Name = L"label23";
+			// 
+			// NextNoteButton
+			// 
+			resources->ApplyResources(this->NextNoteButton, L"NextNoteButton");
+			this->NextNoteButton->Name = L"NextNoteButton";
+			this->NextNoteButton->UseVisualStyleBackColor = true;
+			this->NextNoteButton->Click += gcnew System::EventHandler(this, &MyForm::NextNoteButton_Click);
+			// 
+			// PrevNoteButton
+			// 
+			resources->ApplyResources(this->PrevNoteButton, L"PrevNoteButton");
+			this->PrevNoteButton->Name = L"PrevNoteButton";
+			this->PrevNoteButton->UseVisualStyleBackColor = true;
+			this->PrevNoteButton->Click += gcnew System::EventHandler(this, &MyForm::PrevNoteButton_Click);
+			// 
+			// DeleteNoteButton
+			// 
+			resources->ApplyResources(this->DeleteNoteButton, L"DeleteNoteButton");
+			this->DeleteNoteButton->Name = L"DeleteNoteButton";
+			this->DeleteNoteButton->UseVisualStyleBackColor = true;
+			this->DeleteNoteButton->Click += gcnew System::EventHandler(this, &MyForm::DeleteNoteButton_Click);
+			// 
 			// MyForm
 			// 
 			this->AllowDrop = true;
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->Controls->Add(this->NotesViewBox);
+			this->Controls->Add(this->PreChartViewBox);
 			this->Controls->Add(this->CurrentObjectText);
 			this->Controls->Add(this->label18);
 			this->Controls->Add(this->MaskSettingsBox);
@@ -1030,11 +1291,183 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->MaskSettingsBox->ResumeLayout(false);
 			this->MaskSettingsBox->PerformLayout();
+			this->PreChartViewBox->ResumeLayout(false);
+			this->PreChartViewBox->PerformLayout();
+			this->NotesViewBox->ResumeLayout(false);
+			this->NotesViewBox->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
+	void refreshGimmickView() {
+		if (!theChart.PreChart.empty()) {
+			GimmickBeatLabel->Text = ((viewGimmicksITR)->beat).ToString();
+
+			int num1 = (viewGimmicksITR)->subBeat;
+			int num2 = 1920;
+			int denom = findGCD(num1, num2);
+			num1 /= denom;
+			num2 /= denom;
+			std::string subBeatString = to_string(num1) + "/" + to_string(num2);
+			GimmickSubBeatLabel->Text = gcnew String(subBeatString.data());
+
+			switch ((viewGimmicksITR)->type) {
+			case 2:
+				GimmickTypeLabel->Text = "BPM Change";
+				GimmickValueLabel->Text = gcnew String((to_string((viewGimmicksITR)->BPM)).data());
+				break;
+			case 3:
+				GimmickTypeLabel->Text = "Time Signature Change";
+				GimmickValueLabel->Text = gcnew String((to_string((viewGimmicksITR)->beatDiv1)).data())
+					+ "/" + gcnew String((to_string((viewGimmicksITR)->beatDiv2)).data());
+				break;
+			case 5:
+				GimmickTypeLabel->Text = "Hi-Speed Change";
+				GimmickValueLabel->Text = gcnew String((to_string((viewGimmicksITR)->hiSpeed)).data());
+				break;
+			case 6:
+				GimmickTypeLabel->Text = "Reverse Start";
+				GimmickValueLabel->Text = "N/A";
+				break;
+			case 7:
+				GimmickTypeLabel->Text = "Reverse Middle";
+				GimmickValueLabel->Text = "N/A";
+				break;
+			case 8:
+				GimmickTypeLabel->Text = "Reverse End";
+				GimmickValueLabel->Text = "N/A";
+				break;
+			case 9:
+				GimmickTypeLabel->Text = "Stop Start";
+				GimmickValueLabel->Text = "N/A";
+				break;
+			case 10:
+				GimmickTypeLabel->Text = "Stop End";
+				GimmickValueLabel->Text = "N/A";
+				break;
+			}
+		}
+		else {
+			GimmickBeatLabel->Text = "List Empty";
+			GimmickSubBeatLabel->Text = "List Empty";
+			GimmickTypeLabel->Text = "List Empty";
+			GimmickValueLabel->Text = "N/A";
+		}
+	}
+	void refreshNotesView() {
+		if (!theChart.Notes.empty()) {
+			NotesBeatLabel->Text = ((viewNotesITR)->beat).ToString();
+
+			int num1 = (viewNotesITR)->subBeat;
+			int num2 = 1920;
+			int denom = findGCD(num1, num2);
+			num1 /= denom;
+			num2 /= denom;
+			std::string subBeatString = to_string(num1) + "/" + to_string(num2);
+			NotesSubBeatLabel->Text = gcnew String(subBeatString.data());
+
+			NotesPosLabel->Text = gcnew String((to_string((viewNotesITR)->position)).data());
+			NotesSizeLabel->Text = gcnew String((to_string((viewNotesITR)->size)).data());
+			NotesMaskLabel->Text = "N/A";
+
+			switch ((viewNotesITR)->noteType) {
+			case 1:
+				NotesTypeLabel->Text = "Tap (No Bonus)";
+				break;
+			case 2:
+				NotesTypeLabel->Text = "Tap (Bonus Get)";
+				break;
+			case 3:
+				NotesTypeLabel->Text = "Red Swipe (No Bonus)";
+				break;
+			case 4:
+				NotesTypeLabel->Text = "Blue Swipe (No Bonus)";
+				break;
+			case 5:
+				NotesTypeLabel->Text = "Orange Swipe (No Bonus)";
+				break;
+			case 6:
+				NotesTypeLabel->Text = "Orange Swipe (Bonus Get)";
+				break;
+			case 7:
+				NotesTypeLabel->Text = "Green Swipe (No Bonus)";
+				break;
+			case 8:
+				NotesTypeLabel->Text = "Green Swipe (Bonus Get)";
+				break;
+			case 9:
+				NotesTypeLabel->Text = "Hold Start (No Bonus)";
+				break;
+			case 10:
+				NotesTypeLabel->Text = "Hold Middle";
+				break;
+			case 11:
+				NotesTypeLabel->Text = "Hold End";
+				break;
+			case 12:
+				NotesTypeLabel->Text = "Mask Add";
+				switch ((viewNotesITR)->BGType) {
+				case 0:
+					NotesMaskLabel->Text = "Counter-Clockwise";
+					break;
+				case 1:
+					NotesMaskLabel->Text = "Clockwise";
+					break;
+				case 2:
+					NotesMaskLabel->Text = "From Center";
+					break;
+				}
+				break;
+			case 13:
+				NotesTypeLabel->Text = "Mask Remove";
+				switch ((viewNotesITR)->BGType) {
+				case 0:
+					NotesMaskLabel->Text = "Counter-Clockwise";
+					break;
+				case 1:
+					NotesMaskLabel->Text = "Clockwise";
+					break;
+				case 2:
+					NotesMaskLabel->Text = "To Center";
+					break;
+				}
+				break;
+			case 14:
+				NotesTypeLabel->Text = "End Of Chart";
+				break;
+			case 16:
+				NotesTypeLabel->Text = "Yellow Tap";
+				break;
+			case 20:
+				NotesTypeLabel->Text = "Tap (Bonus With Flair)";
+				break;
+			case 21:
+				NotesTypeLabel->Text = "Red Swipe (Bonus With Flair)";
+				break;
+			case 22:
+				NotesTypeLabel->Text = "Blue Swipe (Bonus With Flair)";
+				break;
+			case 23:
+				NotesTypeLabel->Text = "Orange Swipe (Bonus With Flair)";
+				break;
+			case 24:
+				NotesTypeLabel->Text = "Green Swipe (Bonus With Flair)";
+				break;
+			case 25:
+				NotesTypeLabel->Text = "Hold Start (Bonus With Flair)";
+				break;
+			}
+		}
+		else {
+			NotesBeatLabel->Text = "List Empty";
+			NotesSubBeatLabel->Text = "List Empty";
+			NotesTypeLabel->Text = "List Empty";
+			NotesPosLabel->Text = "N/A";
+			NotesSizeLabel->Text = "N/A";
+			NotesMaskLabel->Text = "N/A";
+		}
+	}
 	private: System::Void newToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	}
@@ -1098,6 +1531,9 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			case 13:
 				chartFile << std::right << std::fixed << std::setw(5) << (itr)->BGType;
 				break;
+			case 25:
+				chartFile << std::right << std::fixed << std::setw(5) << findLine((itr)->nextNode);
+				break;
 			default:
 				chartFile << "";
 			}
@@ -1151,7 +1587,7 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 				if (tempNotes.noteType == 12 || tempNotes.noteType == 13) {
 					chartFile >> tempNotes.BGType;
 				}
-				if (tempNotes.noteType == 9 || tempNotes.noteType == 10) {
+				if (tempNotes.noteType == 9 || tempNotes.noteType == 10 || tempNotes.noteType == 25) {
 					chartFile >> Holds[lineTemp];
 				}
 				theChart.Notes.push_back(tempNotes);
@@ -1209,6 +1645,11 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 				lineTemp++;
 			}
 		}
+
+		viewNotesITR = theChart.Notes.begin();
+		viewGimmicksITR = theChart.PreChart.begin();
+		refreshGimmickView();
+		refreshNotesView();
 	}
 	private: System::Void saveAsToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 		saveToolStripMenuItem_Click(sender, e);
@@ -1233,15 +1674,17 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 				else {
 					CurrentObjectText->Text = "Hold Middle";
 				}
+				tempNotesNode.prevNode = theChart.Notes.end();
 				SelectedNoteType = 10;
 				break;
 			case 10:
 				if (EndHoldBox->Checked) {
 					SelectedNoteType = 11;
 					tempNotesNode.noteType = SelectedNoteType;
+					tempNotesNode.prevNode = holdNoteitr;
 					break;
 				}
-
+				tempNotesNode.prevNode = holdNoteitr;
 				break;
 			case 12:
 				if (MaskClockwise->Checked) {
@@ -1272,11 +1715,10 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 				else {
 					CurrentObjectText->Text = "Hold Middle";
 				}
+				tempNotesNode.prevNode = theChart.Notes.end();
 				SelectedNoteType = 10;
 				break;
 			}
-			theChart.Notes.push_back(tempNotesNode);
-			theChart.Notes.sort(sortNotesListByBeat);
 			if (SelectedNoteType == 11) {
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 25;
@@ -1286,7 +1728,32 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 					SelectedNoteType = 9;
 					CurrentObjectText->Text = "Hold Start (No Bonus)";
 				}
+				tempNotesNode.nextNode = theChart.Notes.end();
 			}
+
+			theChart.Notes.push_back(tempNotesNode);
+			if (!theChart.Notes.empty()) {
+				viewNotesITR = theChart.Notes.end();
+				viewNotesITR--;
+				switch (viewNotesITR->noteType) {
+				case 9:
+					holdNoteitr = viewNotesITR;
+					break;
+				case 10:
+					viewNotesITR->prevNode->nextNode = viewNotesITR;
+					holdNoteitr = viewNotesITR;
+					break;
+				case 11:
+					viewNotesITR->prevNode->nextNode = viewNotesITR;
+					holdNoteitr = theChart.Notes.end();
+					break;
+				case 25:
+					holdNoteitr = viewNotesITR;
+					break;
+				}
+			}
+			theChart.Notes.sort(sortNotesListByBeat);
+			refreshNotesView();
 		}
 		else {
 			tempPreChartNode.beat = (int)BeatNum->Value;
@@ -1333,7 +1800,12 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 				tempPreChartNode.type = 10;
 				theChart.PreChart.push_back(tempPreChartNode);
 			}
+			if (!theChart.PreChart.empty()) {
+				viewGimmicksITR = theChart.PreChart.end();
+				viewGimmicksITR--;
+			}
 			theChart.PreChart.sort(sortPreChartListByBeat);
+			refreshGimmickView();
 		}
 	}
 	private: System::Void InitialSetSave_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1363,6 +1835,8 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			tempPreChartNode.type = 2;
 			tempPreChartNode.BPM = (double)InitialBPMNum->Value;
 			theChart.PreChart.push_back(tempPreChartNode);
+			viewGimmicksITR = theChart.PreChart.end();
+			viewGimmicksITR--;
 		}
 		if (!TimeSigFound) {
 			tempPreChartNode.beat = 0;
@@ -1371,8 +1845,11 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 			tempPreChartNode.beatDiv1 = (int)InitTimeSigNum1->Value;
 			tempPreChartNode.beatDiv2 = (int)InitTimeSigNum2->Value;
 			theChart.PreChart.push_back(tempPreChartNode);
+			viewGimmicksITR = theChart.PreChart.end();
+			viewGimmicksITR--;
 		}
 		theChart.PreChart.sort(sortPreChartListByBeat);
+		refreshGimmickView();
 	}
 	private: System::Void TapButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -1795,6 +2272,124 @@ private: System::Windows::Forms::Label^ CurrentObjectText;
 				}
 				break;
 			}
+		}
+	}
+	private: System::Void SubBeat1Num_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (SubBeat1Num->Value >= SubBeat2Num->Value) {
+			SubBeat1Num->Value = (System::Decimal)0;
+		}
+	}
+	private: System::Void ReverseEnd1SBNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (ReverseEnd1SBNum1->Value >= ReverseEnd1SBNum2->Value) {
+			ReverseEnd1SBNum1->Value = (System::Decimal)0;
+		}
+	}
+	private: System::Void ReverseEnd2SBNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (ReverseEnd2SBNum1->Value >= ReverseEnd2SBNum2->Value) {
+			ReverseEnd2SBNum1->Value = (System::Decimal)0;
+		}
+	}
+	private: System::Void StopEndSBNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (StopEndSBNum1->Value >= StopEndSBNum2->Value) {
+			StopEndSBNum1->Value = (System::Decimal)0;
+		}
+	}
+	private: System::Void PrevGimmickButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (!theChart.PreChart.empty()) {
+			if (viewGimmicksITR != theChart.PreChart.begin()) {
+				viewGimmicksITR--;
+			}
+			refreshGimmickView();
+		}
+	}
+	private: System::Void NextGimmickButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (!theChart.PreChart.empty()) {
+			viewGimmicksITR++;
+			if (viewGimmicksITR == theChart.PreChart.end()) {
+				viewGimmicksITR--;
+			}
+			refreshGimmickView();
+		}
+	}
+	private: System::Void DeleteGimmickButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (!theChart.PreChart.empty()) {
+			std::list<PreChartNode>::iterator viewGimmicksITRtemp = viewGimmicksITR;
+			if (viewGimmicksITR == theChart.PreChart.begin()) {
+				viewGimmicksITR++;
+			}
+			else {
+				viewGimmicksITR--;
+			}
+			theChart.PreChart.erase(viewGimmicksITRtemp);
+			refreshGimmickView();
+		}
+	}
+	private: System::Void PrevNoteButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (!theChart.Notes.empty()) {
+			if (viewNotesITR != theChart.Notes.begin()) {
+				viewNotesITR--;
+			}
+			refreshNotesView();
+		}
+	}
+	private: System::Void NextNoteButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (!theChart.Notes.empty()) {
+			viewNotesITR++;
+			if (viewNotesITR == theChart.Notes.end()) {
+				viewNotesITR--;
+			}
+			refreshNotesView();
+		}
+	}
+	private: System::Void DeleteNoteButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (!theChart.Notes.empty()) {
+			bool holdDelete = false;
+			do {
+				std::list<NotesNode>::iterator viewNotesITRtemp = viewNotesITR;
+				if (viewNotesITRtemp->noteType == 9 || viewNotesITRtemp->noteType == 25) {
+					holdDelete = true;
+					viewNotesITRtemp = viewNotesITRtemp->nextNode;
+					viewNotesITR = viewNotesITRtemp;
+				}
+				else if (viewNotesITRtemp->noteType == 10) {
+					holdDelete = true;
+					viewNotesITRtemp = viewNotesITRtemp->nextNode;
+					viewNotesITR = viewNotesITRtemp;
+				}
+				else if (viewNotesITRtemp->noteType == 11) { //deletes hold from end until it's all gone
+					holdDelete = true;
+					while (holdDelete) {
+						if (viewNotesITRtemp->noteType == 9 || viewNotesITRtemp->noteType == 25) {
+							if (viewNotesITR == theChart.Notes.begin()) {
+								viewNotesITR++;
+							}
+							else {
+								viewNotesITR--;
+							}
+							theChart.Notes.erase(viewNotesITRtemp);
+							holdDelete = false;
+						}
+						else {
+							viewNotesITR = viewNotesITRtemp->prevNode;
+							theChart.Notes.erase(viewNotesITRtemp);
+							viewNotesITRtemp = viewNotesITR;
+							viewNotesITRtemp->nextNode = theChart.Notes.end();
+						}
+					}
+					holdDelete = false;
+				}
+				else {
+					if (viewNotesITR == theChart.Notes.begin()) {
+						viewNotesITR++;
+					}
+					else {
+						viewNotesITR--;
+					}
+					theChart.Notes.erase(viewNotesITRtemp);
+					holdDelete = false;
+				}
+			} while (holdDelete);
+			refreshNotesView();
 		}
 	}
 };
