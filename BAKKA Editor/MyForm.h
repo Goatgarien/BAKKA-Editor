@@ -220,6 +220,8 @@ private: System::Windows::Forms::Label^ NotesTypeLabel;
 private: System::Windows::Forms::Label^ NotesSubBeatLabel;
 private: System::Windows::Forms::Label^ NotesBeatLabel;
 private: System::Windows::Forms::Label^ MadeByLabel;
+private: System::Windows::Forms::TextBox^ songFileNameTextBox;
+private: System::Windows::Forms::Label^ label29;
 
 
 
@@ -336,6 +338,8 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->InitialSettingsPane = (gcnew System::Windows::Forms::GroupBox());
+			this->songFileNameTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->label29 = (gcnew System::Windows::Forms::Label());
 			this->InitialSetSave = (gcnew System::Windows::Forms::Button());
 			this->MovieOffsetNum = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label17 = (gcnew System::Windows::Forms::Label());
@@ -465,51 +469,58 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 			// TapButton
 			// 
 			resources->ApplyResources(this->TapButton, L"TapButton");
+			this->TapButton->BackColor = System::Drawing::Color::Fuchsia;
 			this->TapButton->Name = L"TapButton";
-			this->TapButton->UseVisualStyleBackColor = true;
+			this->TapButton->UseVisualStyleBackColor = false;
 			this->TapButton->Click += gcnew System::EventHandler(this, &MyForm::TapButton_Click);
 			// 
 			// OrangeButton
 			// 
 			resources->ApplyResources(this->OrangeButton, L"OrangeButton");
+			this->OrangeButton->BackColor = System::Drawing::Color::Orange;
 			this->OrangeButton->Name = L"OrangeButton";
-			this->OrangeButton->UseVisualStyleBackColor = true;
+			this->OrangeButton->UseVisualStyleBackColor = false;
 			this->OrangeButton->Click += gcnew System::EventHandler(this, &MyForm::OrangeButton_Click);
 			// 
 			// GreenButton
 			// 
 			resources->ApplyResources(this->GreenButton, L"GreenButton");
+			this->GreenButton->BackColor = System::Drawing::Color::Lime;
 			this->GreenButton->Name = L"GreenButton";
-			this->GreenButton->UseVisualStyleBackColor = true;
+			this->GreenButton->UseVisualStyleBackColor = false;
 			this->GreenButton->Click += gcnew System::EventHandler(this, &MyForm::GreenButton_Click);
 			// 
 			// RedButton
 			// 
 			resources->ApplyResources(this->RedButton, L"RedButton");
+			this->RedButton->BackColor = System::Drawing::Color::Tomato;
 			this->RedButton->Name = L"RedButton";
-			this->RedButton->UseVisualStyleBackColor = true;
+			this->RedButton->UseVisualStyleBackColor = false;
 			this->RedButton->Click += gcnew System::EventHandler(this, &MyForm::RedButton_Click);
 			// 
 			// BlueButton
 			// 
 			resources->ApplyResources(this->BlueButton, L"BlueButton");
+			this->BlueButton->BackColor = System::Drawing::Color::SkyBlue;
 			this->BlueButton->Name = L"BlueButton";
-			this->BlueButton->UseVisualStyleBackColor = true;
+			this->BlueButton->UseVisualStyleBackColor = false;
 			this->BlueButton->Click += gcnew System::EventHandler(this, &MyForm::BlueButton_Click);
 			// 
 			// YellowButton
 			// 
 			resources->ApplyResources(this->YellowButton, L"YellowButton");
+			this->YellowButton->BackColor = System::Drawing::Color::Goldenrod;
 			this->YellowButton->Name = L"YellowButton";
-			this->YellowButton->UseVisualStyleBackColor = true;
+			this->YellowButton->UseVisualStyleBackColor = false;
 			this->YellowButton->Click += gcnew System::EventHandler(this, &MyForm::YellowButton_Click);
 			// 
 			// HoldButton
 			// 
 			resources->ApplyResources(this->HoldButton, L"HoldButton");
+			this->HoldButton->BackColor = System::Drawing::Color::Yellow;
 			this->HoldButton->Name = L"HoldButton";
 			this->ToolTip->SetToolTip(this->HoldButton, resources->GetString(L"HoldButton.ToolTip"));
-			this->HoldButton->UseVisualStyleBackColor = true;
+			this->HoldButton->UseVisualStyleBackColor = false;
 			this->HoldButton->Click += gcnew System::EventHandler(this, &MyForm::HoldButton_Click);
 			// 
 			// EndChartButton
@@ -694,6 +705,7 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 			// 
 			resources->ApplyResources(this->SubBeat1Num, L"SubBeat1Num");
 			this->SubBeat1Num->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
+			this->SubBeat1Num->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
 			this->SubBeat1Num->Name = L"SubBeat1Num";
 			this->SubBeat1Num->ValueChanged += gcnew System::EventHandler(this, &MyForm::SubBeat1Num_ValueChanged);
 			// 
@@ -789,6 +801,7 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 			// 
 			resources->ApplyResources(this->ReverseEnd2SBNum1, L"ReverseEnd2SBNum1");
 			this->ReverseEnd2SBNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
+			this->ReverseEnd2SBNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
 			this->ReverseEnd2SBNum1->Name = L"ReverseEnd2SBNum1";
 			this->ReverseEnd2SBNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::ReverseEnd2SBNum1_ValueChanged);
 			// 
@@ -815,6 +828,7 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 			// 
 			resources->ApplyResources(this->ReverseEnd1SBNum1, L"ReverseEnd1SBNum1");
 			this->ReverseEnd1SBNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
+			this->ReverseEnd1SBNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
 			this->ReverseEnd1SBNum1->Name = L"ReverseEnd1SBNum1";
 			this->ReverseEnd1SBNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::ReverseEnd1SBNum1_ValueChanged);
 			// 
@@ -847,6 +861,7 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 			// 
 			resources->ApplyResources(this->StopEndSBNum1, L"StopEndSBNum1");
 			this->StopEndSBNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
+			this->StopEndSBNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
 			this->StopEndSBNum1->Name = L"StopEndSBNum1";
 			this->StopEndSBNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::StopEndSBNum1_ValueChanged);
 			// 
@@ -922,6 +937,8 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 			// InitialSettingsPane
 			// 
 			resources->ApplyResources(this->InitialSettingsPane, L"InitialSettingsPane");
+			this->InitialSettingsPane->Controls->Add(this->songFileNameTextBox);
+			this->InitialSettingsPane->Controls->Add(this->label29);
 			this->InitialSettingsPane->Controls->Add(this->InitialSetSave);
 			this->InitialSettingsPane->Controls->Add(this->MovieOffsetNum);
 			this->InitialSettingsPane->Controls->Add(this->label17);
@@ -935,6 +952,16 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 			this->InitialSettingsPane->Controls->Add(this->label13);
 			this->InitialSettingsPane->Name = L"InitialSettingsPane";
 			this->InitialSettingsPane->TabStop = false;
+			// 
+			// songFileNameTextBox
+			// 
+			resources->ApplyResources(this->songFileNameTextBox, L"songFileNameTextBox");
+			this->songFileNameTextBox->Name = L"songFileNameTextBox";
+			// 
+			// label29
+			// 
+			resources->ApplyResources(this->label29, L"label29");
+			this->label29->Name = L"label29";
 			// 
 			// InitialSetSave
 			// 
@@ -1308,31 +1335,38 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 
 		}
 #pragma endregion
+	System::String^ stdStringToSystemString(std::string input) {
+		return gcnew String(input.data());
+	}
+	std::string SystemStringTostdString(System::String^ input) {
+		using namespace Runtime::InteropServices;
+		const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(input)).ToPointer();
+		std::string os = chars;
+		Marshal::FreeHGlobal(IntPtr((void*)chars));
+		return os;
+	}
 	void refreshGimmickView() {
 		if (!theChart.PreChart.empty()) {
 			GimmickBeatLabel->Text = ((viewGimmicksITR)->beat).ToString();
 
 			int num1 = (viewGimmicksITR)->subBeat;
 			int num2 = 1920;
-			int denom = findGCD(num1, num2);
-			num1 /= denom;
-			num2 /= denom;
-			std::string subBeatString = to_string(num1) + "/" + to_string(num2);
-			GimmickSubBeatLabel->Text = gcnew String(subBeatString.data());
+			std::string subBeatString = subBeatValueDisplay(num1, num2);
+			GimmickSubBeatLabel->Text = stdStringToSystemString(subBeatString);
 
 			switch ((viewGimmicksITR)->type) {
 			case 2:
 				GimmickTypeLabel->Text = "BPM Change";
-				GimmickValueLabel->Text = gcnew String((to_string((viewGimmicksITR)->BPM)).data());
+				GimmickValueLabel->Text = stdStringToSystemString(to_string((viewGimmicksITR)->BPM));
 				break;
 			case 3:
 				GimmickTypeLabel->Text = "Time Signature Change";
-				GimmickValueLabel->Text = gcnew String((to_string((viewGimmicksITR)->beatDiv1)).data())
-					+ "/" + gcnew String((to_string((viewGimmicksITR)->beatDiv2)).data());
+				GimmickValueLabel->Text = stdStringToSystemString(to_string((viewGimmicksITR)->beatDiv1))
+					+ "/" + stdStringToSystemString(to_string((viewGimmicksITR)->beatDiv2));
 				break;
 			case 5:
 				GimmickTypeLabel->Text = "Hi-Speed Change";
-				GimmickValueLabel->Text = gcnew String((to_string((viewGimmicksITR)->hiSpeed)).data());
+				GimmickValueLabel->Text = stdStringToSystemString(to_string((viewGimmicksITR)->hiSpeed));
 				break;
 			case 6:
 				GimmickTypeLabel->Text = "Reverse Start";
@@ -1369,40 +1403,37 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 
 			int num1 = (viewNotesITR)->subBeat;
 			int num2 = 1920;
-			int denom = findGCD(num1, num2);
-			num1 /= denom;
-			num2 /= denom;
-			std::string subBeatString = to_string(num1) + "/" + to_string(num2);
-			NotesSubBeatLabel->Text = gcnew String(subBeatString.data());
+			std::string subBeatString = subBeatValueDisplay(num1, num2);
+			NotesSubBeatLabel->Text = stdStringToSystemString(subBeatString);
 
-			NotesPosLabel->Text = gcnew String((to_string((viewNotesITR)->position)).data());
-			NotesSizeLabel->Text = gcnew String((to_string((viewNotesITR)->size)).data());
+			NotesPosLabel->Text = stdStringToSystemString(to_string((viewNotesITR)->position));
+			NotesSizeLabel->Text = stdStringToSystemString(to_string((viewNotesITR)->size));
 			NotesMaskLabel->Text = "N/A";
 
 			switch ((viewNotesITR)->noteType) {
 			case 1:
-				NotesTypeLabel->Text = "Tap (No Bonus)";
+				NotesTypeLabel->Text = "Touch (No Bonus)";
 				break;
 			case 2:
-				NotesTypeLabel->Text = "Tap (Bonus Get)";
+				NotesTypeLabel->Text = "Touch (Bonus Get)";
 				break;
 			case 3:
-				NotesTypeLabel->Text = "Red Swipe (No Bonus)";
+				NotesTypeLabel->Text = "Snap (R) (No Bonus)";
 				break;
 			case 4:
-				NotesTypeLabel->Text = "Blue Swipe (No Bonus)";
+				NotesTypeLabel->Text = "Snap (B) (No Bonus)";
 				break;
 			case 5:
-				NotesTypeLabel->Text = "Orange Swipe (No Bonus)";
+				NotesTypeLabel->Text = "Slide (O) (No Bonus)";
 				break;
 			case 6:
-				NotesTypeLabel->Text = "Orange Swipe (Bonus Get)";
+				NotesTypeLabel->Text = "Slide (O) (Bonus Get)";
 				break;
 			case 7:
-				NotesTypeLabel->Text = "Green Swipe (No Bonus)";
+				NotesTypeLabel->Text = "Slide (G) (No Bonus)";
 				break;
 			case 8:
-				NotesTypeLabel->Text = "Green Swipe (Bonus Get)";
+				NotesTypeLabel->Text = "Slide (G) (Bonus Get)";
 				break;
 			case 9:
 				NotesTypeLabel->Text = "Hold Start (No Bonus)";
@@ -1445,22 +1476,22 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 				NotesTypeLabel->Text = "End Of Chart";
 				break;
 			case 16:
-				NotesTypeLabel->Text = "Yellow Tap";
+				NotesTypeLabel->Text = "Chain";
 				break;
 			case 20:
-				NotesTypeLabel->Text = "Tap (Bonus With Flair)";
+				NotesTypeLabel->Text = "Touch (Bonus With Flair)";
 				break;
 			case 21:
-				NotesTypeLabel->Text = "Red Swipe (Bonus With Flair)";
+				NotesTypeLabel->Text = "Snap (R) (Bonus With Flair)";
 				break;
 			case 22:
-				NotesTypeLabel->Text = "Blue Swipe (Bonus With Flair)";
+				NotesTypeLabel->Text = "Snap (B) (Bonus With Flair)";
 				break;
 			case 23:
-				NotesTypeLabel->Text = "Orange Swipe (Bonus With Flair)";
+				NotesTypeLabel->Text = "Slide (O) (Bonus With Flair)";
 				break;
 			case 24:
-				NotesTypeLabel->Text = "Green Swipe (Bonus With Flair)";
+				NotesTypeLabel->Text = "Slide (G) (Bonus With Flair)";
 				break;
 			case 25:
 				NotesTypeLabel->Text = "Hold Start (Bonus With Flair)";
@@ -1476,6 +1507,43 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 			NotesMaskLabel->Text = "N/A";
 		}
 	}
+	std::string subBeatValueDisplay(int num1, int num2) {
+		int denom = findGCD(num1, num2);
+		num1 /= denom;
+		num2 /= denom;
+		switch (num2) {
+		case 0:
+			num1 *= 16;
+			num2 = 16;
+			break;
+		case 1:
+			num1 *= 16;
+			num2 = 16;
+			break;
+		case 2:
+			num1 *= 8;
+			num2 = 16;
+			break;
+		case 3:
+			num1 *= 4;
+			num2 = 12;
+			break;
+		case 4:
+			num1 *= 4;
+			num2 = 16;
+			break;
+		case 6:
+			num1 *= 2;
+			num2 = 12;
+			break;
+		case 8:
+			num1 *= 2;
+			num2 = 16;
+			break;
+		}
+
+		return to_string(num1) + "/" + to_string(num2);
+	}
 	private: System::Void newToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	}
@@ -1490,7 +1558,7 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 			<< "#MUSIC_SCORE_ID 0\n"
 			<< "#MUSIC_SCORE_VERSION 0\n"
 			<< "#GAME_VERSION \n"
-			<< "#MUSIC_FILE_PATH MER_BGM_S00_004 [replace name with actual file name]\n"
+			<< "#MUSIC_FILE_PATH " << theChart.songFileName << "\n"
 			<< "#OFFSET " << theChart.offset << "\n"
 			<< "#MOVIEOFFSET " << theChart.movieOffset << "\n"
 			<< "#BODY\n";
@@ -1562,13 +1630,32 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 
 		std::string temp;
 		while (!chartFile.eof()) {
+			if (temp == "#MUSIC_FILE_PATH") {
+				chartFile >> theChart.songFileName;
+				temp = theChart.songFileName;
+				songFileNameTextBox->Text = stdStringToSystemString(theChart.songFileName);
+				if (temp == "#OFFSET") {
+					songFileNameTextBox->Text = "[Replace with name of file]";
+					theChart.songFileName = "[Replace with name of file]";
+				}
+			}
 			if (temp == "#OFFSET") {
 				chartFile >> theChart.offset;
+				temp = theChart.offset;
 				OffsetNum->Value = (System::Decimal)theChart.offset;
+				if (temp == "#BODY") {
+					OffsetNum->Value = 0;
+					theChart.offset = 0;
+				}
 			}
 			if (temp == "#MOVIEOFFSET") {
 				chartFile >> theChart.movieOffset;
+				temp = theChart.movieOffset;
 				MovieOffsetNum->Value = (System::Decimal)theChart.movieOffset;
+				if (temp == "#BODY") {
+					MovieOffsetNum->Value = 0;
+					theChart.movieOffset = 0;
+				}
 			}
 			if (temp == "#BODY") {
 				break;
@@ -1822,6 +1909,7 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 
 		theChart.offset = (double)OffsetNum->Value;
 		theChart.movieOffset = (double)MovieOffsetNum->Value;
+		theChart.songFileName = SystemStringTostdString(songFileNameTextBox->Text);
 
 		std::list<PreChartNode>::iterator itr;
 		for (itr = theChart.PreChart.begin(); itr != theChart.PreChart.end(); ++itr) {
@@ -1858,20 +1946,21 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 		}
 		theChart.PreChart.sort(sortPreChartListByBeat);
 		refreshGimmickView();
+		saveToolStripMenuItem_Click(sender, e);
 	}
 	private: System::Void TapButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
 			if (BonusGetRadioButton->Checked) {
 				SelectedNoteType = 2;
-				CurrentObjectText->Text = "Tap (Bonus Get)";
+				CurrentObjectText->Text = "Touch (Bonus Get)";
 			}
 			else if (BonusFlairRadioButton->Checked) {
 				SelectedNoteType = 20;
-				CurrentObjectText->Text = "Tap (Bonus With Flair)";
+				CurrentObjectText->Text = "Touch (Bonus With Flair)";
 			}
 			else {
 				SelectedNoteType = 1;
-				CurrentObjectText->Text = "Tap (No Bonus)";
+				CurrentObjectText->Text = "Touch (No Bonus)";
 			}
 		}
 		SelectedLineType = 1;
@@ -1880,15 +1969,15 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 		if (SelectedNoteType != 10) {
 			if (BonusGetRadioButton->Checked) {
 				SelectedNoteType = 6;
-				CurrentObjectText->Text = "Orange Swipe (Bonus Get)";
+				CurrentObjectText->Text = "Slide (O) (Bonus Get)";
 			}
 			else if (BonusFlairRadioButton->Checked) {
 				SelectedNoteType = 23;
-				CurrentObjectText->Text = "Orange Swipe (Bonus With Flair)";
+				CurrentObjectText->Text = "Slide (O) (Bonus With Flair)";
 			}
 			else {
 				SelectedNoteType = 5;
-				CurrentObjectText->Text = "Orange Swipe (No Bonus)";
+				CurrentObjectText->Text = "Slide (O) (No Bonus)";
 			}
 			SelectedLineType = 1;
 		}
@@ -1897,15 +1986,15 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 		if (SelectedNoteType != 10) {
 			if (BonusGetRadioButton->Checked == true) {
 				SelectedNoteType = 8;
-				CurrentObjectText->Text = "Green Swipe (Bonus Get)";
+				CurrentObjectText->Text = "Slide (G) (Bonus Get)";
 			}
 			else if (BonusFlairRadioButton->Checked) {
 				SelectedNoteType = 24;
-				CurrentObjectText->Text = "Green Swipe (Bonus With Flair)";
+				CurrentObjectText->Text = "Slide (G) (Bonus With Flair)";
 			}
 			else {
 				SelectedNoteType = 7;
-				CurrentObjectText->Text = "Green Swipe (No Bonus)";
+				CurrentObjectText->Text = "Slide (G) (No Bonus)";
 			}
 			SelectedLineType = 1;
 		}
@@ -1914,11 +2003,11 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 		if (SelectedNoteType != 10) {
 			if (BonusFlairRadioButton->Checked) {
 				SelectedNoteType = 21;
-				CurrentObjectText->Text = "Red Swipe (Bonus With Flair)";
+				CurrentObjectText->Text = "Snap (R) (Bonus With Flair)";
 			}
 			else {
 				SelectedNoteType = 3;
-				CurrentObjectText->Text = "Red Swipe (No Bonus)";
+				CurrentObjectText->Text = "Snap (R) (No Bonus)";
 			}
 			SelectedLineType = 1;
 		}
@@ -1927,11 +2016,11 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 		if (SelectedNoteType != 10) {
 			if (BonusFlairRadioButton->Checked) {
 				SelectedNoteType = 22;
-				CurrentObjectText->Text = "Blue Swipe (Bonus With Flair)";
+				CurrentObjectText->Text = "Snap (B) (Bonus With Flair)";
 			}
 			else {
 				SelectedNoteType = 4;
-				CurrentObjectText->Text = "Blue Swipe (No Bonus)";
+				CurrentObjectText->Text = "Snap (B) (No Bonus)";
 			}
 			SelectedLineType = 1;
 		}
@@ -1939,7 +2028,7 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 	private: System::Void YellowButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
 			SelectedNoteType = 16;
-			CurrentObjectText->Text = "Yellow Tap";
+			CurrentObjectText->Text = "Chain";
 			SelectedLineType = 1;
 		}
 	}
@@ -1965,7 +2054,7 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 	}
 	private: System::Void Mask_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
-			if (AddMask) {
+			if (AddMask->Checked) {
 				SelectedNoteType = 12;
 				if (MaskClockwise->Checked) {
 					CurrentObjectText->Text = "Mask Add (Clockwise)";
@@ -2038,49 +2127,49 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 			case 2:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 1;
-					CurrentObjectText->Text = "Tap (No Bonus)";
+					CurrentObjectText->Text = "Touch (No Bonus)";
 				}
 				break;
 			case 6:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 5;
-					CurrentObjectText->Text = "Orange Swipe (No Bonus)";
+					CurrentObjectText->Text = "Slide (O) (No Bonus)";
 				}
 				break;
 			case 8:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 7;
-					CurrentObjectText->Text = "Green Swipe (No Bonus)";
+					CurrentObjectText->Text = "Slide (G) (No Bonus)";
 				}
 				break;
 			case 20:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 1;
-					CurrentObjectText->Text = "Tap (No Bonus)";
+					CurrentObjectText->Text = "Touch (No Bonus)";
 				}
 				break;
 			case 21:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 3;
-					CurrentObjectText->Text = "Red Swipe (No Bonus)";
+					CurrentObjectText->Text = "Snap (R) (No Bonus)";
 				}
 				break;
 			case 22:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 4;
-					CurrentObjectText->Text = "Blue Swipe (No Bonus)";
+					CurrentObjectText->Text = "Snap (B) (No Bonus)";
 				}
 				break;
 			case 23:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 5;
-					CurrentObjectText->Text = "Orange Swipe (No Bonus)";
+					CurrentObjectText->Text = "Slide (O) (No Bonus)";
 				}
 				break;
 			case 24:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 7;
-					CurrentObjectText->Text = "Green Swipe (No Bonus)";
+					CurrentObjectText->Text = "Slide (G) (No Bonus)";
 				}
 				break;
 			case 25:
@@ -2098,37 +2187,37 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 			case 1:
 				if (BonusGetRadioButton->Checked) {
 					SelectedNoteType = 2;
-					CurrentObjectText->Text = "Tap (Bonus Get)";
+					CurrentObjectText->Text = "Touch (Bonus Get)";
 				}
 				break;
 			case 5:
 				if (BonusGetRadioButton->Checked) {
 					SelectedNoteType = 6;
-					CurrentObjectText->Text = "Orange Swipe (Bonus Get)";
+					CurrentObjectText->Text = "Slide (O) (Bonus Get)";
 				}
 				break;
 			case 7:
 				if (BonusGetRadioButton->Checked) {
 					SelectedNoteType = 8;
-					CurrentObjectText->Text = "Green Swipe (Bonus Get)";
+					CurrentObjectText->Text = "Slide (G) (Bonus Get)";
 				}
 				break;
 			case 20:
 				if (BonusGetRadioButton->Checked) {
 					SelectedNoteType = 2;
-					CurrentObjectText->Text = "Tap (Bonus Get)";
+					CurrentObjectText->Text = "Touch (Bonus Get)";
 				}
 				break;
 			case 23:
 				if (BonusGetRadioButton->Checked) {
 					SelectedNoteType = 6;
-					CurrentObjectText->Text = "Orange Swipe (Bonus Get)";
+					CurrentObjectText->Text = "Slide (O) (Bonus Get)";
 				}
 				break;
 			case 24:
 				if (BonusGetRadioButton->Checked) {
 					SelectedNoteType = 8;
-					CurrentObjectText->Text = "Green Swipe (Bonus Get)";
+					CurrentObjectText->Text = "Slide (G) (Bonus Get)";
 				}
 				break;
 			}
@@ -2140,49 +2229,49 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 			case 1:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 20;
-					CurrentObjectText->Text = "Tap (Bonus With Flair)";
+					CurrentObjectText->Text = "Touch (Bonus With Flair)";
 				}
 				break;
 			case 2:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 20;
-					CurrentObjectText->Text = "Tap (Bonus With Flair)";
+					CurrentObjectText->Text = "Touch (Bonus With Flair)";
 				}
 				break;
 			case 3:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 21;
-					CurrentObjectText->Text = "Red Swipe (Bonus With Flair)";
+					CurrentObjectText->Text = "Snap (R) (Bonus With Flair)";
 				}
 				break;
 			case 4:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 22;
-					CurrentObjectText->Text = "Blue Swipe (Bonus With Flair)";
+					CurrentObjectText->Text = "Snap (B) (Bonus With Flair)";
 				}
 				break;
 			case 5:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 23;
-					CurrentObjectText->Text = "Orange Swipe (Bonus With Flair)";
+					CurrentObjectText->Text = "Slide (O) (Bonus With Flair)";
 				}
 				break;
 			case 6:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 23;
-					CurrentObjectText->Text = "Orange Swipe (Bonus With Flair)";
+					CurrentObjectText->Text = "Slide (O) (Bonus With Flair)";
 				}
 				break;
 			case 7:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 24;
-					CurrentObjectText->Text = "Green Swipe (Bonus With Flair)";
+					CurrentObjectText->Text = "Slide (G) (Bonus With Flair)";
 				}
 				break;
 			case 8:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 24;
-					CurrentObjectText->Text = "Green Swipe (Bonus With Flair)";
+					CurrentObjectText->Text = "Slide (G) (Bonus With Flair)";
 				}
 				break;
 			case 9:
@@ -2284,27 +2373,75 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 	}
 	private: System::Void SubBeat1Num_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SubBeat1Num->Value >= SubBeat2Num->Value) {
-			SubBeat1Num->Value = (System::Decimal)0;
+			SubBeat1Num->Value = 0;
+			BeatNum->Value++;
+		}
+		if (SubBeat1Num->Value < 0) {
+			if (BeatNum->Value > 0) {
+				int temp = (int)SubBeat2Num->Value - 1;
+				SubBeat1Num->Value = (System::Decimal)temp;
+				BeatNum->Value--;
+			}
+			else {
+				SubBeat1Num->Value = 0;
+			}
 		}
 	}
 	private: System::Void ReverseEnd1SBNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (ReverseEnd1SBNum1->Value >= ReverseEnd1SBNum2->Value) {
-			ReverseEnd1SBNum1->Value = (System::Decimal)0;
+			ReverseEnd1SBNum1->Value = 0;
+			ReverseEnd1BNum->Value++;
+		}
+		if (ReverseEnd1SBNum1->Value < 0) {
+			if (ReverseEnd1BNum->Value > 0) {
+				int temp = (int)ReverseEnd1SBNum2->Value - 1;
+				ReverseEnd1SBNum1->Value = (System::Decimal)temp;
+				ReverseEnd1BNum->Value--;
+			}
+			else {
+				ReverseEnd1SBNum1->Value = 0;
+			}
 		}
 	}
 	private: System::Void ReverseEnd2SBNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (ReverseEnd2SBNum1->Value >= ReverseEnd2SBNum2->Value) {
-			ReverseEnd2SBNum1->Value = (System::Decimal)0;
+			ReverseEnd2SBNum1->Value = 0;
+			ReverseEnd2BNum->Value++;
+		}
+		if (ReverseEnd2SBNum1->Value < 0) {
+			if (ReverseEnd2BNum->Value > 0) {
+				int temp = (int)ReverseEnd2SBNum2->Value - 1;
+				ReverseEnd2SBNum1->Value = (System::Decimal)temp;
+				ReverseEnd2BNum->Value--;
+			}
+			else {
+				ReverseEnd2SBNum1->Value = 0;
+			}
 		}
 	}
 	private: System::Void StopEndSBNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (StopEndSBNum1->Value >= StopEndSBNum2->Value) {
-			StopEndSBNum1->Value = (System::Decimal)0;
+			StopEndSBNum1->Value = 0;
+			StopEndBNum->Value++;
+		}
+		if (StopEndSBNum1->Value < 0) {
+			if (StopEndBNum->Value > 0) {
+				int temp = (int)StopEndSBNum2->Value - 1;
+				StopEndSBNum1->Value = (System::Decimal)temp;
+				StopEndBNum->Value--;
+			}
+			else {
+				StopEndSBNum1->Value = 0;
+			}
 		}
 	}
 	private: System::Void PrevGimmickButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (!theChart.PreChart.empty()) {
 			if (viewGimmicksITR != theChart.PreChart.begin()) {
+				viewGimmicksITR--;
+			}
+			else {
+				viewGimmicksITR = theChart.PreChart.end();
 				viewGimmicksITR--;
 			}
 			refreshGimmickView();
@@ -2314,7 +2451,7 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 		if (!theChart.PreChart.empty()) {
 			viewGimmicksITR++;
 			if (viewGimmicksITR == theChart.PreChart.end()) {
-				viewGimmicksITR--;
+				viewGimmicksITR = theChart.PreChart.begin();
 			}
 			refreshGimmickView();
 		}
@@ -2337,6 +2474,10 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 			if (viewNotesITR != theChart.Notes.begin()) {
 				viewNotesITR--;
 			}
+			else {
+				viewNotesITR = theChart.Notes.end();
+				viewNotesITR--;
+			}
 			refreshNotesView();
 		}
 	}
@@ -2344,7 +2485,7 @@ private: System::Windows::Forms::Label^ MadeByLabel;
 		if (!theChart.Notes.empty()) {
 			viewNotesITR++;
 			if (viewNotesITR == theChart.Notes.end()) {
-				viewNotesITR--;
+				viewNotesITR = theChart.Notes.begin();
 			}
 			refreshNotesView();
 		}

@@ -31,4 +31,5 @@ struct Chart {
 	std::list<PreChartNode> PreChart;
 	double offset;
 	double movieOffset;
+	std::string songFileName;
 };
