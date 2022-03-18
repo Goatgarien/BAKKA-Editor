@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <map>
 #include "Chart.h"
+#define PI 3.14159265
 
 using std::to_string;
 
@@ -176,7 +177,7 @@ namespace BAKKAEditor {
 	private: System::Windows::Forms::Label^ label14;
 	private: System::Windows::Forms::NumericUpDown^ InitialBPMNum;
 	private: System::Windows::Forms::Label^ label13;
-	private: System::Windows::Forms::PictureBox^ pictureBox1;
+
 private: System::Windows::Forms::RadioButton^ BonusFlairRadioButton;
 private: System::Windows::Forms::RadioButton^ BonusGetRadioButton;
 private: System::Windows::Forms::RadioButton^ NoBonusRadioButton;
@@ -222,6 +223,10 @@ private: System::Windows::Forms::Label^ NotesBeatLabel;
 private: System::Windows::Forms::Label^ MadeByLabel;
 private: System::Windows::Forms::TextBox^ songFileNameTextBox;
 private: System::Windows::Forms::Label^ label29;
+private: System::Windows::Forms::OpenFileDialog^ openFileDialog;
+private: System::Windows::Forms::SaveFileDialog^ saveFileDialog;
+private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
+
 
 
 
@@ -276,6 +281,7 @@ private: System::Windows::Forms::Label^ label29;
 			this->saveToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->saveAsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->exitToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->aboutToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->TapButton = (gcnew System::Windows::Forms::Button());
 			this->OrangeButton = (gcnew System::Windows::Forms::Button());
 			this->GreenButton = (gcnew System::Windows::Forms::Button());
@@ -351,7 +357,6 @@ private: System::Windows::Forms::Label^ label29;
 			this->label14 = (gcnew System::Windows::Forms::Label());
 			this->InitialBPMNum = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label13 = (gcnew System::Windows::Forms::Label());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->MaskSettingsBox = (gcnew System::Windows::Forms::GroupBox());
 			this->MaskCenter = (gcnew System::Windows::Forms::RadioButton());
 			this->MaskCClockwise = (gcnew System::Windows::Forms::RadioButton());
@@ -387,6 +392,8 @@ private: System::Windows::Forms::Label^ label29;
 			this->PrevNoteButton = (gcnew System::Windows::Forms::Button());
 			this->DeleteNoteButton = (gcnew System::Windows::Forms::Button());
 			this->MadeByLabel = (gcnew System::Windows::Forms::Label());
+			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->saveFileDialog = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->menuStrip->SuspendLayout();
 			this->NoteTypeBox->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeNum))->BeginInit();
@@ -416,7 +423,6 @@ private: System::Windows::Forms::Label^ label29;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitTimeSigNum2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitTimeSigNum1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitialBPMNum))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->MaskSettingsBox->SuspendLayout();
 			this->PreChartViewBox->SuspendLayout();
 			this->NotesViewBox->SuspendLayout();
@@ -424,7 +430,10 @@ private: System::Windows::Forms::Label^ label29;
 			// 
 			// menuStrip
 			// 
-			this->menuStrip->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->fileToolStripMenuItem });
+			this->menuStrip->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->fileToolStripMenuItem,
+					this->aboutToolStripMenuItem
+			});
 			resources->ApplyResources(this->menuStrip, L"menuStrip");
 			this->menuStrip->Name = L"menuStrip";
 			// 
@@ -465,6 +474,11 @@ private: System::Windows::Forms::Label^ label29;
 			// 
 			this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
 			resources->ApplyResources(this->exitToolStripMenuItem, L"exitToolStripMenuItem");
+			// 
+			// aboutToolStripMenuItem
+			// 
+			this->aboutToolStripMenuItem->Name = L"aboutToolStripMenuItem";
+			resources->ApplyResources(this->aboutToolStripMenuItem, L"aboutToolStripMenuItem");
 			// 
 			// TapButton
 			// 
@@ -654,6 +668,7 @@ private: System::Windows::Forms::Label^ label29;
 			this->SizeNum->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->SizeNum->Name = L"SizeNum";
 			this->SizeNum->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->SizeNum->ValueChanged += gcnew System::EventHandler(this, &MyForm::SizeNum_ValueChanged);
 			// 
 			// SizeInfo
 			// 
@@ -670,6 +685,7 @@ private: System::Windows::Forms::Label^ label29;
 			resources->ApplyResources(this->PosNum, L"PosNum");
 			this->PosNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 59, 0, 0, 0 });
 			this->PosNum->Name = L"PosNum";
+			this->PosNum->ValueChanged += gcnew System::EventHandler(this, &MyForm::PosNum_ValueChanged);
 			// 
 			// NoteSizeBox
 			// 
@@ -699,7 +715,7 @@ private: System::Windows::Forms::Label^ label29;
 			this->SubBeat2Num->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
 			this->SubBeat2Num->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->SubBeat2Num->Name = L"SubBeat2Num";
-			this->SubBeat2Num->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
+			this->SubBeat2Num->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 16, 0, 0, 0 });
 			// 
 			// SubBeat1Num
 			// 
@@ -1034,12 +1050,6 @@ private: System::Windows::Forms::Label^ label29;
 			resources->ApplyResources(this->label13, L"label13");
 			this->label13->Name = L"label13";
 			// 
-			// pictureBox1
-			// 
-			resources->ApplyResources(this->pictureBox1, L"pictureBox1");
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->TabStop = false;
-			// 
 			// MaskSettingsBox
 			// 
 			this->MaskSettingsBox->Controls->Add(this->MaskCenter);
@@ -1267,6 +1277,15 @@ private: System::Windows::Forms::Label^ label29;
 			resources->ApplyResources(this->MadeByLabel, L"MadeByLabel");
 			this->MadeByLabel->Name = L"MadeByLabel";
 			// 
+			// openFileDialog
+			// 
+			this->openFileDialog->FileName = L"openFileDialog";
+			this->openFileDialog->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::openFileDialog_FileOk);
+			// 
+			// saveFileDialog
+			// 
+			this->saveFileDialog->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::saveFileDialog_FileOk);
+			// 
 			// MyForm
 			// 
 			this->AllowDrop = true;
@@ -1278,7 +1297,6 @@ private: System::Windows::Forms::Label^ label29;
 			this->Controls->Add(this->CurrentObjectText);
 			this->Controls->Add(this->label18);
 			this->Controls->Add(this->MaskSettingsBox);
-			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->InitialSettingsPane);
 			this->Controls->Add(this->GimmickSettingsBox);
 			this->Controls->Add(this->GimmickBox);
@@ -1288,6 +1306,8 @@ private: System::Windows::Forms::Label^ label29;
 			this->Controls->Add(this->menuStrip);
 			this->MainMenuStrip = this->menuStrip;
 			this->Name = L"MyForm";
+			this->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::MyForm_Paint);
+			this->Resize += gcnew System::EventHandler(this, &MyForm::MyForm_Resize);
 			this->menuStrip->ResumeLayout(false);
 			this->menuStrip->PerformLayout();
 			this->NoteTypeBox->ResumeLayout(false);
@@ -1323,7 +1343,6 @@ private: System::Windows::Forms::Label^ label29;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitTimeSigNum2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitTimeSigNum1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitialBPMNum))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->MaskSettingsBox->ResumeLayout(false);
 			this->MaskSettingsBox->PerformLayout();
 			this->PreChartViewBox->ResumeLayout(false);
@@ -1964,6 +1983,7 @@ private: System::Windows::Forms::Label^ label29;
 			}
 		}
 		SelectedLineType = 1;
+		Refresh();
 	}
 	private: System::Void OrangeButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -1981,6 +2001,7 @@ private: System::Windows::Forms::Label^ label29;
 			}
 			SelectedLineType = 1;
 		}
+		Refresh();
 	}
 	private: System::Void GreenButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -1998,6 +2019,7 @@ private: System::Windows::Forms::Label^ label29;
 			}
 			SelectedLineType = 1;
 		}
+		Refresh();
 	}
 	private: System::Void RedButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -2011,6 +2033,7 @@ private: System::Windows::Forms::Label^ label29;
 			}
 			SelectedLineType = 1;
 		}
+		Refresh();
 	}
 	private: System::Void BlueButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -2024,6 +2047,7 @@ private: System::Windows::Forms::Label^ label29;
 			}
 			SelectedLineType = 1;
 		}
+		Refresh();
 	}
 	private: System::Void YellowButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -2031,6 +2055,7 @@ private: System::Windows::Forms::Label^ label29;
 			CurrentObjectText->Text = "Chain";
 			SelectedLineType = 1;
 		}
+		Refresh();
 	}
 	private: System::Void EndChartButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -2038,6 +2063,7 @@ private: System::Windows::Forms::Label^ label29;
 			CurrentObjectText->Text = "End of Chart";
 			SelectedLineType = 1;
 		}
+		Refresh();
 	}
 	private: System::Void HoldButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -2051,6 +2077,7 @@ private: System::Windows::Forms::Label^ label29;
 			}
 			SelectedLineType = 1;
 		}
+		Refresh();
 	}
 	private: System::Void Mask_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -2080,36 +2107,42 @@ private: System::Windows::Forms::Label^ label29;
 			}
 			SelectedLineType = 1;
 		}
+		Refresh();
 	}
 	private: System::Void BPMChange_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
 			CurrentObjectText->Text = "BPM Change";
 			SelectedLineType = 2;
 		}
+		Refresh();
 	}
 	private: System::Void TimeSignature_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
 			CurrentObjectText->Text = "Time Signature Change";
 			SelectedLineType = 3;
 		}
+		Refresh();
 	}
 	private: System::Void Hispeed_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
 			CurrentObjectText->Text = "Hi-Speed Change";
 			SelectedLineType = 5;
 		}
+		Refresh();
 	}
 	private: System::Void Stop_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
 			CurrentObjectText->Text = "Stop";
 			SelectedLineType = 9;
 		}
+		Refresh();
 	}
 	private: System::Void Reverse_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
 			CurrentObjectText->Text = "Reverse";
 			SelectedLineType = 6;
 		}
+		Refresh();
 	}
 	private: System::Void EndHoldBox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType == 10) {
@@ -2120,6 +2153,7 @@ private: System::Windows::Forms::Label^ label29;
 				CurrentObjectText->Text = "Hold Middle";
 			}
 		}
+		Refresh();
 	}
 	private: System::Void NoBonusRadioButton_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedLineType == 1) {
@@ -2302,6 +2336,7 @@ private: System::Windows::Forms::Label^ label29;
 				break;
 			}
 		}
+		Refresh();
 	}
 	private: System::Void RemoveMask_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedLineType == 1) {
@@ -2322,6 +2357,7 @@ private: System::Windows::Forms::Label^ label29;
 				break;
 			}
 		}
+		Refresh();
 	}
 	private: System::Void MaskClockwise_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedLineType == 1) {
@@ -2480,6 +2516,7 @@ private: System::Windows::Forms::Label^ label29;
 			}
 			refreshNotesView();
 		}
+		Refresh();
 	}
 	private: System::Void NextNoteButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (!theChart.Notes.empty()) {
@@ -2489,6 +2526,7 @@ private: System::Windows::Forms::Label^ label29;
 			}
 			refreshNotesView();
 		}
+		Refresh();
 	}
 	private: System::Void DeleteNoteButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (!theChart.Notes.empty()) {
@@ -2540,6 +2578,136 @@ private: System::Windows::Forms::Label^ label29;
 			} while (holdDelete);
 			refreshNotesView();
 		}
+		Refresh();
+	}
+	private: System::Void openFileDialog_FileOk(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) {
+	}
+	private: System::Void saveFileDialog_FileOk(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) {
+	}
+	private: System::Void MyForm_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+		Graphics^ g = e->Graphics;
+		int xPos = InitialSettingsPane->Left;
+		int yPos = InitialSettingsPane->Bottom + 6;
+		int sizeOfRect = InitialSettingsPane->Width;
+
+		System::Drawing::Point location(xPos, yPos);
+		System::Drawing::Size size(sizeOfRect, sizeOfRect);
+		System::Drawing::Rectangle Rect(location, size);
+
+		float startAngle = -((float)PosNum->Value * 6);
+		float arcLength = -((float)SizeNum->Value * 6);
+
+		Pen^ CircleBasePen = gcnew Pen(Color::Black, 3);
+		Pen^ CircleLinesPen = gcnew Pen(Color::Black, 2);
+		Pen^ CircleNotePen = gcnew Pen(Color::Transparent, 4);
+
+		g->SmoothingMode = Drawing2D::SmoothingMode::HighSpeed;
+		if (SelectedLineType == 1) {
+			if (SelectedNoteType == 12) {
+				g->FillPie(Brushes::Silver, Rect, startAngle, arcLength);
+			}
+			if (SelectedNoteType == 13) {
+				g->FillPie(Brushes::White, Rect, startAngle, arcLength);
+			}
+		}
+
+		g->DrawEllipse(CircleBasePen, Rect);
+
+		int circleRadius = (sizeOfRect / 2);
+		int xCenterOfCircle = circleRadius + xPos;
+		int yCenterOfCircle = circleRadius + yPos;
+		for (int i = 0; i < 360; i += 6) { //i is the angle n degrees
+			float xStart, yStart, xEnd, yEnd;
+			float degToRad = (float)i * PI / 180.0; //i to Radians
+			xStart = (circleRadius * cos(degToRad)) + xCenterOfCircle;
+			yStart = (circleRadius * sin(degToRad)) + yCenterOfCircle;
+			PointF coordPointStart(xStart, yStart);
+
+			float innerRadius = circleRadius - 10;
+			CircleLinesPen->Width = 1;
+			if (i % 90 == 0) {
+				innerRadius = circleRadius - 35;
+				CircleLinesPen->Width = 4;
+			}
+			else if (i % 30 == 0) {
+				innerRadius = circleRadius - 25;
+				CircleLinesPen->Width = 2;
+			}
+			xEnd = (innerRadius * cos(degToRad)) + xCenterOfCircle;
+			yEnd = (innerRadius * sin(degToRad)) + yCenterOfCircle;
+			PointF coordPointEnd(xEnd, yEnd);
+
+			g->DrawLine(CircleLinesPen, coordPointStart, coordPointEnd);
+		}
+
+		if (SelectedLineType == 1) {
+			switch (SelectedNoteType) {
+			case 1:
+				CircleNotePen->Color = TapButton->BackColor;
+				break;
+			case 2:
+				CircleNotePen->Color = TapButton->BackColor;
+				break;
+			case 3:
+				CircleNotePen->Color = RedButton->BackColor;
+				break;
+			case 4:
+				CircleNotePen->Color = BlueButton->BackColor;
+				break;
+			case 5:
+				CircleNotePen->Color = OrangeButton->BackColor;
+				break;
+			case 6:
+				CircleNotePen->Color = OrangeButton->BackColor;
+				break;
+			case 7:
+				CircleNotePen->Color = GreenButton->BackColor;
+				break;
+			case 8:
+				CircleNotePen->Color = GreenButton->BackColor;
+				break;
+			case 9:
+				CircleNotePen->Color = HoldButton->BackColor;
+				break;
+			case 10:
+				CircleNotePen->Color = HoldButton->BackColor;
+				break;
+			case 11:
+				CircleNotePen->Color = HoldButton->BackColor;
+				break;
+			case 16:
+				CircleNotePen->Color = YellowButton->BackColor;
+				break;
+			case 20:
+				CircleNotePen->Color = TapButton->BackColor;
+				break;
+			case 21:
+				CircleNotePen->Color = RedButton->BackColor;
+				break;
+			case 22:
+				CircleNotePen->Color = BlueButton->BackColor;
+				break;
+			case 23:
+				CircleNotePen->Color = OrangeButton->BackColor;
+				break;
+			case 24:
+				CircleNotePen->Color = GreenButton->BackColor;
+				break;
+			case 25:
+				CircleNotePen->Color = HoldButton->BackColor;
+				break;
+			}
+			g->DrawArc(CircleNotePen, Rect, startAngle, arcLength);
+		}
+	}
+	private: System::Void PosNum_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		Refresh();
+	}
+	private: System::Void SizeNum_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		Refresh();
+	}
+	private: System::Void MyForm_Resize(System::Object^ sender, System::EventArgs^ e) {
+		Refresh();
 	}
 };
 }
