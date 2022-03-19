@@ -120,11 +120,42 @@
   <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>981, 24</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="menuStrip.Text" xml:space="preserve">
+    <value>Menu Strip</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
+    <value>menuStrip</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 20</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>File</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="newToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+N</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="newToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>186, 22</value>
   </data>
@@ -164,42 +195,11 @@
   <data name="exitToolStripMenuItem.Text" xml:space="preserve">
     <value>Exit</value>
   </data>
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 20</value>
-  </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>File</value>
-  </data>
   <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 20</value>
   </data>
   <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
     <value>About</value>
-  </data>
-  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>981, 24</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="menuStrip.Text" xml:space="preserve">
-    <value>Menu Strip</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
-    <value>menuStrip</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
-    <value>12</value>
   </data>
   <data name="TapButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -384,6 +384,9 @@
   <data name="&gt;&gt;YellowButton.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <metadata name="ToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>124, 17</value>
+  </metadata>
   <data name="HoldButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -402,9 +405,6 @@
   <data name="HoldButton.Text" xml:space="preserve">
     <value>Hold</value>
   </data>
-  <metadata name="ToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>124, 17</value>
-  </metadata>
   <data name="HoldButton.ToolTip" xml:space="preserve">
     <value>After first insert of a hold,
 you must continue adding to the hold until end.
@@ -453,6 +453,78 @@ otherwise it will crash.</value>
   </data>
   <data name="&gt;&gt;EndChartButton.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="&gt;&gt;BonusFlairRadioButton.Name" xml:space="preserve">
+    <value>BonusFlairRadioButton</value>
+  </data>
+  <data name="&gt;&gt;BonusFlairRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BonusFlairRadioButton.Parent" xml:space="preserve">
+    <value>NoteTypeBox</value>
+  </data>
+  <data name="&gt;&gt;BonusFlairRadioButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;BonusGetRadioButton.Name" xml:space="preserve">
+    <value>BonusGetRadioButton</value>
+  </data>
+  <data name="&gt;&gt;BonusGetRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BonusGetRadioButton.Parent" xml:space="preserve">
+    <value>NoteTypeBox</value>
+  </data>
+  <data name="&gt;&gt;BonusGetRadioButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;NoBonusRadioButton.Name" xml:space="preserve">
+    <value>NoBonusRadioButton</value>
+  </data>
+  <data name="&gt;&gt;NoBonusRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NoBonusRadioButton.Parent" xml:space="preserve">
+    <value>NoteTypeBox</value>
+  </data>
+  <data name="&gt;&gt;NoBonusRadioButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;EndHoldBox.Name" xml:space="preserve">
+    <value>EndHoldBox</value>
+  </data>
+  <data name="&gt;&gt;EndHoldBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EndHoldBox.Parent" xml:space="preserve">
+    <value>NoteTypeBox</value>
+  </data>
+  <data name="&gt;&gt;EndHoldBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="NoteTypeBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 27</value>
+  </data>
+  <data name="NoteTypeBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>678, 77</value>
+  </data>
+  <data name="NoteTypeBox.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="NoteTypeBox.Text" xml:space="preserve">
+    <value>Note Types</value>
+  </data>
+  <data name="&gt;&gt;NoteTypeBox.Name" xml:space="preserve">
+    <value>NoteTypeBox</value>
+  </data>
+  <data name="&gt;&gt;NoteTypeBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NoteTypeBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;NoteTypeBox.ZOrder" xml:space="preserve">
+    <value>11</value>
   </data>
   <data name="BonusFlairRadioButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -579,30 +651,9 @@ Tap, Orange Flicks, and Green Flicks
   <data name="&gt;&gt;EndHoldBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="NoteTypeBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 27</value>
-  </data>
-  <data name="NoteTypeBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>678, 77</value>
-  </data>
-  <data name="NoteTypeBox.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="NoteTypeBox.Text" xml:space="preserve">
-    <value>Note Types</value>
-  </data>
-  <data name="&gt;&gt;NoteTypeBox.Name" xml:space="preserve">
-    <value>NoteTypeBox</value>
-  </data>
-  <data name="&gt;&gt;NoteTypeBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;NoteTypeBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;NoteTypeBox.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
+  <metadata name="ToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>124, 17</value>
+  </metadata>
   <data name="BPMChange.Location" type="System.Drawing.Point, System.Drawing">
     <value>87, 19</value>
   </data>
@@ -779,10 +830,10 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>7</value>
   </data>
   <data name="InsertButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 327</value>
+    <value>348, 325</value>
   </data>
   <data name="InsertButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>678, 23</value>
+    <value>333, 48</value>
   </data>
   <data name="InsertButton.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -812,7 +863,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="PosLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 7</value>
+    <value>6, 16</value>
   </data>
   <data name="PosLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 20</value>
@@ -830,10 +881,10 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;PosLabel.Parent" xml:space="preserve">
-    <value>NoteSizeBox</value>
+    <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;PosLabel.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>6</value>
   </data>
   <data name="posInfo.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -842,7 +893,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="posInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 9</value>
+    <value>299, 21</value>
   </data>
   <data name="posInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 13</value>
@@ -860,16 +911,16 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;posInfo.Parent" xml:space="preserve">
-    <value>NoteSizeBox</value>
+    <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;posInfo.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>4</value>
   </data>
   <data name="SizeNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>90, 38</value>
+    <value>90, 45</value>
   </data>
   <data name="SizeNum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 20</value>
+    <value>41, 20</value>
   </data>
   <data name="SizeNum.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -881,10 +932,10 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;SizeNum.Parent" xml:space="preserve">
-    <value>NoteSizeBox</value>
+    <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;SizeNum.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="SizeInfo.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -893,7 +944,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="SizeInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 43</value>
+    <value>299, 50</value>
   </data>
   <data name="SizeInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 13</value>
@@ -911,10 +962,10 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;SizeInfo.Parent" xml:space="preserve">
-    <value>NoteSizeBox</value>
+    <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;SizeInfo.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>2</value>
   </data>
   <data name="SizeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -926,7 +977,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="SizeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 38</value>
+    <value>35, 45</value>
   </data>
   <data name="SizeLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>49, 20</value>
@@ -944,16 +995,16 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;SizeLabel.Parent" xml:space="preserve">
-    <value>NoteSizeBox</value>
+    <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;SizeLabel.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>10</value>
   </data>
   <data name="PosNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>90, 7</value>
+    <value>90, 19</value>
   </data>
   <data name="PosNum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 20</value>
+    <value>41, 20</value>
   </data>
   <data name="PosNum.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -965,10 +1016,10 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;PosNum.Parent" xml:space="preserve">
-    <value>NoteSizeBox</value>
+    <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;PosNum.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>11</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -980,7 +1031,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>132, 97</value>
+    <value>197, 94</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>14, 20</value>
@@ -998,13 +1049,13 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>NoteSizeBox</value>
+    <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>5</value>
   </data>
   <data name="SubBeat2Num.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 97</value>
+    <value>217, 94</value>
   </data>
   <data name="SubBeat2Num.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1019,13 +1070,13 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;SubBeat2Num.Parent" xml:space="preserve">
-    <value>NoteSizeBox</value>
+    <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;SubBeat2Num.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="SubBeat1Num.Location" type="System.Drawing.Point, System.Drawing">
-    <value>90, 97</value>
+    <value>155, 94</value>
   </data>
   <data name="SubBeat1Num.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 20</value>
@@ -1040,16 +1091,16 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;SubBeat1Num.Parent" xml:space="preserve">
-    <value>NoteSizeBox</value>
+    <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;SubBeat1Num.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>8</value>
   </data>
   <data name="BeatNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>90, 68</value>
+    <value>90, 94</value>
   </data>
   <data name="BeatNum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 20</value>
+    <value>59, 20</value>
   </data>
   <data name="BeatNum.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -1061,43 +1112,10 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;BeatNum.Parent" xml:space="preserve">
-    <value>NoteSizeBox</value>
+    <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;BeatNum.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
-  </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 97</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 20</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Sub-beat:</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>NoteSizeBox</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>9</value>
   </data>
   <data name="Beat.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1109,7 +1127,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="Beat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 68</value>
+    <value>32, 94</value>
   </data>
   <data name="Beat.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 20</value>
@@ -1127,30 +1145,57 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;Beat.Parent" xml:space="preserve">
-    <value>NoteSizeBox</value>
+    <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;Beat.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;RemoveMask.Name" xml:space="preserve">
+    <value>RemoveMask</value>
+  </data>
+  <data name="&gt;&gt;RemoveMask.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RemoveMask.Parent" xml:space="preserve">
+    <value>GimmickBox</value>
+  </data>
+  <data name="&gt;&gt;RemoveMask.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;AddMask.Name" xml:space="preserve">
+    <value>AddMask</value>
+  </data>
+  <data name="&gt;&gt;AddMask.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AddMask.Parent" xml:space="preserve">
+    <value>GimmickBox</value>
+  </data>
+  <data name="&gt;&gt;AddMask.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="NoteSizeBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 193</value>
+  <data name="GimmickBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 110</value>
   </data>
-  <data name="NoteSizeBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 128</value>
+  <data name="GimmickBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>496, 77</value>
   </data>
-  <data name="NoteSizeBox.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
+  <data name="GimmickBox.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
   </data>
-  <data name="&gt;&gt;NoteSizeBox.Name" xml:space="preserve">
-    <value>NoteSizeBox</value>
+  <data name="GimmickBox.Text" xml:space="preserve">
+    <value>Gimmick Types</value>
   </data>
-  <data name="&gt;&gt;NoteSizeBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;GimmickBox.Name" xml:space="preserve">
+    <value>GimmickBox</value>
   </data>
-  <data name="&gt;&gt;NoteSizeBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;GimmickBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GimmickBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;NoteSizeBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;GimmickBox.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
   <data name="RemoveMask.AutoSize" type="System.Boolean, mscorlib">
@@ -1210,32 +1255,308 @@ Notes that appear are from End 1 -&gt; End 2</value>
   <data name="&gt;&gt;AddMask.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="GimmickBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 110</value>
+  <data name="&gt;&gt;ReverseEnd2SBNum2.Name" xml:space="preserve">
+    <value>ReverseEnd2SBNum2</value>
   </data>
-  <data name="GimmickBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>496, 77</value>
+  <data name="&gt;&gt;ReverseEnd2SBNum2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="GimmickBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;ReverseEnd2SBNum2.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2SBNum2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label12.Name" xml:space="preserve">
+    <value>label12</value>
+  </data>
+  <data name="&gt;&gt;label12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label12.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2SBNum1.Name" xml:space="preserve">
+    <value>ReverseEnd2SBNum1</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2SBNum1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2SBNum1.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2SBNum1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2BNum.Name" xml:space="preserve">
+    <value>ReverseEnd2BNum</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2BNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2BNum.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd2BNum.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum2.Name" xml:space="preserve">
+    <value>ReverseEnd1SBNum2</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum2.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum2.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum1.Name" xml:space="preserve">
+    <value>ReverseEnd1SBNum1</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum1.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1SBNum1.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1BNum.Name" xml:space="preserve">
+    <value>ReverseEnd1BNum</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1BNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1BNum.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ReverseEnd1BNum.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;StopEndBNum.Name" xml:space="preserve">
+    <value>StopEndBNum</value>
+  </data>
+  <data name="&gt;&gt;StopEndBNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StopEndBNum.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;StopEndBNum.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum2.Name" xml:space="preserve">
+    <value>StopEndSBNum2</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum2.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum2.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;label10.Name" xml:space="preserve">
+    <value>label10</value>
+  </data>
+  <data name="&gt;&gt;label10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum1.Name" xml:space="preserve">
+    <value>StopEndSBNum1</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum1.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;StopEndSBNum1.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;HiSpeedChangeNum.Name" xml:space="preserve">
+    <value>HiSpeedChangeNum</value>
+  </data>
+  <data name="&gt;&gt;HiSpeedChangeNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HiSpeedChangeNum.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;HiSpeedChangeNum.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum2.Name" xml:space="preserve">
+    <value>TimeSigNum2</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum2.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum2.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum1.Name" xml:space="preserve">
+    <value>TimeSigNum1</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum1.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;TimeSigNum1.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
-  <data name="GimmickBox.Text" xml:space="preserve">
-    <value>Gimmick Types</value>
+  <data name="&gt;&gt;BPMChangeNum.Name" xml:space="preserve">
+    <value>BPMChangeNum</value>
   </data>
-  <data name="&gt;&gt;GimmickBox.Name" xml:space="preserve">
-    <value>GimmickBox</value>
+  <data name="&gt;&gt;BPMChangeNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;GimmickBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;BPMChangeNum.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;BPMChangeNum.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="GimmickSettingsBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 193</value>
+  </data>
+  <data name="GimmickSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>333, 180</value>
+  </data>
+  <data name="GimmickSettingsBox.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="GimmickSettingsBox.Text" xml:space="preserve">
+    <value>Gimmick Settings</value>
+  </data>
+  <data name="&gt;&gt;GimmickSettingsBox.Name" xml:space="preserve">
+    <value>GimmickSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;GimmickSettingsBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;GimmickBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;GimmickSettingsBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;GimmickBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;GimmickSettingsBox.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
   <data name="ReverseEnd2SBNum2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>338, 90</value>
+    <value>274, 149</value>
   </data>
   <data name="ReverseEnd2SBNum2.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1265,7 +1586,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>318, 90</value>
+    <value>254, 146</value>
   </data>
   <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
     <value>14, 20</value>
@@ -1289,7 +1610,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>1</value>
   </data>
   <data name="ReverseEnd2SBNum1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>278, 90</value>
+    <value>212, 146</value>
   </data>
   <data name="ReverseEnd2SBNum1.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 20</value>
@@ -1310,10 +1631,10 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>2</value>
   </data>
   <data name="ReverseEnd2BNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>203, 90</value>
+    <value>147, 146</value>
   </data>
   <data name="ReverseEnd2BNum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 20</value>
+    <value>59, 20</value>
   </data>
   <data name="ReverseEnd2BNum.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
@@ -1331,7 +1652,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>3</value>
   </data>
   <data name="ReverseEnd1SBNum2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 90</value>
+    <value>274, 120</value>
   </data>
   <data name="ReverseEnd1SBNum2.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1361,7 +1682,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>127, 90</value>
+    <value>254, 120</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>14, 20</value>
@@ -1385,7 +1706,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>5</value>
   </data>
   <data name="ReverseEnd1SBNum1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>85, 90</value>
+    <value>212, 120</value>
   </data>
   <data name="ReverseEnd1SBNum1.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 20</value>
@@ -1406,10 +1727,10 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>6</value>
   </data>
   <data name="ReverseEnd1BNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 90</value>
+    <value>147, 120</value>
   </data>
   <data name="ReverseEnd1BNum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 20</value>
+    <value>59, 20</value>
   </data>
   <data name="ReverseEnd1BNum.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
@@ -1427,10 +1748,10 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>7</value>
   </data>
   <data name="StopEndBNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>284, 44</value>
+    <value>147, 94</value>
   </data>
   <data name="StopEndBNum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 20</value>
+    <value>59, 20</value>
   </data>
   <data name="StopEndBNum.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
@@ -1448,7 +1769,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>8</value>
   </data>
   <data name="StopEndSBNum2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>421, 44</value>
+    <value>274, 94</value>
   </data>
   <data name="StopEndSBNum2.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1478,7 +1799,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>401, 42</value>
+    <value>254, 94</value>
   </data>
   <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
     <value>14, 20</value>
@@ -1502,7 +1823,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>10</value>
   </data>
   <data name="StopEndSBNum1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>359, 44</value>
+    <value>212, 94</value>
   </data>
   <data name="StopEndSBNum1.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 20</value>
@@ -1523,10 +1844,10 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>11</value>
   </data>
   <data name="HiSpeedChangeNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 42</value>
+    <value>147, 68</value>
   </data>
   <data name="HiSpeedChangeNum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 20</value>
+    <value>101, 20</value>
   </data>
   <data name="HiSpeedChangeNum.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
@@ -1544,7 +1865,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>12</value>
   </data>
   <data name="TimeSigNum2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>421, 16</value>
+    <value>207, 42</value>
   </data>
   <data name="TimeSigNum2.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1574,7 +1895,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>401, 16</value>
+    <value>187, 42</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
     <value>14, 20</value>
@@ -1598,7 +1919,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>14</value>
   </data>
   <data name="TimeSigNum1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>359, 16</value>
+    <value>147, 42</value>
   </data>
   <data name="TimeSigNum1.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 20</value>
@@ -1619,10 +1940,10 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>15</value>
   </data>
   <data name="BPMChangeNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 16</value>
+    <value>147, 16</value>
   </data>
   <data name="BPMChangeNum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 20</value>
+    <value>101, 20</value>
   </data>
   <data name="BPMChangeNum.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
@@ -1649,7 +1970,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>197, 67</value>
+    <value>9, 145</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 20</value>
@@ -1682,7 +2003,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>197, 42</value>
+    <value>52, 94</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 20</value>
@@ -1715,7 +2036,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 67</value>
+    <value>9, 120</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 20</value>
@@ -1748,7 +2069,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>197, 16</value>
+    <value>6, 42</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
     <value>135, 20</value>
@@ -1781,7 +2102,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 42</value>
+    <value>52, 68</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 20</value>
@@ -1814,7 +2135,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 16</value>
+    <value>90, 16</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 20</value>
@@ -1837,32 +2158,185 @@ Notes that appear are from End 1 -&gt; End 2</value>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>22</value>
   </data>
-  <data name="GimmickSettingsBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>216, 194</value>
+  <data name="&gt;&gt;songFileNameTextBox.Name" xml:space="preserve">
+    <value>songFileNameTextBox</value>
   </data>
-  <data name="GimmickSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>468, 127</value>
+  <data name="&gt;&gt;songFileNameTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="GimmickSettingsBox.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
+  <data name="&gt;&gt;songFileNameTextBox.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
   </data>
-  <data name="GimmickSettingsBox.Text" xml:space="preserve">
-    <value>Gimmick Settings</value>
+  <data name="&gt;&gt;songFileNameTextBox.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;GimmickSettingsBox.Name" xml:space="preserve">
-    <value>GimmickSettingsBox</value>
+  <data name="&gt;&gt;label29.Name" xml:space="preserve">
+    <value>label29</value>
   </data>
-  <data name="&gt;&gt;GimmickSettingsBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label29.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;GimmickSettingsBox.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;label29.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
   </data>
-  <data name="&gt;&gt;GimmickSettingsBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label29.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;InitialSetSave.Name" xml:space="preserve">
+    <value>InitialSetSave</value>
+  </data>
+  <data name="&gt;&gt;InitialSetSave.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InitialSetSave.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;InitialSetSave.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;MovieOffsetNum.Name" xml:space="preserve">
+    <value>MovieOffsetNum</value>
+  </data>
+  <data name="&gt;&gt;MovieOffsetNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MovieOffsetNum.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;MovieOffsetNum.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;label17.Name" xml:space="preserve">
+    <value>label17</value>
+  </data>
+  <data name="&gt;&gt;label17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label17.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;OffsetNum.Name" xml:space="preserve">
+    <value>OffsetNum</value>
+  </data>
+  <data name="&gt;&gt;OffsetNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OffsetNum.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;OffsetNum.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label16.Name" xml:space="preserve">
+    <value>label16</value>
+  </data>
+  <data name="&gt;&gt;label16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label16.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum2.Name" xml:space="preserve">
+    <value>InitTimeSigNum2</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum2.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum2.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="InitialSettingsPane.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
+  <data name="&gt;&gt;label15.Name" xml:space="preserve">
+    <value>label15</value>
+  </data>
+  <data name="&gt;&gt;label15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum1.Name" xml:space="preserve">
+    <value>InitTimeSigNum1</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum1.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;InitTimeSigNum1.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;label14.Name" xml:space="preserve">
+    <value>label14</value>
+  </data>
+  <data name="&gt;&gt;label14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label14.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;InitialBPMNum.Name" xml:space="preserve">
+    <value>InitialBPMNum</value>
+  </data>
+  <data name="&gt;&gt;InitialBPMNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InitialBPMNum.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;InitialBPMNum.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;label13.Name" xml:space="preserve">
+    <value>label13</value>
+  </data>
+  <data name="&gt;&gt;label13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="InitialSettingsPane.Location" type="System.Drawing.Point, System.Drawing">
+    <value>690, 27</value>
+  </data>
+  <data name="InitialSettingsPane.Size" type="System.Drawing.Size, System.Drawing">
+    <value>279, 179</value>
+  </data>
+  <data name="InitialSettingsPane.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="InitialSettingsPane.Text" xml:space="preserve">
+    <value>Initial Chart Settings </value>
+  </data>
+  <data name="&gt;&gt;InitialSettingsPane.Name" xml:space="preserve">
+    <value>InitialSettingsPane</value>
+  </data>
+  <data name="&gt;&gt;InitialSettingsPane.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InitialSettingsPane.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;InitialSettingsPane.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="songFileNameTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>170, 128</value>
@@ -2218,28 +2692,64 @@ Notes that appear are from End 1 -&gt; End 2</value>
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
-  <data name="InitialSettingsPane.Location" type="System.Drawing.Point, System.Drawing">
-    <value>690, 27</value>
+  <data name="&gt;&gt;MaskCenter.Name" xml:space="preserve">
+    <value>MaskCenter</value>
   </data>
-  <data name="InitialSettingsPane.Size" type="System.Drawing.Size, System.Drawing">
-    <value>279, 179</value>
+  <data name="&gt;&gt;MaskCenter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="InitialSettingsPane.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
+  <data name="&gt;&gt;MaskCenter.Parent" xml:space="preserve">
+    <value>MaskSettingsBox</value>
   </data>
-  <data name="InitialSettingsPane.Text" xml:space="preserve">
-    <value>Initial Chart Settings </value>
+  <data name="&gt;&gt;MaskCenter.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;InitialSettingsPane.Name" xml:space="preserve">
-    <value>InitialSettingsPane</value>
+  <data name="&gt;&gt;MaskCClockwise.Name" xml:space="preserve">
+    <value>MaskCClockwise</value>
   </data>
-  <data name="&gt;&gt;InitialSettingsPane.Type" xml:space="preserve">
+  <data name="&gt;&gt;MaskCClockwise.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MaskCClockwise.Parent" xml:space="preserve">
+    <value>MaskSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;MaskCClockwise.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;MaskClockwise.Name" xml:space="preserve">
+    <value>MaskClockwise</value>
+  </data>
+  <data name="&gt;&gt;MaskClockwise.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MaskClockwise.Parent" xml:space="preserve">
+    <value>MaskSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;MaskClockwise.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="MaskSettingsBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>509, 110</value>
+  </data>
+  <data name="MaskSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 77</value>
+  </data>
+  <data name="MaskSettingsBox.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="MaskSettingsBox.Text" xml:space="preserve">
+    <value>Mask Setting</value>
+  </data>
+  <data name="&gt;&gt;MaskSettingsBox.Name" xml:space="preserve">
+    <value>MaskSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;MaskSettingsBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;InitialSettingsPane.Parent" xml:space="preserve">
+  <data name="&gt;&gt;MaskSettingsBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;InitialSettingsPane.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;MaskSettingsBox.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
   <data name="MaskCenter.AutoSize" type="System.Boolean, mscorlib">
@@ -2323,30 +2833,6 @@ Notes that appear are from End 1 -&gt; End 2</value>
   <data name="&gt;&gt;MaskClockwise.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="MaskSettingsBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>509, 110</value>
-  </data>
-  <data name="MaskSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 77</value>
-  </data>
-  <data name="MaskSettingsBox.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="MaskSettingsBox.Text" xml:space="preserve">
-    <value>Mask Setting</value>
-  </data>
-  <data name="&gt;&gt;MaskSettingsBox.Name" xml:space="preserve">
-    <value>MaskSettingsBox</value>
-  </data>
-  <data name="&gt;&gt;MaskSettingsBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MaskSettingsBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;MaskSettingsBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
   <data name="label18.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2357,7 +2843,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 353</value>
+    <value>348, 376</value>
   </data>
   <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
     <value>188, 16</value>
@@ -2378,16 +2864,19 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="CurrentObjectText.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="CurrentObjectText.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9pt, style=Bold</value>
+  </data>
   <data name="CurrentObjectText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>200, 355</value>
+    <value>542, 376</value>
   </data>
   <data name="CurrentObjectText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 13</value>
+    <value>122, 15</value>
   </data>
   <data name="CurrentObjectText.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
@@ -2405,10 +2894,166 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;CurrentObjectText.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="PreChartViewBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
+  </data>
+  <data name="&gt;&gt;GimmickValueLabel.Name" xml:space="preserve">
+    <value>GimmickValueLabel</value>
+  </data>
+  <data name="&gt;&gt;GimmickValueLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GimmickValueLabel.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;GimmickValueLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;GimmickTypeLabel.Name" xml:space="preserve">
+    <value>GimmickTypeLabel</value>
+  </data>
+  <data name="&gt;&gt;GimmickTypeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GimmickTypeLabel.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;GimmickTypeLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;GimmickSubBeatLabel.Name" xml:space="preserve">
+    <value>GimmickSubBeatLabel</value>
+  </data>
+  <data name="&gt;&gt;GimmickSubBeatLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GimmickSubBeatLabel.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;GimmickSubBeatLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;GimmickBeatLabel.Name" xml:space="preserve">
+    <value>GimmickBeatLabel</value>
+  </data>
+  <data name="&gt;&gt;GimmickBeatLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GimmickBeatLabel.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;GimmickBeatLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;label22.Name" xml:space="preserve">
+    <value>label22</value>
+  </data>
+  <data name="&gt;&gt;label22.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label22.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;label22.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;label21.Name" xml:space="preserve">
+    <value>label21</value>
+  </data>
+  <data name="&gt;&gt;label21.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label21.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label20.Name" xml:space="preserve">
+    <value>label20</value>
+  </data>
+  <data name="&gt;&gt;label20.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label20.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;label20.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;label19.Name" xml:space="preserve">
+    <value>label19</value>
+  </data>
+  <data name="&gt;&gt;label19.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label19.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;NextGimmickButton.Name" xml:space="preserve">
+    <value>NextGimmickButton</value>
+  </data>
+  <data name="&gt;&gt;NextGimmickButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NextGimmickButton.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;NextGimmickButton.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;PrevGimmickButton.Name" xml:space="preserve">
+    <value>PrevGimmickButton</value>
+  </data>
+  <data name="&gt;&gt;PrevGimmickButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PrevGimmickButton.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;PrevGimmickButton.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;DeleteGimmickButton.Name" xml:space="preserve">
+    <value>DeleteGimmickButton</value>
+  </data>
+  <data name="&gt;&gt;DeleteGimmickButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DeleteGimmickButton.Parent" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;DeleteGimmickButton.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="PreChartViewBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 516</value>
+  </data>
+  <data name="PreChartViewBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>482, 208</value>
+  </data>
+  <data name="PreChartViewBox.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="PreChartViewBox.Text" xml:space="preserve">
+    <value>Gimmicks View</value>
+  </data>
+  <data name="&gt;&gt;PreChartViewBox.Name" xml:space="preserve">
+    <value>PreChartViewBox</value>
+  </data>
+  <data name="&gt;&gt;PreChartViewBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PreChartViewBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PreChartViewBox.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="GimmickValueLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2734,32 +3379,296 @@ Notes that appear are from End 1 -&gt; End 2</value>
   <data name="&gt;&gt;DeleteGimmickButton.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="PreChartViewBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 516</value>
-  </data>
-  <data name="PreChartViewBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>482, 208</value>
-  </data>
-  <data name="PreChartViewBox.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="PreChartViewBox.Text" xml:space="preserve">
-    <value>Gimmicks View</value>
-  </data>
-  <data name="&gt;&gt;PreChartViewBox.Name" xml:space="preserve">
-    <value>PreChartViewBox</value>
-  </data>
-  <data name="&gt;&gt;PreChartViewBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PreChartViewBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;PreChartViewBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="NotesViewBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;EditNoteButton.Name" xml:space="preserve">
+    <value>EditNoteButton</value>
+  </data>
+  <data name="&gt;&gt;EditNoteButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EditNoteButton.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;EditNoteButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;PrevBeatButton.Name" xml:space="preserve">
+    <value>PrevBeatButton</value>
+  </data>
+  <data name="&gt;&gt;PrevBeatButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PrevBeatButton.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;PrevBeatButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;NextBeatButton.Name" xml:space="preserve">
+    <value>NextBeatButton</value>
+  </data>
+  <data name="&gt;&gt;NextBeatButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NextBeatButton.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NextBeatButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;MatchNoteCheckBox.Name" xml:space="preserve">
+    <value>MatchNoteCheckBox</value>
+  </data>
+  <data name="&gt;&gt;MatchNoteCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MatchNoteCheckBox.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;MatchNoteCheckBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;MatchTimeCheckBox.Name" xml:space="preserve">
+    <value>MatchTimeCheckBox</value>
+  </data>
+  <data name="&gt;&gt;MatchTimeCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MatchTimeCheckBox.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;MatchTimeCheckBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;NotesMaskLabel.Name" xml:space="preserve">
+    <value>NotesMaskLabel</value>
+  </data>
+  <data name="&gt;&gt;NotesMaskLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NotesMaskLabel.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NotesMaskLabel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;NotesSizeLabel.Name" xml:space="preserve">
+    <value>NotesSizeLabel</value>
+  </data>
+  <data name="&gt;&gt;NotesSizeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NotesSizeLabel.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NotesSizeLabel.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;NotesPosLabel.Name" xml:space="preserve">
+    <value>NotesPosLabel</value>
+  </data>
+  <data name="&gt;&gt;NotesPosLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NotesPosLabel.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NotesPosLabel.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;NotesTypeLabel.Name" xml:space="preserve">
+    <value>NotesTypeLabel</value>
+  </data>
+  <data name="&gt;&gt;NotesTypeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NotesTypeLabel.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NotesTypeLabel.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;NotesSubBeatLabel.Name" xml:space="preserve">
+    <value>NotesSubBeatLabel</value>
+  </data>
+  <data name="&gt;&gt;NotesSubBeatLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NotesSubBeatLabel.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NotesSubBeatLabel.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;NotesBeatLabel.Name" xml:space="preserve">
+    <value>NotesBeatLabel</value>
+  </data>
+  <data name="&gt;&gt;NotesBeatLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NotesBeatLabel.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NotesBeatLabel.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;label28.Name" xml:space="preserve">
+    <value>label28</value>
+  </data>
+  <data name="&gt;&gt;label28.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label28.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;label28.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;label27.Name" xml:space="preserve">
+    <value>label27</value>
+  </data>
+  <data name="&gt;&gt;label27.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label27.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;label27.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;label26.Name" xml:space="preserve">
+    <value>label26</value>
+  </data>
+  <data name="&gt;&gt;label26.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label26.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;label26.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;label25.Name" xml:space="preserve">
+    <value>label25</value>
+  </data>
+  <data name="&gt;&gt;label25.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label25.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;label24.Name" xml:space="preserve">
+    <value>label24</value>
+  </data>
+  <data name="&gt;&gt;label24.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label24.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;label24.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;label23.Name" xml:space="preserve">
+    <value>label23</value>
+  </data>
+  <data name="&gt;&gt;label23.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label23.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;label23.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;NextNoteButton.Name" xml:space="preserve">
+    <value>NextNoteButton</value>
+  </data>
+  <data name="&gt;&gt;NextNoteButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NextNoteButton.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NextNoteButton.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;PrevNoteButton.Name" xml:space="preserve">
+    <value>PrevNoteButton</value>
+  </data>
+  <data name="&gt;&gt;PrevNoteButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PrevNoteButton.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;PrevNoteButton.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;DeleteNoteButton.Name" xml:space="preserve">
+    <value>DeleteNoteButton</value>
+  </data>
+  <data name="&gt;&gt;DeleteNoteButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DeleteNoteButton.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;DeleteNoteButton.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="NotesViewBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>497, 516</value>
+  </data>
+  <data name="NotesViewBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>470, 208</value>
+  </data>
+  <data name="NotesViewBox.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="NotesViewBox.Text" xml:space="preserve">
+    <value>Notes View</value>
+  </data>
+  <data name="&gt;&gt;NotesViewBox.Name" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NotesViewBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NotesViewBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;NotesViewBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="EditNoteButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>238, 153</value>
+  </data>
+  <data name="EditNoteButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>226, 23</value>
+  </data>
+  <data name="EditNoteButton.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="EditNoteButton.Text" xml:space="preserve">
+    <value>Edit Current Viewed Note</value>
+  </data>
+  <data name="&gt;&gt;EditNoteButton.Name" xml:space="preserve">
+    <value>EditNoteButton</value>
+  </data>
+  <data name="&gt;&gt;EditNoteButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EditNoteButton.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;EditNoteButton.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="PrevBeatButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2786,7 +3695,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;PrevBeatButton.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="NextBeatButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>354, 19</value>
@@ -2810,7 +3719,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;NextBeatButton.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="MatchNoteCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2819,16 +3728,16 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NoControl</value>
   </data>
   <data name="MatchNoteCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>242, 150</value>
+    <value>6, 159</value>
   </data>
   <data name="MatchNoteCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 17</value>
+    <value>196, 17</value>
   </data>
   <data name="MatchNoteCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
   </data>
   <data name="MatchNoteCheckBox.Text" xml:space="preserve">
-    <value>Match selected note to current viewed note</value>
+    <value>Match Note Settings To Notes View</value>
   </data>
   <data name="&gt;&gt;MatchNoteCheckBox.Name" xml:space="preserve">
     <value>MatchNoteCheckBox</value>
@@ -2840,22 +3749,22 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;MatchNoteCheckBox.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="MatchTimeCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="MatchTimeCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 150</value>
+    <value>6, 141</value>
   </data>
   <data name="MatchTimeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 17</value>
+    <value>196, 17</value>
   </data>
   <data name="MatchTimeCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
   </data>
   <data name="MatchTimeCheckBox.Text" xml:space="preserve">
-    <value>Match selected time to current viewed note</value>
+    <value>Match Time Settings To Notes View</value>
   </data>
   <data name="&gt;&gt;MatchTimeCheckBox.Name" xml:space="preserve">
     <value>MatchTimeCheckBox</value>
@@ -2867,7 +3776,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;MatchTimeCheckBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="NotesMaskLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2897,7 +3806,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;NotesMaskLabel.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="NotesSizeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2927,7 +3836,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;NotesSizeLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="NotesPosLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2957,7 +3866,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;NotesPosLabel.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="NotesTypeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2987,7 +3896,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;NotesTypeLabel.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="NotesSubBeatLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3017,7 +3926,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;NotesSubBeatLabel.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="NotesBeatLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3047,7 +3956,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;NotesBeatLabel.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="label28.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3080,7 +3989,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;label28.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="label27.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3113,7 +4022,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;label27.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="label26.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3146,7 +4055,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;label26.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="label25.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3179,7 +4088,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="label24.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3212,7 +4121,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;label24.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="label23.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3245,7 +4154,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;label23.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="NextNoteButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -3272,7 +4181,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;NextNoteButton.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="PrevNoteButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -3299,7 +4208,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;PrevNoteButton.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <data name="DeleteNoteButton.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
@@ -3329,31 +4238,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;DeleteNoteButton.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="NotesViewBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>497, 516</value>
-  </data>
-  <data name="NotesViewBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 208</value>
-  </data>
-  <data name="NotesViewBox.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="NotesViewBox.Text" xml:space="preserve">
-    <value>Notes View</value>
-  </data>
-  <data name="&gt;&gt;NotesViewBox.Name" xml:space="preserve">
-    <value>NotesViewBox</value>
-  </data>
-  <data name="&gt;&gt;NotesViewBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;NotesViewBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;NotesViewBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>19</value>
   </data>
   <data name="MadeByLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3362,7 +4247,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>Javanese Text, 12pt, style=Bold</value>
   </data>
   <data name="MadeByLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>377, 355</value>
+    <value>23, 376</value>
   </data>
   <data name="MadeByLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>307, 36</value>
@@ -3383,13 +4268,112 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MadeByLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
-  <metadata name="openFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>216, 17</value>
   </metadata>
-  <metadata name="saveFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="openFileDialog1.Filter" xml:space="preserve">
+    <value>mer files (*.mer)|*.mer|All Files (*.*)|*.*</value>
+  </data>
+  <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>349, 17</value>
+  </metadata>
+  <data name="saveFileDialog1.Filter" xml:space="preserve">
+    <value>mer files (*.mer)|*.mer|All Files (*.*)|*.*</value>
+  </data>
+  <data name="&gt;&gt;SizeTrackBar.Name" xml:space="preserve">
+    <value>SizeTrackBar</value>
+  </data>
+  <data name="&gt;&gt;SizeTrackBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SizeTrackBar.Parent" xml:space="preserve">
+    <value>CurrentNoteBox</value>
+  </data>
+  <data name="&gt;&gt;SizeTrackBar.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;PosTrackBar.Name" xml:space="preserve">
+    <value>PosTrackBar</value>
+  </data>
+  <data name="&gt;&gt;PosTrackBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PosTrackBar.Parent" xml:space="preserve">
+    <value>CurrentNoteBox</value>
+  </data>
+  <data name="&gt;&gt;PosTrackBar.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="CurrentNoteBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 193</value>
+  </data>
+  <data name="CurrentNoteBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>333, 126</value>
+  </data>
+  <data name="CurrentNoteBox.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="CurrentNoteBox.Text" xml:space="preserve">
+    <value>Current Note Settings</value>
+  </data>
+  <data name="&gt;&gt;CurrentNoteBox.Name" xml:space="preserve">
+    <value>CurrentNoteBox</value>
+  </data>
+  <data name="&gt;&gt;CurrentNoteBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CurrentNoteBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;CurrentNoteBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="SizeTrackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>137, 45</value>
+  </data>
+  <data name="SizeTrackBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 45</value>
+  </data>
+  <data name="SizeTrackBar.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="&gt;&gt;SizeTrackBar.Name" xml:space="preserve">
+    <value>SizeTrackBar</value>
+  </data>
+  <data name="&gt;&gt;SizeTrackBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SizeTrackBar.Parent" xml:space="preserve">
+    <value>CurrentNoteBox</value>
+  </data>
+  <data name="&gt;&gt;SizeTrackBar.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="PosTrackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>138, 16</value>
+  </data>
+  <data name="PosTrackBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 45</value>
+  </data>
+  <data name="PosTrackBar.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="&gt;&gt;PosTrackBar.Name" xml:space="preserve">
+    <value>PosTrackBar</value>
+  </data>
+  <data name="&gt;&gt;PosTrackBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PosTrackBar.Parent" xml:space="preserve">
+    <value>CurrentNoteBox</value>
+  </data>
+  <data name="&gt;&gt;PosTrackBar.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="fileSystemWatcher1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>485, 17</value>
   </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -3402,6 +4386,342 @@ Notes that appear are from End 1 -&gt; End 2</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>981, 736</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>BAKKA Editor</value>
@@ -3454,17 +4774,23 @@ Notes that appear are from End 1 -&gt; End 2</value>
   <data name="&gt;&gt;ToolTip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;openFileDialog.Name" xml:space="preserve">
-    <value>openFileDialog</value>
+  <data name="&gt;&gt;openFileDialog1.Name" xml:space="preserve">
+    <value>openFileDialog1</value>
   </data>
-  <data name="&gt;&gt;openFileDialog.Type" xml:space="preserve">
+  <data name="&gt;&gt;openFileDialog1.Type" xml:space="preserve">
     <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;saveFileDialog.Name" xml:space="preserve">
-    <value>saveFileDialog</value>
+  <data name="&gt;&gt;saveFileDialog1.Name" xml:space="preserve">
+    <value>saveFileDialog1</value>
   </data>
-  <data name="&gt;&gt;saveFileDialog.Type" xml:space="preserve">
+  <data name="&gt;&gt;saveFileDialog1.Type" xml:space="preserve">
     <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fileSystemWatcher1.Name" xml:space="preserve">
+    <value>fileSystemWatcher1</value>
+  </data>
+  <data name="&gt;&gt;fileSystemWatcher1.Type" xml:space="preserve">
+    <value>System.IO.FileSystemWatcher, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MyForm</value>

@@ -13,6 +13,8 @@
 using std::to_string;
 
 Chart theChart;
+std::string fileContent = "";
+std::string filePath = "";
 int SelectedLineType = 1;
 int SelectedNoteType = 1;
 int SelectedNoteTypeVisual = 1;
@@ -22,6 +24,8 @@ std::list<NotesNode>::iterator holdNoteitr = theChart.Notes.end();
 std::map<float, std::list<std::pair<int, int>>> mapOfMasks;
 std::map<float, std::list<NotesNode>> mapOfNotes;
 bool alreadyRefreshed = false;
+bool noteRefresh = false;
+bool subnum1changed = false;
 
 int findLine(std::list<NotesNode>::iterator nextNode) {
 	int outputLine = 0;
@@ -34,11 +38,53 @@ int findLine(std::list<NotesNode>::iterator nextNode) {
 
 	return outputLine;
 }
-
+bool isHold(int note) {
+	switch (note) {
+	case 1:
+		return false;
+	case 2:
+		return false;
+	case 3:
+		return false;
+	case 4:
+		return false;
+	case 5:
+		return false;
+	case 6:
+		return false;
+	case 7:
+		return false;
+	case 8:
+		return false;
+	case 9:
+		return true;
+	case 10:
+		return true;
+	case 11:
+		return true;
+	case 16:
+		return false;
+	case 20:
+		return false;
+	case 21:
+		return false;
+	case 22:
+		return false;
+	case 23:
+		return false;
+	case 24:
+		return false;
+	case 25:
+		return true;
+	}
+	return false;
+}
 bool sortNotesListByBeat(const NotesNode& lhs, const NotesNode& rhs) {
 	if (lhs.beat < rhs.beat)
 		return true;
 	else if ((lhs.beat == rhs.beat) && (lhs.subBeat < rhs.subBeat))
+		return true;
+	else if ((lhs.beat == rhs.beat) && (lhs.subBeat == rhs.subBeat))
 		return true;
 	else
 		return false;
@@ -54,10 +100,10 @@ bool compareInterval(const std::pair<int, int>& lhs, const std::pair<int, int>& 
 {
 	return (lhs.first < rhs.first);
 }
-int findGCD(int a, int b) {
+float findGCD(float a, float b) {
 	if (b == 0)
 		return a;
-	return findGCD(b, a % b);
+	return findGCD(b, (int)a % (int)b);
 }
 
 namespace BAKKAEditor {
@@ -68,6 +114,7 @@ namespace BAKKAEditor {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO;
 
 	/// <summary>
 	/// Summary for MyForm
@@ -134,7 +181,7 @@ namespace BAKKAEditor {
 	private: System::Windows::Forms::Label^ SizeInfo;
 	private: System::Windows::Forms::Label^ SizeLabel;
 	private: System::Windows::Forms::NumericUpDown^ PosNum;
-	private: System::Windows::Forms::Panel^ NoteSizeBox;
+
 
 
 	private: System::Windows::Forms::GroupBox^ GimmickBox;
@@ -150,7 +197,7 @@ namespace BAKKAEditor {
 	private: System::Windows::Forms::NumericUpDown^ SubBeat2Num;
 	private: System::Windows::Forms::NumericUpDown^ SubBeat1Num;
 	private: System::Windows::Forms::NumericUpDown^ BeatNum;
-	private: System::Windows::Forms::Label^ label2;
+
 	private: System::Windows::Forms::Label^ Beat;
 	private: System::Windows::Forms::GroupBox^ GimmickSettingsBox;
 	private: System::Windows::Forms::NumericUpDown^ HiSpeedChangeNum;
@@ -233,13 +280,20 @@ private: System::Windows::Forms::Label^ NotesBeatLabel;
 private: System::Windows::Forms::Label^ MadeByLabel;
 private: System::Windows::Forms::TextBox^ songFileNameTextBox;
 private: System::Windows::Forms::Label^ label29;
-private: System::Windows::Forms::OpenFileDialog^ openFileDialog;
-private: System::Windows::Forms::SaveFileDialog^ saveFileDialog;
+private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
+private: System::Windows::Forms::SaveFileDialog^ saveFileDialog1;
+
+
 private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 private: System::Windows::Forms::CheckBox^ MatchTimeCheckBox;
 private: System::Windows::Forms::CheckBox^ MatchNoteCheckBox;
 private: System::Windows::Forms::Button^ PrevBeatButton;
 private: System::Windows::Forms::Button^ NextBeatButton;
+private: System::Windows::Forms::Button^ EditNoteButton;
+private: System::Windows::Forms::GroupBox^ CurrentNoteBox;
+private: System::Windows::Forms::TrackBar^ SizeTrackBar;
+private: System::Windows::Forms::TrackBar^ PosTrackBar;
+private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 
 
 
@@ -323,12 +377,10 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			this->SizeInfo = (gcnew System::Windows::Forms::Label());
 			this->SizeLabel = (gcnew System::Windows::Forms::Label());
 			this->PosNum = (gcnew System::Windows::Forms::NumericUpDown());
-			this->NoteSizeBox = (gcnew System::Windows::Forms::Panel());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->SubBeat2Num = (gcnew System::Windows::Forms::NumericUpDown());
 			this->SubBeat1Num = (gcnew System::Windows::Forms::NumericUpDown());
 			this->BeatNum = (gcnew System::Windows::Forms::NumericUpDown());
-			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->Beat = (gcnew System::Windows::Forms::Label());
 			this->GimmickBox = (gcnew System::Windows::Forms::GroupBox());
 			this->RemoveMask = (gcnew System::Windows::Forms::RadioButton());
@@ -390,6 +442,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			this->PrevGimmickButton = (gcnew System::Windows::Forms::Button());
 			this->DeleteGimmickButton = (gcnew System::Windows::Forms::Button());
 			this->NotesViewBox = (gcnew System::Windows::Forms::GroupBox());
+			this->EditNoteButton = (gcnew System::Windows::Forms::Button());
 			this->PrevBeatButton = (gcnew System::Windows::Forms::Button());
 			this->NextBeatButton = (gcnew System::Windows::Forms::Button());
 			this->MatchNoteCheckBox = (gcnew System::Windows::Forms::CheckBox());
@@ -410,13 +463,16 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			this->PrevNoteButton = (gcnew System::Windows::Forms::Button());
 			this->DeleteNoteButton = (gcnew System::Windows::Forms::Button());
 			this->MadeByLabel = (gcnew System::Windows::Forms::Label());
-			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
-			this->saveFileDialog = (gcnew System::Windows::Forms::SaveFileDialog());
+			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
+			this->CurrentNoteBox = (gcnew System::Windows::Forms::GroupBox());
+			this->SizeTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->PosTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->fileSystemWatcher1 = (gcnew System::IO::FileSystemWatcher());
 			this->menuStrip->SuspendLayout();
 			this->NoteTypeBox->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeNum))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosNum))->BeginInit();
-			this->NoteSizeBox->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat2Num))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat1Num))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BeatNum))->BeginInit();
@@ -444,6 +500,10 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			this->MaskSettingsBox->SuspendLayout();
 			this->PreChartViewBox->SuspendLayout();
 			this->NotesViewBox->SuspendLayout();
+			this->CurrentNoteBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fileSystemWatcher1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menuStrip
@@ -492,6 +552,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			// 
 			this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
 			resources->ApplyResources(this->exitToolStripMenuItem, L"exitToolStripMenuItem");
+			this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::exitToolStripMenuItem_Click);
 			// 
 			// aboutToolStripMenuItem
 			// 
@@ -705,23 +766,6 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			this->PosNum->Name = L"PosNum";
 			this->PosNum->ValueChanged += gcnew System::EventHandler(this, &MyForm::PosNum_ValueChanged);
 			// 
-			// NoteSizeBox
-			// 
-			this->NoteSizeBox->Controls->Add(this->label1);
-			this->NoteSizeBox->Controls->Add(this->SubBeat2Num);
-			this->NoteSizeBox->Controls->Add(this->SubBeat1Num);
-			this->NoteSizeBox->Controls->Add(this->BeatNum);
-			this->NoteSizeBox->Controls->Add(this->label2);
-			this->NoteSizeBox->Controls->Add(this->PosNum);
-			this->NoteSizeBox->Controls->Add(this->Beat);
-			this->NoteSizeBox->Controls->Add(this->SizeLabel);
-			this->NoteSizeBox->Controls->Add(this->SizeInfo);
-			this->NoteSizeBox->Controls->Add(this->PosLabel);
-			this->NoteSizeBox->Controls->Add(this->posInfo);
-			this->NoteSizeBox->Controls->Add(this->SizeNum);
-			resources->ApplyResources(this->NoteSizeBox, L"NoteSizeBox");
-			this->NoteSizeBox->Name = L"NoteSizeBox";
-			// 
 			// label1
 			// 
 			resources->ApplyResources(this->label1, L"label1");
@@ -730,7 +774,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			// SubBeat2Num
 			// 
 			resources->ApplyResources(this->SubBeat2Num, L"SubBeat2Num");
-			this->SubBeat2Num->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
+			this->SubBeat2Num->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1920, 0, 0, 0 });
 			this->SubBeat2Num->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->SubBeat2Num->Name = L"SubBeat2Num";
 			this->SubBeat2Num->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 16, 0, 0, 0 });
@@ -739,7 +783,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			// SubBeat1Num
 			// 
 			resources->ApplyResources(this->SubBeat1Num, L"SubBeat1Num");
-			this->SubBeat1Num->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
+			this->SubBeat1Num->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1919, 0, 0, 0 });
 			this->SubBeat1Num->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
 			this->SubBeat1Num->Name = L"SubBeat1Num";
 			this->SubBeat1Num->ValueChanged += gcnew System::EventHandler(this, &MyForm::SubBeat1Num_ValueChanged);
@@ -750,11 +794,6 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			this->BeatNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
 			this->BeatNum->Name = L"BeatNum";
 			this->BeatNum->ValueChanged += gcnew System::EventHandler(this, &MyForm::BeatNum_ValueChanged);
-			// 
-			// label2
-			// 
-			resources->ApplyResources(this->label2, L"label2");
-			this->label2->Name = L"label2";
 			// 
 			// Beat
 			// 
@@ -972,7 +1011,6 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			// 
 			// InitialSettingsPane
 			// 
-			resources->ApplyResources(this->InitialSettingsPane, L"InitialSettingsPane");
 			this->InitialSettingsPane->Controls->Add(this->songFileNameTextBox);
 			this->InitialSettingsPane->Controls->Add(this->label29);
 			this->InitialSettingsPane->Controls->Add(this->InitialSetSave);
@@ -986,6 +1024,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			this->InitialSettingsPane->Controls->Add(this->label14);
 			this->InitialSettingsPane->Controls->Add(this->InitialBPMNum);
 			this->InitialSettingsPane->Controls->Add(this->label13);
+			resources->ApplyResources(this->InitialSettingsPane, L"InitialSettingsPane");
 			this->InitialSettingsPane->Name = L"InitialSettingsPane";
 			this->InitialSettingsPane->TabStop = false;
 			// 
@@ -1193,6 +1232,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			// NotesViewBox
 			// 
 			resources->ApplyResources(this->NotesViewBox, L"NotesViewBox");
+			this->NotesViewBox->Controls->Add(this->EditNoteButton);
 			this->NotesViewBox->Controls->Add(this->PrevBeatButton);
 			this->NotesViewBox->Controls->Add(this->NextBeatButton);
 			this->NotesViewBox->Controls->Add(this->MatchNoteCheckBox);
@@ -1214,6 +1254,13 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			this->NotesViewBox->Controls->Add(this->DeleteNoteButton);
 			this->NotesViewBox->Name = L"NotesViewBox";
 			this->NotesViewBox->TabStop = false;
+			// 
+			// EditNoteButton
+			// 
+			resources->ApplyResources(this->EditNoteButton, L"EditNoteButton");
+			this->EditNoteButton->Name = L"EditNoteButton";
+			this->EditNoteButton->UseVisualStyleBackColor = true;
+			this->EditNoteButton->Click += gcnew System::EventHandler(this, &MyForm::EditNoteButton_Click);
 			// 
 			// PrevBeatButton
 			// 
@@ -1242,6 +1289,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			resources->ApplyResources(this->MatchTimeCheckBox, L"MatchTimeCheckBox");
 			this->MatchTimeCheckBox->Name = L"MatchTimeCheckBox";
 			this->MatchTimeCheckBox->UseVisualStyleBackColor = true;
+			this->MatchTimeCheckBox->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MatchTimeCheckBox_CheckedChanged);
 			// 
 			// NotesMaskLabel
 			// 
@@ -1329,20 +1377,68 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			resources->ApplyResources(this->MadeByLabel, L"MadeByLabel");
 			this->MadeByLabel->Name = L"MadeByLabel";
 			// 
-			// openFileDialog
+			// openFileDialog1
 			// 
-			this->openFileDialog->FileName = L"openFileDialog";
-			this->openFileDialog->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::openFileDialog_FileOk);
+			this->openFileDialog1->FileName = L"chart.mer";
+			resources->ApplyResources(this->openFileDialog1, L"openFileDialog1");
+			this->openFileDialog1->RestoreDirectory = true;
+			this->openFileDialog1->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::openFileDialog_FileOk);
 			// 
-			// saveFileDialog
+			// saveFileDialog1
 			// 
-			this->saveFileDialog->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::saveFileDialog_FileOk);
+			this->saveFileDialog1->DefaultExt = L"mer";
+			resources->ApplyResources(this->saveFileDialog1, L"saveFileDialog1");
+			this->saveFileDialog1->RestoreDirectory = true;
+			this->saveFileDialog1->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::saveFileDialog_FileOk);
+			// 
+			// CurrentNoteBox
+			// 
+			this->CurrentNoteBox->Controls->Add(this->SizeTrackBar);
+			this->CurrentNoteBox->Controls->Add(this->PosTrackBar);
+			this->CurrentNoteBox->Controls->Add(this->SizeInfo);
+			this->CurrentNoteBox->Controls->Add(this->SubBeat2Num);
+			this->CurrentNoteBox->Controls->Add(this->posInfo);
+			this->CurrentNoteBox->Controls->Add(this->label1);
+			this->CurrentNoteBox->Controls->Add(this->PosLabel);
+			this->CurrentNoteBox->Controls->Add(this->Beat);
+			this->CurrentNoteBox->Controls->Add(this->SubBeat1Num);
+			this->CurrentNoteBox->Controls->Add(this->BeatNum);
+			this->CurrentNoteBox->Controls->Add(this->SizeLabel);
+			this->CurrentNoteBox->Controls->Add(this->PosNum);
+			this->CurrentNoteBox->Controls->Add(this->SizeNum);
+			resources->ApplyResources(this->CurrentNoteBox, L"CurrentNoteBox");
+			this->CurrentNoteBox->Name = L"CurrentNoteBox";
+			this->CurrentNoteBox->TabStop = false;
+			// 
+			// SizeTrackBar
+			// 
+			resources->ApplyResources(this->SizeTrackBar, L"SizeTrackBar");
+			this->SizeTrackBar->Maximum = 60;
+			this->SizeTrackBar->Minimum = 1;
+			this->SizeTrackBar->Name = L"SizeTrackBar";
+			this->SizeTrackBar->TickStyle = System::Windows::Forms::TickStyle::None;
+			this->SizeTrackBar->Value = 1;
+			this->SizeTrackBar->ValueChanged += gcnew System::EventHandler(this, &MyForm::SizeTrackBar_ValueChanged);
+			// 
+			// PosTrackBar
+			// 
+			resources->ApplyResources(this->PosTrackBar, L"PosTrackBar");
+			this->PosTrackBar->Maximum = 59;
+			this->PosTrackBar->Name = L"PosTrackBar";
+			this->PosTrackBar->TickStyle = System::Windows::Forms::TickStyle::None;
+			this->PosTrackBar->ValueChanged += gcnew System::EventHandler(this, &MyForm::PosTrackBar_ValueChanged);
+			// 
+			// fileSystemWatcher1
+			// 
+			this->fileSystemWatcher1->EnableRaisingEvents = true;
+			this->fileSystemWatcher1->SynchronizingObject = this;
 			// 
 			// MyForm
 			// 
 			this->AllowDrop = true;
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->Controls->Add(this->CurrentNoteBox);
 			this->Controls->Add(this->MadeByLabel);
 			this->Controls->Add(this->NotesViewBox);
 			this->Controls->Add(this->PreChartViewBox);
@@ -1352,7 +1448,6 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			this->Controls->Add(this->InitialSettingsPane);
 			this->Controls->Add(this->GimmickSettingsBox);
 			this->Controls->Add(this->GimmickBox);
-			this->Controls->Add(this->NoteSizeBox);
 			this->Controls->Add(this->InsertButton);
 			this->Controls->Add(this->NoteTypeBox);
 			this->Controls->Add(this->menuStrip);
@@ -1366,8 +1461,6 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			this->NoteTypeBox->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeNum))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosNum))->EndInit();
-			this->NoteSizeBox->ResumeLayout(false);
-			this->NoteSizeBox->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat2Num))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat1Num))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BeatNum))->EndInit();
@@ -1401,11 +1494,24 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			this->PreChartViewBox->PerformLayout();
 			this->NotesViewBox->ResumeLayout(false);
 			this->NotesViewBox->PerformLayout();
+			this->CurrentNoteBox->ResumeLayout(false);
+			this->CurrentNoteBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fileSystemWatcher1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
+	void RefreshPaint() {
+		if (!alreadyRefreshed && !noteRefresh) {
+			Refresh();
+		}
+		else {
+			alreadyRefreshed = false;
+		}
+	}
 	System::String^ stdStringToSystemString(std::string input) {
 		return gcnew String(input.data());
 	}
@@ -1566,7 +1672,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 	void refreshMapofNotes() {
 		mapOfNotes.clear();
 		for (std::list<NotesNode>::iterator viewMasksITR = theChart.Notes.begin(); viewMasksITR != theChart.Notes.end(); viewMasksITR++) {
-			float currentTime = (float)viewMasksITR->beat + ((float)viewMasksITR->subBeat / 1920);
+			float currentTime = (float)viewMasksITR->beat + ((float)viewMasksITR->subBeat / (float)1920.0);
 			if (viewMasksITR->noteType != 12 || viewMasksITR->noteType != 13) {
 				NotesNode tempnode;
 				tempnode.noteType = viewMasksITR->noteType;
@@ -1629,6 +1735,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 		}
 	}
 	std::string refreshCurrentNoteLabel(int currentNoteType) {
+		//CurrentObjectText->ForeColor = returnColor(currentNoteType);
 		switch (currentNoteType) {
 		case 1:
 			return "Touch (No Bonus)";
@@ -1747,16 +1854,11 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 		if (!theChart.Notes.empty()) {
 			NotesBeatLabel->Text = ((viewNotesITR)->beat).ToString();
 
-			int num1 = (viewNotesITR)->subBeat;
-			int num2 = 1920;
+			float num1 = (viewNotesITR)->subBeat;
+			float num2 = 1920;
 			std::string subBeatString = subBeatValueDisplay(num1, num2);
 			NotesSubBeatLabel->Text = stdStringToSystemString(subBeatString);
 
-			if (MatchTimeCheckBox->Checked) {
-				BeatNum->Value = viewNotesITR->beat;
-				SubBeat1Num->Value = subBeatValue1(num1, num2);
-				SubBeat2Num->Value = subBeatValue2(num1, num2);
-			}
 			if (MatchNoteCheckBox->Checked) {
 				PosNum->Value = viewNotesITR->position;
 				SizeNum->Value = viewNotesITR->size;
@@ -1766,6 +1868,14 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 					SelectedNoteType = viewNotesITR->noteType;
 					CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 				}
+			}
+			if (MatchTimeCheckBox->Checked) {
+				noteRefresh = true;
+				BeatNum->Value = viewNotesITR->beat;
+				SubBeat2Num->Value = (int)subBeatValue2(num1, num2); //change 2 first so that 1 doesnt become larger and make it round up to the next beat
+				SubBeat1Num->Value = (int)subBeatValue1(num1, num2);
+				noteRefresh = false;
+				RefreshPaint();
 			}
 
 			NotesPosLabel->Text = stdStringToSystemString(to_string((viewNotesITR)->position));
@@ -1809,11 +1919,11 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			NotesMaskLabel->Text = "N/A";
 		}
 	}
-	std::string subBeatValueDisplay(int num1, int num2) {
-		int denom = findGCD(num1, num2);
+	std::string subBeatValueDisplay(float num1, float num2) {
+		float denom = findGCD(num1, num2);
 		num1 /= denom;
 		num2 /= denom;
-		switch (num2) {
+		switch ((int)num2) {
 		case 0:
 			num1 *= 16;
 			num2 = 16;
@@ -1844,91 +1954,81 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			break;
 		}
 
-		return to_string(num1) + "/" + to_string(num2);
+		return to_string((int)num1) + "/" + to_string((int)num2);
 	}
-	int subBeatValue1(int num1, int num2) {
-		int denom = findGCD(num1, num2);
+	float subBeatValue1(float num1, float num2) {
+		float denom = findGCD(num1, num2);
 		num1 /= denom;
 		num2 /= denom;
-		switch (num2) {
+		switch ((int)num2) {
 		case 0:
 			num1 *= 16;
-			num2 = 16;
 			break;
 		case 1:
 			num1 *= 16;
-			num2 = 16;
 			break;
 		case 2:
 			num1 *= 8;
-			num2 = 16;
 			break;
 		case 3:
 			num1 *= 4;
-			num2 = 12;
 			break;
 		case 4:
 			num1 *= 4;
-			num2 = 16;
 			break;
 		case 6:
 			num1 *= 2;
-			num2 = 12;
 			break;
 		case 8:
 			num1 *= 2;
-			num2 = 16;
 			break;
 		}
 
 		return num1;
 	}
-	int subBeatValue2(int num1, int num2) {
-		int denom = findGCD(num1, num2);
+	float subBeatValue2(float num1, float num2) {
+		float denom = findGCD(num1, num2);
 		num1 /= denom;
 		num2 /= denom;
-		switch (num2) {
+		switch ((int)num2) {
 		case 0:
-			num1 *= 16;
-			num2 = 16;
-			break;
+			return 16;
 		case 1:
-			num1 *= 16;
-			num2 = 16;
-			break;
+			return 16;
 		case 2:
-			num1 *= 8;
-			num2 = 16;
-			break;
+			return 16;
 		case 3:
-			num1 *= 4;
-			num2 = 12;
-			break;
+			return 12;
 		case 4:
-			num1 *= 4;
-			num2 = 16;
-			break;
+			return 16;
 		case 6:
-			num1 *= 2;
-			num2 = 12;
-			break;
+			return 12;
 		case 8:
-			num1 *= 2;
-			num2 = 16;
-			break;
+			return 16;
 		}
-
 		return num2;
 	}
 	private: System::Void newToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-
+		theChart.offset = 0.000000;
+		theChart.movieOffset = 0.000000;
+		theChart.Notes.clear();
+		theChart.PreChart.clear();
+		refreshGimmickView();
+		refreshMapofMasks();
+		refreshMapofNotes();
+		refreshNotesView();
+		RefreshPaint();
 	}
-	private: System::Void saveToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void exitToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		exit(0);
+	}
+	void saveFile() {
 		theChart.PreChart.sort(sortPreChartListByBeat);
 		theChart.Notes.sort(sortNotesListByBeat);
-		
+
 		std::ofstream chartFile;
-		chartFile.open("chart.mer");
+		chartFile.open(filePath);
+
 
 		chartFile << std::fixed << std::setprecision(6)
 			<< "#MUSIC_SCORE_ID 0\n"
@@ -1940,16 +2040,16 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			<< "#BODY\n";
 
 		for (std::list<PreChartNode>::iterator itr = theChart.PreChart.begin(); itr != theChart.PreChart.end(); itr++) {
-			chartFile << std::right << std::fixed << std::setw(4) << (itr)->beat 
-					  << std::right << std::fixed << std::setw(5) << (itr)->subBeat
-					  << std::right << std::fixed << std::setw(5) << (itr)->type;
+			chartFile << std::right << std::fixed << std::setw(4) << (itr)->beat
+				<< std::right << std::fixed << std::setw(5) << (itr)->subBeat
+				<< std::right << std::fixed << std::setw(5) << (itr)->type;
 			switch ((itr)->type) {
 			case 2:
 				chartFile << " " << std::right << std::fixed << std::setw(5) << (itr)->BPM;
 				break;
 			case 3:
 				chartFile << std::right << std::fixed << std::setw(5) << (itr)->beatDiv1
-						  << std::right << std::fixed << std::setw(5) << (itr)->beatDiv2;
+					<< std::right << std::fixed << std::setw(5) << (itr)->beatDiv2;
 				break;
 			case 5:
 				chartFile << " " << std::right << std::fixed << std::setw(5) << (itr)->hiSpeed;
@@ -1963,13 +2063,13 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 		int line = 0;
 		for (std::list<NotesNode>::iterator itr = theChart.Notes.begin(); itr != theChart.Notes.end(); itr++) {
 			chartFile << std::right << std::fixed << std::setw(4) << (itr)->beat
-					  << std::right << std::fixed << std::setw(5) << (itr)->subBeat
-					  << std::right << std::fixed << std::setw(5) << 1
-					  << std::right << std::fixed << std::setw(5) << (itr)->noteType
-					  << std::right << std::fixed << std::setw(5) << line
-					  << std::right << std::fixed << std::setw(5) << (itr)->position
-					  << std::right << std::fixed << std::setw(5) << (itr)->size
-					  << std::right << std::fixed << std::setw(5) << (itr)->holdChange;
+				<< std::right << std::fixed << std::setw(5) << (itr)->subBeat
+				<< std::right << std::fixed << std::setw(5) << 1
+				<< std::right << std::fixed << std::setw(5) << (itr)->noteType
+				<< std::right << std::fixed << std::setw(5) << line
+				<< std::right << std::fixed << std::setw(5) << (itr)->position
+				<< std::right << std::fixed << std::setw(5) << (itr)->size
+				<< std::right << std::fixed << std::setw(5) << (itr)->holdChange;
 			switch ((itr)->noteType) {
 			case 9:
 				chartFile << std::right << std::fixed << std::setw(5) << findLine((itr)->nextNode);
@@ -1995,6 +2095,22 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 
 		chartFile.close();
 	}
+	private: System::Void saveToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (filePath != "") {
+			saveFile();
+		}
+		else {
+			saveAsToolStripMenuItem_Click(sender, e);
+		}
+	}
+	private: System::Void saveAsToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+			filePath = SystemStringTostdString(saveFileDialog1->FileName);
+		}
+		if (filePath != "") {
+			saveFile();
+		}
+	}
 	private: System::Void openToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 		theChart.offset = 0.000000;
 		theChart.movieOffset = 0.000000;
@@ -2002,7 +2118,12 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 		theChart.PreChart.clear();
 
 		std::ifstream chartFile;
-		chartFile.open("chart.mer");
+		if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+			filePath = SystemStringTostdString(openFileDialog1->FileName);
+		}
+		if (filePath != "") {
+			chartFile.open(filePath);
+		}
 
 		std::string temp;
 		while (!chartFile.eof()) {
@@ -2123,9 +2244,6 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 		refreshNotesView();
 		refreshMapofMasks();
 		refreshMapofNotes();
-	}
-	private: System::Void saveAsToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-		saveToolStripMenuItem_Click(sender, e);
 	}
 	private: System::Void InsertButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		NotesNode tempNotesNode;
@@ -2347,7 +2465,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			SelectedNoteTypeVisual = SelectedNoteType;
 		}
 		SelectedLineType = 1;
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void OrangeButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -2364,7 +2482,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void GreenButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -2381,7 +2499,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void RedButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -2395,7 +2513,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void BlueButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -2409,7 +2527,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void YellowButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -2418,7 +2536,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void EndChartButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -2427,7 +2545,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void HoldButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -2441,7 +2559,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void Mask_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
@@ -2455,49 +2573,49 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void BPMChange_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
 			CurrentObjectText->Text = "BPM Change";
 			SelectedLineType = 2;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void TimeSignature_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
 			CurrentObjectText->Text = "Time Signature Change";
 			SelectedLineType = 3;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void Hispeed_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
 			CurrentObjectText->Text = "Hi-Speed Change";
 			SelectedLineType = 5;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void Stop_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
 			CurrentObjectText->Text = "Stop";
 			SelectedLineType = 9;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void Reverse_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
 			CurrentObjectText->Text = "Reverse";
 			SelectedLineType = 6;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void EndHoldBox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType == 10) {
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void NoBonusRadioButton_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedLineType == 1) {
@@ -2653,7 +2771,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void RemoveMask_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedLineType == 1) {
@@ -2665,7 +2783,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void MaskClockwise_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedLineType == 1) {
@@ -2684,6 +2802,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 	}
 	private: System::Void SubBeat1Num_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SubBeat1Num->Value >= SubBeat2Num->Value) {
+			alreadyRefreshed = true;
 			SubBeat1Num->Value = 0;
 			alreadyRefreshed = true;
 			BeatNum->Value++;
@@ -2691,15 +2810,17 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 		if (SubBeat1Num->Value < 0) {
 			if (BeatNum->Value > 0) {
 				int temp = (int)SubBeat2Num->Value - 1;
+				alreadyRefreshed = true;
 				SubBeat1Num->Value = (System::Decimal)temp;
 				alreadyRefreshed = true;
 				BeatNum->Value--;
 			}
 			else {
+				alreadyRefreshed = true;
 				SubBeat1Num->Value = 0;
 			}
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void ReverseEnd1SBNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (ReverseEnd1SBNum1->Value >= ReverseEnd1SBNum2->Value) {
@@ -2794,7 +2915,6 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			}
 			refreshNotesView();
 		}
-		Refresh();
 	}
 	private: System::Void NextNoteButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (!theChart.Notes.empty()) {
@@ -2804,7 +2924,6 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			}
 			refreshNotesView();
 		}
-		Refresh();
 	}
 	private: System::Void DeleteNoteButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (!theChart.Notes.empty()) {
@@ -2857,7 +2976,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			refreshNotesView();
 			refreshMapofNotes();
 		}
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void openFileDialog_FileOk(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) {
 	}
@@ -2909,6 +3028,11 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 		int xPos = InitialSettingsPane->Left;
 		int yPos = InitialSettingsPane->Bottom + 6;
 		int sizeOfRect = InitialSettingsPane->Width;
+		Point noteViewPos = NotesViewBox->Location;
+		Point InitSetBoxPos = InitialSettingsPane->Location;
+		if (noteViewPos.Y < (sizeOfRect + InitSetBoxPos.Y + InitialSettingsPane->Height)) {
+			sizeOfRect = noteViewPos.Y - InitialSettingsPane->Height - InitSetBoxPos.Y - 6;
+		}
 		float widthOfNotePen = 5;
 
 		System::Drawing::Point location(xPos, yPos);
@@ -2927,7 +3051,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 		//Draw pre-existing mask
 		float currentTime = (float)BeatNum->Value + ((float)SubBeat1Num->Value / (float)SubBeat2Num->Value);
 		std::map<float, std::list<std::pair<int, int>>>::iterator mapitr = mapOfMasks.lower_bound(currentTime);
-		if (mapOfMasks.find(currentTime) == mapOfMasks.end()) {
+		if (mapOfMasks.find(currentTime) == mapOfMasks.end() && Rect.Width >= 1) {
 			if (mapitr != mapOfMasks.end()) {
 				if (mapitr != mapOfMasks.begin()) {
 					mapitr--;
@@ -2953,10 +3077,12 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			}
 		}
 		else {
-			for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
-				maskStartAngle = -((float)listITR->first * 6);
-				maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
-				g->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+			if (Rect.Width >= 1) {
+				for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
+					maskStartAngle = -((float)listITR->first * 6);
+					maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
+					g->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+				}
 			}
 		}
 
@@ -2965,7 +3091,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 		float arcLength = -((float)SizeNum->Value * 6);
 
 		//Draw selected mask
-		if (SelectedLineType == 1) {
+		if (SelectedLineType == 1 && Rect.Width >= 1) {
 			if (SelectedNoteTypeVisual == 12) {
 				g->FillPie(Brushes::Silver, Rect, startAngle, arcLength);
 			}
@@ -3004,7 +3130,7 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			g->DrawLine(CircleLinesPen, coordPointStart, coordPointEnd);
 		}
 
-		//Draw future notes
+		//future stuff
 		float futStartAngle;
 		float futArcLength;
 		float xPosFut;
@@ -3012,27 +3138,30 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 		float sizeOfRectFut;
 		float circleRadiusFut;
 		float totalTimeShowNotes = 0.5;
+		//Draw future holds
 		for (std::map<float, std::list<NotesNode>>::iterator notemapitr = mapOfNotes.lower_bound(currentTime); notemapitr != mapOfNotes.end(); notemapitr++) {
 			float timeAtITR = notemapitr->first;
 			if (timeAtITR <= (currentTime + totalTimeShowNotes)) {
 				for (std::list<NotesNode>::iterator listofNotesitr = notemapitr->second.begin(); listofNotesitr != notemapitr->second.end(); listofNotesitr++) {
-					//Future note values
-					futStartAngle = -((float)listofNotesitr->position * 6);
-					futArcLength = -((float)listofNotesitr->size * 6);
-					CircleNotePen->Color = returnColor(listofNotesitr->noteType);
-					//modify rectangle to scale with how long until the note appears
-					float NoteScale = 1 - ((timeAtITR - currentTime) * (1 / totalTimeShowNotes)); //0-1 = 0-100%
-					sizeOfRectFut = sizeOfRect * NoteScale;
-					circleRadiusFut = (sizeOfRectFut / 2);
-					xPosFut = InitialSettingsPane->Left + (circleRadius - circleRadiusFut) + 1;
-					yPosFut = InitialSettingsPane->Bottom + 6 + (circleRadius - circleRadiusFut) + 1;
-					CircleNotePen->Width = widthOfNotePen * NoteScale;
+					if (isHold(listofNotesitr->noteType)) {
+						//Future hold values
+						futStartAngle = -((float)listofNotesitr->position * 6);
+						futArcLength = -((float)listofNotesitr->size * 6);
+						CircleNotePen->Color = returnColor(listofNotesitr->noteType);
+						//modify rectangle to scale with how long until the note appears
+						float NoteScale = 1 - ((timeAtITR - currentTime) * (1 / totalTimeShowNotes)); //0-1 = 0-100%
+						sizeOfRectFut = sizeOfRect * NoteScale;
+						circleRadiusFut = (sizeOfRectFut / 2);
+						xPosFut = InitialSettingsPane->Left + (circleRadius - circleRadiusFut) + 1;
+						yPosFut = InitialSettingsPane->Bottom + 6 + (circleRadius - circleRadiusFut) + 1;
+						CircleNotePen->Width = widthOfNotePen * NoteScale + 2;
 
-					System::Drawing::Point locationFut(xPosFut, yPosFut);
-					System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
-					System::Drawing::Rectangle RectFut(locationFut, sizeFut);
-					if (NoteScale > 0) {
-						g->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
+						System::Drawing::Point locationFut(xPosFut, yPosFut);
+						System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
+						System::Drawing::Rectangle RectFut(locationFut, sizeFut);
+						if (RectFut.Width >= 1) {
+							g->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
+						}
 					}
 				}
 			}
@@ -3042,32 +3171,64 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			}
 		}
 
+		//Draw future notes
+		for (std::map<float, std::list<NotesNode>>::iterator notemapitr = mapOfNotes.lower_bound(currentTime); notemapitr != mapOfNotes.end(); notemapitr++) {
+			float timeAtITR = notemapitr->first;
+			if (timeAtITR <= (currentTime + totalTimeShowNotes)) {
+				for (std::list<NotesNode>::iterator listofNotesitr = notemapitr->second.begin(); listofNotesitr != notemapitr->second.end(); listofNotesitr++) {
+					if (!isHold(listofNotesitr->noteType)) {
+						//Future note values
+						futStartAngle = -((float)listofNotesitr->position * 6);
+						futArcLength = -((float)listofNotesitr->size * 6);
+						CircleNotePen->Color = returnColor(listofNotesitr->noteType);
+						//modify rectangle to scale with how long until the note appears
+						float NoteScale = 1 - ((timeAtITR - currentTime) * (1 / totalTimeShowNotes)); //0-1 = 0-100%
+						sizeOfRectFut = sizeOfRect * NoteScale;
+						circleRadiusFut = (sizeOfRectFut / 2);
+						xPosFut = InitialSettingsPane->Left + (circleRadius - circleRadiusFut) + 1;
+						yPosFut = InitialSettingsPane->Bottom + 6 + (circleRadius - circleRadiusFut) + 1;
+						CircleNotePen->Width = widthOfNotePen * NoteScale;
+
+						System::Drawing::Point locationFut(xPosFut, yPosFut);
+						System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
+						System::Drawing::Rectangle RectFut(locationFut, sizeFut);
+						if (RectFut.Width >= 1) {
+							g->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
+						}
+					}
+				}
+			}
+			else {
+				notemapitr = mapOfNotes.end();
+				notemapitr--;
+			}
+		}
+
+
 		//Draw selected note
-		if (SelectedLineType == 1) {
+		if (SelectedLineType == 1 && Rect.Width >= 1) {
 			CircleNotePen->Color = returnColor(SelectedNoteTypeVisual);
 			CircleNotePen->Width = 4;
 			g->DrawArc(CircleNotePen, Rect, startAngle, arcLength);
 		}
 	}
 	private: System::Void PosNum_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void SizeNum_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-		Refresh();
+		RefreshPaint();
 	}
 	private: System::Void MyForm_Resize(System::Object^ sender, System::EventArgs^ e) {
-		Refresh();
+		InitialSettingsPane->Width = (this->Width - NoteTypeBox->Width - 36);
+		Point position(NoteTypeBox->Width + 12, 27);
+		InitialSettingsPane->Location = position;
+		RefreshPaint();
 	}
 	private: System::Void BeatNum_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (!alreadyRefreshed) {
-			Refresh();
-		}
-		else {
-			alreadyRefreshed = false;
-		}
+		RefreshPaint();
 	}
 	private: System::Void MatchNoteCheckBox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-	refreshNotesView();
+		refreshNotesView();
 	}
 	private: System::Void NextBeatButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (!theChart.Notes.empty()) {
@@ -3081,7 +3242,6 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			}
 			refreshNotesView();
 		}
-		Refresh();
 	}
 	private: System::Void PrevBeatButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (!theChart.Notes.empty()) {
@@ -3098,10 +3258,30 @@ private: System::Windows::Forms::Button^ NextBeatButton;
 			}
 			refreshNotesView();
 		}
-		Refresh();
 	}
 	private: System::Void SubBeat2Num_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-		Refresh();
+		RefreshPaint();
+	}
+
+	private: System::Void MatchTimeCheckBox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+		refreshNotesView();
+	}
+	private: System::Void EditNoteButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (!isHold(SelectedNoteType)) {
+			viewNotesITR->beat = (int)BeatNum->Value;
+			viewNotesITR->subBeat = ((1920 / (int)SubBeat2Num->Value) * (int)SubBeat1Num->Value);
+			viewNotesITR->noteType = SelectedNoteType;
+			viewNotesITR->position = (int)PosNum->Value;
+			viewNotesITR->size = (int)SizeNum->Value;
+			refreshNotesView();
+			refreshMapofNotes();
+		}
+	}
+	private: System::Void SizeTrackBar_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		SizeNum->Value = SizeTrackBar->Value;
+	}
+	private: System::Void PosTrackBar_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		PosNum->Value = PosTrackBar->Value;
 	}
 };
 }
