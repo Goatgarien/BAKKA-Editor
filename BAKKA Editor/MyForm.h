@@ -4,6 +4,9 @@
 #include <fstream>
 #include <iomanip>
 #include <map>
+#include <vector>
+#include <stack>
+#include <algorithm>
 #include "Chart.h"
 #define PI 3.14159265
 
@@ -12,9 +15,13 @@ using std::to_string;
 Chart theChart;
 int SelectedLineType = 1;
 int SelectedNoteType = 1;
+int SelectedNoteTypeVisual = 1;
 std::list<NotesNode>::iterator viewNotesITR = theChart.Notes.begin();
 std::list<PreChartNode>::iterator viewGimmicksITR = theChart.PreChart.begin();
 std::list<NotesNode>::iterator holdNoteitr = theChart.Notes.end();
+std::map<float, std::list<std::pair<int, int>>> mapOfMasks;
+std::map<float, std::list<NotesNode>> mapOfNotes;
+bool alreadyRefreshed = false;
 
 int findLine(std::list<NotesNode>::iterator nextNode) {
 	int outputLine = 0;
@@ -41,8 +48,11 @@ bool sortPreChartListByBeat(const PreChartNode& lhs, const PreChartNode& rhs) {
 		return true;
 	else if ((lhs.beat == rhs.beat) && (lhs.subBeat < rhs.subBeat))
 		return true;
-	else
-		return false;
+	return false;
+}
+bool compareInterval(const std::pair<int, int>& lhs, const std::pair<int, int>& rhs)
+{
+	return (lhs.first < rhs.first);
 }
 int findGCD(int a, int b) {
 	if (b == 0)
@@ -226,6 +236,10 @@ private: System::Windows::Forms::Label^ label29;
 private: System::Windows::Forms::OpenFileDialog^ openFileDialog;
 private: System::Windows::Forms::SaveFileDialog^ saveFileDialog;
 private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
+private: System::Windows::Forms::CheckBox^ MatchTimeCheckBox;
+private: System::Windows::Forms::CheckBox^ MatchNoteCheckBox;
+private: System::Windows::Forms::Button^ PrevBeatButton;
+private: System::Windows::Forms::Button^ NextBeatButton;
 
 
 
@@ -376,6 +390,10 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 			this->PrevGimmickButton = (gcnew System::Windows::Forms::Button());
 			this->DeleteGimmickButton = (gcnew System::Windows::Forms::Button());
 			this->NotesViewBox = (gcnew System::Windows::Forms::GroupBox());
+			this->PrevBeatButton = (gcnew System::Windows::Forms::Button());
+			this->NextBeatButton = (gcnew System::Windows::Forms::Button());
+			this->MatchNoteCheckBox = (gcnew System::Windows::Forms::CheckBox());
+			this->MatchTimeCheckBox = (gcnew System::Windows::Forms::CheckBox());
 			this->NotesMaskLabel = (gcnew System::Windows::Forms::Label());
 			this->NotesSizeLabel = (gcnew System::Windows::Forms::Label());
 			this->NotesPosLabel = (gcnew System::Windows::Forms::Label());
@@ -716,6 +734,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 			this->SubBeat2Num->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->SubBeat2Num->Name = L"SubBeat2Num";
 			this->SubBeat2Num->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 16, 0, 0, 0 });
+			this->SubBeat2Num->ValueChanged += gcnew System::EventHandler(this, &MyForm::SubBeat2Num_ValueChanged);
 			// 
 			// SubBeat1Num
 			// 
@@ -730,6 +749,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 			resources->ApplyResources(this->BeatNum, L"BeatNum");
 			this->BeatNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
 			this->BeatNum->Name = L"BeatNum";
+			this->BeatNum->ValueChanged += gcnew System::EventHandler(this, &MyForm::BeatNum_ValueChanged);
 			// 
 			// label2
 			// 
@@ -1173,6 +1193,10 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 			// NotesViewBox
 			// 
 			resources->ApplyResources(this->NotesViewBox, L"NotesViewBox");
+			this->NotesViewBox->Controls->Add(this->PrevBeatButton);
+			this->NotesViewBox->Controls->Add(this->NextBeatButton);
+			this->NotesViewBox->Controls->Add(this->MatchNoteCheckBox);
+			this->NotesViewBox->Controls->Add(this->MatchTimeCheckBox);
 			this->NotesViewBox->Controls->Add(this->NotesMaskLabel);
 			this->NotesViewBox->Controls->Add(this->NotesSizeLabel);
 			this->NotesViewBox->Controls->Add(this->NotesPosLabel);
@@ -1190,6 +1214,34 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 			this->NotesViewBox->Controls->Add(this->DeleteNoteButton);
 			this->NotesViewBox->Name = L"NotesViewBox";
 			this->NotesViewBox->TabStop = false;
+			// 
+			// PrevBeatButton
+			// 
+			resources->ApplyResources(this->PrevBeatButton, L"PrevBeatButton");
+			this->PrevBeatButton->Name = L"PrevBeatButton";
+			this->PrevBeatButton->UseVisualStyleBackColor = true;
+			this->PrevBeatButton->Click += gcnew System::EventHandler(this, &MyForm::PrevBeatButton_Click);
+			// 
+			// NextBeatButton
+			// 
+			resources->ApplyResources(this->NextBeatButton, L"NextBeatButton");
+			this->NextBeatButton->Name = L"NextBeatButton";
+			this->NextBeatButton->UseVisualStyleBackColor = true;
+			this->NextBeatButton->Click += gcnew System::EventHandler(this, &MyForm::NextBeatButton_Click);
+			// 
+			// MatchNoteCheckBox
+			// 
+			resources->ApplyResources(this->MatchNoteCheckBox, L"MatchNoteCheckBox");
+			this->MatchNoteCheckBox->BackColor = System::Drawing::Color::Transparent;
+			this->MatchNoteCheckBox->Name = L"MatchNoteCheckBox";
+			this->MatchNoteCheckBox->UseVisualStyleBackColor = false;
+			this->MatchNoteCheckBox->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MatchNoteCheckBox_CheckedChanged);
+			// 
+			// MatchTimeCheckBox
+			// 
+			resources->ApplyResources(this->MatchTimeCheckBox, L"MatchTimeCheckBox");
+			this->MatchTimeCheckBox->Name = L"MatchTimeCheckBox";
+			this->MatchTimeCheckBox->UseVisualStyleBackColor = true;
 			// 
 			// NotesMaskLabel
 			// 
@@ -1364,6 +1416,166 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 		Marshal::FreeHGlobal(IntPtr((void*)chars));
 		return os;
 	}
+	void mergeIntervals(std::list<std::pair<int, int>> theList) {
+		// sort the intervals in increasing order of start position
+		theList.sort(compareInterval);
+
+		std::list<std::pair<int, int>>::iterator listITRprev = theList.begin();
+		std::list<std::pair<int, int>>::iterator listITR = theList.begin();
+
+		for (listITR++; listITR != theList.end(); listITR++) {
+			// If this is not first Interval and overlaps
+			// with the previous one
+			if (listITRprev->second >= listITR->first) {
+				// Merge previous and current Intervals
+				listITRprev->second = std::max(listITRprev->second, listITR->second);
+			}
+			else {
+				listITRprev++;
+				listITRprev->first = listITR->first;
+				listITRprev->second = listITR->second;
+			}
+		}
+	}
+	void refreshMapofMasks() {
+		mapOfMasks.clear();
+		std::pair<int, int> zero(0, 0);
+		mapOfMasks[0].push_back(zero);
+
+		for (std::list<NotesNode>::iterator viewMasksITR = theChart.Notes.begin(); viewMasksITR != theChart.Notes.end(); viewMasksITR++) {
+			if (viewMasksITR->noteType == 12 || viewMasksITR->noteType == 13) {
+				float currentTime = (float)viewMasksITR->beat + ((float)viewMasksITR->subBeat / 1920);
+				int maskStart, maskEnd;
+				maskStart = viewMasksITR->position;
+				maskEnd = viewMasksITR->position + viewMasksITR->size;
+
+				//copy previous mask layout to current time if current time is empty
+				if (mapOfMasks.find(currentTime) == mapOfMasks.end()) {
+					std::map<float, std::list<std::pair<int, int>>>::iterator itr = mapOfMasks.lower_bound(currentTime);
+					if (itr != mapOfMasks.end()) {
+						if (itr != mapOfMasks.begin()) {
+							itr--;
+						}
+						if (itr->first < currentTime) {
+							for (std::list<std::pair<int, int>>::iterator currentListitr = itr->second.begin(); currentListitr != itr->second.end(); currentListitr++) {
+								std::pair<int, int> temppair(currentListitr->first, currentListitr->second);
+								mapOfMasks[currentTime].push_back(temppair);
+							}
+						}
+					}
+					else {
+						itr = mapOfMasks.end();
+						if (!mapOfMasks.empty()) {
+							itr--;
+							for (std::list<std::pair<int, int>>::iterator currentListitr = itr->second.begin(); currentListitr != itr->second.end(); currentListitr++) {
+								std::pair<int, int> temppair(currentListitr->first, currentListitr->second);
+								mapOfMasks[currentTime].push_back(temppair);
+							}
+						}
+					}
+				}
+
+				if (viewMasksITR->noteType == 12) {
+					if (maskEnd > 60) {
+						int differenceEnd = maskEnd - 60;
+						int differenceStart = 0;
+						maskEnd = 60;
+						std::pair<int, int> intervalA(maskStart, maskEnd);
+						std::pair<int, int> intervalB(differenceStart, differenceEnd);
+						mapOfMasks[currentTime].push_back(intervalA);
+						mapOfMasks[currentTime].push_back(intervalB);
+					}
+					else {
+						std::pair<int, int> intervalA(maskStart, maskEnd);
+						mapOfMasks[currentTime].push_back(intervalA);
+					}
+				}
+
+				if (viewMasksITR->noteType == 13) {
+					if (maskEnd > 60) {
+						int differenceEnd = maskEnd - 60;
+						int differenceStart = 0;
+						maskEnd = 60;
+						std::pair<int, int> intervalA(maskStart, maskEnd);
+						std::pair<int, int> intervalB(differenceStart, differenceEnd);
+						for (std::list<std::pair<int, int>>::iterator currentMaskITR = mapOfMasks[currentTime].begin(); currentMaskITR != mapOfMasks[currentTime].end(); currentMaskITR++) {
+							if (maskStart <= currentMaskITR->first && maskEnd >= currentMaskITR->first) { //mask to delete overlaps start of pre-existing mask
+								if (maskEnd <= currentMaskITR->second) {
+									currentMaskITR->first = maskEnd;
+								}
+								else { ////mask to delete overlaps all of pre-existing mask
+									currentMaskITR->first = 0;
+									currentMaskITR->second = 0;
+								}
+							}
+							else if (maskStart > currentMaskITR->first && maskEnd < currentMaskITR->second) { //mask to delete in the middle pre-existing mask
+								std::pair<int, int> newPair(maskEnd, currentMaskITR->second);
+								mapOfMasks[currentTime].push_back(newPair);
+								currentMaskITR->second = maskStart;
+							}
+							else if (maskStart < currentMaskITR->second && maskEnd >= currentMaskITR->second) { //mask to delete overlaps end of pre-existing mask
+								currentMaskITR->second = maskStart;
+							}
+							if (differenceStart <= currentMaskITR->first && differenceEnd >= currentMaskITR->first) { //mask to delete overlaps start of pre-existing mask
+								if (differenceEnd <= currentMaskITR->second) {
+									currentMaskITR->first = differenceEnd;
+								}
+								else { ////mask to delete overlaps all of pre-existing mask
+									currentMaskITR->first = 0;
+									currentMaskITR->second = 0;
+								}
+							}
+							else if (differenceStart > currentMaskITR->first && differenceEnd < currentMaskITR->second) { //mask to delete in the middle pre-existing mask
+								std::pair<int, int> newPair(differenceEnd, currentMaskITR->second);
+								mapOfMasks[currentTime].push_back(newPair);
+								currentMaskITR->second = differenceStart;
+							}
+							else if (differenceStart < currentMaskITR->second && differenceEnd >= currentMaskITR->second) { //mask to delete overlaps end of pre-existing mask
+								currentMaskITR->second = differenceStart;
+							}
+						}
+					}
+					else {
+						std::pair<int, int> intervalA(maskStart, maskEnd);
+						for (std::list<std::pair<int, int>>::iterator currentMaskITR = mapOfMasks[currentTime].begin(); currentMaskITR != mapOfMasks[currentTime].end(); currentMaskITR++) {
+							if (maskStart <= currentMaskITR->first && maskEnd >= currentMaskITR->first) { //mask to delete overlaps start of pre-existing mask
+								if (maskEnd <= currentMaskITR->second) {
+									currentMaskITR->first = maskEnd;
+								}
+								else { ////mask to delete overlaps all of pre-existing mask
+									currentMaskITR->first = 0;
+									currentMaskITR->second = 0;
+								}
+							}
+							else if (maskStart > currentMaskITR->first && maskEnd < currentMaskITR->second) { //mask to delete in the middle pre-existing mask
+								std::pair<int, int> newPair(maskEnd, currentMaskITR->second);
+								mapOfMasks[currentTime].push_back(newPair);
+								currentMaskITR->second = maskStart;
+								break;
+							}
+							else if (maskStart < currentMaskITR->second && maskEnd >= currentMaskITR->second) { //mask to delete overlaps end of pre-existing mask
+								currentMaskITR->second = maskStart;
+							}
+						}
+					}
+				}
+				mergeIntervals(mapOfMasks[currentTime]);
+			}
+		}
+	}
+	void refreshMapofNotes() {
+		mapOfNotes.clear();
+		for (std::list<NotesNode>::iterator viewMasksITR = theChart.Notes.begin(); viewMasksITR != theChart.Notes.end(); viewMasksITR++) {
+			float currentTime = (float)viewMasksITR->beat + ((float)viewMasksITR->subBeat / 1920);
+			if (viewMasksITR->noteType != 12 || viewMasksITR->noteType != 13) {
+				NotesNode tempnode;
+				tempnode.noteType = viewMasksITR->noteType;
+				tempnode.position = viewMasksITR->position;
+				tempnode.size = viewMasksITR->size;
+				mapOfNotes[currentTime].push_back(tempnode);
+			}
+		}
+	}
 	void refreshGimmickView() {
 		if (!theChart.PreChart.empty()) {
 			GimmickBeatLabel->Text = ((viewGimmicksITR)->beat).ToString();
@@ -1416,6 +1628,121 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 			GimmickValueLabel->Text = "N/A";
 		}
 	}
+	std::string refreshCurrentNoteLabel(int currentNoteType) {
+		switch (currentNoteType) {
+		case 1:
+			return "Touch (No Bonus)";
+		case 2:
+			return "Touch (Bonus Get)";
+		case 3:
+			return "Snap (R) (No Bonus)";
+		case 4:
+			return "Snap (B) (No Bonus)";
+		case 5:
+			return "Slide (O) (No Bonus)";
+		case 6:
+			return "Slide (O) (Bonus Get)";
+		case 7:
+			return "Slide (G) (No Bonus)";
+		case 8:
+			return "Slide (G) (Bonus Get)";
+		case 9:
+			return "Hold Start (No Bonus)";
+		case 10:
+			if (EndHoldBox->Checked) {
+				return "Hold End";
+			}
+			else {
+				return "Hold Middle";
+			}
+		case 11:
+			return "Hold End";
+		case 12:
+			if (MaskClockwise->Checked) {
+				return "Mask Add (Clockwise)";
+			}
+			else if (MaskCClockwise->Checked) {
+				return "Mask Add (Counter-Clockwise)";
+			}
+			else {
+				return "Mask Add (From Center)";
+			}
+		case 13:
+			if (MaskClockwise->Checked) {
+				return "Mask Remove (Clockwise)";
+			}
+			else if (MaskCClockwise->Checked) {
+				return "Mask Remove (Counter-Clockwise)";
+			}
+			else {
+				return "Mask Remove (To Center)";
+			}
+		case 14:
+			return "End Of Chart";
+		case 16:
+			return "Chain";
+		case 20:
+			return "Touch (Bonus With Flair)";
+		case 21:
+			return "Snap (R) (Bonus With Flair)";
+		case 22:
+			return "Snap (B) (Bonus With Flair)";
+		case 23:
+			return "Slide (O) (Bonus With Flair)";
+		case 24:
+			return "Slide (G) (Bonus With Flair)";
+		case 25:
+			return "Hold Start (Bonus With Flair)";
+		}
+		return "None Selected";
+	}
+	std::string refreshCurrentNoteViewLabel(int currentNoteType) {
+		switch (currentNoteType) {
+		case 1:
+			return "Touch (No Bonus)";
+		case 2:
+			return "Touch (Bonus Get)";
+		case 3:
+			return "Snap (R) (No Bonus)";
+		case 4:
+			return "Snap (B) (No Bonus)";
+		case 5:
+			return "Slide (O) (No Bonus)";
+		case 6:
+			return "Slide (O) (Bonus Get)";
+		case 7:
+			return "Slide (G) (No Bonus)";
+		case 8:
+			return "Slide (G) (Bonus Get)";
+		case 9:
+			return "Hold Start (No Bonus)";
+		case 10:
+			return "Hold Middle";
+		case 11:
+			return "Hold End";
+		case 12:
+			return "Mask Add";
+		case 13:
+			return "Mask Remove";
+		case 14:
+			return "End Of Chart";
+		case 16:
+			return "Chain";
+		case 20:
+			return "Touch (Bonus With Flair)";
+		case 21:
+			return "Snap (R) (Bonus With Flair)";
+		case 22:
+			return "Snap (B) (Bonus With Flair)";
+		case 23:
+			return "Slide (O) (Bonus With Flair)";
+		case 24:
+			return "Slide (G) (Bonus With Flair)";
+		case 25:
+			return "Hold Start (Bonus With Flair)";
+		}
+		return "List Empty";
+	}
 	void refreshNotesView() {
 		if (!theChart.Notes.empty()) {
 			NotesBeatLabel->Text = ((viewNotesITR)->beat).ToString();
@@ -1425,46 +1752,28 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 			std::string subBeatString = subBeatValueDisplay(num1, num2);
 			NotesSubBeatLabel->Text = stdStringToSystemString(subBeatString);
 
+			if (MatchTimeCheckBox->Checked) {
+				BeatNum->Value = viewNotesITR->beat;
+				SubBeat1Num->Value = subBeatValue1(num1, num2);
+				SubBeat2Num->Value = subBeatValue2(num1, num2);
+			}
+			if (MatchNoteCheckBox->Checked) {
+				PosNum->Value = viewNotesITR->position;
+				SizeNum->Value = viewNotesITR->size;
+				SelectedNoteTypeVisual = viewNotesITR->noteType;
+				if (SelectedNoteTypeVisual != 10 || SelectedNoteTypeVisual != 11) {
+					SelectedLineType = 1;
+					SelectedNoteType = viewNotesITR->noteType;
+					CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+				}
+			}
+
 			NotesPosLabel->Text = stdStringToSystemString(to_string((viewNotesITR)->position));
 			NotesSizeLabel->Text = stdStringToSystemString(to_string((viewNotesITR)->size));
 			NotesMaskLabel->Text = "N/A";
 
-			switch ((viewNotesITR)->noteType) {
-			case 1:
-				NotesTypeLabel->Text = "Touch (No Bonus)";
-				break;
-			case 2:
-				NotesTypeLabel->Text = "Touch (Bonus Get)";
-				break;
-			case 3:
-				NotesTypeLabel->Text = "Snap (R) (No Bonus)";
-				break;
-			case 4:
-				NotesTypeLabel->Text = "Snap (B) (No Bonus)";
-				break;
-			case 5:
-				NotesTypeLabel->Text = "Slide (O) (No Bonus)";
-				break;
-			case 6:
-				NotesTypeLabel->Text = "Slide (O) (Bonus Get)";
-				break;
-			case 7:
-				NotesTypeLabel->Text = "Slide (G) (No Bonus)";
-				break;
-			case 8:
-				NotesTypeLabel->Text = "Slide (G) (Bonus Get)";
-				break;
-			case 9:
-				NotesTypeLabel->Text = "Hold Start (No Bonus)";
-				break;
-			case 10:
-				NotesTypeLabel->Text = "Hold Middle";
-				break;
-			case 11:
-				NotesTypeLabel->Text = "Hold End";
-				break;
-			case 12:
-				NotesTypeLabel->Text = "Mask Add";
+			NotesTypeLabel->Text = stdStringToSystemString(refreshCurrentNoteViewLabel((viewNotesITR)->noteType));
+			if ((viewNotesITR)->noteType == 12) {
 				switch ((viewNotesITR)->BGType) {
 				case 0:
 					NotesMaskLabel->Text = "Counter-Clockwise";
@@ -1476,9 +1785,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 					NotesMaskLabel->Text = "From Center";
 					break;
 				}
-				break;
-			case 13:
-				NotesTypeLabel->Text = "Mask Remove";
+			}
+			if ((viewNotesITR)->noteType == 13) {
 				switch ((viewNotesITR)->BGType) {
 				case 0:
 					NotesMaskLabel->Text = "Counter-Clockwise";
@@ -1490,31 +1798,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 					NotesMaskLabel->Text = "To Center";
 					break;
 				}
-				break;
-			case 14:
-				NotesTypeLabel->Text = "End Of Chart";
-				break;
-			case 16:
-				NotesTypeLabel->Text = "Chain";
-				break;
-			case 20:
-				NotesTypeLabel->Text = "Touch (Bonus With Flair)";
-				break;
-			case 21:
-				NotesTypeLabel->Text = "Snap (R) (Bonus With Flair)";
-				break;
-			case 22:
-				NotesTypeLabel->Text = "Snap (B) (Bonus With Flair)";
-				break;
-			case 23:
-				NotesTypeLabel->Text = "Slide (O) (Bonus With Flair)";
-				break;
-			case 24:
-				NotesTypeLabel->Text = "Slide (G) (Bonus With Flair)";
-				break;
-			case 25:
-				NotesTypeLabel->Text = "Hold Start (Bonus With Flair)";
-				break;
 			}
 		}
 		else {
@@ -1562,6 +1845,80 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 		}
 
 		return to_string(num1) + "/" + to_string(num2);
+	}
+	int subBeatValue1(int num1, int num2) {
+		int denom = findGCD(num1, num2);
+		num1 /= denom;
+		num2 /= denom;
+		switch (num2) {
+		case 0:
+			num1 *= 16;
+			num2 = 16;
+			break;
+		case 1:
+			num1 *= 16;
+			num2 = 16;
+			break;
+		case 2:
+			num1 *= 8;
+			num2 = 16;
+			break;
+		case 3:
+			num1 *= 4;
+			num2 = 12;
+			break;
+		case 4:
+			num1 *= 4;
+			num2 = 16;
+			break;
+		case 6:
+			num1 *= 2;
+			num2 = 12;
+			break;
+		case 8:
+			num1 *= 2;
+			num2 = 16;
+			break;
+		}
+
+		return num1;
+	}
+	int subBeatValue2(int num1, int num2) {
+		int denom = findGCD(num1, num2);
+		num1 /= denom;
+		num2 /= denom;
+		switch (num2) {
+		case 0:
+			num1 *= 16;
+			num2 = 16;
+			break;
+		case 1:
+			num1 *= 16;
+			num2 = 16;
+			break;
+		case 2:
+			num1 *= 8;
+			num2 = 16;
+			break;
+		case 3:
+			num1 *= 4;
+			num2 = 12;
+			break;
+		case 4:
+			num1 *= 4;
+			num2 = 16;
+			break;
+		case 6:
+			num1 *= 2;
+			num2 = 12;
+			break;
+		case 8:
+			num1 *= 2;
+			num2 = 16;
+			break;
+		}
+
+		return num2;
 	}
 	private: System::Void newToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 
@@ -1764,6 +2121,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 		viewGimmicksITR = theChart.PreChart.begin();
 		refreshGimmickView();
 		refreshNotesView();
+		refreshMapofMasks();
+		refreshMapofNotes();
 	}
 	private: System::Void saveAsToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 		saveToolStripMenuItem_Click(sender, e);
@@ -1846,6 +2205,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 			}
 
 			theChart.Notes.push_back(tempNotesNode);
+			float currentTime = (float)tempNotesNode.beat + ((float)tempNotesNode.subBeat / 1920);
+			mapOfNotes[currentTime].push_back(tempNotesNode);
 			if (!theChart.Notes.empty()) {
 				viewNotesITR = theChart.Notes.end();
 				viewNotesITR--;
@@ -1866,7 +2227,11 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 					break;
 				}
 			}
+			SelectedNoteTypeVisual = viewNotesITR->noteType;
 			theChart.Notes.sort(sortNotesListByBeat);
+			if (SelectedNoteType == 12 || SelectedNoteType == 13) {
+				refreshMapofMasks();
+			}
 			refreshNotesView();
 		}
 		else {
@@ -1971,16 +2336,15 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 		if (SelectedNoteType != 10) {
 			if (BonusGetRadioButton->Checked) {
 				SelectedNoteType = 2;
-				CurrentObjectText->Text = "Touch (Bonus Get)";
 			}
 			else if (BonusFlairRadioButton->Checked) {
 				SelectedNoteType = 20;
-				CurrentObjectText->Text = "Touch (Bonus With Flair)";
 			}
 			else {
 				SelectedNoteType = 1;
-				CurrentObjectText->Text = "Touch (No Bonus)";
 			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+			SelectedNoteTypeVisual = SelectedNoteType;
 		}
 		SelectedLineType = 1;
 		Refresh();
@@ -1989,16 +2353,15 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 		if (SelectedNoteType != 10) {
 			if (BonusGetRadioButton->Checked) {
 				SelectedNoteType = 6;
-				CurrentObjectText->Text = "Slide (O) (Bonus Get)";
 			}
 			else if (BonusFlairRadioButton->Checked) {
 				SelectedNoteType = 23;
-				CurrentObjectText->Text = "Slide (O) (Bonus With Flair)";
 			}
 			else {
 				SelectedNoteType = 5;
-				CurrentObjectText->Text = "Slide (O) (No Bonus)";
 			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
 		Refresh();
@@ -2007,16 +2370,15 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 		if (SelectedNoteType != 10) {
 			if (BonusGetRadioButton->Checked == true) {
 				SelectedNoteType = 8;
-				CurrentObjectText->Text = "Slide (G) (Bonus Get)";
 			}
 			else if (BonusFlairRadioButton->Checked) {
 				SelectedNoteType = 24;
-				CurrentObjectText->Text = "Slide (G) (Bonus With Flair)";
 			}
 			else {
 				SelectedNoteType = 7;
-				CurrentObjectText->Text = "Slide (G) (No Bonus)";
 			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
 		Refresh();
@@ -2025,12 +2387,12 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 		if (SelectedNoteType != 10) {
 			if (BonusFlairRadioButton->Checked) {
 				SelectedNoteType = 21;
-				CurrentObjectText->Text = "Snap (R) (Bonus With Flair)";
 			}
 			else {
 				SelectedNoteType = 3;
-				CurrentObjectText->Text = "Snap (R) (No Bonus)";
 			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
 		Refresh();
@@ -2039,12 +2401,12 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 		if (SelectedNoteType != 10) {
 			if (BonusFlairRadioButton->Checked) {
 				SelectedNoteType = 22;
-				CurrentObjectText->Text = "Snap (B) (Bonus With Flair)";
 			}
 			else {
 				SelectedNoteType = 4;
-				CurrentObjectText->Text = "Snap (B) (No Bonus)";
 			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
 		Refresh();
@@ -2052,7 +2414,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 	private: System::Void YellowButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
 			SelectedNoteType = 16;
-			CurrentObjectText->Text = "Chain";
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
 		Refresh();
@@ -2060,7 +2423,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 	private: System::Void EndChartButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
 			SelectedNoteType = 14;
-			CurrentObjectText->Text = "End of Chart";
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
 		Refresh();
@@ -2069,12 +2433,12 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 		if (SelectedNoteType != 10) {
 			if (BonusFlairRadioButton->Checked) {
 				SelectedNoteType = 25;
-				CurrentObjectText->Text = "Hold Start (Bonus With Flair)";
 			}
 			else {
 				SelectedNoteType = 9;
-				CurrentObjectText->Text = "Hold Start (No Bonus)";
 			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
 		Refresh();
@@ -2083,28 +2447,12 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 		if (SelectedNoteType != 10) {
 			if (AddMask->Checked) {
 				SelectedNoteType = 12;
-				if (MaskClockwise->Checked) {
-					CurrentObjectText->Text = "Mask Add (Clockwise)";
-				}
-				else if (MaskCClockwise->Checked) {
-					CurrentObjectText->Text = "Mask Add (Counter-Clockwise)";
-				}
-				else {
-					CurrentObjectText->Text = "Mask Add (From Center)";
-				}
 			}
 			else {
 				SelectedNoteType = 13;
-				if (MaskClockwise->Checked) {
-					CurrentObjectText->Text = "Mask Remove (Clockwise)";
-				}
-				else if (MaskCClockwise->Checked) {
-					CurrentObjectText->Text = "Mask Remove (Counter-Clockwise)";
-				}
-				else {
-					CurrentObjectText->Text = "Mask Remove (To Center)";
-				}
 			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
 		}
 		Refresh();
@@ -2146,12 +2494,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 	}
 	private: System::Void EndHoldBox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType == 10) {
-			if (EndHoldBox->Checked) {
-				CurrentObjectText->Text = "Hold End";
-			}
-			else {
-				CurrentObjectText->Text = "Hold Middle";
-			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+			SelectedNoteTypeVisual = SelectedNoteType;
 		}
 		Refresh();
 	}
@@ -2161,58 +2505,51 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 			case 2:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 1;
-					CurrentObjectText->Text = "Touch (No Bonus)";
 				}
 				break;
 			case 6:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 5;
-					CurrentObjectText->Text = "Slide (O) (No Bonus)";
 				}
 				break;
 			case 8:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 7;
-					CurrentObjectText->Text = "Slide (G) (No Bonus)";
 				}
 				break;
 			case 20:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 1;
-					CurrentObjectText->Text = "Touch (No Bonus)";
 				}
 				break;
 			case 21:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 3;
-					CurrentObjectText->Text = "Snap (R) (No Bonus)";
 				}
 				break;
 			case 22:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 4;
-					CurrentObjectText->Text = "Snap (B) (No Bonus)";
 				}
 				break;
 			case 23:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 5;
-					CurrentObjectText->Text = "Slide (O) (No Bonus)";
 				}
 				break;
 			case 24:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 7;
-					CurrentObjectText->Text = "Slide (G) (No Bonus)";
 				}
 				break;
 			case 25:
 				if (NoBonusRadioButton->Checked) {
 					SelectedNoteType = 9;
-					CurrentObjectText->Text = "Hold Start (No Bonus)";
 				}
 				break;
 			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+			SelectedNoteTypeVisual = SelectedNoteType;
 		}
 	}
 	private: System::Void BonusGetRadioButton_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -2221,40 +2558,36 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 			case 1:
 				if (BonusGetRadioButton->Checked) {
 					SelectedNoteType = 2;
-					CurrentObjectText->Text = "Touch (Bonus Get)";
 				}
 				break;
 			case 5:
 				if (BonusGetRadioButton->Checked) {
 					SelectedNoteType = 6;
-					CurrentObjectText->Text = "Slide (O) (Bonus Get)";
 				}
 				break;
 			case 7:
 				if (BonusGetRadioButton->Checked) {
 					SelectedNoteType = 8;
-					CurrentObjectText->Text = "Slide (G) (Bonus Get)";
 				}
 				break;
 			case 20:
 				if (BonusGetRadioButton->Checked) {
 					SelectedNoteType = 2;
-					CurrentObjectText->Text = "Touch (Bonus Get)";
 				}
 				break;
 			case 23:
 				if (BonusGetRadioButton->Checked) {
 					SelectedNoteType = 6;
-					CurrentObjectText->Text = "Slide (O) (Bonus Get)";
 				}
 				break;
 			case 24:
 				if (BonusGetRadioButton->Checked) {
 					SelectedNoteType = 8;
-					CurrentObjectText->Text = "Slide (G) (Bonus Get)";
 				}
 				break;
 			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+			SelectedNoteTypeVisual = SelectedNoteType;
 		}
 	}
 	private: System::Void BonusFlairRadioButton_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -2263,165 +2596,110 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 			case 1:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 20;
-					CurrentObjectText->Text = "Touch (Bonus With Flair)";
 				}
 				break;
 			case 2:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 20;
-					CurrentObjectText->Text = "Touch (Bonus With Flair)";
 				}
 				break;
 			case 3:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 21;
-					CurrentObjectText->Text = "Snap (R) (Bonus With Flair)";
 				}
 				break;
 			case 4:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 22;
-					CurrentObjectText->Text = "Snap (B) (Bonus With Flair)";
 				}
 				break;
 			case 5:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 23;
-					CurrentObjectText->Text = "Slide (O) (Bonus With Flair)";
 				}
 				break;
 			case 6:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 23;
-					CurrentObjectText->Text = "Slide (O) (Bonus With Flair)";
 				}
 				break;
 			case 7:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 24;
-					CurrentObjectText->Text = "Slide (G) (Bonus With Flair)";
 				}
 				break;
 			case 8:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 24;
-					CurrentObjectText->Text = "Slide (G) (Bonus With Flair)";
 				}
 				break;
 			case 9:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 25;
-					CurrentObjectText->Text = "Hold Start (Bonus With Flair)";
 				}
 				break;
 			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+			SelectedNoteTypeVisual = SelectedNoteType;
 		}
 	}
 	private: System::Void AddMask_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedLineType == 1) {
-			switch (SelectedNoteType) {
-			case 13:
+			if (SelectedNoteType == 13) {
 				if (AddMask->Checked) {
 					SelectedNoteType = 12;
-					if (MaskClockwise->Checked) {
-						CurrentObjectText->Text = "Mask Add (Clockwise)";
-					}
-					else if (MaskCClockwise->Checked) {
-						CurrentObjectText->Text = "Mask Add (Counter-Clockwise)";
-					}
-					else {
-						CurrentObjectText->Text = "Mask Add (From Center)";
-					}
 				}
-				break;
 			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+			SelectedNoteTypeVisual = SelectedNoteType;
 		}
 		Refresh();
 	}
 	private: System::Void RemoveMask_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedLineType == 1) {
-			switch (SelectedNoteType) {
-			case 12:
+			if (SelectedNoteType == 12) {
 				if (RemoveMask->Checked) {
 					SelectedNoteType = 13;
-					if (MaskClockwise->Checked) {
-						CurrentObjectText->Text = "Mask Remove (Clockwise)";
-					}
-					else if (MaskCClockwise->Checked) {
-						CurrentObjectText->Text = "Mask Remove (Counter-Clockwise)";
-					}
-					else {
-						CurrentObjectText->Text = "Mask Remove (To Center)";
-					}
 				}
-				break;
 			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+			SelectedNoteTypeVisual = SelectedNoteType;
 		}
 		Refresh();
 	}
 	private: System::Void MaskClockwise_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedLineType == 1) {
-			switch (SelectedNoteType) {
-			case 12:
-				if (MaskClockwise->Checked) {
-					CurrentObjectText->Text = "Mask Add (Clockwise)";
-				}
-				break;
-			case 13:
-				if (MaskClockwise->Checked) {
-					CurrentObjectText->Text = "Mask Remove (Clockwise)";
-				}
-				break;
-			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 		}
 	}
 	private: System::Void MaskCClockwise_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedLineType == 1) {
-			switch (SelectedNoteType) {
-			case 12:
-				if (MaskCClockwise->Checked) {
-					CurrentObjectText->Text = "Mask Add (Counter-Clockwise)";
-				}
-				break;
-			case 13:
-				if (MaskCClockwise->Checked) {
-					CurrentObjectText->Text = "Mask Remove (Counter-Clockwise)";
-				}
-				break;
-			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 		}
 	}
 	private: System::Void MaskCenter_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedLineType == 1) {
-			switch (SelectedNoteType) {
-			case 12:
-				if (MaskCenter->Checked) {
-					CurrentObjectText->Text = "Mask Add (From Center)";
-				}
-				break;
-			case 13:
-				if (MaskCenter->Checked) {
-					CurrentObjectText->Text = "Mask Remove (To Center)";
-				}
-				break;
-			}
+			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 		}
 	}
 	private: System::Void SubBeat1Num_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (SubBeat1Num->Value >= SubBeat2Num->Value) {
 			SubBeat1Num->Value = 0;
+			alreadyRefreshed = true;
 			BeatNum->Value++;
 		}
 		if (SubBeat1Num->Value < 0) {
 			if (BeatNum->Value > 0) {
 				int temp = (int)SubBeat2Num->Value - 1;
 				SubBeat1Num->Value = (System::Decimal)temp;
+				alreadyRefreshed = true;
 				BeatNum->Value--;
 			}
 			else {
 				SubBeat1Num->Value = 0;
 			}
 		}
+		Refresh();
 	}
 	private: System::Void ReverseEnd1SBNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (ReverseEnd1SBNum1->Value >= ReverseEnd1SBNum2->Value) {
@@ -2577,6 +2855,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 				}
 			} while (holdDelete);
 			refreshNotesView();
+			refreshMapofNotes();
 		}
 		Refresh();
 	}
@@ -2584,38 +2863,123 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 	}
 	private: System::Void saveFileDialog_FileOk(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) {
 	}
+	Color returnColor(int noteType) {
+		switch (noteType) {
+		case 1:
+			return TapButton->BackColor;
+		case 2:
+			return TapButton->BackColor;
+		case 3:
+			return RedButton->BackColor;
+		case 4:
+			return BlueButton->BackColor;
+		case 5:
+			return OrangeButton->BackColor;
+		case 6:
+			return OrangeButton->BackColor;
+		case 7:
+			return GreenButton->BackColor;
+		case 8:
+			return GreenButton->BackColor;
+		case 9:
+			return HoldButton->BackColor;
+		case 10:
+			return HoldButton->BackColor;
+		case 11:
+			return HoldButton->BackColor;
+		case 16:
+			return YellowButton->BackColor;
+		case 20:
+			return TapButton->BackColor;
+		case 21:
+			return RedButton->BackColor;
+		case 22:
+			return BlueButton->BackColor;
+		case 23:
+			return OrangeButton->BackColor;
+		case 24:
+			return GreenButton->BackColor;
+		case 25:
+			return HoldButton->BackColor;
+		}
+		return Color::Transparent;
+	}
 	private: System::Void MyForm_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 		Graphics^ g = e->Graphics;
 		int xPos = InitialSettingsPane->Left;
 		int yPos = InitialSettingsPane->Bottom + 6;
 		int sizeOfRect = InitialSettingsPane->Width;
+		float widthOfNotePen = 5;
 
 		System::Drawing::Point location(xPos, yPos);
 		System::Drawing::Size size(sizeOfRect, sizeOfRect);
 		System::Drawing::Rectangle Rect(location, size);
 
+		Pen^ CircleBasePen = gcnew Pen(Color::Black, 3);
+		Pen^ CircleLinesPen = gcnew Pen(Color::Black, 2);
+		Pen^ CircleNotePen = gcnew Pen(Color::Transparent, widthOfNotePen);
+
+		g->SmoothingMode = Drawing2D::SmoothingMode::Default;
+
+		//pre-existing mask values
+		float maskStartAngle;
+		float maskArcLength;
+		//Draw pre-existing mask
+		float currentTime = (float)BeatNum->Value + ((float)SubBeat1Num->Value / (float)SubBeat2Num->Value);
+		std::map<float, std::list<std::pair<int, int>>>::iterator mapitr = mapOfMasks.lower_bound(currentTime);
+		if (mapOfMasks.find(currentTime) == mapOfMasks.end()) {
+			if (mapitr != mapOfMasks.end()) {
+				if (mapitr != mapOfMasks.begin()) {
+					mapitr--;
+				}
+				if (mapitr->first < currentTime) {
+					for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
+						maskStartAngle = -((float)listITR->first * 6);
+						maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
+						g->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+					}
+				}
+			}
+			else {
+				mapitr = mapOfMasks.end();
+				if (!mapOfMasks.empty()) {
+					mapitr--;
+					for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
+						maskStartAngle = -((float)listITR->first * 6);
+						maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
+						g->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+					}
+				}
+			}
+		}
+		else {
+			for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
+				maskStartAngle = -((float)listITR->first * 6);
+				maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
+				g->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+			}
+		}
+
+		//Selected object values
 		float startAngle = -((float)PosNum->Value * 6);
 		float arcLength = -((float)SizeNum->Value * 6);
 
-		Pen^ CircleBasePen = gcnew Pen(Color::Black, 3);
-		Pen^ CircleLinesPen = gcnew Pen(Color::Black, 2);
-		Pen^ CircleNotePen = gcnew Pen(Color::Transparent, 4);
-
-		g->SmoothingMode = Drawing2D::SmoothingMode::HighSpeed;
+		//Draw selected mask
 		if (SelectedLineType == 1) {
-			if (SelectedNoteType == 12) {
+			if (SelectedNoteTypeVisual == 12) {
 				g->FillPie(Brushes::Silver, Rect, startAngle, arcLength);
 			}
-			if (SelectedNoteType == 13) {
+			if (SelectedNoteTypeVisual == 13) {
 				g->FillPie(Brushes::White, Rect, startAngle, arcLength);
 			}
 		}
 
+		//Draw base circle
 		g->DrawEllipse(CircleBasePen, Rect);
 
-		int circleRadius = (sizeOfRect / 2);
-		int xCenterOfCircle = circleRadius + xPos;
-		int yCenterOfCircle = circleRadius + yPos;
+		float circleRadius = (sizeOfRect / 2);
+		float xCenterOfCircle = circleRadius + xPos;
+		float yCenterOfCircle = circleRadius + yPos;
 		for (int i = 0; i < 360; i += 6) { //i is the angle n degrees
 			float xStart, yStart, xEnd, yEnd;
 			float degToRad = (float)i * PI / 180.0; //i to Radians
@@ -2626,11 +2990,11 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 			float innerRadius = circleRadius - 10;
 			CircleLinesPen->Width = 1;
 			if (i % 90 == 0) {
-				innerRadius = circleRadius - 35;
+				innerRadius = circleRadius - 35.0;
 				CircleLinesPen->Width = 4;
 			}
 			else if (i % 30 == 0) {
-				innerRadius = circleRadius - 25;
+				innerRadius = circleRadius - 25.0;
 				CircleLinesPen->Width = 2;
 			}
 			xEnd = (innerRadius * cos(degToRad)) + xCenterOfCircle;
@@ -2640,63 +3004,48 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 			g->DrawLine(CircleLinesPen, coordPointStart, coordPointEnd);
 		}
 
-		if (SelectedLineType == 1) {
-			switch (SelectedNoteType) {
-			case 1:
-				CircleNotePen->Color = TapButton->BackColor;
-				break;
-			case 2:
-				CircleNotePen->Color = TapButton->BackColor;
-				break;
-			case 3:
-				CircleNotePen->Color = RedButton->BackColor;
-				break;
-			case 4:
-				CircleNotePen->Color = BlueButton->BackColor;
-				break;
-			case 5:
-				CircleNotePen->Color = OrangeButton->BackColor;
-				break;
-			case 6:
-				CircleNotePen->Color = OrangeButton->BackColor;
-				break;
-			case 7:
-				CircleNotePen->Color = GreenButton->BackColor;
-				break;
-			case 8:
-				CircleNotePen->Color = GreenButton->BackColor;
-				break;
-			case 9:
-				CircleNotePen->Color = HoldButton->BackColor;
-				break;
-			case 10:
-				CircleNotePen->Color = HoldButton->BackColor;
-				break;
-			case 11:
-				CircleNotePen->Color = HoldButton->BackColor;
-				break;
-			case 16:
-				CircleNotePen->Color = YellowButton->BackColor;
-				break;
-			case 20:
-				CircleNotePen->Color = TapButton->BackColor;
-				break;
-			case 21:
-				CircleNotePen->Color = RedButton->BackColor;
-				break;
-			case 22:
-				CircleNotePen->Color = BlueButton->BackColor;
-				break;
-			case 23:
-				CircleNotePen->Color = OrangeButton->BackColor;
-				break;
-			case 24:
-				CircleNotePen->Color = GreenButton->BackColor;
-				break;
-			case 25:
-				CircleNotePen->Color = HoldButton->BackColor;
-				break;
+		//Draw future notes
+		float futStartAngle;
+		float futArcLength;
+		float xPosFut;
+		float yPosFut;
+		float sizeOfRectFut;
+		float circleRadiusFut;
+		float totalTimeShowNotes = 0.5;
+		for (std::map<float, std::list<NotesNode>>::iterator notemapitr = mapOfNotes.lower_bound(currentTime); notemapitr != mapOfNotes.end(); notemapitr++) {
+			float timeAtITR = notemapitr->first;
+			if (timeAtITR <= (currentTime + totalTimeShowNotes)) {
+				for (std::list<NotesNode>::iterator listofNotesitr = notemapitr->second.begin(); listofNotesitr != notemapitr->second.end(); listofNotesitr++) {
+					//Future note values
+					futStartAngle = -((float)listofNotesitr->position * 6);
+					futArcLength = -((float)listofNotesitr->size * 6);
+					CircleNotePen->Color = returnColor(listofNotesitr->noteType);
+					//modify rectangle to scale with how long until the note appears
+					float NoteScale = 1 - ((timeAtITR - currentTime) * (1 / totalTimeShowNotes)); //0-1 = 0-100%
+					sizeOfRectFut = sizeOfRect * NoteScale;
+					circleRadiusFut = (sizeOfRectFut / 2);
+					xPosFut = InitialSettingsPane->Left + (circleRadius - circleRadiusFut) + 1;
+					yPosFut = InitialSettingsPane->Bottom + 6 + (circleRadius - circleRadiusFut) + 1;
+					CircleNotePen->Width = widthOfNotePen * NoteScale;
+
+					System::Drawing::Point locationFut(xPosFut, yPosFut);
+					System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
+					System::Drawing::Rectangle RectFut(locationFut, sizeFut);
+					if (NoteScale > 0) {
+						g->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
+					}
+				}
 			}
+			else {
+				notemapitr = mapOfNotes.end();
+				notemapitr--;
+			}
+		}
+
+		//Draw selected note
+		if (SelectedLineType == 1) {
+			CircleNotePen->Color = returnColor(SelectedNoteTypeVisual);
+			CircleNotePen->Width = 4;
 			g->DrawArc(CircleNotePen, Rect, startAngle, arcLength);
 		}
 	}
@@ -2707,6 +3056,51 @@ private: System::Windows::Forms::ToolStripMenuItem^ aboutToolStripMenuItem;
 		Refresh();
 	}
 	private: System::Void MyForm_Resize(System::Object^ sender, System::EventArgs^ e) {
+		Refresh();
+	}
+	private: System::Void BeatNum_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (!alreadyRefreshed) {
+			Refresh();
+		}
+		else {
+			alreadyRefreshed = false;
+		}
+	}
+	private: System::Void MatchNoteCheckBox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	refreshNotesView();
+	}
+	private: System::Void NextBeatButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (!theChart.Notes.empty()) {
+			int initialBeat = viewNotesITR->beat;
+			while (viewNotesITR->beat == initialBeat) {
+				viewNotesITR++;
+				if (viewNotesITR == theChart.Notes.end()) {
+					viewNotesITR = theChart.Notes.begin();
+					break;
+				}
+			}
+			refreshNotesView();
+		}
+		Refresh();
+	}
+	private: System::Void PrevBeatButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (!theChart.Notes.empty()) {
+			int initialBeat = viewNotesITR->beat;
+			while (viewNotesITR->beat == initialBeat) {
+				if (viewNotesITR != theChart.Notes.begin()) {
+					viewNotesITR--;
+				}
+				else {
+					viewNotesITR = theChart.Notes.end();
+					viewNotesITR--;
+					break;
+				}
+			}
+			refreshNotesView();
+		}
+		Refresh();
+	}
+	private: System::Void SubBeat2Num_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		Refresh();
 	}
 };

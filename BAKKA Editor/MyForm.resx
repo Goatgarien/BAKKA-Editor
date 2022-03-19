@@ -2735,7 +2735,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>10</value>
   </data>
   <data name="PreChartViewBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 575</value>
+    <value>6, 516</value>
   </data>
   <data name="PreChartViewBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>482, 208</value>
@@ -2760,6 +2760,114 @@ Notes that appear are from End 1 -&gt; End 2</value>
   </data>
   <data name="NotesViewBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
+  </data>
+  <data name="PrevBeatButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="PrevBeatButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="PrevBeatButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 23</value>
+  </data>
+  <data name="PrevBeatButton.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="PrevBeatButton.Text" xml:space="preserve">
+    <value>Previous Beat</value>
+  </data>
+  <data name="&gt;&gt;PrevBeatButton.Name" xml:space="preserve">
+    <value>PrevBeatButton</value>
+  </data>
+  <data name="&gt;&gt;PrevBeatButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PrevBeatButton.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;PrevBeatButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="NextBeatButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>354, 19</value>
+  </data>
+  <data name="NextBeatButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 23</value>
+  </data>
+  <data name="NextBeatButton.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="NextBeatButton.Text" xml:space="preserve">
+    <value>Next Beat</value>
+  </data>
+  <data name="&gt;&gt;NextBeatButton.Name" xml:space="preserve">
+    <value>NextBeatButton</value>
+  </data>
+  <data name="&gt;&gt;NextBeatButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NextBeatButton.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;NextBeatButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="MatchNoteCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="MatchNoteCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="MatchNoteCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 150</value>
+  </data>
+  <data name="MatchNoteCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 17</value>
+  </data>
+  <data name="MatchNoteCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="MatchNoteCheckBox.Text" xml:space="preserve">
+    <value>Match selected note to current viewed note</value>
+  </data>
+  <data name="&gt;&gt;MatchNoteCheckBox.Name" xml:space="preserve">
+    <value>MatchNoteCheckBox</value>
+  </data>
+  <data name="&gt;&gt;MatchNoteCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MatchNoteCheckBox.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;MatchNoteCheckBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="MatchTimeCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="MatchTimeCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 150</value>
+  </data>
+  <data name="MatchTimeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 17</value>
+  </data>
+  <data name="MatchTimeCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="MatchTimeCheckBox.Text" xml:space="preserve">
+    <value>Match selected time to current viewed note</value>
+  </data>
+  <data name="&gt;&gt;MatchTimeCheckBox.Name" xml:space="preserve">
+    <value>MatchTimeCheckBox</value>
+  </data>
+  <data name="&gt;&gt;MatchTimeCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MatchTimeCheckBox.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;MatchTimeCheckBox.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="NotesMaskLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2789,7 +2897,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;NotesMaskLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>4</value>
   </data>
   <data name="NotesSizeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2819,7 +2927,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;NotesSizeLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>5</value>
   </data>
   <data name="NotesPosLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2849,7 +2957,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;NotesPosLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>6</value>
   </data>
   <data name="NotesTypeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2879,7 +2987,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;NotesTypeLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>7</value>
   </data>
   <data name="NotesSubBeatLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2909,7 +3017,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;NotesSubBeatLabel.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>8</value>
   </data>
   <data name="NotesBeatLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2939,7 +3047,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;NotesBeatLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>9</value>
   </data>
   <data name="label28.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2972,7 +3080,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;label28.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>10</value>
   </data>
   <data name="label27.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3005,7 +3113,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;label27.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>11</value>
   </data>
   <data name="label26.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3038,7 +3146,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;label26.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>12</value>
   </data>
   <data name="label25.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3071,7 +3179,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>13</value>
   </data>
   <data name="label24.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3104,7 +3212,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;label24.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>14</value>
   </data>
   <data name="label23.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3137,16 +3245,16 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;label23.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>15</value>
   </data>
   <data name="NextNoteButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="NextNoteButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>242, 19</value>
+    <value>238, 19</value>
   </data>
   <data name="NextNoteButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 23</value>
+    <value>110, 23</value>
   </data>
   <data name="NextNoteButton.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -3164,16 +3272,16 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;NextNoteButton.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>16</value>
   </data>
   <data name="PrevNoteButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="PrevNoteButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
+    <value>122, 19</value>
   </data>
   <data name="PrevNoteButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 23</value>
+    <value>110, 23</value>
   </data>
   <data name="PrevNoteButton.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -3191,7 +3299,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;PrevNoteButton.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>17</value>
   </data>
   <data name="DeleteNoteButton.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
@@ -3203,7 +3311,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>3, 182</value>
   </data>
   <data name="DeleteNoteButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>466, 23</value>
+    <value>464, 23</value>
   </data>
   <data name="DeleteNoteButton.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -3221,13 +3329,13 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>NotesViewBox</value>
   </data>
   <data name="&gt;&gt;DeleteNoteButton.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>18</value>
   </data>
   <data name="NotesViewBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>497, 575</value>
+    <value>497, 516</value>
   </data>
   <data name="NotesViewBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>472, 208</value>
+    <value>470, 208</value>
   </data>
   <data name="NotesViewBox.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
@@ -3293,7 +3401,7 @@ Notes that appear are from End 1 -&gt; End 2</value>
     <value>GrowAndShrink</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>981, 795</value>
+    <value>981, 736</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>BAKKA Editor</value>
