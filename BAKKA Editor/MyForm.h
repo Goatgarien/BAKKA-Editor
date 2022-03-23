@@ -572,6 +572,7 @@ private: System::Windows::Forms::Panel^ panel1;
             // 
             // menuStrip
             // 
+            this->menuStrip->ImageScalingSize = System::Drawing::Size(24, 24);
             this->menuStrip->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
                 this->fileToolStripMenuItem,
                     this->aboutToolStripMenuItem
