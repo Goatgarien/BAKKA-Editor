@@ -32,6 +32,7 @@ std::map<float, std::list<std::pair<int, int>>> mapOfMasks;
 std::map<float, std::list<NotesNode>> mapOfNotes;
 std::map<float, float> mapOfTimeBetweenBeats; //current beat, milliseconds beatween beats
 std::map<float, float> mapOfBeatAtTime; //milliseconds start time, beat start time
+std::map<float, float> mapOfBPMatTime; //milliseconds start time, BPM at time
 bool alreadyRefreshed = false;
 bool noteRefresh = false;
 bool subnum1changed = false;
@@ -1857,11 +1858,38 @@ private: System::Windows::Forms::Panel^ panel1;
 		}
 	}
 	void refreshMapOfTime() {
-		mapOfTimeBetweenBeats.clear();
+		mapOfTimeBetweenBeats.clear(); 
+		mapOfBPMatTime.clear();
 		if (!theChart.PreChart.empty()) {
 			for (std::list<PreChartNode>::iterator viewGimmicksITR = theChart.PreChart.begin(); viewGimmicksITR != theChart.PreChart.end(); viewGimmicksITR++) {
-				if (viewGimmicksITR->type == 2 || viewGimmicksITR->type == 3) {
-					float currentTime = (float)viewGimmicksITR->beat + ((float)viewGimmicksITR->subBeat / 1920);
+				float currentTime = (float)viewGimmicksITR->beat + ((float)viewGimmicksITR->subBeat / 1920);
+				if (viewGimmicksITR->type == 2) {
+					//copy previous time to current time if current time is empty
+					if (mapOfTimeBetweenBeats.find(currentTime) == mapOfTimeBetweenBeats.end()) {
+						std::map<float, float>::iterator itr = mapOfTimeBetweenBeats.lower_bound(currentTime);
+						if (itr != mapOfTimeBetweenBeats.end()) {
+							if (itr != mapOfTimeBetweenBeats.begin()) {
+								itr--;
+							}
+							if (itr->first < currentTime) {
+								mapOfTimeBetweenBeats[currentTime] = itr->second;
+							}
+						}
+						else {
+							itr = mapOfTimeBetweenBeats.end();
+							if (!mapOfTimeBetweenBeats.empty()) {
+								itr--;
+								mapOfTimeBetweenBeats[currentTime] = itr->second;
+							}
+						}
+					}
+					mapOfTimeBetweenBeats[currentTime] = ((float)milInMinute / (float)viewGimmicksITR->BPM) * (float)4;
+					mapOfBPMatTime[currentTime] = (float)viewGimmicksITR->BPM;
+				}
+			}
+			for (std::list<PreChartNode>::iterator viewGimmicksITR = theChart.PreChart.begin(); viewGimmicksITR != theChart.PreChart.end(); viewGimmicksITR++) {
+				float currentTime = (float)viewGimmicksITR->beat + ((float)viewGimmicksITR->subBeat / 1920);
+				if (viewGimmicksITR->type == 3) {
 
 					//copy previous time to current time if current time is empty
 					if (mapOfTimeBetweenBeats.find(currentTime) == mapOfTimeBetweenBeats.end()) {
@@ -1882,13 +1910,27 @@ private: System::Windows::Forms::Panel^ panel1;
 							}
 						}
 					}
-
-					if (viewGimmicksITR->type == 2) {
-						mapOfTimeBetweenBeats[currentTime] = ((float)milInMinute / (float)viewGimmicksITR->BPM) * (float)4;
+					//copy previous BPM to current time if current time is empty
+					if (mapOfBPMatTime.find(currentTime) == mapOfBPMatTime.end()) {
+						std::map<float, float>::iterator itr = mapOfBPMatTime.lower_bound(currentTime);
+						if (itr != mapOfBPMatTime.end()) {
+							if (itr != mapOfBPMatTime.begin()) {
+								itr--;
+							}
+							if (itr->first < currentTime) {
+								mapOfBPMatTime[currentTime] = itr->second;
+							}
+						}
+						else {
+							itr = mapOfBPMatTime.end();
+							if (!mapOfBPMatTime.empty()) {
+								itr--;
+								mapOfBPMatTime[currentTime] = itr->second;
+							}
+						}
 					}
-					if (viewGimmicksITR->type == 3) {
-						mapOfTimeBetweenBeats[currentTime] *= ((float)viewGimmicksITR->beatDiv1 / (float)viewGimmicksITR->beatDiv2);
-					}
+					float timeBetween = ((float)milInMinute / mapOfBPMatTime[currentTime]) * (float)4;
+					mapOfTimeBetweenBeats[currentTime] = timeBetween * ((float)viewGimmicksITR->beatDiv1 / (float)viewGimmicksITR->beatDiv2);
 				}
 			}
 		}
@@ -3839,12 +3881,14 @@ private: System::Windows::Forms::Panel^ panel1;
 		if (openFileDialogSong->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
 			songFilePath = SystemStringTostdString(openFileDialogSong->FileName);
 		}
-		theChart.songFileName = songFilePath;
-		songFileName->Text = stdStringToSystemString(songFilePath);
-		currentlyPlayingSound = SoundEngine.Play2D(stdStringToSystemString(songFilePath), true, true);
-		songTrackSlider->Value = 0;
-		songTrackSlider->Maximum = currentlyPlayingSound->PlayLength;
-		refreshMapOfTime();
+		if (songFilePath != "") {
+			theChart.songFileName = songFilePath;
+			songFileName->Text = stdStringToSystemString(songFilePath);
+			currentlyPlayingSound = SoundEngine.Play2D(stdStringToSystemString(songFilePath), true, true);
+			songTrackSlider->Value = 0;
+			songTrackSlider->Maximum = currentlyPlayingSound->PlayLength;
+			refreshMapOfTime();
+		}
 	}
 	private: System::Void PlayButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (songFilePath != "" && currentlyPlayingSound != nullptr) {
@@ -3905,7 +3949,7 @@ private: System::Windows::Forms::Panel^ panel1;
 			}
 			float timeBetweenMeasures = mapOfTimeBetweenBeats[lastMeasure]; // use last measure to find "milliseconds per measure" since then
 			float measuresFromLastMeasure = (currentTime - itr->first) / timeBetweenMeasures; //(current time - last measure start time) / (milliseconds per measure) = measures from last measure
-			currentMeasure = itr->first + measuresFromLastMeasure; //last measure start time + measures from last measure = current measure
+			currentMeasure = lastMeasure + measuresFromLastMeasure; //last measure + measures from last measure = current measure
 		}
 		else {
 			currentMeasure = mapOfBeatAtTime[currentTime];
