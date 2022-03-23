@@ -1,4 +1,5 @@
 #pragma once
+#pragma comment(lib, "irrKlang.lib") // link with irrKlang.dll
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -7,14 +8,20 @@
 #include <vector>
 #include <stack>
 #include <algorithm>
+#include <irrKlang.h>
+#include <stdio.h>
+#include <conio.h>
+#include <thread>
+#include <chrono>
 #include "Chart.h"
 #define PI 3.14159265
 
 using std::to_string;
+using namespace IrrKlang;
 
 Chart theChart;
-std::string fileContent = "";
-std::string filePath = "";
+std::string songFilePath = "";
+std::string chartFilePath = "";
 int SelectedLineType = 1;
 int SelectedNoteType = 1;
 int SelectedNoteTypeVisual = 1;
@@ -23,9 +30,17 @@ std::list<PreChartNode>::iterator viewGimmicksITR = theChart.PreChart.begin();
 std::list<NotesNode>::iterator holdNoteitr = theChart.Notes.end();
 std::map<float, std::list<std::pair<int, int>>> mapOfMasks;
 std::map<float, std::list<NotesNode>> mapOfNotes;
+std::map<float, float> mapOfTimeBetweenBeats; //current beat, milliseconds beatween beats
+std::map<float, float> mapOfBeatAtTime; //milliseconds start time, beat start time
 bool alreadyRefreshed = false;
 bool noteRefresh = false;
 bool subnum1changed = false;
+int songLength = 0;
+const unsigned int update_interval = 50; // update after every 50 milliseconds (1/16th of 300bpm)
+const int milInMinute = 60000;
+bool scrollBarChanged = false;
+float theCurrentMeasure = 0;
+
 
 int findLine(std::list<NotesNode>::iterator nextNode) {
 	int outputLine = 0;
@@ -115,6 +130,7 @@ namespace BAKKAEditor {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::IO;
+	using namespace System::Threading;
 
 	/// <summary>
 	/// Summary for MyForm
@@ -143,7 +159,8 @@ namespace BAKKAEditor {
 		}
 	private: System::Windows::Forms::MenuStrip^ menuStrip;
 	protected:
-
+		ISoundEngine SoundEngine;
+		ISound^ currentlyPlayingSound = SoundEngine.Play2D(stdStringToSystemString(songFilePath), true, true);
 	protected:
 	private: System::Windows::Forms::ToolStripMenuItem^ fileToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ newToolStripMenuItem;
@@ -278,9 +295,9 @@ private: System::Windows::Forms::Label^ NotesTypeLabel;
 private: System::Windows::Forms::Label^ NotesSubBeatLabel;
 private: System::Windows::Forms::Label^ NotesBeatLabel;
 private: System::Windows::Forms::Label^ MadeByLabel;
-private: System::Windows::Forms::TextBox^ songFileNameTextBox;
+
 private: System::Windows::Forms::Label^ label29;
-private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
+private: System::Windows::Forms::OpenFileDialog^ openFileDialogChart;
 private: System::Windows::Forms::SaveFileDialog^ saveFileDialog1;
 
 
@@ -294,6 +311,29 @@ private: System::Windows::Forms::GroupBox^ CurrentNoteBox;
 private: System::Windows::Forms::TrackBar^ SizeTrackBar;
 private: System::Windows::Forms::TrackBar^ PosTrackBar;
 private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
+private: System::Windows::Forms::Panel^ CirclePanel;
+private: System::Windows::Forms::GroupBox^ VisualSettingsBox;
+private: System::Windows::Forms::Label^ label2;
+private: System::Windows::Forms::NumericUpDown^ VisualHispeed;
+private: System::Windows::Forms::TrackBar^ songTrackSlider;
+
+private: System::Windows::Forms::Button^ PlayButton;
+
+private: System::Windows::Forms::GroupBox^ SongPlaybackBox;
+
+private: System::Windows::Forms::Label^ songFileName;
+private: System::Windows::Forms::Button^ selectSongFile;
+private: System::Windows::Forms::OpenFileDialog^ openFileDialogSong;
+private: System::Windows::Forms::Label^ VolumeLabel;
+private: System::Windows::Forms::TrackBar^ Volume;
+private: System::ComponentModel::BackgroundWorker^ backgroundWorkerSong;
+private: System::ComponentModel::BackgroundWorker^ backgroundWorkerPaint;
+private: System::ComponentModel::BackgroundWorker^ backgroundWorker1;
+
+
+
+
+
 
 
 
@@ -370,6 +410,8 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			this->Stop = (gcnew System::Windows::Forms::Button());
 			this->Reverse = (gcnew System::Windows::Forms::Button());
 			this->Mask = (gcnew System::Windows::Forms::Button());
+			this->VisualHispeed = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->InsertButton = (gcnew System::Windows::Forms::Button());
 			this->PosLabel = (gcnew System::Windows::Forms::Label());
 			this->posInfo = (gcnew System::Windows::Forms::Label());
@@ -410,8 +452,6 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->InitialSettingsPane = (gcnew System::Windows::Forms::GroupBox());
-			this->songFileNameTextBox = (gcnew System::Windows::Forms::TextBox());
-			this->label29 = (gcnew System::Windows::Forms::Label());
 			this->InitialSetSave = (gcnew System::Windows::Forms::Button());
 			this->MovieOffsetNum = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label17 = (gcnew System::Windows::Forms::Label());
@@ -423,6 +463,7 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			this->label14 = (gcnew System::Windows::Forms::Label());
 			this->InitialBPMNum = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label13 = (gcnew System::Windows::Forms::Label());
+			this->label29 = (gcnew System::Windows::Forms::Label());
 			this->MaskSettingsBox = (gcnew System::Windows::Forms::GroupBox());
 			this->MaskCenter = (gcnew System::Windows::Forms::RadioButton());
 			this->MaskCClockwise = (gcnew System::Windows::Forms::RadioButton());
@@ -463,14 +504,28 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			this->PrevNoteButton = (gcnew System::Windows::Forms::Button());
 			this->DeleteNoteButton = (gcnew System::Windows::Forms::Button());
 			this->MadeByLabel = (gcnew System::Windows::Forms::Label());
-			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->openFileDialogChart = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->CurrentNoteBox = (gcnew System::Windows::Forms::GroupBox());
 			this->SizeTrackBar = (gcnew System::Windows::Forms::TrackBar());
 			this->PosTrackBar = (gcnew System::Windows::Forms::TrackBar());
 			this->fileSystemWatcher1 = (gcnew System::IO::FileSystemWatcher());
+			this->CirclePanel = (gcnew System::Windows::Forms::Panel());
+			this->VisualSettingsBox = (gcnew System::Windows::Forms::GroupBox());
+			this->PlayButton = (gcnew System::Windows::Forms::Button());
+			this->songTrackSlider = (gcnew System::Windows::Forms::TrackBar());
+			this->selectSongFile = (gcnew System::Windows::Forms::Button());
+			this->SongPlaybackBox = (gcnew System::Windows::Forms::GroupBox());
+			this->VolumeLabel = (gcnew System::Windows::Forms::Label());
+			this->Volume = (gcnew System::Windows::Forms::TrackBar());
+			this->songFileName = (gcnew System::Windows::Forms::Label());
+			this->openFileDialogSong = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->backgroundWorkerSong = (gcnew System::ComponentModel::BackgroundWorker());
+			this->backgroundWorkerPaint = (gcnew System::ComponentModel::BackgroundWorker());
+			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->menuStrip->SuspendLayout();
 			this->NoteTypeBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->VisualHispeed))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeNum))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosNum))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat2Num))->BeginInit();
@@ -504,6 +559,10 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeTrackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosTrackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fileSystemWatcher1))->BeginInit();
+			this->VisualSettingsBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->songTrackSlider))->BeginInit();
+			this->SongPlaybackBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Volume))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menuStrip
@@ -722,6 +781,24 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			this->ToolTip->SetToolTip(this->Mask, resources->GetString(L"Mask.ToolTip"));
 			this->Mask->UseVisualStyleBackColor = true;
 			this->Mask->Click += gcnew System::EventHandler(this, &MyForm::Mask_Click);
+			// 
+			// VisualHispeed
+			// 
+			this->VisualHispeed->BackColor = System::Drawing::SystemColors::Window;
+			this->VisualHispeed->DecimalPlaces = 2;
+			this->VisualHispeed->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 65536 });
+			resources->ApplyResources(this->VisualHispeed, L"VisualHispeed");
+			this->VisualHispeed->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 131072 });
+			this->VisualHispeed->Name = L"VisualHispeed";
+			this->ToolTip->SetToolTip(this->VisualHispeed, resources->GetString(L"VisualHispeed.ToolTip"));
+			this->VisualHispeed->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 5, 0, 0, 65536 });
+			this->VisualHispeed->ValueChanged += gcnew System::EventHandler(this, &MyForm::VisualHispeed_ValueChanged);
+			// 
+			// label2
+			// 
+			resources->ApplyResources(this->label2, L"label2");
+			this->label2->Name = L"label2";
+			this->ToolTip->SetToolTip(this->label2, resources->GetString(L"label2.ToolTip"));
 			// 
 			// InsertButton
 			// 
@@ -944,8 +1021,7 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			// 
 			this->HiSpeedChangeNum->DecimalPlaces = 6;
 			resources->ApplyResources(this->HiSpeedChangeNum, L"HiSpeedChangeNum");
-			this->HiSpeedChangeNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10, 0, 0, 0 });
-			this->HiSpeedChangeNum->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 393216 });
+			this->HiSpeedChangeNum->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 100, 0, 0, System::Int32::MinValue });
 			this->HiSpeedChangeNum->Name = L"HiSpeedChangeNum";
 			this->HiSpeedChangeNum->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			// 
@@ -1011,8 +1087,6 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			// 
 			// InitialSettingsPane
 			// 
-			this->InitialSettingsPane->Controls->Add(this->songFileNameTextBox);
-			this->InitialSettingsPane->Controls->Add(this->label29);
 			this->InitialSettingsPane->Controls->Add(this->InitialSetSave);
 			this->InitialSettingsPane->Controls->Add(this->MovieOffsetNum);
 			this->InitialSettingsPane->Controls->Add(this->label17);
@@ -1027,16 +1101,6 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			resources->ApplyResources(this->InitialSettingsPane, L"InitialSettingsPane");
 			this->InitialSettingsPane->Name = L"InitialSettingsPane";
 			this->InitialSettingsPane->TabStop = false;
-			// 
-			// songFileNameTextBox
-			// 
-			resources->ApplyResources(this->songFileNameTextBox, L"songFileNameTextBox");
-			this->songFileNameTextBox->Name = L"songFileNameTextBox";
-			// 
-			// label29
-			// 
-			resources->ApplyResources(this->label29, L"label29");
-			this->label29->Name = L"label29";
 			// 
 			// InitialSetSave
 			// 
@@ -1108,6 +1172,11 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			// 
 			resources->ApplyResources(this->label13, L"label13");
 			this->label13->Name = L"label13";
+			// 
+			// label29
+			// 
+			resources->ApplyResources(this->label29, L"label29");
+			this->label29->Name = L"label29";
 			// 
 			// MaskSettingsBox
 			// 
@@ -1377,12 +1446,12 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			resources->ApplyResources(this->MadeByLabel, L"MadeByLabel");
 			this->MadeByLabel->Name = L"MadeByLabel";
 			// 
-			// openFileDialog1
+			// openFileDialogChart
 			// 
-			this->openFileDialog1->FileName = L"chart.mer";
-			resources->ApplyResources(this->openFileDialog1, L"openFileDialog1");
-			this->openFileDialog1->RestoreDirectory = true;
-			this->openFileDialog1->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::openFileDialog_FileOk);
+			this->openFileDialogChart->FileName = L"chart.mer";
+			resources->ApplyResources(this->openFileDialogChart, L"openFileDialogChart");
+			this->openFileDialogChart->RestoreDirectory = true;
+			this->openFileDialogChart->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::openFileDialog_FileOk);
 			// 
 			// saveFileDialog1
 			// 
@@ -1433,11 +1502,103 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			this->fileSystemWatcher1->EnableRaisingEvents = true;
 			this->fileSystemWatcher1->SynchronizingObject = this;
 			// 
+			// CirclePanel
+			// 
+			resources->ApplyResources(this->CirclePanel, L"CirclePanel");
+			this->CirclePanel->BackColor = System::Drawing::Color::Transparent;
+			this->CirclePanel->Name = L"CirclePanel";
+			this->CirclePanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::CirclePanel_Paint);
+			// 
+			// VisualSettingsBox
+			// 
+			this->VisualSettingsBox->Controls->Add(this->label2);
+			this->VisualSettingsBox->Controls->Add(this->VisualHispeed);
+			resources->ApplyResources(this->VisualSettingsBox, L"VisualSettingsBox");
+			this->VisualSettingsBox->Name = L"VisualSettingsBox";
+			this->VisualSettingsBox->TabStop = false;
+			// 
+			// PlayButton
+			// 
+			resources->ApplyResources(this->PlayButton, L"PlayButton");
+			this->PlayButton->Name = L"PlayButton";
+			this->PlayButton->UseVisualStyleBackColor = true;
+			this->PlayButton->Click += gcnew System::EventHandler(this, &MyForm::PlayButton_Click);
+			// 
+			// songTrackSlider
+			// 
+			resources->ApplyResources(this->songTrackSlider, L"songTrackSlider");
+			this->songTrackSlider->Name = L"songTrackSlider";
+			this->songTrackSlider->TickStyle = System::Windows::Forms::TickStyle::None;
+			this->songTrackSlider->Scroll += gcnew System::EventHandler(this, &MyForm::songTrackSlider_Scroll);
+			// 
+			// selectSongFile
+			// 
+			resources->ApplyResources(this->selectSongFile, L"selectSongFile");
+			this->selectSongFile->Name = L"selectSongFile";
+			this->selectSongFile->UseVisualStyleBackColor = true;
+			this->selectSongFile->Click += gcnew System::EventHandler(this, &MyForm::selectSongFile_Click);
+			// 
+			// SongPlaybackBox
+			// 
+			this->SongPlaybackBox->Controls->Add(this->VolumeLabel);
+			this->SongPlaybackBox->Controls->Add(this->Volume);
+			this->SongPlaybackBox->Controls->Add(this->songFileName);
+			this->SongPlaybackBox->Controls->Add(this->PlayButton);
+			this->SongPlaybackBox->Controls->Add(this->label29);
+			this->SongPlaybackBox->Controls->Add(this->songTrackSlider);
+			this->SongPlaybackBox->Controls->Add(this->selectSongFile);
+			resources->ApplyResources(this->SongPlaybackBox, L"SongPlaybackBox");
+			this->SongPlaybackBox->Name = L"SongPlaybackBox";
+			this->SongPlaybackBox->TabStop = false;
+			// 
+			// VolumeLabel
+			// 
+			resources->ApplyResources(this->VolumeLabel, L"VolumeLabel");
+			this->VolumeLabel->Name = L"VolumeLabel";
+			// 
+			// Volume
+			// 
+			resources->ApplyResources(this->Volume, L"Volume");
+			this->Volume->Maximum = 100;
+			this->Volume->Name = L"Volume";
+			this->Volume->SmallChange = 5;
+			this->Volume->TickFrequency = 10;
+			this->Volume->Value = 100;
+			this->Volume->Scroll += gcnew System::EventHandler(this, &MyForm::Volume_Scroll);
+			// 
+			// songFileName
+			// 
+			resources->ApplyResources(this->songFileName, L"songFileName");
+			this->songFileName->Name = L"songFileName";
+			// 
+			// openFileDialogSong
+			// 
+			this->openFileDialogSong->FileName = L"openFileDialogSong";
+			resources->ApplyResources(this->openFileDialogSong, L"openFileDialogSong");
+			// 
+			// backgroundWorkerSong
+			// 
+			this->backgroundWorkerSong->WorkerReportsProgress = true;
+			this->backgroundWorkerSong->WorkerSupportsCancellation = true;
+			this->backgroundWorkerSong->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MyForm::backgroundWorkerSong_DoWork);
+			this->backgroundWorkerSong->ProgressChanged += gcnew System::ComponentModel::ProgressChangedEventHandler(this, &MyForm::backgroundWorkerSong_ProgressChanged);
+			this->backgroundWorkerSong->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MyForm::backgroundWorkerSong_RunWorkerCompleted);
+			// 
+			// backgroundWorkerPaint
+			// 
+			this->backgroundWorkerPaint->WorkerReportsProgress = true;
+			this->backgroundWorkerPaint->WorkerSupportsCancellation = true;
+			this->backgroundWorkerPaint->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MyForm::backgroundWorkerPaint_DoWork);
+			this->backgroundWorkerPaint->ProgressChanged += gcnew System::ComponentModel::ProgressChangedEventHandler(this, &MyForm::backgroundWorkerPaint_ProgressChanged);
+			// 
 			// MyForm
 			// 
 			this->AllowDrop = true;
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->Controls->Add(this->SongPlaybackBox);
+			this->Controls->Add(this->VisualSettingsBox);
+			this->Controls->Add(this->CirclePanel);
 			this->Controls->Add(this->CurrentNoteBox);
 			this->Controls->Add(this->MadeByLabel);
 			this->Controls->Add(this->NotesViewBox);
@@ -1459,6 +1620,7 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			this->menuStrip->PerformLayout();
 			this->NoteTypeBox->ResumeLayout(false);
 			this->NoteTypeBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->VisualHispeed))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeNum))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosNum))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat2Num))->EndInit();
@@ -1499,19 +1661,17 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeTrackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosTrackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fileSystemWatcher1))->EndInit();
+			this->VisualSettingsBox->ResumeLayout(false);
+			this->VisualSettingsBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->songTrackSlider))->EndInit();
+			this->SongPlaybackBox->ResumeLayout(false);
+			this->SongPlaybackBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Volume))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-	void RefreshPaint() {
-		if (!alreadyRefreshed && !noteRefresh) {
-			Refresh();
-		}
-		else {
-			alreadyRefreshed = false;
-		}
-	}
 	System::String^ stdStringToSystemString(std::string input) {
 		return gcnew String(input.data());
 	}
@@ -1679,6 +1839,67 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 				tempnode.position = viewMasksITR->position;
 				tempnode.size = viewMasksITR->size;
 				mapOfNotes[currentTime].push_back(tempnode);
+			}
+		}
+	}
+	void refreshMapOfTime() {
+		mapOfTimeBetweenBeats.clear();
+		if (!theChart.PreChart.empty()) {
+			for (std::list<PreChartNode>::iterator viewGimmicksITR = theChart.PreChart.begin(); viewGimmicksITR != theChart.PreChart.end(); viewGimmicksITR++) {
+				if (viewGimmicksITR->type == 2 || viewGimmicksITR->type == 3) {
+					float currentTime = (float)viewGimmicksITR->beat + ((float)viewGimmicksITR->subBeat / 1920);
+
+					//copy previous time to current time if current time is empty
+					if (mapOfTimeBetweenBeats.find(currentTime) == mapOfTimeBetweenBeats.end()) {
+						std::map<float, float>::iterator itr = mapOfTimeBetweenBeats.lower_bound(currentTime);
+						if (itr != mapOfTimeBetweenBeats.end()) {
+							if (itr != mapOfTimeBetweenBeats.begin()) {
+								itr--;
+							}
+							if (itr->first < currentTime) {
+								mapOfTimeBetweenBeats[currentTime] = itr->second;
+							}
+						}
+						else {
+							itr = mapOfTimeBetweenBeats.end();
+							if (!mapOfTimeBetweenBeats.empty()) {
+								itr--;
+								mapOfTimeBetweenBeats[currentTime] = itr->second;
+							}
+						}
+					}
+
+					if (viewGimmicksITR->type == 2) {
+						mapOfTimeBetweenBeats[currentTime] = ((float)milInMinute / (float)viewGimmicksITR->BPM) * (float)4;
+					}
+					if (viewGimmicksITR->type == 3) {
+						mapOfTimeBetweenBeats[currentTime] *= ((float)viewGimmicksITR->beatDiv1 / (float)viewGimmicksITR->beatDiv2);
+					}
+				}
+			}
+		}
+		else {
+			mapOfTimeBetweenBeats[0] = ((float)milInMinute / (float)InitialBPMNum->Value)* (float)4;
+		}
+		refreshMapOfBeatAtTime();
+	}
+	void refreshMapOfBeatAtTime() {
+		mapOfBeatAtTime.clear();
+		std::map<float, float>::iterator itr = mapOfTimeBetweenBeats.begin();
+		mapOfBeatAtTime[0] = 0; //millisecond 0 of song starts at measure 0 of song;
+		if (itr != mapOfTimeBetweenBeats.end()) {
+			float prevTimeMil = 0;
+			float prevTimeBeats = itr->first;
+			float prevTimePerMeasure = itr->second;
+			for (itr++; itr != mapOfTimeBetweenBeats.end(); itr++) {
+				float differenceBetweenMeasures = itr->first - prevTimeBeats;
+				float millisecondsFromLastChange = differenceBetweenMeasures * prevTimePerMeasure;
+				float nextTime = millisecondsFromLastChange + prevTimeMil;
+				mapOfBeatAtTime[nextTime] = itr->first; //millisecond nextTime of song starts at measure itr->first of song
+
+				prevTimeMil = nextTime;
+				prevTimeBeats = itr->first;
+				prevTimePerMeasure = itr->second;
 			}
 		}
 	}
@@ -2027,7 +2248,7 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 		theChart.Notes.sort(sortNotesListByBeat);
 
 		std::ofstream chartFile;
-		chartFile.open(filePath);
+		chartFile.open(chartFilePath);
 
 
 		chartFile << std::fixed << std::setprecision(6)
@@ -2096,7 +2317,7 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 		chartFile.close();
 	}
 	private: System::Void saveToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (filePath != "") {
+		if (chartFilePath != "") {
 			saveFile();
 		}
 		else {
@@ -2105,9 +2326,9 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 	}
 	private: System::Void saveAsToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
-			filePath = SystemStringTostdString(saveFileDialog1->FileName);
+			chartFilePath = SystemStringTostdString(saveFileDialog1->FileName);
 		}
-		if (filePath != "") {
+		if (chartFilePath != "") {
 			saveFile();
 		}
 	}
@@ -2118,11 +2339,11 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 		theChart.PreChart.clear();
 
 		std::ifstream chartFile;
-		if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
-			filePath = SystemStringTostdString(openFileDialog1->FileName);
+		if (openFileDialogChart->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+			chartFilePath = SystemStringTostdString(openFileDialogChart->FileName);
 		}
-		if (filePath != "") {
-			chartFile.open(filePath);
+		if (chartFilePath != "") {
+			chartFile.open(chartFilePath);
 		}
 
 		std::string temp;
@@ -2130,9 +2351,9 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			if (temp == "#MUSIC_FILE_PATH") {
 				chartFile >> theChart.songFileName;
 				temp = theChart.songFileName;
-				songFileNameTextBox->Text = stdStringToSystemString(theChart.songFileName);
+				//songFileName->Text = stdStringToSystemString(theChart.songFileName);
 				if (temp == "#OFFSET") {
-					songFileNameTextBox->Text = "[Replace with name of file]";
+					songFileName->Text = "Select File (.ogg)";
 					theChart.songFileName = "[Replace with name of file]";
 				}
 			}
@@ -2244,6 +2465,8 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 		refreshNotesView();
 		refreshMapofMasks();
 		refreshMapofNotes();
+		RefreshPaint();
+		refreshMapOfTime();
 	}
 	private: System::Void InsertButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		NotesNode tempNotesNode;
@@ -2403,6 +2626,7 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			}
 			theChart.PreChart.sort(sortPreChartListByBeat);
 			refreshGimmickView();
+			refreshMapOfTime();
 		}
 	}
 	private: System::Void InitialSetSave_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -2411,7 +2635,6 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 
 		theChart.offset = (double)OffsetNum->Value;
 		theChart.movieOffset = (double)MovieOffsetNum->Value;
-		theChart.songFileName = SystemStringTostdString(songFileNameTextBox->Text);
 
 		std::list<PreChartNode>::iterator itr;
 		for (itr = theChart.PreChart.begin(); itr != theChart.PreChart.end(); ++itr) {
@@ -2448,6 +2671,7 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 		}
 		theChart.PreChart.sort(sortPreChartListByBeat);
 		refreshGimmickView();
+		refreshMapOfTime();
 		saveToolStripMenuItem_Click(sender, e);
 	}
 	private: System::Void TapButton_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -2800,28 +3024,6 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 		}
 	}
-	private: System::Void SubBeat1Num_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (SubBeat1Num->Value >= SubBeat2Num->Value) {
-			alreadyRefreshed = true;
-			SubBeat1Num->Value = 0;
-			alreadyRefreshed = true;
-			BeatNum->Value++;
-		}
-		if (SubBeat1Num->Value < 0) {
-			if (BeatNum->Value > 0) {
-				int temp = (int)SubBeat2Num->Value - 1;
-				alreadyRefreshed = true;
-				SubBeat1Num->Value = (System::Decimal)temp;
-				alreadyRefreshed = true;
-				BeatNum->Value--;
-			}
-			else {
-				alreadyRefreshed = true;
-				SubBeat1Num->Value = 0;
-			}
-		}
-		RefreshPaint();
-	}
 	private: System::Void ReverseEnd1SBNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (ReverseEnd1SBNum1->Value >= ReverseEnd1SBNum2->Value) {
 			ReverseEnd1SBNum1->Value = 0;
@@ -3023,8 +3225,19 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 		}
 		return Color::Transparent;
 	}
+	void RefreshPaint() {
+		if (!alreadyRefreshed && !noteRefresh) {
+			Refresh();
+		}
+		else {
+			alreadyRefreshed = false;
+		}
+	}
 	private: System::Void MyForm_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-		Graphics^ g = e->Graphics;
+		/* MOVED TO PANEL PAINT
+		//Note graphics
+		Graphics^ notesGraphics = e->Graphics;
+		//Circle location and size
 		int xPos = InitialSettingsPane->Left;
 		int yPos = InitialSettingsPane->Bottom + 6;
 		int sizeOfRect = InitialSettingsPane->Width;
@@ -3033,17 +3246,24 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 		if (noteViewPos.Y < (sizeOfRect + InitSetBoxPos.Y + InitialSettingsPane->Height)) {
 			sizeOfRect = noteViewPos.Y - InitialSettingsPane->Height - InitSetBoxPos.Y - 6;
 		}
-		float widthOfNotePen = 5;
-
+		//Circle info
+		float circleRadius = (sizeOfRect / 2);
+		float xCenterOfCircle = circleRadius + xPos;
+		float yCenterOfCircle = circleRadius + yPos;
+		//Selected object values
+		float startAngle = -((float)PosNum->Value * 6);
+		float arcLength = -((float)SizeNum->Value * 6);
+		//Rectangle the visualization is in
 		System::Drawing::Point location(xPos, yPos);
 		System::Drawing::Size size(sizeOfRect, sizeOfRect);
 		System::Drawing::Rectangle Rect(location, size);
-
+		//Pens for drawing parts of circle
+		float widthOfNotePen = 5;
 		Pen^ CircleBasePen = gcnew Pen(Color::Black, 3);
 		Pen^ CircleLinesPen = gcnew Pen(Color::Black, 2);
 		Pen^ CircleNotePen = gcnew Pen(Color::Transparent, widthOfNotePen);
-
-		g->SmoothingMode = Drawing2D::SmoothingMode::Default;
+		//Drawing mode
+		notesGraphics->SmoothingMode = Drawing2D::SmoothingMode::Default;
 
 		//pre-existing mask values
 		float maskStartAngle;
@@ -3060,7 +3280,7 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 					for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
 						maskStartAngle = -((float)listITR->first * 6);
 						maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
-						g->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+						notesGraphics->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
 					}
 				}
 			}
@@ -3071,7 +3291,7 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 					for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
 						maskStartAngle = -((float)listITR->first * 6);
 						maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
-						g->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+						notesGraphics->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
 					}
 				}
 			}
@@ -3081,53 +3301,52 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 				for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
 					maskStartAngle = -((float)listITR->first * 6);
 					maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
-					g->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+					notesGraphics->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
 				}
 			}
 		}
 
-		//Selected object values
-		float startAngle = -((float)PosNum->Value * 6);
-		float arcLength = -((float)SizeNum->Value * 6);
-
 		//Draw selected mask
 		if (SelectedLineType == 1 && Rect.Width >= 1) {
 			if (SelectedNoteTypeVisual == 12) {
-				g->FillPie(Brushes::Silver, Rect, startAngle, arcLength);
+				notesGraphics->FillPie(Brushes::Silver, Rect, startAngle, arcLength);
 			}
 			if (SelectedNoteTypeVisual == 13) {
-				g->FillPie(Brushes::White, Rect, startAngle, arcLength);
+				notesGraphics->FillPie(Brushes::White, Rect, startAngle, arcLength);
 			}
 		}
 
-		//Draw base circle
-		g->DrawEllipse(CircleBasePen, Rect);
+		if (!alreadyDrawn) {
+			Graphics^ circleGraphics = e->Graphics;
 
-		float circleRadius = (sizeOfRect / 2);
-		float xCenterOfCircle = circleRadius + xPos;
-		float yCenterOfCircle = circleRadius + yPos;
-		for (int i = 0; i < 360; i += 6) { //i is the angle n degrees
-			float xStart, yStart, xEnd, yEnd;
-			float degToRad = (float)i * PI / 180.0; //i to Radians
-			xStart = (circleRadius * cos(degToRad)) + xCenterOfCircle;
-			yStart = (circleRadius * sin(degToRad)) + yCenterOfCircle;
-			PointF coordPointStart(xStart, yStart);
+			//Draw base circle
+			circleGraphics->DrawEllipse(CircleBasePen, Rect);
 
-			float innerRadius = circleRadius - 10;
-			CircleLinesPen->Width = 1;
-			if (i % 90 == 0) {
-				innerRadius = circleRadius - 35.0;
-				CircleLinesPen->Width = 4;
+			//Draw Degree Lines
+			for (int i = 0; i < 360; i += 6) { //i is the angle n degrees
+				float xStart, yStart, xEnd, yEnd;
+				float degToRad = (float)i * PI / 180.0; //i to Radians
+				xStart = (circleRadius * cos(degToRad)) + xCenterOfCircle;
+				yStart = (circleRadius * sin(degToRad)) + yCenterOfCircle;
+				PointF coordPointStart(xStart, yStart);
+
+				float innerRadius = circleRadius - 10;
+				CircleLinesPen->Width = 1;
+				if (i % 90 == 0) {
+					innerRadius = circleRadius - 35.0;
+					CircleLinesPen->Width = 4;
+				}
+				else if (i % 30 == 0) {
+					innerRadius = circleRadius - 25.0;
+					CircleLinesPen->Width = 2;
+				}
+				xEnd = (innerRadius * cos(degToRad)) + xCenterOfCircle;
+				yEnd = (innerRadius * sin(degToRad)) + yCenterOfCircle;
+				PointF coordPointEnd(xEnd, yEnd);
+
+				circleGraphics->DrawLine(CircleLinesPen, coordPointStart, coordPointEnd);
 			}
-			else if (i % 30 == 0) {
-				innerRadius = circleRadius - 25.0;
-				CircleLinesPen->Width = 2;
-			}
-			xEnd = (innerRadius * cos(degToRad)) + xCenterOfCircle;
-			yEnd = (innerRadius * sin(degToRad)) + yCenterOfCircle;
-			PointF coordPointEnd(xEnd, yEnd);
-
-			g->DrawLine(CircleLinesPen, coordPointStart, coordPointEnd);
+			alreadyDrawn = true;
 		}
 
 		//future stuff
@@ -3160,7 +3379,7 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 						System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
 						System::Drawing::Rectangle RectFut(locationFut, sizeFut);
 						if (RectFut.Width >= 1) {
-							g->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
+							notesGraphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
 						}
 					}
 				}
@@ -3193,7 +3412,7 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 						System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
 						System::Drawing::Rectangle RectFut(locationFut, sizeFut);
 						if (RectFut.Width >= 1) {
-							g->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
+							notesGraphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
 						}
 					}
 				}
@@ -3209,8 +3428,9 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 		if (SelectedLineType == 1 && Rect.Width >= 1) {
 			CircleNotePen->Color = returnColor(SelectedNoteTypeVisual);
 			CircleNotePen->Width = 4;
-			g->DrawArc(CircleNotePen, Rect, startAngle, arcLength);
+			notesGraphics->DrawArc(CircleNotePen, Rect, startAngle, arcLength);
 		}
+		*/
 	}
 	private: System::Void PosNum_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		RefreshPaint();
@@ -3225,7 +3445,84 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 		RefreshPaint();
 	}
 	private: System::Void BeatNum_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		refreshScrollBarFromBeatNum();
 		RefreshPaint();
+	}
+	private: System::Void SubBeat1Num_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (SubBeat1Num->Value >= SubBeat2Num->Value) {
+			alreadyRefreshed = true;
+			SubBeat1Num->Value = 0;
+			alreadyRefreshed = true;
+			BeatNum->Value++;
+		}
+		if (SubBeat1Num->Value < 0) {
+			if (BeatNum->Value > 0) {
+				int temp = (int)SubBeat2Num->Value - 1;
+				alreadyRefreshed = true;
+				SubBeat1Num->Value = (System::Decimal)temp;
+				alreadyRefreshed = true;
+				BeatNum->Value--;
+			}
+			else {
+				alreadyRefreshed = true;
+				SubBeat1Num->Value = 0;
+			}
+		}
+		refreshScrollBarFromBeatNum();
+		RefreshPaint();
+	}
+	private: System::Void SubBeat2Num_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		refreshScrollBarFromBeatNum();
+		RefreshPaint();
+	}
+	void refreshScrollBarFromBeatNum() {
+		if (!mapOfTimeBetweenBeats.empty()) {
+			float currentMeasure = (float)BeatNum->Value + ((float)SubBeat1Num->Value / (float)SubBeat2Num->Value); //in measures
+			float lastTime = 0;
+			float timeBetweenBeats;
+			float lastMeasure;
+			if (mapOfTimeBetweenBeats.find(currentMeasure) == mapOfTimeBetweenBeats.end()) {
+				std::map<float, float>::iterator itr = mapOfTimeBetweenBeats.lower_bound(currentMeasure);
+				if (itr != mapOfTimeBetweenBeats.end()) {
+					if (itr != mapOfTimeBetweenBeats.begin()) {
+						itr--;
+					}
+				}
+				else {
+					itr = mapOfTimeBetweenBeats.end();
+					if (!mapOfTimeBetweenBeats.empty()) {
+						itr--;
+					}
+				}
+				lastMeasure = itr->first;
+				timeBetweenBeats = itr->second;
+			}
+			else {
+				lastMeasure = currentMeasure;
+				timeBetweenBeats = mapOfTimeBetweenBeats[currentMeasure]; //use current measure to find last "milliseconds per measure"
+			}
+			for (std::map<float, float>::iterator itrBaT = mapOfBeatAtTime.begin(); itrBaT != mapOfBeatAtTime.end(); itrBaT++) {
+				if (itrBaT->second == lastMeasure) { //use itr->first value in first map to search for itr->second in second map,
+					lastTime = itrBaT->first;
+					break;
+				}
+			}
+			float differenceInTimeMeasures = currentMeasure - lastMeasure;
+			float currentTimeMil = (differenceInTimeMeasures * timeBetweenBeats) + lastTime; //itr->first in second map + ("milliseconds per measure" * time)
+
+			if (currentlyPlayingSound != nullptr) {
+				if (currentlyPlayingSound->Paused) {
+					scrollBarChanged = true;
+					if (currentTimeMil < songTrackSlider->Maximum) {
+						songTrackSlider->Value = currentTimeMil;
+					}
+					else
+						songTrackSlider->Value = songTrackSlider->Maximum;
+				}
+			}
+			theCurrentMeasure = currentMeasure;
+			scrollBarChanged = false;
+		}
 	}
 	private: System::Void MatchNoteCheckBox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		refreshNotesView();
@@ -3259,10 +3556,6 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 			refreshNotesView();
 		}
 	}
-	private: System::Void SubBeat2Num_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-		RefreshPaint();
-	}
-
 	private: System::Void MatchTimeCheckBox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		refreshNotesView();
 	}
@@ -3282,6 +3575,328 @@ private: System::IO::FileSystemWatcher^ fileSystemWatcher1;
 	}
 	private: System::Void PosTrackBar_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		PosNum->Value = PosTrackBar->Value;
+	}
+	private: System::Void CirclePanel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+		//Note graphics
+		Graphics^ notesGraphics = e->Graphics;
+		//Pens for drawing parts of circle
+		float widthOfBasePen = 3;
+		float widthOfLinesPen = 2;
+		float widthOfNotePen = 5;
+		float widthOfBeatPen = 1;
+		Pen^ CircleBasePen = gcnew Pen(Color::Black, widthOfBasePen);
+		Pen^ CircleLinesPen = gcnew Pen(Color::Black, widthOfLinesPen);
+		Pen^ CircleNotePen = gcnew Pen(Color::Transparent, widthOfNotePen);
+		Pen^ CircleBeatPen = gcnew Pen(Color::White, widthOfBeatPen);
+		//Circle location and size
+		float xPos = widthOfNotePen;
+		float yPos = widthOfNotePen;
+		float sizeOfRect = CirclePanel->Width - (widthOfNotePen*2);
+		//Circle info
+		float circleRadius = ((float)sizeOfRect / 2);
+		float xCenterOfCircle = circleRadius + xPos;
+		float yCenterOfCircle = circleRadius + yPos;
+		//Selected object values
+		float startAngle = -((float)PosNum->Value * 6);
+		float arcLength = -((float)SizeNum->Value * 6);
+		//Rectangle the visualization is in
+		System::Drawing::Point location(xPos, yPos);
+		System::Drawing::Size size(sizeOfRect, sizeOfRect);
+		System::Drawing::Rectangle Rect(location, size);
+		//Drawing mode
+		notesGraphics->SmoothingMode = Drawing2D::SmoothingMode::Default;
+		//Current time
+		float currentTime;
+		if (scrollBarChanged) {
+			currentTime = theCurrentMeasure;
+		}
+		else {
+			currentTime = (float)BeatNum->Value + ((float)SubBeat1Num->Value / (float)SubBeat2Num->Value);
+		}
+		//How many measures/beats in the future to show notes
+		float totalTimeShowNotes = (float)VisualHispeed->Value;
+		//future stuff
+		float futStartAngle;
+		float futArcLength;
+		float xPosFut;
+		float yPosFut;
+		float sizeOfRectFut;
+		float circleRadiusFut;
+		//pre-existing mask values
+		float maskStartAngle;
+		float maskArcLength;
+
+		//Draw pre-existing mask
+		std::map<float, std::list<std::pair<int, int>>>::iterator mapitr = mapOfMasks.lower_bound(currentTime);
+		if (mapOfMasks.find(currentTime) == mapOfMasks.end() && Rect.Width >= 1) {
+			if (mapitr != mapOfMasks.end()) {
+				if (mapitr != mapOfMasks.begin()) {
+					mapitr--;
+				}
+				if (mapitr->first < currentTime) {
+					for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
+						maskStartAngle = -((float)listITR->first * 6);
+						maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
+						notesGraphics->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+					}
+				}
+			}
+			else {
+				mapitr = mapOfMasks.end();
+				if (!mapOfMasks.empty()) {
+					mapitr--;
+					for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
+						maskStartAngle = -((float)listITR->first * 6);
+						maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
+						notesGraphics->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+					}
+				}
+			}
+		}
+		else {
+			if (Rect.Width >= 1) {
+				for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
+					maskStartAngle = -((float)listITR->first * 6);
+					maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
+					notesGraphics->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+				}
+			}
+		}
+
+		//Draw selected mask
+		if (SelectedLineType == 1 && Rect.Width >= 1) {
+			if (SelectedNoteTypeVisual == 12) {
+				notesGraphics->FillPie(Brushes::Silver, Rect, startAngle, arcLength);
+			}
+			if (SelectedNoteTypeVisual == 13) {
+				notesGraphics->FillPie(Brushes::White, Rect, startAngle, arcLength);
+			}
+		}
+
+		//Draw measure circle
+		float nearestMeasure = std::ceil(currentTime);
+		for (float nearestMeasure = std::ceil(currentTime); (nearestMeasure - currentTime) < totalTimeShowNotes; nearestMeasure += 1.0) {
+			//modify rectangle to scale with how long until the measure appears
+			float NoteScale = 1 - ((nearestMeasure - currentTime) * (1 / totalTimeShowNotes)); //0-1 = 0-100%
+			sizeOfRectFut = sizeOfRect * NoteScale;
+			circleRadiusFut = (sizeOfRectFut / 2);
+			xPosFut = xPos + (circleRadius - circleRadiusFut) + 1;
+			yPosFut = yPos + (circleRadius - circleRadiusFut) + 1;
+
+			System::Drawing::Point locationFut(xPosFut, yPosFut);
+			System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
+			System::Drawing::Rectangle RectFut(locationFut, sizeFut);
+			if (RectFut.Width >= 1) {
+				notesGraphics->DrawEllipse(CircleBeatPen, RectFut);
+			}
+		}
+
+
+		//Draw base circle
+		notesGraphics->DrawEllipse(CircleBasePen, Rect);
+
+		//Draw Degree Lines
+		for (int i = 0; i < 360; i += 6) { //i is the angle n degrees
+			float xStart, yStart, xEnd, yEnd;
+			float degToRad = (float)i * PI / 180.0; //i to Radians
+			xStart = (circleRadius * cos(degToRad)) + xCenterOfCircle;
+			yStart = (circleRadius * sin(degToRad)) + yCenterOfCircle;
+			PointF coordPointStart(xStart, yStart);
+
+			float innerRadius = circleRadius - 10;
+			CircleLinesPen->Width = 1;
+			if (i % 90 == 0) {
+				innerRadius = circleRadius - 35;
+				CircleLinesPen->Width = 4;
+			}
+			else if (i % 30 == 0) {
+				innerRadius = circleRadius - 25;
+				CircleLinesPen->Width = 2;
+			}
+			xEnd = (innerRadius * cos(degToRad)) + xCenterOfCircle;
+			yEnd = (innerRadius * sin(degToRad)) + yCenterOfCircle;
+			PointF coordPointEnd(xEnd, yEnd);
+
+			notesGraphics->DrawLine(CircleLinesPen, coordPointStart, coordPointEnd);
+		}
+
+		//Draw future holds
+		for (std::map<float, std::list<NotesNode>>::iterator notemapitr = mapOfNotes.lower_bound(currentTime); notemapitr != mapOfNotes.end(); notemapitr++) {
+			float timeAtITR = notemapitr->first;
+			if (timeAtITR <= (currentTime + totalTimeShowNotes)) {
+				for (std::list<NotesNode>::iterator listofNotesitr = notemapitr->second.begin(); listofNotesitr != notemapitr->second.end(); listofNotesitr++) {
+					if (isHold(listofNotesitr->noteType)) {
+						//Future hold values
+						futStartAngle = -((float)listofNotesitr->position * 6);
+						futArcLength = -((float)listofNotesitr->size * 6);
+						CircleNotePen->Color = returnColor(listofNotesitr->noteType);
+						//modify rectangle to scale with how long until the note appears
+						float NoteScale = 1 - ((timeAtITR - currentTime) * (1 / totalTimeShowNotes)); //0-1 = 0-100%
+						sizeOfRectFut = sizeOfRect * NoteScale;
+						circleRadiusFut = (sizeOfRectFut / 2);
+						xPosFut = xPos + (circleRadius - circleRadiusFut) + 1;
+						yPosFut = yPos + (circleRadius - circleRadiusFut) + 1;
+						CircleNotePen->Width = widthOfNotePen * NoteScale + 2;
+
+						System::Drawing::Point locationFut(xPosFut, yPosFut);
+						System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
+						System::Drawing::Rectangle RectFut(locationFut, sizeFut);
+						if (RectFut.Width >= 1) {
+							notesGraphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
+						}
+					}
+				}
+			}
+			else {
+				notemapitr = mapOfNotes.end();
+				notemapitr--;
+			}
+		}
+
+		//Draw future notes
+		for (std::map<float, std::list<NotesNode>>::iterator notemapitr = mapOfNotes.lower_bound(currentTime); notemapitr != mapOfNotes.end(); notemapitr++) {
+			float timeAtITR = notemapitr->first;
+			if (timeAtITR <= (currentTime + totalTimeShowNotes)) {
+				for (std::list<NotesNode>::iterator listofNotesitr = notemapitr->second.begin(); listofNotesitr != notemapitr->second.end(); listofNotesitr++) {
+					if (!isHold(listofNotesitr->noteType)) {
+						//Future note values
+						futStartAngle = -((float)listofNotesitr->position * 6);
+						futArcLength = -((float)listofNotesitr->size * 6);
+						CircleNotePen->Color = returnColor(listofNotesitr->noteType);
+						//modify rectangle to scale with how long until the note appears
+						float NoteScale = 1 - ((timeAtITR - currentTime) * (1 / totalTimeShowNotes)); //0-1 = 0-100%
+						sizeOfRectFut = sizeOfRect * NoteScale;
+						circleRadiusFut = (sizeOfRectFut / 2);
+						xPosFut = xPos + (circleRadius - circleRadiusFut) + 1;
+						yPosFut = yPos + (circleRadius - circleRadiusFut) + 1;
+						CircleNotePen->Width = widthOfNotePen * NoteScale;
+
+						System::Drawing::Point locationFut(xPosFut, yPosFut);
+						System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
+						System::Drawing::Rectangle RectFut(locationFut, sizeFut);
+						if (RectFut.Width >= 1) {
+							notesGraphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
+						}
+					}
+				}
+			}
+			else {
+				notemapitr = mapOfNotes.end();
+				notemapitr--;
+			}
+		}
+
+
+		//Draw selected note
+		if (SelectedLineType == 1 && Rect.Width >= 1) {
+			CircleNotePen->Color = returnColor(SelectedNoteTypeVisual);
+			CircleNotePen->Width = 4;
+			notesGraphics->DrawArc(CircleNotePen, Rect, startAngle, arcLength);
+		}
+	}
+	private: System::Void backgroundWorkerPaint_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e) {
+
+	}
+	private: System::Void backgroundWorkerPaint_ProgressChanged(System::Object^ sender, System::ComponentModel::ProgressChangedEventArgs^ e) {
+
+	}
+	private: System::Void VisualHispeed_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		RefreshPaint();
+	}
+	private: System::Void selectSongFile_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (openFileDialogSong->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+			songFilePath = SystemStringTostdString(openFileDialogSong->FileName);
+		}
+		theChart.songFileName = songFilePath;
+		songFileName->Text = stdStringToSystemString(songFilePath);
+		currentlyPlayingSound = SoundEngine.Play2D(stdStringToSystemString(songFilePath), true, true);
+		songTrackSlider->Value = 0;
+		songTrackSlider->Maximum = currentlyPlayingSound->PlayLength;
+		refreshMapOfTime();
+	}
+	private: System::Void PlayButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (songFilePath != "" && currentlyPlayingSound != nullptr) {
+			currentlyPlayingSound->Paused = !currentlyPlayingSound->Paused;
+			if (currentlyPlayingSound->Paused) {
+				PlayButton->Text = "Play";
+				if (backgroundWorkerSong->IsBusy) {
+					backgroundWorkerSong->CancelAsync();
+				}
+			}
+			else {
+				PlayButton->Text = "Pause";
+				backgroundWorkerSong->RunWorkerAsync();
+			}
+		}
+	}
+	private: System::Void backgroundWorkerSong_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e) {
+		int i = 0;
+		while (!currentlyPlayingSound->Paused) {
+			backgroundWorkerSong->ReportProgress(i);
+			i++;
+			Thread::Sleep(update_interval);
+		}
+		backgroundWorkerSong->CancelAsync();
+	}
+	private: System::Void backgroundWorkerSong_ProgressChanged(System::Object^ sender, System::ComponentModel::ProgressChangedEventArgs^ e) {
+		songTrackSlider->Value = currentlyPlayingSound->PlayPosition;
+		refreshVisualFromSongScroll();
+	}
+	private: System::Void backgroundWorkerSong_RunWorkerCompleted(System::Object^ sender, System::ComponentModel::RunWorkerCompletedEventArgs^ e) {
+
+	}
+	void refreshVisualFromSongScroll() {
+		/*   trackBar Value = current time (milliseconds)
+			find last millisecond start time which will tell you the "last measure start time"
+			use last measure to find "milliseconds per measure" since then
+			(current time - last measure start time) / (milliseconds per measure) = measures from last measure
+			last measure start time + measures from last measure = current measure   */
+		float currentTime = songTrackSlider->Value; //in milliseconds
+		float currentMeasure = 0;
+		if (mapOfBeatAtTime.find(currentTime) == mapOfBeatAtTime.end()) {
+			std::map<float, float>::iterator itr = mapOfBeatAtTime.lower_bound(currentTime);
+			float lastMeasure;
+			if (itr != mapOfBeatAtTime.end()) {
+				if (itr != mapOfBeatAtTime.begin()) {
+					itr--;
+				}
+				if (itr->first < currentTime) {
+					lastMeasure = itr->second; //find last millisecond start time which will tell you the "last measure start time"
+				}
+			}
+			else {
+				itr = mapOfBeatAtTime.end();
+				if (!mapOfBeatAtTime.empty()) {
+					itr--;
+					lastMeasure = itr->second; //find last millisecond start time which will tell you the "last measure start time"
+				}
+			}
+			float timeBetweenMeasures = mapOfTimeBetweenBeats[lastMeasure]; // use last measure to find "milliseconds per measure" since then
+			float measuresFromLastMeasure = (currentTime - itr->first) / timeBetweenMeasures; //(current time - last measure start time) / (milliseconds per measure) = measures from last measure
+			currentMeasure = itr->first + measuresFromLastMeasure; //last measure start time + measures from last measure = current measure
+		}
+		else {
+			currentMeasure = mapOfBeatAtTime[currentTime];
+		}
+
+		noteRefresh = true;
+		scrollBarChanged = true;
+		theCurrentMeasure = currentMeasure;
+		BeatNum->Value = (Decimal)std::floor(currentMeasure);
+		noteRefresh = false;
+		RefreshPaint();
+		scrollBarChanged = false;
+	}
+	private: System::Void songTrackSlider_Scroll(System::Object^ sender, System::EventArgs^ e) {
+		if (currentlyPlayingSound != nullptr) {
+			currentlyPlayingSound->PlayPosition = songTrackSlider->Value;
+			refreshVisualFromSongScroll();
+		}
+	}
+	private: System::Void Volume_Scroll(System::Object^ sender, System::EventArgs^ e) {
+		if (currentlyPlayingSound != nullptr) {
+			currentlyPlayingSound->Volume = Volume->Value / (float)100.0;
+		}
 	}
 };
 }
