@@ -332,6 +332,8 @@ private: System::ComponentModel::BackgroundWorker^ backgroundWorkerPaint;
 private: System::ComponentModel::BackgroundWorker^ backgroundWorker1;
 private: System::ComponentModel::BackgroundWorker^ backgroundWorker2;
 private: System::Windows::Forms::Panel^ panel1;
+private: System::Windows::Forms::NumericUpDown^ PlaybackSpeedNum;
+private: System::Windows::Forms::Label^ label30;
 
 
 
@@ -383,1309 +385,1335 @@ private: System::Windows::Forms::Panel^ panel1;
 		/// </summary>
 		void InitializeComponent(void)
 		{
-            this->components = (gcnew System::ComponentModel::Container());
-            System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
-            this->menuStrip = (gcnew System::Windows::Forms::MenuStrip());
-            this->fileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-            this->newToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-            this->openToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-            this->saveToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-            this->saveAsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-            this->exitToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-            this->aboutToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-            this->TapButton = (gcnew System::Windows::Forms::Button());
-            this->OrangeButton = (gcnew System::Windows::Forms::Button());
-            this->GreenButton = (gcnew System::Windows::Forms::Button());
-            this->RedButton = (gcnew System::Windows::Forms::Button());
-            this->BlueButton = (gcnew System::Windows::Forms::Button());
-            this->YellowButton = (gcnew System::Windows::Forms::Button());
-            this->HoldButton = (gcnew System::Windows::Forms::Button());
-            this->EndChartButton = (gcnew System::Windows::Forms::Button());
-            this->NoteTypeBox = (gcnew System::Windows::Forms::GroupBox());
-            this->BonusFlairRadioButton = (gcnew System::Windows::Forms::RadioButton());
-            this->BonusGetRadioButton = (gcnew System::Windows::Forms::RadioButton());
-            this->NoBonusRadioButton = (gcnew System::Windows::Forms::RadioButton());
-            this->EndHoldBox = (gcnew System::Windows::Forms::CheckBox());
-            this->ToolTip = (gcnew System::Windows::Forms::ToolTip(this->components));
-            this->BPMChange = (gcnew System::Windows::Forms::Button());
-            this->TimeSignature = (gcnew System::Windows::Forms::Button());
-            this->Hispeed = (gcnew System::Windows::Forms::Button());
-            this->Stop = (gcnew System::Windows::Forms::Button());
-            this->Reverse = (gcnew System::Windows::Forms::Button());
-            this->Mask = (gcnew System::Windows::Forms::Button());
-            this->VisualHispeed = (gcnew System::Windows::Forms::NumericUpDown());
-            this->label2 = (gcnew System::Windows::Forms::Label());
-            this->InsertButton = (gcnew System::Windows::Forms::Button());
-            this->PosLabel = (gcnew System::Windows::Forms::Label());
-            this->posInfo = (gcnew System::Windows::Forms::Label());
-            this->SizeNum = (gcnew System::Windows::Forms::NumericUpDown());
-            this->SizeInfo = (gcnew System::Windows::Forms::Label());
-            this->SizeLabel = (gcnew System::Windows::Forms::Label());
-            this->PosNum = (gcnew System::Windows::Forms::NumericUpDown());
-            this->label1 = (gcnew System::Windows::Forms::Label());
-            this->SubBeat2Num = (gcnew System::Windows::Forms::NumericUpDown());
-            this->SubBeat1Num = (gcnew System::Windows::Forms::NumericUpDown());
-            this->BeatNum = (gcnew System::Windows::Forms::NumericUpDown());
-            this->Beat = (gcnew System::Windows::Forms::Label());
-            this->GimmickBox = (gcnew System::Windows::Forms::GroupBox());
-            this->RemoveMask = (gcnew System::Windows::Forms::RadioButton());
-            this->AddMask = (gcnew System::Windows::Forms::RadioButton());
-            this->GimmickSettingsBox = (gcnew System::Windows::Forms::GroupBox());
-            this->ReverseEnd2SBNum2 = (gcnew System::Windows::Forms::NumericUpDown());
-            this->label12 = (gcnew System::Windows::Forms::Label());
-            this->ReverseEnd2SBNum1 = (gcnew System::Windows::Forms::NumericUpDown());
-            this->ReverseEnd2BNum = (gcnew System::Windows::Forms::NumericUpDown());
-            this->ReverseEnd1SBNum2 = (gcnew System::Windows::Forms::NumericUpDown());
-            this->label11 = (gcnew System::Windows::Forms::Label());
-            this->ReverseEnd1SBNum1 = (gcnew System::Windows::Forms::NumericUpDown());
-            this->ReverseEnd1BNum = (gcnew System::Windows::Forms::NumericUpDown());
-            this->StopEndBNum = (gcnew System::Windows::Forms::NumericUpDown());
-            this->StopEndSBNum2 = (gcnew System::Windows::Forms::NumericUpDown());
-            this->label10 = (gcnew System::Windows::Forms::Label());
-            this->StopEndSBNum1 = (gcnew System::Windows::Forms::NumericUpDown());
-            this->HiSpeedChangeNum = (gcnew System::Windows::Forms::NumericUpDown());
-            this->TimeSigNum2 = (gcnew System::Windows::Forms::NumericUpDown());
-            this->label9 = (gcnew System::Windows::Forms::Label());
-            this->TimeSigNum1 = (gcnew System::Windows::Forms::NumericUpDown());
-            this->BPMChangeNum = (gcnew System::Windows::Forms::NumericUpDown());
-            this->label8 = (gcnew System::Windows::Forms::Label());
-            this->label7 = (gcnew System::Windows::Forms::Label());
-            this->label6 = (gcnew System::Windows::Forms::Label());
-            this->label5 = (gcnew System::Windows::Forms::Label());
-            this->label4 = (gcnew System::Windows::Forms::Label());
-            this->label3 = (gcnew System::Windows::Forms::Label());
-            this->InitialSettingsPane = (gcnew System::Windows::Forms::GroupBox());
-            this->InitialSetSave = (gcnew System::Windows::Forms::Button());
-            this->MovieOffsetNum = (gcnew System::Windows::Forms::NumericUpDown());
-            this->label17 = (gcnew System::Windows::Forms::Label());
-            this->OffsetNum = (gcnew System::Windows::Forms::NumericUpDown());
-            this->label16 = (gcnew System::Windows::Forms::Label());
-            this->InitTimeSigNum2 = (gcnew System::Windows::Forms::NumericUpDown());
-            this->label15 = (gcnew System::Windows::Forms::Label());
-            this->InitTimeSigNum1 = (gcnew System::Windows::Forms::NumericUpDown());
-            this->label14 = (gcnew System::Windows::Forms::Label());
-            this->InitialBPMNum = (gcnew System::Windows::Forms::NumericUpDown());
-            this->label13 = (gcnew System::Windows::Forms::Label());
-            this->label29 = (gcnew System::Windows::Forms::Label());
-            this->MaskSettingsBox = (gcnew System::Windows::Forms::GroupBox());
-            this->MaskCenter = (gcnew System::Windows::Forms::RadioButton());
-            this->MaskCClockwise = (gcnew System::Windows::Forms::RadioButton());
-            this->MaskClockwise = (gcnew System::Windows::Forms::RadioButton());
-            this->label18 = (gcnew System::Windows::Forms::Label());
-            this->CurrentObjectText = (gcnew System::Windows::Forms::Label());
-            this->PreChartViewBox = (gcnew System::Windows::Forms::GroupBox());
-            this->GimmickValueLabel = (gcnew System::Windows::Forms::Label());
-            this->GimmickTypeLabel = (gcnew System::Windows::Forms::Label());
-            this->GimmickSubBeatLabel = (gcnew System::Windows::Forms::Label());
-            this->GimmickBeatLabel = (gcnew System::Windows::Forms::Label());
-            this->label22 = (gcnew System::Windows::Forms::Label());
-            this->label21 = (gcnew System::Windows::Forms::Label());
-            this->label20 = (gcnew System::Windows::Forms::Label());
-            this->label19 = (gcnew System::Windows::Forms::Label());
-            this->NextGimmickButton = (gcnew System::Windows::Forms::Button());
-            this->PrevGimmickButton = (gcnew System::Windows::Forms::Button());
-            this->DeleteGimmickButton = (gcnew System::Windows::Forms::Button());
-            this->NotesViewBox = (gcnew System::Windows::Forms::GroupBox());
-            this->EditNoteButton = (gcnew System::Windows::Forms::Button());
-            this->PrevBeatButton = (gcnew System::Windows::Forms::Button());
-            this->NextBeatButton = (gcnew System::Windows::Forms::Button());
-            this->MatchNoteCheckBox = (gcnew System::Windows::Forms::CheckBox());
-            this->MatchTimeCheckBox = (gcnew System::Windows::Forms::CheckBox());
-            this->NotesMaskLabel = (gcnew System::Windows::Forms::Label());
-            this->NotesSizeLabel = (gcnew System::Windows::Forms::Label());
-            this->NotesPosLabel = (gcnew System::Windows::Forms::Label());
-            this->NotesTypeLabel = (gcnew System::Windows::Forms::Label());
-            this->NotesSubBeatLabel = (gcnew System::Windows::Forms::Label());
-            this->NotesBeatLabel = (gcnew System::Windows::Forms::Label());
-            this->label28 = (gcnew System::Windows::Forms::Label());
-            this->label27 = (gcnew System::Windows::Forms::Label());
-            this->label26 = (gcnew System::Windows::Forms::Label());
-            this->label25 = (gcnew System::Windows::Forms::Label());
-            this->label24 = (gcnew System::Windows::Forms::Label());
-            this->label23 = (gcnew System::Windows::Forms::Label());
-            this->NextNoteButton = (gcnew System::Windows::Forms::Button());
-            this->PrevNoteButton = (gcnew System::Windows::Forms::Button());
-            this->DeleteNoteButton = (gcnew System::Windows::Forms::Button());
-            this->MadeByLabel = (gcnew System::Windows::Forms::Label());
-            this->openFileDialogChart = (gcnew System::Windows::Forms::OpenFileDialog());
-            this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
-            this->CurrentNoteBox = (gcnew System::Windows::Forms::GroupBox());
-            this->SizeTrackBar = (gcnew System::Windows::Forms::TrackBar());
-            this->PosTrackBar = (gcnew System::Windows::Forms::TrackBar());
-            this->fileSystemWatcher1 = (gcnew System::IO::FileSystemWatcher());
-            this->CirclePanel = (gcnew System::Windows::Forms::Panel());
-            this->VisualSettingsBox = (gcnew System::Windows::Forms::GroupBox());
-            this->PlayButton = (gcnew System::Windows::Forms::Button());
-            this->songTrackSlider = (gcnew System::Windows::Forms::TrackBar());
-            this->selectSongFile = (gcnew System::Windows::Forms::Button());
-            this->SongPlaybackBox = (gcnew System::Windows::Forms::GroupBox());
-            this->VolumeLabel = (gcnew System::Windows::Forms::Label());
-            this->Volume = (gcnew System::Windows::Forms::TrackBar());
-            this->songFileName = (gcnew System::Windows::Forms::Label());
-            this->openFileDialogSong = (gcnew System::Windows::Forms::OpenFileDialog());
-            this->backgroundWorkerSong = (gcnew System::ComponentModel::BackgroundWorker());
-            this->backgroundWorkerPaint = (gcnew System::ComponentModel::BackgroundWorker());
-            this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
-            this->backgroundWorker2 = (gcnew System::ComponentModel::BackgroundWorker());
-            this->panel1 = (gcnew System::Windows::Forms::Panel());
-            this->menuStrip->SuspendLayout();
-            this->NoteTypeBox->SuspendLayout();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->VisualHispeed))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeNum))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosNum))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat2Num))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat1Num))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BeatNum))->BeginInit();
-            this->GimmickBox->SuspendLayout();
-            this->GimmickSettingsBox->SuspendLayout();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2SBNum2))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2SBNum1))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2BNum))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1SBNum2))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1SBNum1))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1BNum))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndBNum))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndSBNum2))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndSBNum1))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->HiSpeedChangeNum))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TimeSigNum2))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TimeSigNum1))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BPMChangeNum))->BeginInit();
-            this->InitialSettingsPane->SuspendLayout();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MovieOffsetNum))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->OffsetNum))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitTimeSigNum2))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitTimeSigNum1))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitialBPMNum))->BeginInit();
-            this->MaskSettingsBox->SuspendLayout();
-            this->PreChartViewBox->SuspendLayout();
-            this->NotesViewBox->SuspendLayout();
-            this->CurrentNoteBox->SuspendLayout();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeTrackBar))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosTrackBar))->BeginInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fileSystemWatcher1))->BeginInit();
-            this->VisualSettingsBox->SuspendLayout();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->songTrackSlider))->BeginInit();
-            this->SongPlaybackBox->SuspendLayout();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Volume))->BeginInit();
-            this->panel1->SuspendLayout();
-            this->SuspendLayout();
-            // 
-            // menuStrip
-            // 
-            this->menuStrip->ImageScalingSize = System::Drawing::Size(24, 24);
-            this->menuStrip->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
-                this->fileToolStripMenuItem,
-                    this->aboutToolStripMenuItem
-            });
-            resources->ApplyResources(this->menuStrip, L"menuStrip");
-            this->menuStrip->Name = L"menuStrip";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this->fileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {
-                this->newToolStripMenuItem,
-                    this->openToolStripMenuItem, this->saveToolStripMenuItem, this->saveAsToolStripMenuItem, this->exitToolStripMenuItem
-            });
-            this->fileToolStripMenuItem->Name = L"fileToolStripMenuItem";
-            resources->ApplyResources(this->fileToolStripMenuItem, L"fileToolStripMenuItem");
-            // 
-            // newToolStripMenuItem
-            // 
-            this->newToolStripMenuItem->Name = L"newToolStripMenuItem";
-            resources->ApplyResources(this->newToolStripMenuItem, L"newToolStripMenuItem");
-            this->newToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::newToolStripMenuItem_Click);
-            // 
-            // openToolStripMenuItem
-            // 
-            this->openToolStripMenuItem->Name = L"openToolStripMenuItem";
-            resources->ApplyResources(this->openToolStripMenuItem, L"openToolStripMenuItem");
-            this->openToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::openToolStripMenuItem_Click);
-            // 
-            // saveToolStripMenuItem
-            // 
-            this->saveToolStripMenuItem->Name = L"saveToolStripMenuItem";
-            resources->ApplyResources(this->saveToolStripMenuItem, L"saveToolStripMenuItem");
-            this->saveToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::saveToolStripMenuItem_Click);
-            // 
-            // saveAsToolStripMenuItem
-            // 
-            this->saveAsToolStripMenuItem->Name = L"saveAsToolStripMenuItem";
-            resources->ApplyResources(this->saveAsToolStripMenuItem, L"saveAsToolStripMenuItem");
-            this->saveAsToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::saveAsToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
-            resources->ApplyResources(this->exitToolStripMenuItem, L"exitToolStripMenuItem");
-            this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::exitToolStripMenuItem_Click);
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this->aboutToolStripMenuItem->Name = L"aboutToolStripMenuItem";
-            resources->ApplyResources(this->aboutToolStripMenuItem, L"aboutToolStripMenuItem");
-            // 
-            // TapButton
-            // 
-            resources->ApplyResources(this->TapButton, L"TapButton");
-            this->TapButton->BackColor = System::Drawing::Color::Fuchsia;
-            this->TapButton->Name = L"TapButton";
-            this->TapButton->UseVisualStyleBackColor = false;
-            this->TapButton->Click += gcnew System::EventHandler(this, &MyForm::TapButton_Click);
-            // 
-            // OrangeButton
-            // 
-            resources->ApplyResources(this->OrangeButton, L"OrangeButton");
-            this->OrangeButton->BackColor = System::Drawing::Color::Orange;
-            this->OrangeButton->Name = L"OrangeButton";
-            this->OrangeButton->UseVisualStyleBackColor = false;
-            this->OrangeButton->Click += gcnew System::EventHandler(this, &MyForm::OrangeButton_Click);
-            // 
-            // GreenButton
-            // 
-            resources->ApplyResources(this->GreenButton, L"GreenButton");
-            this->GreenButton->BackColor = System::Drawing::Color::Lime;
-            this->GreenButton->Name = L"GreenButton";
-            this->GreenButton->UseVisualStyleBackColor = false;
-            this->GreenButton->Click += gcnew System::EventHandler(this, &MyForm::GreenButton_Click);
-            // 
-            // RedButton
-            // 
-            resources->ApplyResources(this->RedButton, L"RedButton");
-            this->RedButton->BackColor = System::Drawing::Color::Tomato;
-            this->RedButton->Name = L"RedButton";
-            this->RedButton->UseVisualStyleBackColor = false;
-            this->RedButton->Click += gcnew System::EventHandler(this, &MyForm::RedButton_Click);
-            // 
-            // BlueButton
-            // 
-            resources->ApplyResources(this->BlueButton, L"BlueButton");
-            this->BlueButton->BackColor = System::Drawing::Color::SkyBlue;
-            this->BlueButton->Name = L"BlueButton";
-            this->BlueButton->UseVisualStyleBackColor = false;
-            this->BlueButton->Click += gcnew System::EventHandler(this, &MyForm::BlueButton_Click);
-            // 
-            // YellowButton
-            // 
-            resources->ApplyResources(this->YellowButton, L"YellowButton");
-            this->YellowButton->BackColor = System::Drawing::Color::Goldenrod;
-            this->YellowButton->Name = L"YellowButton";
-            this->YellowButton->UseVisualStyleBackColor = false;
-            this->YellowButton->Click += gcnew System::EventHandler(this, &MyForm::YellowButton_Click);
-            // 
-            // HoldButton
-            // 
-            resources->ApplyResources(this->HoldButton, L"HoldButton");
-            this->HoldButton->BackColor = System::Drawing::Color::Yellow;
-            this->HoldButton->Name = L"HoldButton";
-            this->ToolTip->SetToolTip(this->HoldButton, resources->GetString(L"HoldButton.ToolTip"));
-            this->HoldButton->UseVisualStyleBackColor = false;
-            this->HoldButton->Click += gcnew System::EventHandler(this, &MyForm::HoldButton_Click);
-            // 
-            // EndChartButton
-            // 
-            resources->ApplyResources(this->EndChartButton, L"EndChartButton");
-            this->EndChartButton->Name = L"EndChartButton";
-            this->ToolTip->SetToolTip(this->EndChartButton, resources->GetString(L"EndChartButton.ToolTip"));
-            this->EndChartButton->UseVisualStyleBackColor = true;
-            this->EndChartButton->Click += gcnew System::EventHandler(this, &MyForm::EndChartButton_Click);
-            // 
-            // NoteTypeBox
-            // 
-            resources->ApplyResources(this->NoteTypeBox, L"NoteTypeBox");
-            this->NoteTypeBox->Controls->Add(this->BonusFlairRadioButton);
-            this->NoteTypeBox->Controls->Add(this->BonusGetRadioButton);
-            this->NoteTypeBox->Controls->Add(this->NoBonusRadioButton);
-            this->NoteTypeBox->Controls->Add(this->EndHoldBox);
-            this->NoteTypeBox->Controls->Add(this->EndChartButton);
-            this->NoteTypeBox->Controls->Add(this->TapButton);
-            this->NoteTypeBox->Controls->Add(this->HoldButton);
-            this->NoteTypeBox->Controls->Add(this->OrangeButton);
-            this->NoteTypeBox->Controls->Add(this->YellowButton);
-            this->NoteTypeBox->Controls->Add(this->GreenButton);
-            this->NoteTypeBox->Controls->Add(this->BlueButton);
-            this->NoteTypeBox->Controls->Add(this->RedButton);
-            this->NoteTypeBox->Name = L"NoteTypeBox";
-            this->NoteTypeBox->TabStop = false;
-            // 
-            // BonusFlairRadioButton
-            // 
-            resources->ApplyResources(this->BonusFlairRadioButton, L"BonusFlairRadioButton");
-            this->BonusFlairRadioButton->Name = L"BonusFlairRadioButton";
-            this->ToolTip->SetToolTip(this->BonusFlairRadioButton, resources->GetString(L"BonusFlairRadioButton.ToolTip"));
-            this->BonusFlairRadioButton->UseVisualStyleBackColor = true;
-            this->BonusFlairRadioButton->CheckedChanged += gcnew System::EventHandler(this, &MyForm::BonusFlairRadioButton_CheckedChanged);
-            // 
-            // BonusGetRadioButton
-            // 
-            resources->ApplyResources(this->BonusGetRadioButton, L"BonusGetRadioButton");
-            this->BonusGetRadioButton->Name = L"BonusGetRadioButton";
-            this->ToolTip->SetToolTip(this->BonusGetRadioButton, resources->GetString(L"BonusGetRadioButton.ToolTip"));
-            this->BonusGetRadioButton->UseVisualStyleBackColor = true;
-            this->BonusGetRadioButton->CheckedChanged += gcnew System::EventHandler(this, &MyForm::BonusGetRadioButton_CheckedChanged);
-            // 
-            // NoBonusRadioButton
-            // 
-            resources->ApplyResources(this->NoBonusRadioButton, L"NoBonusRadioButton");
-            this->NoBonusRadioButton->Checked = true;
-            this->NoBonusRadioButton->Name = L"NoBonusRadioButton";
-            this->NoBonusRadioButton->TabStop = true;
-            this->NoBonusRadioButton->UseVisualStyleBackColor = true;
-            this->NoBonusRadioButton->CheckedChanged += gcnew System::EventHandler(this, &MyForm::NoBonusRadioButton_CheckedChanged);
-            // 
-            // EndHoldBox
-            // 
-            resources->ApplyResources(this->EndHoldBox, L"EndHoldBox");
-            this->EndHoldBox->Name = L"EndHoldBox";
-            this->ToolTip->SetToolTip(this->EndHoldBox, resources->GetString(L"EndHoldBox.ToolTip"));
-            this->EndHoldBox->UseVisualStyleBackColor = true;
-            this->EndHoldBox->CheckedChanged += gcnew System::EventHandler(this, &MyForm::EndHoldBox_CheckedChanged);
-            // 
-            // BPMChange
-            // 
-            resources->ApplyResources(this->BPMChange, L"BPMChange");
-            this->BPMChange->Name = L"BPMChange";
-            this->ToolTip->SetToolTip(this->BPMChange, resources->GetString(L"BPMChange.ToolTip"));
-            this->BPMChange->UseVisualStyleBackColor = true;
-            this->BPMChange->Click += gcnew System::EventHandler(this, &MyForm::BPMChange_Click);
-            // 
-            // TimeSignature
-            // 
-            resources->ApplyResources(this->TimeSignature, L"TimeSignature");
-            this->TimeSignature->Name = L"TimeSignature";
-            this->ToolTip->SetToolTip(this->TimeSignature, resources->GetString(L"TimeSignature.ToolTip"));
-            this->TimeSignature->UseVisualStyleBackColor = true;
-            this->TimeSignature->Click += gcnew System::EventHandler(this, &MyForm::TimeSignature_Click);
-            // 
-            // Hispeed
-            // 
-            resources->ApplyResources(this->Hispeed, L"Hispeed");
-            this->Hispeed->Name = L"Hispeed";
-            this->ToolTip->SetToolTip(this->Hispeed, resources->GetString(L"Hispeed.ToolTip"));
-            this->Hispeed->UseVisualStyleBackColor = true;
-            this->Hispeed->Click += gcnew System::EventHandler(this, &MyForm::Hispeed_Click);
-            // 
-            // Stop
-            // 
-            resources->ApplyResources(this->Stop, L"Stop");
-            this->Stop->Name = L"Stop";
-            this->ToolTip->SetToolTip(this->Stop, resources->GetString(L"Stop.ToolTip"));
-            this->Stop->UseVisualStyleBackColor = true;
-            this->Stop->Click += gcnew System::EventHandler(this, &MyForm::Stop_Click);
-            // 
-            // Reverse
-            // 
-            resources->ApplyResources(this->Reverse, L"Reverse");
-            this->Reverse->Name = L"Reverse";
-            this->ToolTip->SetToolTip(this->Reverse, resources->GetString(L"Reverse.ToolTip"));
-            this->Reverse->UseVisualStyleBackColor = true;
-            this->Reverse->Click += gcnew System::EventHandler(this, &MyForm::Reverse_Click);
-            // 
-            // Mask
-            // 
-            resources->ApplyResources(this->Mask, L"Mask");
-            this->Mask->Name = L"Mask";
-            this->ToolTip->SetToolTip(this->Mask, resources->GetString(L"Mask.ToolTip"));
-            this->Mask->UseVisualStyleBackColor = true;
-            this->Mask->Click += gcnew System::EventHandler(this, &MyForm::Mask_Click);
-            // 
-            // VisualHispeed
-            // 
-            this->VisualHispeed->BackColor = System::Drawing::SystemColors::Window;
-            this->VisualHispeed->DecimalPlaces = 2;
-            this->VisualHispeed->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 65536 });
-            resources->ApplyResources(this->VisualHispeed, L"VisualHispeed");
-            this->VisualHispeed->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 131072 });
-            this->VisualHispeed->Name = L"VisualHispeed";
-            this->ToolTip->SetToolTip(this->VisualHispeed, resources->GetString(L"VisualHispeed.ToolTip"));
-            this->VisualHispeed->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 5, 0, 0, 65536 });
-            this->VisualHispeed->ValueChanged += gcnew System::EventHandler(this, &MyForm::VisualHispeed_ValueChanged);
-            // 
-            // label2
-            // 
-            resources->ApplyResources(this->label2, L"label2");
-            this->label2->Name = L"label2";
-            this->ToolTip->SetToolTip(this->label2, resources->GetString(L"label2.ToolTip"));
-            // 
-            // InsertButton
-            // 
-            resources->ApplyResources(this->InsertButton, L"InsertButton");
-            this->InsertButton->Name = L"InsertButton";
-            this->InsertButton->UseVisualStyleBackColor = true;
-            this->InsertButton->Click += gcnew System::EventHandler(this, &MyForm::InsertButton_Click);
-            // 
-            // PosLabel
-            // 
-            resources->ApplyResources(this->PosLabel, L"PosLabel");
-            this->PosLabel->Name = L"PosLabel";
-            // 
-            // posInfo
-            // 
-            resources->ApplyResources(this->posInfo, L"posInfo");
-            this->posInfo->Name = L"posInfo";
-            // 
-            // SizeNum
-            // 
-            resources->ApplyResources(this->SizeNum, L"SizeNum");
-            this->SizeNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 60, 0, 0, 0 });
-            this->SizeNum->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-            this->SizeNum->Name = L"SizeNum";
-            this->SizeNum->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-            this->SizeNum->ValueChanged += gcnew System::EventHandler(this, &MyForm::SizeNum_ValueChanged);
-            // 
-            // SizeInfo
-            // 
-            resources->ApplyResources(this->SizeInfo, L"SizeInfo");
-            this->SizeInfo->Name = L"SizeInfo";
-            // 
-            // SizeLabel
-            // 
-            resources->ApplyResources(this->SizeLabel, L"SizeLabel");
-            this->SizeLabel->Name = L"SizeLabel";
-            // 
-            // PosNum
-            // 
-            resources->ApplyResources(this->PosNum, L"PosNum");
-            this->PosNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 59, 0, 0, 0 });
-            this->PosNum->Name = L"PosNum";
-            this->PosNum->ValueChanged += gcnew System::EventHandler(this, &MyForm::PosNum_ValueChanged);
-            // 
-            // label1
-            // 
-            resources->ApplyResources(this->label1, L"label1");
-            this->label1->Name = L"label1";
-            // 
-            // SubBeat2Num
-            // 
-            resources->ApplyResources(this->SubBeat2Num, L"SubBeat2Num");
-            this->SubBeat2Num->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1920, 0, 0, 0 });
-            this->SubBeat2Num->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-            this->SubBeat2Num->Name = L"SubBeat2Num";
-            this->SubBeat2Num->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 16, 0, 0, 0 });
-            this->SubBeat2Num->ValueChanged += gcnew System::EventHandler(this, &MyForm::SubBeat2Num_ValueChanged);
-            // 
-            // SubBeat1Num
-            // 
-            resources->ApplyResources(this->SubBeat1Num, L"SubBeat1Num");
-            this->SubBeat1Num->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1919, 0, 0, 0 });
-            this->SubBeat1Num->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
-            this->SubBeat1Num->Name = L"SubBeat1Num";
-            this->SubBeat1Num->ValueChanged += gcnew System::EventHandler(this, &MyForm::SubBeat1Num_ValueChanged);
-            // 
-            // BeatNum
-            // 
-            resources->ApplyResources(this->BeatNum, L"BeatNum");
-            this->BeatNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
-            this->BeatNum->Name = L"BeatNum";
-            this->BeatNum->ValueChanged += gcnew System::EventHandler(this, &MyForm::BeatNum_ValueChanged);
-            // 
-            // Beat
-            // 
-            resources->ApplyResources(this->Beat, L"Beat");
-            this->Beat->Name = L"Beat";
-            // 
-            // GimmickBox
-            // 
-            resources->ApplyResources(this->GimmickBox, L"GimmickBox");
-            this->GimmickBox->Controls->Add(this->Reverse);
-            this->GimmickBox->Controls->Add(this->Stop);
-            this->GimmickBox->Controls->Add(this->Hispeed);
-            this->GimmickBox->Controls->Add(this->TimeSignature);
-            this->GimmickBox->Controls->Add(this->BPMChange);
-            this->GimmickBox->Controls->Add(this->RemoveMask);
-            this->GimmickBox->Controls->Add(this->AddMask);
-            this->GimmickBox->Controls->Add(this->Mask);
-            this->GimmickBox->Name = L"GimmickBox";
-            this->GimmickBox->TabStop = false;
-            // 
-            // RemoveMask
-            // 
-            resources->ApplyResources(this->RemoveMask, L"RemoveMask");
-            this->RemoveMask->Name = L"RemoveMask";
-            this->RemoveMask->UseVisualStyleBackColor = true;
-            this->RemoveMask->CheckedChanged += gcnew System::EventHandler(this, &MyForm::RemoveMask_CheckedChanged);
-            // 
-            // AddMask
-            // 
-            resources->ApplyResources(this->AddMask, L"AddMask");
-            this->AddMask->Checked = true;
-            this->AddMask->Name = L"AddMask";
-            this->AddMask->TabStop = true;
-            this->AddMask->UseVisualStyleBackColor = true;
-            this->AddMask->CheckedChanged += gcnew System::EventHandler(this, &MyForm::AddMask_CheckedChanged);
-            // 
-            // GimmickSettingsBox
-            // 
-            resources->ApplyResources(this->GimmickSettingsBox, L"GimmickSettingsBox");
-            this->GimmickSettingsBox->Controls->Add(this->ReverseEnd2SBNum2);
-            this->GimmickSettingsBox->Controls->Add(this->label12);
-            this->GimmickSettingsBox->Controls->Add(this->ReverseEnd2SBNum1);
-            this->GimmickSettingsBox->Controls->Add(this->ReverseEnd2BNum);
-            this->GimmickSettingsBox->Controls->Add(this->ReverseEnd1SBNum2);
-            this->GimmickSettingsBox->Controls->Add(this->label11);
-            this->GimmickSettingsBox->Controls->Add(this->ReverseEnd1SBNum1);
-            this->GimmickSettingsBox->Controls->Add(this->ReverseEnd1BNum);
-            this->GimmickSettingsBox->Controls->Add(this->StopEndBNum);
-            this->GimmickSettingsBox->Controls->Add(this->StopEndSBNum2);
-            this->GimmickSettingsBox->Controls->Add(this->label10);
-            this->GimmickSettingsBox->Controls->Add(this->StopEndSBNum1);
-            this->GimmickSettingsBox->Controls->Add(this->HiSpeedChangeNum);
-            this->GimmickSettingsBox->Controls->Add(this->TimeSigNum2);
-            this->GimmickSettingsBox->Controls->Add(this->label9);
-            this->GimmickSettingsBox->Controls->Add(this->TimeSigNum1);
-            this->GimmickSettingsBox->Controls->Add(this->BPMChangeNum);
-            this->GimmickSettingsBox->Controls->Add(this->label8);
-            this->GimmickSettingsBox->Controls->Add(this->label7);
-            this->GimmickSettingsBox->Controls->Add(this->label6);
-            this->GimmickSettingsBox->Controls->Add(this->label5);
-            this->GimmickSettingsBox->Controls->Add(this->label4);
-            this->GimmickSettingsBox->Controls->Add(this->label3);
-            this->GimmickSettingsBox->Name = L"GimmickSettingsBox";
-            this->GimmickSettingsBox->TabStop = false;
-            // 
-            // ReverseEnd2SBNum2
-            // 
-            resources->ApplyResources(this->ReverseEnd2SBNum2, L"ReverseEnd2SBNum2");
-            this->ReverseEnd2SBNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
-            this->ReverseEnd2SBNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-            this->ReverseEnd2SBNum2->Name = L"ReverseEnd2SBNum2";
-            this->ReverseEnd2SBNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
-            // 
-            // label12
-            // 
-            resources->ApplyResources(this->label12, L"label12");
-            this->label12->Name = L"label12";
-            // 
-            // ReverseEnd2SBNum1
-            // 
-            resources->ApplyResources(this->ReverseEnd2SBNum1, L"ReverseEnd2SBNum1");
-            this->ReverseEnd2SBNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
-            this->ReverseEnd2SBNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
-            this->ReverseEnd2SBNum1->Name = L"ReverseEnd2SBNum1";
-            this->ReverseEnd2SBNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::ReverseEnd2SBNum1_ValueChanged);
-            // 
-            // ReverseEnd2BNum
-            // 
-            resources->ApplyResources(this->ReverseEnd2BNum, L"ReverseEnd2BNum");
-            this->ReverseEnd2BNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
-            this->ReverseEnd2BNum->Name = L"ReverseEnd2BNum";
-            // 
-            // ReverseEnd1SBNum2
-            // 
-            resources->ApplyResources(this->ReverseEnd1SBNum2, L"ReverseEnd1SBNum2");
-            this->ReverseEnd1SBNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
-            this->ReverseEnd1SBNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-            this->ReverseEnd1SBNum2->Name = L"ReverseEnd1SBNum2";
-            this->ReverseEnd1SBNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
-            // 
-            // label11
-            // 
-            resources->ApplyResources(this->label11, L"label11");
-            this->label11->Name = L"label11";
-            // 
-            // ReverseEnd1SBNum1
-            // 
-            resources->ApplyResources(this->ReverseEnd1SBNum1, L"ReverseEnd1SBNum1");
-            this->ReverseEnd1SBNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
-            this->ReverseEnd1SBNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
-            this->ReverseEnd1SBNum1->Name = L"ReverseEnd1SBNum1";
-            this->ReverseEnd1SBNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::ReverseEnd1SBNum1_ValueChanged);
-            // 
-            // ReverseEnd1BNum
-            // 
-            resources->ApplyResources(this->ReverseEnd1BNum, L"ReverseEnd1BNum");
-            this->ReverseEnd1BNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
-            this->ReverseEnd1BNum->Name = L"ReverseEnd1BNum";
-            // 
-            // StopEndBNum
-            // 
-            resources->ApplyResources(this->StopEndBNum, L"StopEndBNum");
-            this->StopEndBNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
-            this->StopEndBNum->Name = L"StopEndBNum";
-            // 
-            // StopEndSBNum2
-            // 
-            resources->ApplyResources(this->StopEndSBNum2, L"StopEndSBNum2");
-            this->StopEndSBNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
-            this->StopEndSBNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-            this->StopEndSBNum2->Name = L"StopEndSBNum2";
-            this->StopEndSBNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
-            // 
-            // label10
-            // 
-            resources->ApplyResources(this->label10, L"label10");
-            this->label10->Name = L"label10";
-            // 
-            // StopEndSBNum1
-            // 
-            resources->ApplyResources(this->StopEndSBNum1, L"StopEndSBNum1");
-            this->StopEndSBNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
-            this->StopEndSBNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
-            this->StopEndSBNum1->Name = L"StopEndSBNum1";
-            this->StopEndSBNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::StopEndSBNum1_ValueChanged);
-            // 
-            // HiSpeedChangeNum
-            // 
-            this->HiSpeedChangeNum->DecimalPlaces = 6;
-            resources->ApplyResources(this->HiSpeedChangeNum, L"HiSpeedChangeNum");
-            this->HiSpeedChangeNum->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 100, 0, 0, System::Int32::MinValue });
-            this->HiSpeedChangeNum->Name = L"HiSpeedChangeNum";
-            this->HiSpeedChangeNum->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-            // 
-            // TimeSigNum2
-            // 
-            resources->ApplyResources(this->TimeSigNum2, L"TimeSigNum2");
-            this->TimeSigNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
-            this->TimeSigNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-            this->TimeSigNum2->Name = L"TimeSigNum2";
-            this->TimeSigNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
-            // 
-            // label9
-            // 
-            resources->ApplyResources(this->label9, L"label9");
-            this->label9->Name = L"label9";
-            // 
-            // TimeSigNum1
-            // 
-            resources->ApplyResources(this->TimeSigNum1, L"TimeSigNum1");
-            this->TimeSigNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
-            this->TimeSigNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-            this->TimeSigNum1->Name = L"TimeSigNum1";
-            this->TimeSigNum1->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
-            // 
-            // BPMChangeNum
-            // 
-            this->BPMChangeNum->DecimalPlaces = 6;
-            resources->ApplyResources(this->BPMChangeNum, L"BPMChangeNum");
-            this->BPMChangeNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
-            this->BPMChangeNum->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-            this->BPMChangeNum->Name = L"BPMChangeNum";
-            this->BPMChangeNum->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-            // 
-            // label8
-            // 
-            resources->ApplyResources(this->label8, L"label8");
-            this->label8->Name = L"label8";
-            // 
-            // label7
-            // 
-            resources->ApplyResources(this->label7, L"label7");
-            this->label7->Name = L"label7";
-            // 
-            // label6
-            // 
-            resources->ApplyResources(this->label6, L"label6");
-            this->label6->Name = L"label6";
-            // 
-            // label5
-            // 
-            resources->ApplyResources(this->label5, L"label5");
-            this->label5->Name = L"label5";
-            // 
-            // label4
-            // 
-            resources->ApplyResources(this->label4, L"label4");
-            this->label4->Name = L"label4";
-            // 
-            // label3
-            // 
-            resources->ApplyResources(this->label3, L"label3");
-            this->label3->Name = L"label3";
-            // 
-            // InitialSettingsPane
-            // 
-            resources->ApplyResources(this->InitialSettingsPane, L"InitialSettingsPane");
-            this->InitialSettingsPane->Controls->Add(this->InitialSetSave);
-            this->InitialSettingsPane->Controls->Add(this->MovieOffsetNum);
-            this->InitialSettingsPane->Controls->Add(this->label17);
-            this->InitialSettingsPane->Controls->Add(this->OffsetNum);
-            this->InitialSettingsPane->Controls->Add(this->label16);
-            this->InitialSettingsPane->Controls->Add(this->InitTimeSigNum2);
-            this->InitialSettingsPane->Controls->Add(this->label15);
-            this->InitialSettingsPane->Controls->Add(this->InitTimeSigNum1);
-            this->InitialSettingsPane->Controls->Add(this->label14);
-            this->InitialSettingsPane->Controls->Add(this->InitialBPMNum);
-            this->InitialSettingsPane->Controls->Add(this->label13);
-            this->InitialSettingsPane->Name = L"InitialSettingsPane";
-            this->InitialSettingsPane->TabStop = false;
-            // 
-            // InitialSetSave
-            // 
-            resources->ApplyResources(this->InitialSetSave, L"InitialSetSave");
-            this->InitialSetSave->Name = L"InitialSetSave";
-            this->InitialSetSave->UseVisualStyleBackColor = true;
-            this->InitialSetSave->Click += gcnew System::EventHandler(this, &MyForm::InitialSetSave_Click);
-            // 
-            // MovieOffsetNum
-            // 
-            this->MovieOffsetNum->DecimalPlaces = 6;
-            resources->ApplyResources(this->MovieOffsetNum, L"MovieOffsetNum");
-            this->MovieOffsetNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
-            this->MovieOffsetNum->Name = L"MovieOffsetNum";
-            // 
-            // label17
-            // 
-            resources->ApplyResources(this->label17, L"label17");
-            this->label17->Name = L"label17";
-            // 
-            // OffsetNum
-            // 
-            this->OffsetNum->DecimalPlaces = 6;
-            resources->ApplyResources(this->OffsetNum, L"OffsetNum");
-            this->OffsetNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
-            this->OffsetNum->Name = L"OffsetNum";
-            // 
-            // label16
-            // 
-            resources->ApplyResources(this->label16, L"label16");
-            this->label16->Name = L"label16";
-            // 
-            // InitTimeSigNum2
-            // 
-            resources->ApplyResources(this->InitTimeSigNum2, L"InitTimeSigNum2");
-            this->InitTimeSigNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
-            this->InitTimeSigNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-            this->InitTimeSigNum2->Name = L"InitTimeSigNum2";
-            this->InitTimeSigNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
-            // 
-            // label15
-            // 
-            resources->ApplyResources(this->label15, L"label15");
-            this->label15->Name = L"label15";
-            // 
-            // InitTimeSigNum1
-            // 
-            resources->ApplyResources(this->InitTimeSigNum1, L"InitTimeSigNum1");
-            this->InitTimeSigNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
-            this->InitTimeSigNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-            this->InitTimeSigNum1->Name = L"InitTimeSigNum1";
-            this->InitTimeSigNum1->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
-            // 
-            // label14
-            // 
-            resources->ApplyResources(this->label14, L"label14");
-            this->label14->Name = L"label14";
-            // 
-            // InitialBPMNum
-            // 
-            this->InitialBPMNum->DecimalPlaces = 6;
-            resources->ApplyResources(this->InitialBPMNum, L"InitialBPMNum");
-            this->InitialBPMNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
-            this->InitialBPMNum->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-            this->InitialBPMNum->Name = L"InitialBPMNum";
-            this->InitialBPMNum->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-            // 
-            // label13
-            // 
-            resources->ApplyResources(this->label13, L"label13");
-            this->label13->Name = L"label13";
-            // 
-            // label29
-            // 
-            resources->ApplyResources(this->label29, L"label29");
-            this->label29->Name = L"label29";
-            // 
-            // MaskSettingsBox
-            // 
-            resources->ApplyResources(this->MaskSettingsBox, L"MaskSettingsBox");
-            this->MaskSettingsBox->Controls->Add(this->MaskCenter);
-            this->MaskSettingsBox->Controls->Add(this->MaskCClockwise);
-            this->MaskSettingsBox->Controls->Add(this->MaskClockwise);
-            this->MaskSettingsBox->Name = L"MaskSettingsBox";
-            this->MaskSettingsBox->TabStop = false;
-            // 
-            // MaskCenter
-            // 
-            resources->ApplyResources(this->MaskCenter, L"MaskCenter");
-            this->MaskCenter->Name = L"MaskCenter";
-            this->MaskCenter->UseVisualStyleBackColor = true;
-            this->MaskCenter->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MaskCenter_CheckedChanged);
-            // 
-            // MaskCClockwise
-            // 
-            resources->ApplyResources(this->MaskCClockwise, L"MaskCClockwise");
-            this->MaskCClockwise->Name = L"MaskCClockwise";
-            this->MaskCClockwise->UseVisualStyleBackColor = true;
-            this->MaskCClockwise->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MaskCClockwise_CheckedChanged);
-            // 
-            // MaskClockwise
-            // 
-            resources->ApplyResources(this->MaskClockwise, L"MaskClockwise");
-            this->MaskClockwise->Checked = true;
-            this->MaskClockwise->Name = L"MaskClockwise";
-            this->MaskClockwise->TabStop = true;
-            this->MaskClockwise->UseVisualStyleBackColor = true;
-            this->MaskClockwise->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MaskClockwise_CheckedChanged);
-            // 
-            // label18
-            // 
-            resources->ApplyResources(this->label18, L"label18");
-            this->label18->Name = L"label18";
-            // 
-            // CurrentObjectText
-            // 
-            resources->ApplyResources(this->CurrentObjectText, L"CurrentObjectText");
-            this->CurrentObjectText->Name = L"CurrentObjectText";
-            // 
-            // PreChartViewBox
-            // 
-            resources->ApplyResources(this->PreChartViewBox, L"PreChartViewBox");
-            this->PreChartViewBox->Controls->Add(this->GimmickValueLabel);
-            this->PreChartViewBox->Controls->Add(this->GimmickTypeLabel);
-            this->PreChartViewBox->Controls->Add(this->GimmickSubBeatLabel);
-            this->PreChartViewBox->Controls->Add(this->GimmickBeatLabel);
-            this->PreChartViewBox->Controls->Add(this->label22);
-            this->PreChartViewBox->Controls->Add(this->label21);
-            this->PreChartViewBox->Controls->Add(this->label20);
-            this->PreChartViewBox->Controls->Add(this->label19);
-            this->PreChartViewBox->Controls->Add(this->NextGimmickButton);
-            this->PreChartViewBox->Controls->Add(this->PrevGimmickButton);
-            this->PreChartViewBox->Controls->Add(this->DeleteGimmickButton);
-            this->PreChartViewBox->Name = L"PreChartViewBox";
-            this->PreChartViewBox->TabStop = false;
-            // 
-            // GimmickValueLabel
-            // 
-            resources->ApplyResources(this->GimmickValueLabel, L"GimmickValueLabel");
-            this->GimmickValueLabel->Name = L"GimmickValueLabel";
-            // 
-            // GimmickTypeLabel
-            // 
-            resources->ApplyResources(this->GimmickTypeLabel, L"GimmickTypeLabel");
-            this->GimmickTypeLabel->Name = L"GimmickTypeLabel";
-            // 
-            // GimmickSubBeatLabel
-            // 
-            resources->ApplyResources(this->GimmickSubBeatLabel, L"GimmickSubBeatLabel");
-            this->GimmickSubBeatLabel->Name = L"GimmickSubBeatLabel";
-            // 
-            // GimmickBeatLabel
-            // 
-            resources->ApplyResources(this->GimmickBeatLabel, L"GimmickBeatLabel");
-            this->GimmickBeatLabel->Name = L"GimmickBeatLabel";
-            // 
-            // label22
-            // 
-            resources->ApplyResources(this->label22, L"label22");
-            this->label22->Name = L"label22";
-            // 
-            // label21
-            // 
-            resources->ApplyResources(this->label21, L"label21");
-            this->label21->Name = L"label21";
-            // 
-            // label20
-            // 
-            resources->ApplyResources(this->label20, L"label20");
-            this->label20->Name = L"label20";
-            // 
-            // label19
-            // 
-            resources->ApplyResources(this->label19, L"label19");
-            this->label19->Name = L"label19";
-            // 
-            // NextGimmickButton
-            // 
-            resources->ApplyResources(this->NextGimmickButton, L"NextGimmickButton");
-            this->NextGimmickButton->Name = L"NextGimmickButton";
-            this->NextGimmickButton->UseVisualStyleBackColor = true;
-            this->NextGimmickButton->Click += gcnew System::EventHandler(this, &MyForm::NextGimmickButton_Click);
-            // 
-            // PrevGimmickButton
-            // 
-            resources->ApplyResources(this->PrevGimmickButton, L"PrevGimmickButton");
-            this->PrevGimmickButton->Name = L"PrevGimmickButton";
-            this->PrevGimmickButton->UseVisualStyleBackColor = true;
-            this->PrevGimmickButton->Click += gcnew System::EventHandler(this, &MyForm::PrevGimmickButton_Click);
-            // 
-            // DeleteGimmickButton
-            // 
-            resources->ApplyResources(this->DeleteGimmickButton, L"DeleteGimmickButton");
-            this->DeleteGimmickButton->Name = L"DeleteGimmickButton";
-            this->DeleteGimmickButton->UseVisualStyleBackColor = true;
-            this->DeleteGimmickButton->Click += gcnew System::EventHandler(this, &MyForm::DeleteGimmickButton_Click);
-            // 
-            // NotesViewBox
-            // 
-            resources->ApplyResources(this->NotesViewBox, L"NotesViewBox");
-            this->NotesViewBox->Controls->Add(this->EditNoteButton);
-            this->NotesViewBox->Controls->Add(this->PrevBeatButton);
-            this->NotesViewBox->Controls->Add(this->NextBeatButton);
-            this->NotesViewBox->Controls->Add(this->MatchNoteCheckBox);
-            this->NotesViewBox->Controls->Add(this->MatchTimeCheckBox);
-            this->NotesViewBox->Controls->Add(this->NotesMaskLabel);
-            this->NotesViewBox->Controls->Add(this->NotesSizeLabel);
-            this->NotesViewBox->Controls->Add(this->NotesPosLabel);
-            this->NotesViewBox->Controls->Add(this->NotesTypeLabel);
-            this->NotesViewBox->Controls->Add(this->NotesSubBeatLabel);
-            this->NotesViewBox->Controls->Add(this->NotesBeatLabel);
-            this->NotesViewBox->Controls->Add(this->label28);
-            this->NotesViewBox->Controls->Add(this->label27);
-            this->NotesViewBox->Controls->Add(this->label26);
-            this->NotesViewBox->Controls->Add(this->label25);
-            this->NotesViewBox->Controls->Add(this->label24);
-            this->NotesViewBox->Controls->Add(this->label23);
-            this->NotesViewBox->Controls->Add(this->NextNoteButton);
-            this->NotesViewBox->Controls->Add(this->PrevNoteButton);
-            this->NotesViewBox->Controls->Add(this->DeleteNoteButton);
-            this->NotesViewBox->Name = L"NotesViewBox";
-            this->NotesViewBox->TabStop = false;
-            // 
-            // EditNoteButton
-            // 
-            resources->ApplyResources(this->EditNoteButton, L"EditNoteButton");
-            this->EditNoteButton->Name = L"EditNoteButton";
-            this->EditNoteButton->UseVisualStyleBackColor = true;
-            this->EditNoteButton->Click += gcnew System::EventHandler(this, &MyForm::EditNoteButton_Click);
-            // 
-            // PrevBeatButton
-            // 
-            resources->ApplyResources(this->PrevBeatButton, L"PrevBeatButton");
-            this->PrevBeatButton->Name = L"PrevBeatButton";
-            this->PrevBeatButton->UseVisualStyleBackColor = true;
-            this->PrevBeatButton->Click += gcnew System::EventHandler(this, &MyForm::PrevBeatButton_Click);
-            // 
-            // NextBeatButton
-            // 
-            resources->ApplyResources(this->NextBeatButton, L"NextBeatButton");
-            this->NextBeatButton->Name = L"NextBeatButton";
-            this->NextBeatButton->UseVisualStyleBackColor = true;
-            this->NextBeatButton->Click += gcnew System::EventHandler(this, &MyForm::NextBeatButton_Click);
-            // 
-            // MatchNoteCheckBox
-            // 
-            resources->ApplyResources(this->MatchNoteCheckBox, L"MatchNoteCheckBox");
-            this->MatchNoteCheckBox->BackColor = System::Drawing::Color::Transparent;
-            this->MatchNoteCheckBox->Name = L"MatchNoteCheckBox";
-            this->MatchNoteCheckBox->UseVisualStyleBackColor = false;
-            this->MatchNoteCheckBox->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MatchNoteCheckBox_CheckedChanged);
-            // 
-            // MatchTimeCheckBox
-            // 
-            resources->ApplyResources(this->MatchTimeCheckBox, L"MatchTimeCheckBox");
-            this->MatchTimeCheckBox->Name = L"MatchTimeCheckBox";
-            this->MatchTimeCheckBox->UseVisualStyleBackColor = true;
-            this->MatchTimeCheckBox->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MatchTimeCheckBox_CheckedChanged);
-            // 
-            // NotesMaskLabel
-            // 
-            resources->ApplyResources(this->NotesMaskLabel, L"NotesMaskLabel");
-            this->NotesMaskLabel->Name = L"NotesMaskLabel";
-            // 
-            // NotesSizeLabel
-            // 
-            resources->ApplyResources(this->NotesSizeLabel, L"NotesSizeLabel");
-            this->NotesSizeLabel->Name = L"NotesSizeLabel";
-            // 
-            // NotesPosLabel
-            // 
-            resources->ApplyResources(this->NotesPosLabel, L"NotesPosLabel");
-            this->NotesPosLabel->Name = L"NotesPosLabel";
-            // 
-            // NotesTypeLabel
-            // 
-            resources->ApplyResources(this->NotesTypeLabel, L"NotesTypeLabel");
-            this->NotesTypeLabel->Name = L"NotesTypeLabel";
-            // 
-            // NotesSubBeatLabel
-            // 
-            resources->ApplyResources(this->NotesSubBeatLabel, L"NotesSubBeatLabel");
-            this->NotesSubBeatLabel->Name = L"NotesSubBeatLabel";
-            // 
-            // NotesBeatLabel
-            // 
-            resources->ApplyResources(this->NotesBeatLabel, L"NotesBeatLabel");
-            this->NotesBeatLabel->Name = L"NotesBeatLabel";
-            // 
-            // label28
-            // 
-            resources->ApplyResources(this->label28, L"label28");
-            this->label28->Name = L"label28";
-            // 
-            // label27
-            // 
-            resources->ApplyResources(this->label27, L"label27");
-            this->label27->Name = L"label27";
-            // 
-            // label26
-            // 
-            resources->ApplyResources(this->label26, L"label26");
-            this->label26->Name = L"label26";
-            // 
-            // label25
-            // 
-            resources->ApplyResources(this->label25, L"label25");
-            this->label25->Name = L"label25";
-            // 
-            // label24
-            // 
-            resources->ApplyResources(this->label24, L"label24");
-            this->label24->Name = L"label24";
-            // 
-            // label23
-            // 
-            resources->ApplyResources(this->label23, L"label23");
-            this->label23->Name = L"label23";
-            // 
-            // NextNoteButton
-            // 
-            resources->ApplyResources(this->NextNoteButton, L"NextNoteButton");
-            this->NextNoteButton->Name = L"NextNoteButton";
-            this->NextNoteButton->UseVisualStyleBackColor = true;
-            this->NextNoteButton->Click += gcnew System::EventHandler(this, &MyForm::NextNoteButton_Click);
-            // 
-            // PrevNoteButton
-            // 
-            resources->ApplyResources(this->PrevNoteButton, L"PrevNoteButton");
-            this->PrevNoteButton->Name = L"PrevNoteButton";
-            this->PrevNoteButton->UseVisualStyleBackColor = true;
-            this->PrevNoteButton->Click += gcnew System::EventHandler(this, &MyForm::PrevNoteButton_Click);
-            // 
-            // DeleteNoteButton
-            // 
-            resources->ApplyResources(this->DeleteNoteButton, L"DeleteNoteButton");
-            this->DeleteNoteButton->Name = L"DeleteNoteButton";
-            this->DeleteNoteButton->UseVisualStyleBackColor = true;
-            this->DeleteNoteButton->Click += gcnew System::EventHandler(this, &MyForm::DeleteNoteButton_Click);
-            // 
-            // MadeByLabel
-            // 
-            resources->ApplyResources(this->MadeByLabel, L"MadeByLabel");
-            this->MadeByLabel->Name = L"MadeByLabel";
-            // 
-            // openFileDialogChart
-            // 
-            this->openFileDialogChart->FileName = L"chart.mer";
-            resources->ApplyResources(this->openFileDialogChart, L"openFileDialogChart");
-            this->openFileDialogChart->RestoreDirectory = true;
-            this->openFileDialogChart->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::openFileDialog_FileOk);
-            // 
-            // saveFileDialog1
-            // 
-            this->saveFileDialog1->DefaultExt = L"mer";
-            resources->ApplyResources(this->saveFileDialog1, L"saveFileDialog1");
-            this->saveFileDialog1->RestoreDirectory = true;
-            this->saveFileDialog1->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::saveFileDialog_FileOk);
-            // 
-            // CurrentNoteBox
-            // 
-            resources->ApplyResources(this->CurrentNoteBox, L"CurrentNoteBox");
-            this->CurrentNoteBox->Controls->Add(this->SizeTrackBar);
-            this->CurrentNoteBox->Controls->Add(this->PosTrackBar);
-            this->CurrentNoteBox->Controls->Add(this->SizeInfo);
-            this->CurrentNoteBox->Controls->Add(this->SubBeat2Num);
-            this->CurrentNoteBox->Controls->Add(this->posInfo);
-            this->CurrentNoteBox->Controls->Add(this->label1);
-            this->CurrentNoteBox->Controls->Add(this->PosLabel);
-            this->CurrentNoteBox->Controls->Add(this->Beat);
-            this->CurrentNoteBox->Controls->Add(this->SubBeat1Num);
-            this->CurrentNoteBox->Controls->Add(this->BeatNum);
-            this->CurrentNoteBox->Controls->Add(this->SizeLabel);
-            this->CurrentNoteBox->Controls->Add(this->PosNum);
-            this->CurrentNoteBox->Controls->Add(this->SizeNum);
-            this->CurrentNoteBox->Name = L"CurrentNoteBox";
-            this->CurrentNoteBox->TabStop = false;
-            // 
-            // SizeTrackBar
-            // 
-            resources->ApplyResources(this->SizeTrackBar, L"SizeTrackBar");
-            this->SizeTrackBar->Maximum = 60;
-            this->SizeTrackBar->Minimum = 1;
-            this->SizeTrackBar->Name = L"SizeTrackBar";
-            this->SizeTrackBar->TickStyle = System::Windows::Forms::TickStyle::None;
-            this->SizeTrackBar->Value = 1;
-            this->SizeTrackBar->ValueChanged += gcnew System::EventHandler(this, &MyForm::SizeTrackBar_ValueChanged);
-            // 
-            // PosTrackBar
-            // 
-            resources->ApplyResources(this->PosTrackBar, L"PosTrackBar");
-            this->PosTrackBar->Maximum = 59;
-            this->PosTrackBar->Name = L"PosTrackBar";
-            this->PosTrackBar->TickStyle = System::Windows::Forms::TickStyle::None;
-            this->PosTrackBar->ValueChanged += gcnew System::EventHandler(this, &MyForm::PosTrackBar_ValueChanged);
-            // 
-            // fileSystemWatcher1
-            // 
-            this->fileSystemWatcher1->EnableRaisingEvents = true;
-            this->fileSystemWatcher1->SynchronizingObject = this;
-            // 
-            // CirclePanel
-            // 
-            resources->ApplyResources(this->CirclePanel, L"CirclePanel");
-            this->CirclePanel->BackColor = System::Drawing::Color::Transparent;
-            this->CirclePanel->Name = L"CirclePanel";
-            this->CirclePanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::CirclePanel_Paint);
-            // 
-            // VisualSettingsBox
-            // 
-            resources->ApplyResources(this->VisualSettingsBox, L"VisualSettingsBox");
-            this->VisualSettingsBox->Controls->Add(this->label2);
-            this->VisualSettingsBox->Controls->Add(this->VisualHispeed);
-            this->VisualSettingsBox->Name = L"VisualSettingsBox";
-            this->VisualSettingsBox->TabStop = false;
-            // 
-            // PlayButton
-            // 
-            resources->ApplyResources(this->PlayButton, L"PlayButton");
-            this->PlayButton->Name = L"PlayButton";
-            this->PlayButton->UseVisualStyleBackColor = true;
-            this->PlayButton->Click += gcnew System::EventHandler(this, &MyForm::PlayButton_Click);
-            // 
-            // songTrackSlider
-            // 
-            resources->ApplyResources(this->songTrackSlider, L"songTrackSlider");
-            this->songTrackSlider->Name = L"songTrackSlider";
-            this->songTrackSlider->TickStyle = System::Windows::Forms::TickStyle::None;
-            this->songTrackSlider->Scroll += gcnew System::EventHandler(this, &MyForm::songTrackSlider_Scroll);
-            // 
-            // selectSongFile
-            // 
-            resources->ApplyResources(this->selectSongFile, L"selectSongFile");
-            this->selectSongFile->Name = L"selectSongFile";
-            this->selectSongFile->UseVisualStyleBackColor = true;
-            this->selectSongFile->Click += gcnew System::EventHandler(this, &MyForm::selectSongFile_Click);
-            // 
-            // SongPlaybackBox
-            // 
-            resources->ApplyResources(this->SongPlaybackBox, L"SongPlaybackBox");
-            this->SongPlaybackBox->Controls->Add(this->VolumeLabel);
-            this->SongPlaybackBox->Controls->Add(this->Volume);
-            this->SongPlaybackBox->Controls->Add(this->songFileName);
-            this->SongPlaybackBox->Controls->Add(this->PlayButton);
-            this->SongPlaybackBox->Controls->Add(this->label29);
-            this->SongPlaybackBox->Controls->Add(this->songTrackSlider);
-            this->SongPlaybackBox->Controls->Add(this->selectSongFile);
-            this->SongPlaybackBox->Name = L"SongPlaybackBox";
-            this->SongPlaybackBox->TabStop = false;
-            // 
-            // VolumeLabel
-            // 
-            resources->ApplyResources(this->VolumeLabel, L"VolumeLabel");
-            this->VolumeLabel->Name = L"VolumeLabel";
-            // 
-            // Volume
-            // 
-            resources->ApplyResources(this->Volume, L"Volume");
-            this->Volume->Maximum = 100;
-            this->Volume->Name = L"Volume";
-            this->Volume->SmallChange = 5;
-            this->Volume->TickFrequency = 10;
-            this->Volume->Value = 100;
-            this->Volume->Scroll += gcnew System::EventHandler(this, &MyForm::Volume_Scroll);
-            // 
-            // songFileName
-            // 
-            resources->ApplyResources(this->songFileName, L"songFileName");
-            this->songFileName->Name = L"songFileName";
-            // 
-            // openFileDialogSong
-            // 
-            this->openFileDialogSong->FileName = L"openFileDialogSong";
-            resources->ApplyResources(this->openFileDialogSong, L"openFileDialogSong");
-            // 
-            // backgroundWorkerSong
-            // 
-            this->backgroundWorkerSong->WorkerReportsProgress = true;
-            this->backgroundWorkerSong->WorkerSupportsCancellation = true;
-            this->backgroundWorkerSong->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MyForm::backgroundWorkerSong_DoWork);
-            this->backgroundWorkerSong->ProgressChanged += gcnew System::ComponentModel::ProgressChangedEventHandler(this, &MyForm::backgroundWorkerSong_ProgressChanged);
-            this->backgroundWorkerSong->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MyForm::backgroundWorkerSong_RunWorkerCompleted);
-            // 
-            // backgroundWorkerPaint
-            // 
-            this->backgroundWorkerPaint->WorkerReportsProgress = true;
-            this->backgroundWorkerPaint->WorkerSupportsCancellation = true;
-            this->backgroundWorkerPaint->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MyForm::backgroundWorkerPaint_DoWork);
-            this->backgroundWorkerPaint->ProgressChanged += gcnew System::ComponentModel::ProgressChangedEventHandler(this, &MyForm::backgroundWorkerPaint_ProgressChanged);
-            // 
-            // panel1
-            // 
-            resources->ApplyResources(this->panel1, L"panel1");
-            this->panel1->Controls->Add(this->label18);
-            this->panel1->Controls->Add(this->CurrentObjectText);
-            this->panel1->Name = L"panel1";
-            // 
-            // MyForm
-            // 
-            this->AllowDrop = true;
-            resources->ApplyResources(this, L"$this");
-            this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Dpi;
-            this->Controls->Add(this->panel1);
-            this->Controls->Add(this->SongPlaybackBox);
-            this->Controls->Add(this->VisualSettingsBox);
-            this->Controls->Add(this->CirclePanel);
-            this->Controls->Add(this->CurrentNoteBox);
-            this->Controls->Add(this->MadeByLabel);
-            this->Controls->Add(this->NotesViewBox);
-            this->Controls->Add(this->PreChartViewBox);
-            this->Controls->Add(this->MaskSettingsBox);
-            this->Controls->Add(this->InitialSettingsPane);
-            this->Controls->Add(this->GimmickSettingsBox);
-            this->Controls->Add(this->GimmickBox);
-            this->Controls->Add(this->InsertButton);
-            this->Controls->Add(this->NoteTypeBox);
-            this->Controls->Add(this->menuStrip);
-            this->MainMenuStrip = this->menuStrip;
-            this->Name = L"MyForm";
-            this->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::MyForm_Paint);
-            this->Resize += gcnew System::EventHandler(this, &MyForm::MyForm_Resize);
-            this->menuStrip->ResumeLayout(false);
-            this->menuStrip->PerformLayout();
-            this->NoteTypeBox->ResumeLayout(false);
-            this->NoteTypeBox->PerformLayout();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->VisualHispeed))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeNum))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosNum))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat2Num))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat1Num))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BeatNum))->EndInit();
-            this->GimmickBox->ResumeLayout(false);
-            this->GimmickBox->PerformLayout();
-            this->GimmickSettingsBox->ResumeLayout(false);
-            this->GimmickSettingsBox->PerformLayout();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2SBNum2))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2SBNum1))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2BNum))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1SBNum2))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1SBNum1))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1BNum))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndBNum))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndSBNum2))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndSBNum1))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->HiSpeedChangeNum))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TimeSigNum2))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TimeSigNum1))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BPMChangeNum))->EndInit();
-            this->InitialSettingsPane->ResumeLayout(false);
-            this->InitialSettingsPane->PerformLayout();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MovieOffsetNum))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->OffsetNum))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitTimeSigNum2))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitTimeSigNum1))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitialBPMNum))->EndInit();
-            this->MaskSettingsBox->ResumeLayout(false);
-            this->MaskSettingsBox->PerformLayout();
-            this->PreChartViewBox->ResumeLayout(false);
-            this->PreChartViewBox->PerformLayout();
-            this->NotesViewBox->ResumeLayout(false);
-            this->NotesViewBox->PerformLayout();
-            this->CurrentNoteBox->ResumeLayout(false);
-            this->CurrentNoteBox->PerformLayout();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeTrackBar))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosTrackBar))->EndInit();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fileSystemWatcher1))->EndInit();
-            this->VisualSettingsBox->ResumeLayout(false);
-            this->VisualSettingsBox->PerformLayout();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->songTrackSlider))->EndInit();
-            this->SongPlaybackBox->ResumeLayout(false);
-            this->SongPlaybackBox->PerformLayout();
-            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Volume))->EndInit();
-            this->panel1->ResumeLayout(false);
-            this->panel1->PerformLayout();
-            this->ResumeLayout(false);
-            this->PerformLayout();
+			this->components = (gcnew System::ComponentModel::Container());
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
+			this->menuStrip = (gcnew System::Windows::Forms::MenuStrip());
+			this->fileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->newToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->openToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->saveToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->saveAsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->exitToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->aboutToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->TapButton = (gcnew System::Windows::Forms::Button());
+			this->OrangeButton = (gcnew System::Windows::Forms::Button());
+			this->GreenButton = (gcnew System::Windows::Forms::Button());
+			this->RedButton = (gcnew System::Windows::Forms::Button());
+			this->BlueButton = (gcnew System::Windows::Forms::Button());
+			this->YellowButton = (gcnew System::Windows::Forms::Button());
+			this->HoldButton = (gcnew System::Windows::Forms::Button());
+			this->EndChartButton = (gcnew System::Windows::Forms::Button());
+			this->NoteTypeBox = (gcnew System::Windows::Forms::GroupBox());
+			this->BonusFlairRadioButton = (gcnew System::Windows::Forms::RadioButton());
+			this->BonusGetRadioButton = (gcnew System::Windows::Forms::RadioButton());
+			this->NoBonusRadioButton = (gcnew System::Windows::Forms::RadioButton());
+			this->EndHoldBox = (gcnew System::Windows::Forms::CheckBox());
+			this->ToolTip = (gcnew System::Windows::Forms::ToolTip(this->components));
+			this->BPMChange = (gcnew System::Windows::Forms::Button());
+			this->TimeSignature = (gcnew System::Windows::Forms::Button());
+			this->Hispeed = (gcnew System::Windows::Forms::Button());
+			this->Stop = (gcnew System::Windows::Forms::Button());
+			this->Reverse = (gcnew System::Windows::Forms::Button());
+			this->Mask = (gcnew System::Windows::Forms::Button());
+			this->VisualHispeed = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->label30 = (gcnew System::Windows::Forms::Label());
+			this->PlaybackSpeedNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->InsertButton = (gcnew System::Windows::Forms::Button());
+			this->PosLabel = (gcnew System::Windows::Forms::Label());
+			this->posInfo = (gcnew System::Windows::Forms::Label());
+			this->SizeNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->SizeInfo = (gcnew System::Windows::Forms::Label());
+			this->SizeLabel = (gcnew System::Windows::Forms::Label());
+			this->PosNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->SubBeat2Num = (gcnew System::Windows::Forms::NumericUpDown());
+			this->SubBeat1Num = (gcnew System::Windows::Forms::NumericUpDown());
+			this->BeatNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->Beat = (gcnew System::Windows::Forms::Label());
+			this->GimmickBox = (gcnew System::Windows::Forms::GroupBox());
+			this->RemoveMask = (gcnew System::Windows::Forms::RadioButton());
+			this->AddMask = (gcnew System::Windows::Forms::RadioButton());
+			this->GimmickSettingsBox = (gcnew System::Windows::Forms::GroupBox());
+			this->ReverseEnd2SBNum2 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label12 = (gcnew System::Windows::Forms::Label());
+			this->ReverseEnd2SBNum1 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->ReverseEnd2BNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->ReverseEnd1SBNum2 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label11 = (gcnew System::Windows::Forms::Label());
+			this->ReverseEnd1SBNum1 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->ReverseEnd1BNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->StopEndBNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->StopEndSBNum2 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label10 = (gcnew System::Windows::Forms::Label());
+			this->StopEndSBNum1 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->HiSpeedChangeNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->TimeSigNum2 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label9 = (gcnew System::Windows::Forms::Label());
+			this->TimeSigNum1 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->BPMChangeNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label8 = (gcnew System::Windows::Forms::Label());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->InitialSettingsPane = (gcnew System::Windows::Forms::GroupBox());
+			this->InitialSetSave = (gcnew System::Windows::Forms::Button());
+			this->MovieOffsetNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label17 = (gcnew System::Windows::Forms::Label());
+			this->OffsetNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label16 = (gcnew System::Windows::Forms::Label());
+			this->InitTimeSigNum2 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label15 = (gcnew System::Windows::Forms::Label());
+			this->InitTimeSigNum1 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label14 = (gcnew System::Windows::Forms::Label());
+			this->InitialBPMNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label13 = (gcnew System::Windows::Forms::Label());
+			this->label29 = (gcnew System::Windows::Forms::Label());
+			this->MaskSettingsBox = (gcnew System::Windows::Forms::GroupBox());
+			this->MaskCenter = (gcnew System::Windows::Forms::RadioButton());
+			this->MaskCClockwise = (gcnew System::Windows::Forms::RadioButton());
+			this->MaskClockwise = (gcnew System::Windows::Forms::RadioButton());
+			this->label18 = (gcnew System::Windows::Forms::Label());
+			this->CurrentObjectText = (gcnew System::Windows::Forms::Label());
+			this->PreChartViewBox = (gcnew System::Windows::Forms::GroupBox());
+			this->GimmickValueLabel = (gcnew System::Windows::Forms::Label());
+			this->GimmickTypeLabel = (gcnew System::Windows::Forms::Label());
+			this->GimmickSubBeatLabel = (gcnew System::Windows::Forms::Label());
+			this->GimmickBeatLabel = (gcnew System::Windows::Forms::Label());
+			this->label22 = (gcnew System::Windows::Forms::Label());
+			this->label21 = (gcnew System::Windows::Forms::Label());
+			this->label20 = (gcnew System::Windows::Forms::Label());
+			this->label19 = (gcnew System::Windows::Forms::Label());
+			this->NextGimmickButton = (gcnew System::Windows::Forms::Button());
+			this->PrevGimmickButton = (gcnew System::Windows::Forms::Button());
+			this->DeleteGimmickButton = (gcnew System::Windows::Forms::Button());
+			this->NotesViewBox = (gcnew System::Windows::Forms::GroupBox());
+			this->EditNoteButton = (gcnew System::Windows::Forms::Button());
+			this->PrevBeatButton = (gcnew System::Windows::Forms::Button());
+			this->NextBeatButton = (gcnew System::Windows::Forms::Button());
+			this->MatchNoteCheckBox = (gcnew System::Windows::Forms::CheckBox());
+			this->MatchTimeCheckBox = (gcnew System::Windows::Forms::CheckBox());
+			this->NotesMaskLabel = (gcnew System::Windows::Forms::Label());
+			this->NotesSizeLabel = (gcnew System::Windows::Forms::Label());
+			this->NotesPosLabel = (gcnew System::Windows::Forms::Label());
+			this->NotesTypeLabel = (gcnew System::Windows::Forms::Label());
+			this->NotesSubBeatLabel = (gcnew System::Windows::Forms::Label());
+			this->NotesBeatLabel = (gcnew System::Windows::Forms::Label());
+			this->label28 = (gcnew System::Windows::Forms::Label());
+			this->label27 = (gcnew System::Windows::Forms::Label());
+			this->label26 = (gcnew System::Windows::Forms::Label());
+			this->label25 = (gcnew System::Windows::Forms::Label());
+			this->label24 = (gcnew System::Windows::Forms::Label());
+			this->label23 = (gcnew System::Windows::Forms::Label());
+			this->NextNoteButton = (gcnew System::Windows::Forms::Button());
+			this->PrevNoteButton = (gcnew System::Windows::Forms::Button());
+			this->DeleteNoteButton = (gcnew System::Windows::Forms::Button());
+			this->MadeByLabel = (gcnew System::Windows::Forms::Label());
+			this->openFileDialogChart = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
+			this->CurrentNoteBox = (gcnew System::Windows::Forms::GroupBox());
+			this->SizeTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->PosTrackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->fileSystemWatcher1 = (gcnew System::IO::FileSystemWatcher());
+			this->CirclePanel = (gcnew System::Windows::Forms::Panel());
+			this->VisualSettingsBox = (gcnew System::Windows::Forms::GroupBox());
+			this->PlayButton = (gcnew System::Windows::Forms::Button());
+			this->songTrackSlider = (gcnew System::Windows::Forms::TrackBar());
+			this->selectSongFile = (gcnew System::Windows::Forms::Button());
+			this->SongPlaybackBox = (gcnew System::Windows::Forms::GroupBox());
+			this->VolumeLabel = (gcnew System::Windows::Forms::Label());
+			this->Volume = (gcnew System::Windows::Forms::TrackBar());
+			this->songFileName = (gcnew System::Windows::Forms::Label());
+			this->openFileDialogSong = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->backgroundWorkerSong = (gcnew System::ComponentModel::BackgroundWorker());
+			this->backgroundWorkerPaint = (gcnew System::ComponentModel::BackgroundWorker());
+			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
+			this->backgroundWorker2 = (gcnew System::ComponentModel::BackgroundWorker());
+			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->menuStrip->SuspendLayout();
+			this->NoteTypeBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->VisualHispeed))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlaybackSpeedNum))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeNum))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosNum))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat2Num))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat1Num))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BeatNum))->BeginInit();
+			this->GimmickBox->SuspendLayout();
+			this->GimmickSettingsBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2SBNum2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2SBNum1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2BNum))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1SBNum2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1SBNum1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1BNum))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndBNum))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndSBNum2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndSBNum1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->HiSpeedChangeNum))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TimeSigNum2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TimeSigNum1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BPMChangeNum))->BeginInit();
+			this->InitialSettingsPane->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MovieOffsetNum))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->OffsetNum))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitTimeSigNum2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitTimeSigNum1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitialBPMNum))->BeginInit();
+			this->MaskSettingsBox->SuspendLayout();
+			this->PreChartViewBox->SuspendLayout();
+			this->NotesViewBox->SuspendLayout();
+			this->CurrentNoteBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosTrackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fileSystemWatcher1))->BeginInit();
+			this->VisualSettingsBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->songTrackSlider))->BeginInit();
+			this->SongPlaybackBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Volume))->BeginInit();
+			this->panel1->SuspendLayout();
+			this->SuspendLayout();
+			// 
+			// menuStrip
+			// 
+			this->menuStrip->ImageScalingSize = System::Drawing::Size(24, 24);
+			this->menuStrip->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->fileToolStripMenuItem,
+					this->aboutToolStripMenuItem
+			});
+			resources->ApplyResources(this->menuStrip, L"menuStrip");
+			this->menuStrip->Name = L"menuStrip";
+			// 
+			// fileToolStripMenuItem
+			// 
+			this->fileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {
+				this->newToolStripMenuItem,
+					this->openToolStripMenuItem, this->saveToolStripMenuItem, this->saveAsToolStripMenuItem, this->exitToolStripMenuItem
+			});
+			this->fileToolStripMenuItem->Name = L"fileToolStripMenuItem";
+			resources->ApplyResources(this->fileToolStripMenuItem, L"fileToolStripMenuItem");
+			// 
+			// newToolStripMenuItem
+			// 
+			this->newToolStripMenuItem->Name = L"newToolStripMenuItem";
+			resources->ApplyResources(this->newToolStripMenuItem, L"newToolStripMenuItem");
+			this->newToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::newToolStripMenuItem_Click);
+			// 
+			// openToolStripMenuItem
+			// 
+			this->openToolStripMenuItem->Name = L"openToolStripMenuItem";
+			resources->ApplyResources(this->openToolStripMenuItem, L"openToolStripMenuItem");
+			this->openToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::openToolStripMenuItem_Click);
+			// 
+			// saveToolStripMenuItem
+			// 
+			this->saveToolStripMenuItem->Name = L"saveToolStripMenuItem";
+			resources->ApplyResources(this->saveToolStripMenuItem, L"saveToolStripMenuItem");
+			this->saveToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::saveToolStripMenuItem_Click);
+			// 
+			// saveAsToolStripMenuItem
+			// 
+			this->saveAsToolStripMenuItem->Name = L"saveAsToolStripMenuItem";
+			resources->ApplyResources(this->saveAsToolStripMenuItem, L"saveAsToolStripMenuItem");
+			this->saveAsToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::saveAsToolStripMenuItem_Click);
+			// 
+			// exitToolStripMenuItem
+			// 
+			this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
+			resources->ApplyResources(this->exitToolStripMenuItem, L"exitToolStripMenuItem");
+			this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::exitToolStripMenuItem_Click);
+			// 
+			// aboutToolStripMenuItem
+			// 
+			this->aboutToolStripMenuItem->Name = L"aboutToolStripMenuItem";
+			resources->ApplyResources(this->aboutToolStripMenuItem, L"aboutToolStripMenuItem");
+			// 
+			// TapButton
+			// 
+			resources->ApplyResources(this->TapButton, L"TapButton");
+			this->TapButton->BackColor = System::Drawing::Color::Fuchsia;
+			this->TapButton->Name = L"TapButton";
+			this->TapButton->UseVisualStyleBackColor = false;
+			this->TapButton->Click += gcnew System::EventHandler(this, &MyForm::TapButton_Click);
+			// 
+			// OrangeButton
+			// 
+			resources->ApplyResources(this->OrangeButton, L"OrangeButton");
+			this->OrangeButton->BackColor = System::Drawing::Color::Orange;
+			this->OrangeButton->Name = L"OrangeButton";
+			this->OrangeButton->UseVisualStyleBackColor = false;
+			this->OrangeButton->Click += gcnew System::EventHandler(this, &MyForm::OrangeButton_Click);
+			// 
+			// GreenButton
+			// 
+			resources->ApplyResources(this->GreenButton, L"GreenButton");
+			this->GreenButton->BackColor = System::Drawing::Color::Lime;
+			this->GreenButton->Name = L"GreenButton";
+			this->GreenButton->UseVisualStyleBackColor = false;
+			this->GreenButton->Click += gcnew System::EventHandler(this, &MyForm::GreenButton_Click);
+			// 
+			// RedButton
+			// 
+			resources->ApplyResources(this->RedButton, L"RedButton");
+			this->RedButton->BackColor = System::Drawing::Color::Tomato;
+			this->RedButton->Name = L"RedButton";
+			this->RedButton->UseVisualStyleBackColor = false;
+			this->RedButton->Click += gcnew System::EventHandler(this, &MyForm::RedButton_Click);
+			// 
+			// BlueButton
+			// 
+			resources->ApplyResources(this->BlueButton, L"BlueButton");
+			this->BlueButton->BackColor = System::Drawing::Color::SkyBlue;
+			this->BlueButton->Name = L"BlueButton";
+			this->BlueButton->UseVisualStyleBackColor = false;
+			this->BlueButton->Click += gcnew System::EventHandler(this, &MyForm::BlueButton_Click);
+			// 
+			// YellowButton
+			// 
+			resources->ApplyResources(this->YellowButton, L"YellowButton");
+			this->YellowButton->BackColor = System::Drawing::Color::Goldenrod;
+			this->YellowButton->Name = L"YellowButton";
+			this->YellowButton->UseVisualStyleBackColor = false;
+			this->YellowButton->Click += gcnew System::EventHandler(this, &MyForm::YellowButton_Click);
+			// 
+			// HoldButton
+			// 
+			resources->ApplyResources(this->HoldButton, L"HoldButton");
+			this->HoldButton->BackColor = System::Drawing::Color::Yellow;
+			this->HoldButton->Name = L"HoldButton";
+			this->ToolTip->SetToolTip(this->HoldButton, resources->GetString(L"HoldButton.ToolTip"));
+			this->HoldButton->UseVisualStyleBackColor = false;
+			this->HoldButton->Click += gcnew System::EventHandler(this, &MyForm::HoldButton_Click);
+			// 
+			// EndChartButton
+			// 
+			resources->ApplyResources(this->EndChartButton, L"EndChartButton");
+			this->EndChartButton->Name = L"EndChartButton";
+			this->ToolTip->SetToolTip(this->EndChartButton, resources->GetString(L"EndChartButton.ToolTip"));
+			this->EndChartButton->UseVisualStyleBackColor = true;
+			this->EndChartButton->Click += gcnew System::EventHandler(this, &MyForm::EndChartButton_Click);
+			// 
+			// NoteTypeBox
+			// 
+			resources->ApplyResources(this->NoteTypeBox, L"NoteTypeBox");
+			this->NoteTypeBox->Controls->Add(this->BonusFlairRadioButton);
+			this->NoteTypeBox->Controls->Add(this->BonusGetRadioButton);
+			this->NoteTypeBox->Controls->Add(this->NoBonusRadioButton);
+			this->NoteTypeBox->Controls->Add(this->EndHoldBox);
+			this->NoteTypeBox->Controls->Add(this->EndChartButton);
+			this->NoteTypeBox->Controls->Add(this->TapButton);
+			this->NoteTypeBox->Controls->Add(this->HoldButton);
+			this->NoteTypeBox->Controls->Add(this->OrangeButton);
+			this->NoteTypeBox->Controls->Add(this->YellowButton);
+			this->NoteTypeBox->Controls->Add(this->GreenButton);
+			this->NoteTypeBox->Controls->Add(this->BlueButton);
+			this->NoteTypeBox->Controls->Add(this->RedButton);
+			this->NoteTypeBox->Name = L"NoteTypeBox";
+			this->NoteTypeBox->TabStop = false;
+			// 
+			// BonusFlairRadioButton
+			// 
+			resources->ApplyResources(this->BonusFlairRadioButton, L"BonusFlairRadioButton");
+			this->BonusFlairRadioButton->Name = L"BonusFlairRadioButton";
+			this->ToolTip->SetToolTip(this->BonusFlairRadioButton, resources->GetString(L"BonusFlairRadioButton.ToolTip"));
+			this->BonusFlairRadioButton->UseVisualStyleBackColor = true;
+			this->BonusFlairRadioButton->CheckedChanged += gcnew System::EventHandler(this, &MyForm::BonusFlairRadioButton_CheckedChanged);
+			// 
+			// BonusGetRadioButton
+			// 
+			resources->ApplyResources(this->BonusGetRadioButton, L"BonusGetRadioButton");
+			this->BonusGetRadioButton->Name = L"BonusGetRadioButton";
+			this->ToolTip->SetToolTip(this->BonusGetRadioButton, resources->GetString(L"BonusGetRadioButton.ToolTip"));
+			this->BonusGetRadioButton->UseVisualStyleBackColor = true;
+			this->BonusGetRadioButton->CheckedChanged += gcnew System::EventHandler(this, &MyForm::BonusGetRadioButton_CheckedChanged);
+			// 
+			// NoBonusRadioButton
+			// 
+			resources->ApplyResources(this->NoBonusRadioButton, L"NoBonusRadioButton");
+			this->NoBonusRadioButton->Checked = true;
+			this->NoBonusRadioButton->Name = L"NoBonusRadioButton";
+			this->NoBonusRadioButton->TabStop = true;
+			this->NoBonusRadioButton->UseVisualStyleBackColor = true;
+			this->NoBonusRadioButton->CheckedChanged += gcnew System::EventHandler(this, &MyForm::NoBonusRadioButton_CheckedChanged);
+			// 
+			// EndHoldBox
+			// 
+			resources->ApplyResources(this->EndHoldBox, L"EndHoldBox");
+			this->EndHoldBox->Name = L"EndHoldBox";
+			this->ToolTip->SetToolTip(this->EndHoldBox, resources->GetString(L"EndHoldBox.ToolTip"));
+			this->EndHoldBox->UseVisualStyleBackColor = true;
+			this->EndHoldBox->CheckedChanged += gcnew System::EventHandler(this, &MyForm::EndHoldBox_CheckedChanged);
+			// 
+			// BPMChange
+			// 
+			resources->ApplyResources(this->BPMChange, L"BPMChange");
+			this->BPMChange->Name = L"BPMChange";
+			this->ToolTip->SetToolTip(this->BPMChange, resources->GetString(L"BPMChange.ToolTip"));
+			this->BPMChange->UseVisualStyleBackColor = true;
+			this->BPMChange->Click += gcnew System::EventHandler(this, &MyForm::BPMChange_Click);
+			// 
+			// TimeSignature
+			// 
+			resources->ApplyResources(this->TimeSignature, L"TimeSignature");
+			this->TimeSignature->Name = L"TimeSignature";
+			this->ToolTip->SetToolTip(this->TimeSignature, resources->GetString(L"TimeSignature.ToolTip"));
+			this->TimeSignature->UseVisualStyleBackColor = true;
+			this->TimeSignature->Click += gcnew System::EventHandler(this, &MyForm::TimeSignature_Click);
+			// 
+			// Hispeed
+			// 
+			resources->ApplyResources(this->Hispeed, L"Hispeed");
+			this->Hispeed->Name = L"Hispeed";
+			this->ToolTip->SetToolTip(this->Hispeed, resources->GetString(L"Hispeed.ToolTip"));
+			this->Hispeed->UseVisualStyleBackColor = true;
+			this->Hispeed->Click += gcnew System::EventHandler(this, &MyForm::Hispeed_Click);
+			// 
+			// Stop
+			// 
+			resources->ApplyResources(this->Stop, L"Stop");
+			this->Stop->Name = L"Stop";
+			this->ToolTip->SetToolTip(this->Stop, resources->GetString(L"Stop.ToolTip"));
+			this->Stop->UseVisualStyleBackColor = true;
+			this->Stop->Click += gcnew System::EventHandler(this, &MyForm::Stop_Click);
+			// 
+			// Reverse
+			// 
+			resources->ApplyResources(this->Reverse, L"Reverse");
+			this->Reverse->Name = L"Reverse";
+			this->ToolTip->SetToolTip(this->Reverse, resources->GetString(L"Reverse.ToolTip"));
+			this->Reverse->UseVisualStyleBackColor = true;
+			this->Reverse->Click += gcnew System::EventHandler(this, &MyForm::Reverse_Click);
+			// 
+			// Mask
+			// 
+			resources->ApplyResources(this->Mask, L"Mask");
+			this->Mask->Name = L"Mask";
+			this->ToolTip->SetToolTip(this->Mask, resources->GetString(L"Mask.ToolTip"));
+			this->Mask->UseVisualStyleBackColor = true;
+			this->Mask->Click += gcnew System::EventHandler(this, &MyForm::Mask_Click);
+			// 
+			// VisualHispeed
+			// 
+			this->VisualHispeed->BackColor = System::Drawing::SystemColors::Window;
+			this->VisualHispeed->DecimalPlaces = 2;
+			this->VisualHispeed->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 5, 0, 0, 131072 });
+			resources->ApplyResources(this->VisualHispeed, L"VisualHispeed");
+			this->VisualHispeed->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 5, 0, 0, 0 });
+			this->VisualHispeed->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 5, 0, 0, 131072 });
+			this->VisualHispeed->Name = L"VisualHispeed";
+			this->ToolTip->SetToolTip(this->VisualHispeed, resources->GetString(L"VisualHispeed.ToolTip"));
+			this->VisualHispeed->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 5, 0, 0, 65536 });
+			this->VisualHispeed->ValueChanged += gcnew System::EventHandler(this, &MyForm::VisualHispeed_ValueChanged);
+			// 
+			// label2
+			// 
+			resources->ApplyResources(this->label2, L"label2");
+			this->label2->Name = L"label2";
+			this->ToolTip->SetToolTip(this->label2, resources->GetString(L"label2.ToolTip"));
+			// 
+			// label30
+			// 
+			resources->ApplyResources(this->label30, L"label30");
+			this->label30->Name = L"label30";
+			this->ToolTip->SetToolTip(this->label30, resources->GetString(L"label30.ToolTip"));
+			// 
+			// PlaybackSpeedNum
+			// 
+			this->PlaybackSpeedNum->BackColor = System::Drawing::SystemColors::Window;
+			this->PlaybackSpeedNum->DecimalPlaces = 2;
+			this->PlaybackSpeedNum->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 65536 });
+			resources->ApplyResources(this->PlaybackSpeedNum, L"PlaybackSpeedNum");
+			this->PlaybackSpeedNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2, 0, 0, 0 });
+			this->PlaybackSpeedNum->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 65536 });
+			this->PlaybackSpeedNum->Name = L"PlaybackSpeedNum";
+			this->ToolTip->SetToolTip(this->PlaybackSpeedNum, resources->GetString(L"PlaybackSpeedNum.ToolTip"));
+			this->PlaybackSpeedNum->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->PlaybackSpeedNum->ValueChanged += gcnew System::EventHandler(this, &MyForm::PlaybackSpeedNum_ValueChanged);
+			// 
+			// InsertButton
+			// 
+			resources->ApplyResources(this->InsertButton, L"InsertButton");
+			this->InsertButton->Name = L"InsertButton";
+			this->InsertButton->UseVisualStyleBackColor = true;
+			this->InsertButton->Click += gcnew System::EventHandler(this, &MyForm::InsertButton_Click);
+			// 
+			// PosLabel
+			// 
+			resources->ApplyResources(this->PosLabel, L"PosLabel");
+			this->PosLabel->Name = L"PosLabel";
+			// 
+			// posInfo
+			// 
+			resources->ApplyResources(this->posInfo, L"posInfo");
+			this->posInfo->Name = L"posInfo";
+			// 
+			// SizeNum
+			// 
+			resources->ApplyResources(this->SizeNum, L"SizeNum");
+			this->SizeNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 60, 0, 0, 0 });
+			this->SizeNum->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->SizeNum->Name = L"SizeNum";
+			this->SizeNum->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->SizeNum->ValueChanged += gcnew System::EventHandler(this, &MyForm::SizeNum_ValueChanged);
+			// 
+			// SizeInfo
+			// 
+			resources->ApplyResources(this->SizeInfo, L"SizeInfo");
+			this->SizeInfo->Name = L"SizeInfo";
+			// 
+			// SizeLabel
+			// 
+			resources->ApplyResources(this->SizeLabel, L"SizeLabel");
+			this->SizeLabel->Name = L"SizeLabel";
+			// 
+			// PosNum
+			// 
+			resources->ApplyResources(this->PosNum, L"PosNum");
+			this->PosNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 59, 0, 0, 0 });
+			this->PosNum->Name = L"PosNum";
+			this->PosNum->ValueChanged += gcnew System::EventHandler(this, &MyForm::PosNum_ValueChanged);
+			// 
+			// label1
+			// 
+			resources->ApplyResources(this->label1, L"label1");
+			this->label1->Name = L"label1";
+			// 
+			// SubBeat2Num
+			// 
+			resources->ApplyResources(this->SubBeat2Num, L"SubBeat2Num");
+			this->SubBeat2Num->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1920, 0, 0, 0 });
+			this->SubBeat2Num->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->SubBeat2Num->Name = L"SubBeat2Num";
+			this->SubBeat2Num->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 16, 0, 0, 0 });
+			this->SubBeat2Num->ValueChanged += gcnew System::EventHandler(this, &MyForm::SubBeat2Num_ValueChanged);
+			// 
+			// SubBeat1Num
+			// 
+			resources->ApplyResources(this->SubBeat1Num, L"SubBeat1Num");
+			this->SubBeat1Num->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1919, 0, 0, 0 });
+			this->SubBeat1Num->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
+			this->SubBeat1Num->Name = L"SubBeat1Num";
+			this->SubBeat1Num->ValueChanged += gcnew System::EventHandler(this, &MyForm::SubBeat1Num_ValueChanged);
+			// 
+			// BeatNum
+			// 
+			resources->ApplyResources(this->BeatNum, L"BeatNum");
+			this->BeatNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
+			this->BeatNum->Name = L"BeatNum";
+			this->BeatNum->ValueChanged += gcnew System::EventHandler(this, &MyForm::BeatNum_ValueChanged);
+			// 
+			// Beat
+			// 
+			resources->ApplyResources(this->Beat, L"Beat");
+			this->Beat->Name = L"Beat";
+			// 
+			// GimmickBox
+			// 
+			resources->ApplyResources(this->GimmickBox, L"GimmickBox");
+			this->GimmickBox->Controls->Add(this->Reverse);
+			this->GimmickBox->Controls->Add(this->Stop);
+			this->GimmickBox->Controls->Add(this->Hispeed);
+			this->GimmickBox->Controls->Add(this->TimeSignature);
+			this->GimmickBox->Controls->Add(this->BPMChange);
+			this->GimmickBox->Controls->Add(this->RemoveMask);
+			this->GimmickBox->Controls->Add(this->AddMask);
+			this->GimmickBox->Controls->Add(this->Mask);
+			this->GimmickBox->Name = L"GimmickBox";
+			this->GimmickBox->TabStop = false;
+			// 
+			// RemoveMask
+			// 
+			resources->ApplyResources(this->RemoveMask, L"RemoveMask");
+			this->RemoveMask->Name = L"RemoveMask";
+			this->RemoveMask->UseVisualStyleBackColor = true;
+			this->RemoveMask->CheckedChanged += gcnew System::EventHandler(this, &MyForm::RemoveMask_CheckedChanged);
+			// 
+			// AddMask
+			// 
+			resources->ApplyResources(this->AddMask, L"AddMask");
+			this->AddMask->Checked = true;
+			this->AddMask->Name = L"AddMask";
+			this->AddMask->TabStop = true;
+			this->AddMask->UseVisualStyleBackColor = true;
+			this->AddMask->CheckedChanged += gcnew System::EventHandler(this, &MyForm::AddMask_CheckedChanged);
+			// 
+			// GimmickSettingsBox
+			// 
+			resources->ApplyResources(this->GimmickSettingsBox, L"GimmickSettingsBox");
+			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd2SBNum2);
+			this->GimmickSettingsBox->Controls->Add(this->label12);
+			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd2SBNum1);
+			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd2BNum);
+			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd1SBNum2);
+			this->GimmickSettingsBox->Controls->Add(this->label11);
+			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd1SBNum1);
+			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd1BNum);
+			this->GimmickSettingsBox->Controls->Add(this->StopEndBNum);
+			this->GimmickSettingsBox->Controls->Add(this->StopEndSBNum2);
+			this->GimmickSettingsBox->Controls->Add(this->label10);
+			this->GimmickSettingsBox->Controls->Add(this->StopEndSBNum1);
+			this->GimmickSettingsBox->Controls->Add(this->HiSpeedChangeNum);
+			this->GimmickSettingsBox->Controls->Add(this->TimeSigNum2);
+			this->GimmickSettingsBox->Controls->Add(this->label9);
+			this->GimmickSettingsBox->Controls->Add(this->TimeSigNum1);
+			this->GimmickSettingsBox->Controls->Add(this->BPMChangeNum);
+			this->GimmickSettingsBox->Controls->Add(this->label8);
+			this->GimmickSettingsBox->Controls->Add(this->label7);
+			this->GimmickSettingsBox->Controls->Add(this->label6);
+			this->GimmickSettingsBox->Controls->Add(this->label5);
+			this->GimmickSettingsBox->Controls->Add(this->label4);
+			this->GimmickSettingsBox->Controls->Add(this->label3);
+			this->GimmickSettingsBox->Name = L"GimmickSettingsBox";
+			this->GimmickSettingsBox->TabStop = false;
+			// 
+			// ReverseEnd2SBNum2
+			// 
+			resources->ApplyResources(this->ReverseEnd2SBNum2, L"ReverseEnd2SBNum2");
+			this->ReverseEnd2SBNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
+			this->ReverseEnd2SBNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->ReverseEnd2SBNum2->Name = L"ReverseEnd2SBNum2";
+			this->ReverseEnd2SBNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
+			// 
+			// label12
+			// 
+			resources->ApplyResources(this->label12, L"label12");
+			this->label12->Name = L"label12";
+			// 
+			// ReverseEnd2SBNum1
+			// 
+			resources->ApplyResources(this->ReverseEnd2SBNum1, L"ReverseEnd2SBNum1");
+			this->ReverseEnd2SBNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
+			this->ReverseEnd2SBNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
+			this->ReverseEnd2SBNum1->Name = L"ReverseEnd2SBNum1";
+			this->ReverseEnd2SBNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::ReverseEnd2SBNum1_ValueChanged);
+			// 
+			// ReverseEnd2BNum
+			// 
+			resources->ApplyResources(this->ReverseEnd2BNum, L"ReverseEnd2BNum");
+			this->ReverseEnd2BNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
+			this->ReverseEnd2BNum->Name = L"ReverseEnd2BNum";
+			// 
+			// ReverseEnd1SBNum2
+			// 
+			resources->ApplyResources(this->ReverseEnd1SBNum2, L"ReverseEnd1SBNum2");
+			this->ReverseEnd1SBNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
+			this->ReverseEnd1SBNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->ReverseEnd1SBNum2->Name = L"ReverseEnd1SBNum2";
+			this->ReverseEnd1SBNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
+			// 
+			// label11
+			// 
+			resources->ApplyResources(this->label11, L"label11");
+			this->label11->Name = L"label11";
+			// 
+			// ReverseEnd1SBNum1
+			// 
+			resources->ApplyResources(this->ReverseEnd1SBNum1, L"ReverseEnd1SBNum1");
+			this->ReverseEnd1SBNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
+			this->ReverseEnd1SBNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
+			this->ReverseEnd1SBNum1->Name = L"ReverseEnd1SBNum1";
+			this->ReverseEnd1SBNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::ReverseEnd1SBNum1_ValueChanged);
+			// 
+			// ReverseEnd1BNum
+			// 
+			resources->ApplyResources(this->ReverseEnd1BNum, L"ReverseEnd1BNum");
+			this->ReverseEnd1BNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
+			this->ReverseEnd1BNum->Name = L"ReverseEnd1BNum";
+			// 
+			// StopEndBNum
+			// 
+			resources->ApplyResources(this->StopEndBNum, L"StopEndBNum");
+			this->StopEndBNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
+			this->StopEndBNum->Name = L"StopEndBNum";
+			// 
+			// StopEndSBNum2
+			// 
+			resources->ApplyResources(this->StopEndSBNum2, L"StopEndSBNum2");
+			this->StopEndSBNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
+			this->StopEndSBNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->StopEndSBNum2->Name = L"StopEndSBNum2";
+			this->StopEndSBNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
+			// 
+			// label10
+			// 
+			resources->ApplyResources(this->label10, L"label10");
+			this->label10->Name = L"label10";
+			// 
+			// StopEndSBNum1
+			// 
+			resources->ApplyResources(this->StopEndSBNum1, L"StopEndSBNum1");
+			this->StopEndSBNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
+			this->StopEndSBNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
+			this->StopEndSBNum1->Name = L"StopEndSBNum1";
+			this->StopEndSBNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::StopEndSBNum1_ValueChanged);
+			// 
+			// HiSpeedChangeNum
+			// 
+			this->HiSpeedChangeNum->DecimalPlaces = 6;
+			resources->ApplyResources(this->HiSpeedChangeNum, L"HiSpeedChangeNum");
+			this->HiSpeedChangeNum->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 100, 0, 0, System::Int32::MinValue });
+			this->HiSpeedChangeNum->Name = L"HiSpeedChangeNum";
+			this->HiSpeedChangeNum->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			// 
+			// TimeSigNum2
+			// 
+			resources->ApplyResources(this->TimeSigNum2, L"TimeSigNum2");
+			this->TimeSigNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
+			this->TimeSigNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->TimeSigNum2->Name = L"TimeSigNum2";
+			this->TimeSigNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
+			// 
+			// label9
+			// 
+			resources->ApplyResources(this->label9, L"label9");
+			this->label9->Name = L"label9";
+			// 
+			// TimeSigNum1
+			// 
+			resources->ApplyResources(this->TimeSigNum1, L"TimeSigNum1");
+			this->TimeSigNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
+			this->TimeSigNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->TimeSigNum1->Name = L"TimeSigNum1";
+			this->TimeSigNum1->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
+			// 
+			// BPMChangeNum
+			// 
+			this->BPMChangeNum->DecimalPlaces = 6;
+			resources->ApplyResources(this->BPMChangeNum, L"BPMChangeNum");
+			this->BPMChangeNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
+			this->BPMChangeNum->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->BPMChangeNum->Name = L"BPMChangeNum";
+			this->BPMChangeNum->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			// 
+			// label8
+			// 
+			resources->ApplyResources(this->label8, L"label8");
+			this->label8->Name = L"label8";
+			// 
+			// label7
+			// 
+			resources->ApplyResources(this->label7, L"label7");
+			this->label7->Name = L"label7";
+			// 
+			// label6
+			// 
+			resources->ApplyResources(this->label6, L"label6");
+			this->label6->Name = L"label6";
+			// 
+			// label5
+			// 
+			resources->ApplyResources(this->label5, L"label5");
+			this->label5->Name = L"label5";
+			// 
+			// label4
+			// 
+			resources->ApplyResources(this->label4, L"label4");
+			this->label4->Name = L"label4";
+			// 
+			// label3
+			// 
+			resources->ApplyResources(this->label3, L"label3");
+			this->label3->Name = L"label3";
+			// 
+			// InitialSettingsPane
+			// 
+			resources->ApplyResources(this->InitialSettingsPane, L"InitialSettingsPane");
+			this->InitialSettingsPane->Controls->Add(this->InitialSetSave);
+			this->InitialSettingsPane->Controls->Add(this->MovieOffsetNum);
+			this->InitialSettingsPane->Controls->Add(this->label17);
+			this->InitialSettingsPane->Controls->Add(this->OffsetNum);
+			this->InitialSettingsPane->Controls->Add(this->label16);
+			this->InitialSettingsPane->Controls->Add(this->InitTimeSigNum2);
+			this->InitialSettingsPane->Controls->Add(this->label15);
+			this->InitialSettingsPane->Controls->Add(this->InitTimeSigNum1);
+			this->InitialSettingsPane->Controls->Add(this->label14);
+			this->InitialSettingsPane->Controls->Add(this->InitialBPMNum);
+			this->InitialSettingsPane->Controls->Add(this->label13);
+			this->InitialSettingsPane->Name = L"InitialSettingsPane";
+			this->InitialSettingsPane->TabStop = false;
+			// 
+			// InitialSetSave
+			// 
+			resources->ApplyResources(this->InitialSetSave, L"InitialSetSave");
+			this->InitialSetSave->Name = L"InitialSetSave";
+			this->InitialSetSave->UseVisualStyleBackColor = true;
+			this->InitialSetSave->Click += gcnew System::EventHandler(this, &MyForm::InitialSetSave_Click);
+			// 
+			// MovieOffsetNum
+			// 
+			this->MovieOffsetNum->DecimalPlaces = 6;
+			resources->ApplyResources(this->MovieOffsetNum, L"MovieOffsetNum");
+			this->MovieOffsetNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
+			this->MovieOffsetNum->Name = L"MovieOffsetNum";
+			// 
+			// label17
+			// 
+			resources->ApplyResources(this->label17, L"label17");
+			this->label17->Name = L"label17";
+			// 
+			// OffsetNum
+			// 
+			this->OffsetNum->DecimalPlaces = 6;
+			resources->ApplyResources(this->OffsetNum, L"OffsetNum");
+			this->OffsetNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
+			this->OffsetNum->Name = L"OffsetNum";
+			// 
+			// label16
+			// 
+			resources->ApplyResources(this->label16, L"label16");
+			this->label16->Name = L"label16";
+			// 
+			// InitTimeSigNum2
+			// 
+			resources->ApplyResources(this->InitTimeSigNum2, L"InitTimeSigNum2");
+			this->InitTimeSigNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
+			this->InitTimeSigNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->InitTimeSigNum2->Name = L"InitTimeSigNum2";
+			this->InitTimeSigNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
+			// 
+			// label15
+			// 
+			resources->ApplyResources(this->label15, L"label15");
+			this->label15->Name = L"label15";
+			// 
+			// InitTimeSigNum1
+			// 
+			resources->ApplyResources(this->InitTimeSigNum1, L"InitTimeSigNum1");
+			this->InitTimeSigNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
+			this->InitTimeSigNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->InitTimeSigNum1->Name = L"InitTimeSigNum1";
+			this->InitTimeSigNum1->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
+			// 
+			// label14
+			// 
+			resources->ApplyResources(this->label14, L"label14");
+			this->label14->Name = L"label14";
+			// 
+			// InitialBPMNum
+			// 
+			this->InitialBPMNum->DecimalPlaces = 6;
+			resources->ApplyResources(this->InitialBPMNum, L"InitialBPMNum");
+			this->InitialBPMNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
+			this->InitialBPMNum->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->InitialBPMNum->Name = L"InitialBPMNum";
+			this->InitialBPMNum->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			// 
+			// label13
+			// 
+			resources->ApplyResources(this->label13, L"label13");
+			this->label13->Name = L"label13";
+			// 
+			// label29
+			// 
+			resources->ApplyResources(this->label29, L"label29");
+			this->label29->Name = L"label29";
+			// 
+			// MaskSettingsBox
+			// 
+			resources->ApplyResources(this->MaskSettingsBox, L"MaskSettingsBox");
+			this->MaskSettingsBox->Controls->Add(this->MaskCenter);
+			this->MaskSettingsBox->Controls->Add(this->MaskCClockwise);
+			this->MaskSettingsBox->Controls->Add(this->MaskClockwise);
+			this->MaskSettingsBox->Name = L"MaskSettingsBox";
+			this->MaskSettingsBox->TabStop = false;
+			// 
+			// MaskCenter
+			// 
+			resources->ApplyResources(this->MaskCenter, L"MaskCenter");
+			this->MaskCenter->Name = L"MaskCenter";
+			this->MaskCenter->UseVisualStyleBackColor = true;
+			this->MaskCenter->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MaskCenter_CheckedChanged);
+			// 
+			// MaskCClockwise
+			// 
+			resources->ApplyResources(this->MaskCClockwise, L"MaskCClockwise");
+			this->MaskCClockwise->Name = L"MaskCClockwise";
+			this->MaskCClockwise->UseVisualStyleBackColor = true;
+			this->MaskCClockwise->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MaskCClockwise_CheckedChanged);
+			// 
+			// MaskClockwise
+			// 
+			resources->ApplyResources(this->MaskClockwise, L"MaskClockwise");
+			this->MaskClockwise->Checked = true;
+			this->MaskClockwise->Name = L"MaskClockwise";
+			this->MaskClockwise->TabStop = true;
+			this->MaskClockwise->UseVisualStyleBackColor = true;
+			this->MaskClockwise->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MaskClockwise_CheckedChanged);
+			// 
+			// label18
+			// 
+			resources->ApplyResources(this->label18, L"label18");
+			this->label18->Name = L"label18";
+			// 
+			// CurrentObjectText
+			// 
+			resources->ApplyResources(this->CurrentObjectText, L"CurrentObjectText");
+			this->CurrentObjectText->Name = L"CurrentObjectText";
+			// 
+			// PreChartViewBox
+			// 
+			resources->ApplyResources(this->PreChartViewBox, L"PreChartViewBox");
+			this->PreChartViewBox->Controls->Add(this->GimmickValueLabel);
+			this->PreChartViewBox->Controls->Add(this->GimmickTypeLabel);
+			this->PreChartViewBox->Controls->Add(this->GimmickSubBeatLabel);
+			this->PreChartViewBox->Controls->Add(this->GimmickBeatLabel);
+			this->PreChartViewBox->Controls->Add(this->label22);
+			this->PreChartViewBox->Controls->Add(this->label21);
+			this->PreChartViewBox->Controls->Add(this->label20);
+			this->PreChartViewBox->Controls->Add(this->label19);
+			this->PreChartViewBox->Controls->Add(this->NextGimmickButton);
+			this->PreChartViewBox->Controls->Add(this->PrevGimmickButton);
+			this->PreChartViewBox->Controls->Add(this->DeleteGimmickButton);
+			this->PreChartViewBox->Name = L"PreChartViewBox";
+			this->PreChartViewBox->TabStop = false;
+			// 
+			// GimmickValueLabel
+			// 
+			resources->ApplyResources(this->GimmickValueLabel, L"GimmickValueLabel");
+			this->GimmickValueLabel->Name = L"GimmickValueLabel";
+			// 
+			// GimmickTypeLabel
+			// 
+			resources->ApplyResources(this->GimmickTypeLabel, L"GimmickTypeLabel");
+			this->GimmickTypeLabel->Name = L"GimmickTypeLabel";
+			// 
+			// GimmickSubBeatLabel
+			// 
+			resources->ApplyResources(this->GimmickSubBeatLabel, L"GimmickSubBeatLabel");
+			this->GimmickSubBeatLabel->Name = L"GimmickSubBeatLabel";
+			// 
+			// GimmickBeatLabel
+			// 
+			resources->ApplyResources(this->GimmickBeatLabel, L"GimmickBeatLabel");
+			this->GimmickBeatLabel->Name = L"GimmickBeatLabel";
+			// 
+			// label22
+			// 
+			resources->ApplyResources(this->label22, L"label22");
+			this->label22->Name = L"label22";
+			// 
+			// label21
+			// 
+			resources->ApplyResources(this->label21, L"label21");
+			this->label21->Name = L"label21";
+			// 
+			// label20
+			// 
+			resources->ApplyResources(this->label20, L"label20");
+			this->label20->Name = L"label20";
+			// 
+			// label19
+			// 
+			resources->ApplyResources(this->label19, L"label19");
+			this->label19->Name = L"label19";
+			// 
+			// NextGimmickButton
+			// 
+			resources->ApplyResources(this->NextGimmickButton, L"NextGimmickButton");
+			this->NextGimmickButton->Name = L"NextGimmickButton";
+			this->NextGimmickButton->UseVisualStyleBackColor = true;
+			this->NextGimmickButton->Click += gcnew System::EventHandler(this, &MyForm::NextGimmickButton_Click);
+			// 
+			// PrevGimmickButton
+			// 
+			resources->ApplyResources(this->PrevGimmickButton, L"PrevGimmickButton");
+			this->PrevGimmickButton->Name = L"PrevGimmickButton";
+			this->PrevGimmickButton->UseVisualStyleBackColor = true;
+			this->PrevGimmickButton->Click += gcnew System::EventHandler(this, &MyForm::PrevGimmickButton_Click);
+			// 
+			// DeleteGimmickButton
+			// 
+			resources->ApplyResources(this->DeleteGimmickButton, L"DeleteGimmickButton");
+			this->DeleteGimmickButton->Name = L"DeleteGimmickButton";
+			this->DeleteGimmickButton->UseVisualStyleBackColor = true;
+			this->DeleteGimmickButton->Click += gcnew System::EventHandler(this, &MyForm::DeleteGimmickButton_Click);
+			// 
+			// NotesViewBox
+			// 
+			resources->ApplyResources(this->NotesViewBox, L"NotesViewBox");
+			this->NotesViewBox->Controls->Add(this->EditNoteButton);
+			this->NotesViewBox->Controls->Add(this->PrevBeatButton);
+			this->NotesViewBox->Controls->Add(this->NextBeatButton);
+			this->NotesViewBox->Controls->Add(this->MatchNoteCheckBox);
+			this->NotesViewBox->Controls->Add(this->MatchTimeCheckBox);
+			this->NotesViewBox->Controls->Add(this->NotesMaskLabel);
+			this->NotesViewBox->Controls->Add(this->NotesSizeLabel);
+			this->NotesViewBox->Controls->Add(this->NotesPosLabel);
+			this->NotesViewBox->Controls->Add(this->NotesTypeLabel);
+			this->NotesViewBox->Controls->Add(this->NotesSubBeatLabel);
+			this->NotesViewBox->Controls->Add(this->NotesBeatLabel);
+			this->NotesViewBox->Controls->Add(this->label28);
+			this->NotesViewBox->Controls->Add(this->label27);
+			this->NotesViewBox->Controls->Add(this->label26);
+			this->NotesViewBox->Controls->Add(this->label25);
+			this->NotesViewBox->Controls->Add(this->label24);
+			this->NotesViewBox->Controls->Add(this->label23);
+			this->NotesViewBox->Controls->Add(this->NextNoteButton);
+			this->NotesViewBox->Controls->Add(this->PrevNoteButton);
+			this->NotesViewBox->Controls->Add(this->DeleteNoteButton);
+			this->NotesViewBox->Name = L"NotesViewBox";
+			this->NotesViewBox->TabStop = false;
+			// 
+			// EditNoteButton
+			// 
+			resources->ApplyResources(this->EditNoteButton, L"EditNoteButton");
+			this->EditNoteButton->Name = L"EditNoteButton";
+			this->EditNoteButton->UseVisualStyleBackColor = true;
+			this->EditNoteButton->Click += gcnew System::EventHandler(this, &MyForm::EditNoteButton_Click);
+			// 
+			// PrevBeatButton
+			// 
+			resources->ApplyResources(this->PrevBeatButton, L"PrevBeatButton");
+			this->PrevBeatButton->Name = L"PrevBeatButton";
+			this->PrevBeatButton->UseVisualStyleBackColor = true;
+			this->PrevBeatButton->Click += gcnew System::EventHandler(this, &MyForm::PrevBeatButton_Click);
+			// 
+			// NextBeatButton
+			// 
+			resources->ApplyResources(this->NextBeatButton, L"NextBeatButton");
+			this->NextBeatButton->Name = L"NextBeatButton";
+			this->NextBeatButton->UseVisualStyleBackColor = true;
+			this->NextBeatButton->Click += gcnew System::EventHandler(this, &MyForm::NextBeatButton_Click);
+			// 
+			// MatchNoteCheckBox
+			// 
+			resources->ApplyResources(this->MatchNoteCheckBox, L"MatchNoteCheckBox");
+			this->MatchNoteCheckBox->BackColor = System::Drawing::Color::Transparent;
+			this->MatchNoteCheckBox->Name = L"MatchNoteCheckBox";
+			this->MatchNoteCheckBox->UseVisualStyleBackColor = false;
+			this->MatchNoteCheckBox->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MatchNoteCheckBox_CheckedChanged);
+			// 
+			// MatchTimeCheckBox
+			// 
+			resources->ApplyResources(this->MatchTimeCheckBox, L"MatchTimeCheckBox");
+			this->MatchTimeCheckBox->Name = L"MatchTimeCheckBox";
+			this->MatchTimeCheckBox->UseVisualStyleBackColor = true;
+			this->MatchTimeCheckBox->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MatchTimeCheckBox_CheckedChanged);
+			// 
+			// NotesMaskLabel
+			// 
+			resources->ApplyResources(this->NotesMaskLabel, L"NotesMaskLabel");
+			this->NotesMaskLabel->Name = L"NotesMaskLabel";
+			// 
+			// NotesSizeLabel
+			// 
+			resources->ApplyResources(this->NotesSizeLabel, L"NotesSizeLabel");
+			this->NotesSizeLabel->Name = L"NotesSizeLabel";
+			// 
+			// NotesPosLabel
+			// 
+			resources->ApplyResources(this->NotesPosLabel, L"NotesPosLabel");
+			this->NotesPosLabel->Name = L"NotesPosLabel";
+			// 
+			// NotesTypeLabel
+			// 
+			resources->ApplyResources(this->NotesTypeLabel, L"NotesTypeLabel");
+			this->NotesTypeLabel->Name = L"NotesTypeLabel";
+			// 
+			// NotesSubBeatLabel
+			// 
+			resources->ApplyResources(this->NotesSubBeatLabel, L"NotesSubBeatLabel");
+			this->NotesSubBeatLabel->Name = L"NotesSubBeatLabel";
+			// 
+			// NotesBeatLabel
+			// 
+			resources->ApplyResources(this->NotesBeatLabel, L"NotesBeatLabel");
+			this->NotesBeatLabel->Name = L"NotesBeatLabel";
+			// 
+			// label28
+			// 
+			resources->ApplyResources(this->label28, L"label28");
+			this->label28->Name = L"label28";
+			// 
+			// label27
+			// 
+			resources->ApplyResources(this->label27, L"label27");
+			this->label27->Name = L"label27";
+			// 
+			// label26
+			// 
+			resources->ApplyResources(this->label26, L"label26");
+			this->label26->Name = L"label26";
+			// 
+			// label25
+			// 
+			resources->ApplyResources(this->label25, L"label25");
+			this->label25->Name = L"label25";
+			// 
+			// label24
+			// 
+			resources->ApplyResources(this->label24, L"label24");
+			this->label24->Name = L"label24";
+			// 
+			// label23
+			// 
+			resources->ApplyResources(this->label23, L"label23");
+			this->label23->Name = L"label23";
+			// 
+			// NextNoteButton
+			// 
+			resources->ApplyResources(this->NextNoteButton, L"NextNoteButton");
+			this->NextNoteButton->Name = L"NextNoteButton";
+			this->NextNoteButton->UseVisualStyleBackColor = true;
+			this->NextNoteButton->Click += gcnew System::EventHandler(this, &MyForm::NextNoteButton_Click);
+			// 
+			// PrevNoteButton
+			// 
+			resources->ApplyResources(this->PrevNoteButton, L"PrevNoteButton");
+			this->PrevNoteButton->Name = L"PrevNoteButton";
+			this->PrevNoteButton->UseVisualStyleBackColor = true;
+			this->PrevNoteButton->Click += gcnew System::EventHandler(this, &MyForm::PrevNoteButton_Click);
+			// 
+			// DeleteNoteButton
+			// 
+			resources->ApplyResources(this->DeleteNoteButton, L"DeleteNoteButton");
+			this->DeleteNoteButton->Name = L"DeleteNoteButton";
+			this->DeleteNoteButton->UseVisualStyleBackColor = true;
+			this->DeleteNoteButton->Click += gcnew System::EventHandler(this, &MyForm::DeleteNoteButton_Click);
+			// 
+			// MadeByLabel
+			// 
+			resources->ApplyResources(this->MadeByLabel, L"MadeByLabel");
+			this->MadeByLabel->Name = L"MadeByLabel";
+			// 
+			// openFileDialogChart
+			// 
+			this->openFileDialogChart->FileName = L"chart.mer";
+			resources->ApplyResources(this->openFileDialogChart, L"openFileDialogChart");
+			this->openFileDialogChart->RestoreDirectory = true;
+			this->openFileDialogChart->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::openFileDialog_FileOk);
+			// 
+			// saveFileDialog1
+			// 
+			this->saveFileDialog1->DefaultExt = L"mer";
+			resources->ApplyResources(this->saveFileDialog1, L"saveFileDialog1");
+			this->saveFileDialog1->RestoreDirectory = true;
+			this->saveFileDialog1->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::saveFileDialog_FileOk);
+			// 
+			// CurrentNoteBox
+			// 
+			resources->ApplyResources(this->CurrentNoteBox, L"CurrentNoteBox");
+			this->CurrentNoteBox->Controls->Add(this->SizeTrackBar);
+			this->CurrentNoteBox->Controls->Add(this->PosTrackBar);
+			this->CurrentNoteBox->Controls->Add(this->SizeInfo);
+			this->CurrentNoteBox->Controls->Add(this->SubBeat2Num);
+			this->CurrentNoteBox->Controls->Add(this->posInfo);
+			this->CurrentNoteBox->Controls->Add(this->label1);
+			this->CurrentNoteBox->Controls->Add(this->PosLabel);
+			this->CurrentNoteBox->Controls->Add(this->Beat);
+			this->CurrentNoteBox->Controls->Add(this->SubBeat1Num);
+			this->CurrentNoteBox->Controls->Add(this->BeatNum);
+			this->CurrentNoteBox->Controls->Add(this->SizeLabel);
+			this->CurrentNoteBox->Controls->Add(this->PosNum);
+			this->CurrentNoteBox->Controls->Add(this->SizeNum);
+			this->CurrentNoteBox->Name = L"CurrentNoteBox";
+			this->CurrentNoteBox->TabStop = false;
+			// 
+			// SizeTrackBar
+			// 
+			resources->ApplyResources(this->SizeTrackBar, L"SizeTrackBar");
+			this->SizeTrackBar->Maximum = 60;
+			this->SizeTrackBar->Minimum = 1;
+			this->SizeTrackBar->Name = L"SizeTrackBar";
+			this->SizeTrackBar->TickStyle = System::Windows::Forms::TickStyle::None;
+			this->SizeTrackBar->Value = 1;
+			this->SizeTrackBar->ValueChanged += gcnew System::EventHandler(this, &MyForm::SizeTrackBar_ValueChanged);
+			// 
+			// PosTrackBar
+			// 
+			resources->ApplyResources(this->PosTrackBar, L"PosTrackBar");
+			this->PosTrackBar->Maximum = 59;
+			this->PosTrackBar->Name = L"PosTrackBar";
+			this->PosTrackBar->TickStyle = System::Windows::Forms::TickStyle::None;
+			this->PosTrackBar->ValueChanged += gcnew System::EventHandler(this, &MyForm::PosTrackBar_ValueChanged);
+			// 
+			// fileSystemWatcher1
+			// 
+			this->fileSystemWatcher1->EnableRaisingEvents = true;
+			this->fileSystemWatcher1->SynchronizingObject = this;
+			// 
+			// CirclePanel
+			// 
+			resources->ApplyResources(this->CirclePanel, L"CirclePanel");
+			this->CirclePanel->BackColor = System::Drawing::Color::Transparent;
+			this->CirclePanel->Name = L"CirclePanel";
+			this->CirclePanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::CirclePanel_Paint);
+			// 
+			// VisualSettingsBox
+			// 
+			resources->ApplyResources(this->VisualSettingsBox, L"VisualSettingsBox");
+			this->VisualSettingsBox->Controls->Add(this->PlaybackSpeedNum);
+			this->VisualSettingsBox->Controls->Add(this->label30);
+			this->VisualSettingsBox->Controls->Add(this->label2);
+			this->VisualSettingsBox->Controls->Add(this->VisualHispeed);
+			this->VisualSettingsBox->Name = L"VisualSettingsBox";
+			this->VisualSettingsBox->TabStop = false;
+			// 
+			// PlayButton
+			// 
+			resources->ApplyResources(this->PlayButton, L"PlayButton");
+			this->PlayButton->Name = L"PlayButton";
+			this->PlayButton->UseVisualStyleBackColor = true;
+			this->PlayButton->Click += gcnew System::EventHandler(this, &MyForm::PlayButton_Click);
+			// 
+			// songTrackSlider
+			// 
+			resources->ApplyResources(this->songTrackSlider, L"songTrackSlider");
+			this->songTrackSlider->Name = L"songTrackSlider";
+			this->songTrackSlider->TickStyle = System::Windows::Forms::TickStyle::None;
+			this->songTrackSlider->Scroll += gcnew System::EventHandler(this, &MyForm::songTrackSlider_Scroll);
+			// 
+			// selectSongFile
+			// 
+			resources->ApplyResources(this->selectSongFile, L"selectSongFile");
+			this->selectSongFile->Name = L"selectSongFile";
+			this->selectSongFile->UseVisualStyleBackColor = true;
+			this->selectSongFile->Click += gcnew System::EventHandler(this, &MyForm::selectSongFile_Click);
+			// 
+			// SongPlaybackBox
+			// 
+			resources->ApplyResources(this->SongPlaybackBox, L"SongPlaybackBox");
+			this->SongPlaybackBox->Controls->Add(this->VolumeLabel);
+			this->SongPlaybackBox->Controls->Add(this->Volume);
+			this->SongPlaybackBox->Controls->Add(this->songFileName);
+			this->SongPlaybackBox->Controls->Add(this->PlayButton);
+			this->SongPlaybackBox->Controls->Add(this->label29);
+			this->SongPlaybackBox->Controls->Add(this->songTrackSlider);
+			this->SongPlaybackBox->Controls->Add(this->selectSongFile);
+			this->SongPlaybackBox->Name = L"SongPlaybackBox";
+			this->SongPlaybackBox->TabStop = false;
+			// 
+			// VolumeLabel
+			// 
+			resources->ApplyResources(this->VolumeLabel, L"VolumeLabel");
+			this->VolumeLabel->Name = L"VolumeLabel";
+			// 
+			// Volume
+			// 
+			resources->ApplyResources(this->Volume, L"Volume");
+			this->Volume->Maximum = 100;
+			this->Volume->Name = L"Volume";
+			this->Volume->SmallChange = 5;
+			this->Volume->TickFrequency = 10;
+			this->Volume->Value = 100;
+			this->Volume->Scroll += gcnew System::EventHandler(this, &MyForm::Volume_Scroll);
+			// 
+			// songFileName
+			// 
+			resources->ApplyResources(this->songFileName, L"songFileName");
+			this->songFileName->Name = L"songFileName";
+			// 
+			// openFileDialogSong
+			// 
+			this->openFileDialogSong->FileName = L"openFileDialogSong";
+			resources->ApplyResources(this->openFileDialogSong, L"openFileDialogSong");
+			// 
+			// backgroundWorkerSong
+			// 
+			this->backgroundWorkerSong->WorkerReportsProgress = true;
+			this->backgroundWorkerSong->WorkerSupportsCancellation = true;
+			this->backgroundWorkerSong->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MyForm::backgroundWorkerSong_DoWork);
+			this->backgroundWorkerSong->ProgressChanged += gcnew System::ComponentModel::ProgressChangedEventHandler(this, &MyForm::backgroundWorkerSong_ProgressChanged);
+			this->backgroundWorkerSong->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MyForm::backgroundWorkerSong_RunWorkerCompleted);
+			// 
+			// backgroundWorkerPaint
+			// 
+			this->backgroundWorkerPaint->WorkerReportsProgress = true;
+			this->backgroundWorkerPaint->WorkerSupportsCancellation = true;
+			this->backgroundWorkerPaint->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MyForm::backgroundWorkerPaint_DoWork);
+			this->backgroundWorkerPaint->ProgressChanged += gcnew System::ComponentModel::ProgressChangedEventHandler(this, &MyForm::backgroundWorkerPaint_ProgressChanged);
+			// 
+			// panel1
+			// 
+			resources->ApplyResources(this->panel1, L"panel1");
+			this->panel1->Controls->Add(this->label18);
+			this->panel1->Controls->Add(this->CurrentObjectText);
+			this->panel1->Name = L"panel1";
+			// 
+			// MyForm
+			// 
+			this->AllowDrop = true;
+			resources->ApplyResources(this, L"$this");
+			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Dpi;
+			this->Controls->Add(this->panel1);
+			this->Controls->Add(this->SongPlaybackBox);
+			this->Controls->Add(this->VisualSettingsBox);
+			this->Controls->Add(this->CirclePanel);
+			this->Controls->Add(this->CurrentNoteBox);
+			this->Controls->Add(this->MadeByLabel);
+			this->Controls->Add(this->NotesViewBox);
+			this->Controls->Add(this->PreChartViewBox);
+			this->Controls->Add(this->MaskSettingsBox);
+			this->Controls->Add(this->InitialSettingsPane);
+			this->Controls->Add(this->GimmickSettingsBox);
+			this->Controls->Add(this->GimmickBox);
+			this->Controls->Add(this->InsertButton);
+			this->Controls->Add(this->NoteTypeBox);
+			this->Controls->Add(this->menuStrip);
+			this->MainMenuStrip = this->menuStrip;
+			this->Name = L"MyForm";
+			this->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::MyForm_Paint);
+			this->Resize += gcnew System::EventHandler(this, &MyForm::MyForm_Resize);
+			this->menuStrip->ResumeLayout(false);
+			this->menuStrip->PerformLayout();
+			this->NoteTypeBox->ResumeLayout(false);
+			this->NoteTypeBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->VisualHispeed))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlaybackSpeedNum))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeNum))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosNum))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat2Num))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat1Num))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BeatNum))->EndInit();
+			this->GimmickBox->ResumeLayout(false);
+			this->GimmickBox->PerformLayout();
+			this->GimmickSettingsBox->ResumeLayout(false);
+			this->GimmickSettingsBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2SBNum2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2SBNum1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2BNum))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1SBNum2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1SBNum1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1BNum))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndBNum))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndSBNum2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndSBNum1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->HiSpeedChangeNum))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TimeSigNum2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TimeSigNum1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BPMChangeNum))->EndInit();
+			this->InitialSettingsPane->ResumeLayout(false);
+			this->InitialSettingsPane->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MovieOffsetNum))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->OffsetNum))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitTimeSigNum2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitTimeSigNum1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InitialBPMNum))->EndInit();
+			this->MaskSettingsBox->ResumeLayout(false);
+			this->MaskSettingsBox->PerformLayout();
+			this->PreChartViewBox->ResumeLayout(false);
+			this->PreChartViewBox->PerformLayout();
+			this->NotesViewBox->ResumeLayout(false);
+			this->NotesViewBox->PerformLayout();
+			this->CurrentNoteBox->ResumeLayout(false);
+			this->CurrentNoteBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosTrackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fileSystemWatcher1))->EndInit();
+			this->VisualSettingsBox->ResumeLayout(false);
+			this->VisualSettingsBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->songTrackSlider))->EndInit();
+			this->SongPlaybackBox->ResumeLayout(false);
+			this->SongPlaybackBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Volume))->EndInit();
+			this->panel1->ResumeLayout(false);
+			this->panel1->PerformLayout();
+			this->ResumeLayout(false);
+			this->PerformLayout();
 
-        }
+		}
 #pragma endregion
 	System::String^ stdStringToSystemString(std::string input) {
 		return gcnew String(input.data());
@@ -3892,6 +3920,7 @@ private: System::Windows::Forms::Panel^ panel1;
 	}
 	private: System::Void PlayButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (songFilePath != "" && currentlyPlayingSound != nullptr) {
+			currentlyPlayingSound->PlaybackSpeed = (float)PlaybackSpeedNum->Value;
 			currentlyPlayingSound->Paused = !currentlyPlayingSound->Paused;
 			if (currentlyPlayingSound->Paused) {
 				PlayButton->Text = "Play";
@@ -3972,6 +4001,11 @@ private: System::Windows::Forms::Panel^ panel1;
 	private: System::Void Volume_Scroll(System::Object^ sender, System::EventArgs^ e) {
 		if (currentlyPlayingSound != nullptr) {
 			currentlyPlayingSound->Volume = Volume->Value / (float)100.0;
+		}
+	}
+	private: System::Void PlaybackSpeedNum_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (songFilePath != "" && currentlyPlayingSound != nullptr) {
+			currentlyPlayingSound->PlaybackSpeed = (float)PlaybackSpeedNum->Value;
 		}
 	}
 };

@@ -807,7 +807,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>VisualSettingsBox</value>
   </data>
   <data name="&gt;&gt;VisualHispeed.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -819,13 +819,13 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>6, 16</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 13</value>
+    <value>80, 13</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Hi-speed</value>
+    <value>Visual Hi-speed</value>
   </data>
   <data name="label2.ToolTip" xml:space="preserve">
     <value>Changes how many Beats into the future the visualization will display
@@ -841,6 +841,69 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>VisualSettingsBox</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label30.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label30.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="label30.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label30.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 55</value>
+  </data>
+  <data name="label30.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 26</value>
+  </data>
+  <data name="label30.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="label30.Text" xml:space="preserve">
+    <value>Audio
+Playback Speed</value>
+  </data>
+  <data name="label30.ToolTip" xml:space="preserve">
+    <value>Changes how many Beats into the future the visualization will display
+Default: 0.5 (1/2 of a measure)</value>
+  </data>
+  <data name="&gt;&gt;label30.Name" xml:space="preserve">
+    <value>label30</value>
+  </data>
+  <data name="&gt;&gt;label30.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label30.Parent" xml:space="preserve">
+    <value>VisualSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;label30.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="PlaybackSpeedNum.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 84</value>
+  </data>
+  <data name="PlaybackSpeedNum.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 20</value>
+  </data>
+  <data name="PlaybackSpeedNum.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="PlaybackSpeedNum.ToolTip" xml:space="preserve">
+    <value>Changes how many Beats into the future the visualization will display
+Default: 0.5 (1/2 of a measure)</value>
+  </data>
+  <data name="&gt;&gt;PlaybackSpeedNum.Name" xml:space="preserve">
+    <value>PlaybackSpeedNum</value>
+  </data>
+  <data name="&gt;&gt;PlaybackSpeedNum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PlaybackSpeedNum.Parent" xml:space="preserve">
+    <value>VisualSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;PlaybackSpeedNum.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="InsertButton.AutoSize" type="System.Boolean, mscorlib">
@@ -3730,13 +3793,13 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>590, 439</value>
   </data>
   <data name="VisualSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 71</value>
+    <value>100, 128</value>
   </data>
   <data name="VisualSettingsBox.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
   </data>
   <data name="VisualSettingsBox.Text" xml:space="preserve">
-    <value>Visual Settings</value>
+    <value>Settings</value>
   </data>
   <data name="&gt;&gt;VisualSettingsBox.Name" xml:space="preserve">
     <value>VisualSettingsBox</value>
