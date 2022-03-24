@@ -1134,67 +1134,67 @@ Default: 0.5 (1/2 of a measure)</value>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="SubBeat2Num.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="BeatNum2.Location" type="System.Drawing.Point, System.Drawing">
     <value>217, 94</value>
   </data>
-  <data name="SubBeat2Num.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="BeatNum2.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
   </data>
-  <data name="SubBeat2Num.TabIndex" type="System.Int32, mscorlib">
+  <data name="BeatNum2.TabIndex" type="System.Int32, mscorlib">
     <value>23</value>
   </data>
-  <data name="&gt;&gt;SubBeat2Num.Name" xml:space="preserve">
-    <value>SubBeat2Num</value>
+  <data name="&gt;&gt;BeatNum2.Name" xml:space="preserve">
+    <value>BeatNum2</value>
   </data>
-  <data name="&gt;&gt;SubBeat2Num.Type" xml:space="preserve">
+  <data name="&gt;&gt;BeatNum2.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;SubBeat2Num.Parent" xml:space="preserve">
+  <data name="&gt;&gt;BeatNum2.Parent" xml:space="preserve">
     <value>CurrentNoteBox</value>
   </data>
-  <data name="&gt;&gt;SubBeat2Num.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;BeatNum2.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="SubBeat1Num.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="BeatNum1.Location" type="System.Drawing.Point, System.Drawing">
     <value>155, 94</value>
   </data>
-  <data name="SubBeat1Num.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="BeatNum1.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 20</value>
   </data>
-  <data name="SubBeat1Num.TabIndex" type="System.Int32, mscorlib">
+  <data name="BeatNum1.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
   </data>
-  <data name="&gt;&gt;SubBeat1Num.Name" xml:space="preserve">
-    <value>SubBeat1Num</value>
+  <data name="&gt;&gt;BeatNum1.Name" xml:space="preserve">
+    <value>BeatNum1</value>
   </data>
-  <data name="&gt;&gt;SubBeat1Num.Type" xml:space="preserve">
+  <data name="&gt;&gt;BeatNum1.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;SubBeat1Num.Parent" xml:space="preserve">
+  <data name="&gt;&gt;BeatNum1.Parent" xml:space="preserve">
     <value>CurrentNoteBox</value>
   </data>
-  <data name="&gt;&gt;SubBeat1Num.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;BeatNum1.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="BeatNum.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="MeasureNum.Location" type="System.Drawing.Point, System.Drawing">
     <value>90, 94</value>
   </data>
-  <data name="BeatNum.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MeasureNum.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 20</value>
   </data>
-  <data name="BeatNum.TabIndex" type="System.Int32, mscorlib">
+  <data name="MeasureNum.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
   </data>
-  <data name="&gt;&gt;BeatNum.Name" xml:space="preserve">
-    <value>BeatNum</value>
+  <data name="&gt;&gt;MeasureNum.Name" xml:space="preserve">
+    <value>MeasureNum</value>
   </data>
-  <data name="&gt;&gt;BeatNum.Type" xml:space="preserve">
+  <data name="&gt;&gt;MeasureNum.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;BeatNum.Parent" xml:space="preserve">
+  <data name="&gt;&gt;MeasureNum.Parent" xml:space="preserve">
     <value>CurrentNoteBox</value>
   </data>
-  <data name="&gt;&gt;BeatNum.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;MeasureNum.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
   <data name="Beat.AutoSize" type="System.Boolean, mscorlib">
@@ -1317,25 +1317,25 @@ Default: 0.5 (1/2 of a measure)</value>
   <data name="GimmickSettingsBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="ReverseEnd2SBNum2.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="ReverseEnd2BeatNum2.Location" type="System.Drawing.Point, System.Drawing">
     <value>274, 149</value>
   </data>
-  <data name="ReverseEnd2SBNum2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ReverseEnd2BeatNum2.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
   </data>
-  <data name="ReverseEnd2SBNum2.TabIndex" type="System.Int32, mscorlib">
+  <data name="ReverseEnd2BeatNum2.TabIndex" type="System.Int32, mscorlib">
     <value>37</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd2SBNum2.Name" xml:space="preserve">
-    <value>ReverseEnd2SBNum2</value>
+  <data name="&gt;&gt;ReverseEnd2BeatNum2.Name" xml:space="preserve">
+    <value>ReverseEnd2BeatNum2</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd2SBNum2.Type" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd2BeatNum2.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd2SBNum2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd2BeatNum2.Parent" xml:space="preserve">
     <value>GimmickSettingsBox</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd2SBNum2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd2BeatNum2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="label12.AutoSize" type="System.Boolean, mscorlib">
@@ -1371,67 +1371,67 @@ Default: 0.5 (1/2 of a measure)</value>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="ReverseEnd2SBNum1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="ReverseEnd2BeatNum1.Location" type="System.Drawing.Point, System.Drawing">
     <value>212, 146</value>
   </data>
-  <data name="ReverseEnd2SBNum1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ReverseEnd2BeatNum1.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 20</value>
   </data>
-  <data name="ReverseEnd2SBNum1.TabIndex" type="System.Int32, mscorlib">
+  <data name="ReverseEnd2BeatNum1.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd2SBNum1.Name" xml:space="preserve">
-    <value>ReverseEnd2SBNum1</value>
+  <data name="&gt;&gt;ReverseEnd2BeatNum1.Name" xml:space="preserve">
+    <value>ReverseEnd2BeatNum1</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd2SBNum1.Type" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd2BeatNum1.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd2SBNum1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd2BeatNum1.Parent" xml:space="preserve">
     <value>GimmickSettingsBox</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd2SBNum1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd2BeatNum1.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="ReverseEnd2BNum.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="ReverseEnd2MeasureNum.Location" type="System.Drawing.Point, System.Drawing">
     <value>147, 146</value>
   </data>
-  <data name="ReverseEnd2BNum.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ReverseEnd2MeasureNum.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 20</value>
   </data>
-  <data name="ReverseEnd2BNum.TabIndex" type="System.Int32, mscorlib">
+  <data name="ReverseEnd2MeasureNum.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd2BNum.Name" xml:space="preserve">
-    <value>ReverseEnd2BNum</value>
+  <data name="&gt;&gt;ReverseEnd2MeasureNum.Name" xml:space="preserve">
+    <value>ReverseEnd2MeasureNum</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd2BNum.Type" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd2MeasureNum.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd2BNum.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd2MeasureNum.Parent" xml:space="preserve">
     <value>GimmickSettingsBox</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd2BNum.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd2MeasureNum.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="ReverseEnd1SBNum2.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="ReverseEnd1BeatNum2.Location" type="System.Drawing.Point, System.Drawing">
     <value>274, 120</value>
   </data>
-  <data name="ReverseEnd1SBNum2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ReverseEnd1BeatNum2.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
   </data>
-  <data name="ReverseEnd1SBNum2.TabIndex" type="System.Int32, mscorlib">
+  <data name="ReverseEnd1BeatNum2.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd1SBNum2.Name" xml:space="preserve">
-    <value>ReverseEnd1SBNum2</value>
+  <data name="&gt;&gt;ReverseEnd1BeatNum2.Name" xml:space="preserve">
+    <value>ReverseEnd1BeatNum2</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd1SBNum2.Type" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd1BeatNum2.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd1SBNum2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd1BeatNum2.Parent" xml:space="preserve">
     <value>GimmickSettingsBox</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd1SBNum2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd1BeatNum2.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
   <data name="label11.AutoSize" type="System.Boolean, mscorlib">
@@ -1467,88 +1467,88 @@ Default: 0.5 (1/2 of a measure)</value>
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="ReverseEnd1SBNum1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="ReverseEnd1BeatNum1.Location" type="System.Drawing.Point, System.Drawing">
     <value>212, 120</value>
   </data>
-  <data name="ReverseEnd1SBNum1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ReverseEnd1BeatNum1.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 20</value>
   </data>
-  <data name="ReverseEnd1SBNum1.TabIndex" type="System.Int32, mscorlib">
+  <data name="ReverseEnd1BeatNum1.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd1SBNum1.Name" xml:space="preserve">
-    <value>ReverseEnd1SBNum1</value>
+  <data name="&gt;&gt;ReverseEnd1BeatNum1.Name" xml:space="preserve">
+    <value>ReverseEnd1BeatNum1</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd1SBNum1.Type" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd1BeatNum1.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd1SBNum1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd1BeatNum1.Parent" xml:space="preserve">
     <value>GimmickSettingsBox</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd1SBNum1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd1BeatNum1.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="ReverseEnd1BNum.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="ReverseEnd1MeasureNum.Location" type="System.Drawing.Point, System.Drawing">
     <value>147, 120</value>
   </data>
-  <data name="ReverseEnd1BNum.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ReverseEnd1MeasureNum.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 20</value>
   </data>
-  <data name="ReverseEnd1BNum.TabIndex" type="System.Int32, mscorlib">
+  <data name="ReverseEnd1MeasureNum.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd1BNum.Name" xml:space="preserve">
-    <value>ReverseEnd1BNum</value>
+  <data name="&gt;&gt;ReverseEnd1MeasureNum.Name" xml:space="preserve">
+    <value>ReverseEnd1MeasureNum</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd1BNum.Type" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd1MeasureNum.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd1BNum.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd1MeasureNum.Parent" xml:space="preserve">
     <value>GimmickSettingsBox</value>
   </data>
-  <data name="&gt;&gt;ReverseEnd1BNum.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ReverseEnd1MeasureNum.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="StopEndBNum.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="StopEndMeasureNum.Location" type="System.Drawing.Point, System.Drawing">
     <value>147, 94</value>
   </data>
-  <data name="StopEndBNum.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="StopEndMeasureNum.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 20</value>
   </data>
-  <data name="StopEndBNum.TabIndex" type="System.Int32, mscorlib">
+  <data name="StopEndMeasureNum.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
   </data>
-  <data name="&gt;&gt;StopEndBNum.Name" xml:space="preserve">
-    <value>StopEndBNum</value>
+  <data name="&gt;&gt;StopEndMeasureNum.Name" xml:space="preserve">
+    <value>StopEndMeasureNum</value>
   </data>
-  <data name="&gt;&gt;StopEndBNum.Type" xml:space="preserve">
+  <data name="&gt;&gt;StopEndMeasureNum.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;StopEndBNum.Parent" xml:space="preserve">
+  <data name="&gt;&gt;StopEndMeasureNum.Parent" xml:space="preserve">
     <value>GimmickSettingsBox</value>
   </data>
-  <data name="&gt;&gt;StopEndBNum.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;StopEndMeasureNum.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="StopEndSBNum2.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="StopEndBeatNum2.Location" type="System.Drawing.Point, System.Drawing">
     <value>274, 94</value>
   </data>
-  <data name="StopEndSBNum2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="StopEndBeatNum2.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
   </data>
-  <data name="StopEndSBNum2.TabIndex" type="System.Int32, mscorlib">
+  <data name="StopEndBeatNum2.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
   </data>
-  <data name="&gt;&gt;StopEndSBNum2.Name" xml:space="preserve">
-    <value>StopEndSBNum2</value>
+  <data name="&gt;&gt;StopEndBeatNum2.Name" xml:space="preserve">
+    <value>StopEndBeatNum2</value>
   </data>
-  <data name="&gt;&gt;StopEndSBNum2.Type" xml:space="preserve">
+  <data name="&gt;&gt;StopEndBeatNum2.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;StopEndSBNum2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;StopEndBeatNum2.Parent" xml:space="preserve">
     <value>GimmickSettingsBox</value>
   </data>
-  <data name="&gt;&gt;StopEndSBNum2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;StopEndBeatNum2.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
@@ -1584,25 +1584,25 @@ Default: 0.5 (1/2 of a measure)</value>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="StopEndSBNum1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="StopEndBeatNum1.Location" type="System.Drawing.Point, System.Drawing">
     <value>212, 94</value>
   </data>
-  <data name="StopEndSBNum1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="StopEndBeatNum1.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 20</value>
   </data>
-  <data name="StopEndSBNum1.TabIndex" type="System.Int32, mscorlib">
+  <data name="StopEndBeatNum1.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
   </data>
-  <data name="&gt;&gt;StopEndSBNum1.Name" xml:space="preserve">
-    <value>StopEndSBNum1</value>
+  <data name="&gt;&gt;StopEndBeatNum1.Name" xml:space="preserve">
+    <value>StopEndBeatNum1</value>
   </data>
-  <data name="&gt;&gt;StopEndSBNum1.Type" xml:space="preserve">
+  <data name="&gt;&gt;StopEndBeatNum1.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;StopEndSBNum1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;StopEndBeatNum1.Parent" xml:space="preserve">
     <value>GimmickSettingsBox</value>
   </data>
-  <data name="&gt;&gt;StopEndSBNum1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;StopEndBeatNum1.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
   <data name="HiSpeedChangeNum.Location" type="System.Drawing.Point, System.Drawing">

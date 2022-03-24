@@ -32,12 +32,13 @@ std::map<float, std::list<std::pair<int, int>>> mapOfMasks;
 std::map<float, std::list<NotesNode>> mapOfNotes;
 std::map<float, float> mapOfTimeBetweenBeats; //current beat, milliseconds beatween beats
 std::map<float, float> mapOfBeatAtTime; //milliseconds start time, beat start time
-std::map<float, float> mapOfBPMatTime; //milliseconds start time, BPM at time
+std::map<float, float> mapOfBPMatTime; //measure start time, BPM at time
+std::map<float, std::pair<int, int>> mapOfTSatTime; //measure start time, Time Signature at time
 bool alreadyRefreshed = false;
 bool noteRefresh = false;
 bool subnum1changed = false;
 int songLength = 0;
-const unsigned int update_interval = 100; // update after every 100 milliseconds (1/16th of 100bpm)
+const unsigned int update_interval = 8; // update after every 100 milliseconds (1/16th of 100bpm)
 const int milInMinute = 60000;
 bool scrollBarChanged = false;
 float theCurrentMeasure = 0;
@@ -212,9 +213,9 @@ namespace BAKKAEditor {
 	private: System::Windows::Forms::Button^ TimeSignature;
 	private: System::Windows::Forms::Button^ BPMChange;
 	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::NumericUpDown^ SubBeat2Num;
-	private: System::Windows::Forms::NumericUpDown^ SubBeat1Num;
-	private: System::Windows::Forms::NumericUpDown^ BeatNum;
+	private: System::Windows::Forms::NumericUpDown^ BeatNum2;
+	private: System::Windows::Forms::NumericUpDown^ BeatNum1;
+	private: System::Windows::Forms::NumericUpDown^ MeasureNum;
 
 	private: System::Windows::Forms::Label^ Beat;
 	private: System::Windows::Forms::GroupBox^ GimmickSettingsBox;
@@ -229,18 +230,18 @@ namespace BAKKAEditor {
 	private: System::Windows::Forms::Label^ label5;
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Label^ label3;
-	private: System::Windows::Forms::NumericUpDown^ ReverseEnd2SBNum2;
+	private: System::Windows::Forms::NumericUpDown^ ReverseEnd2BeatNum2;
 	private: System::Windows::Forms::Label^ label12;
-	private: System::Windows::Forms::NumericUpDown^ ReverseEnd2SBNum1;
-	private: System::Windows::Forms::NumericUpDown^ ReverseEnd2BNum;
-	private: System::Windows::Forms::NumericUpDown^ ReverseEnd1SBNum2;
+	private: System::Windows::Forms::NumericUpDown^ ReverseEnd2BeatNum1;
+	private: System::Windows::Forms::NumericUpDown^ ReverseEnd2MeasureNum;
+	private: System::Windows::Forms::NumericUpDown^ ReverseEnd1BeatNum2;
 	private: System::Windows::Forms::Label^ label11;
-	private: System::Windows::Forms::NumericUpDown^ ReverseEnd1SBNum1;
-	private: System::Windows::Forms::NumericUpDown^ ReverseEnd1BNum;
-	private: System::Windows::Forms::NumericUpDown^ StopEndBNum;
-	private: System::Windows::Forms::NumericUpDown^ StopEndSBNum2;
+	private: System::Windows::Forms::NumericUpDown^ ReverseEnd1BeatNum1;
+	private: System::Windows::Forms::NumericUpDown^ ReverseEnd1MeasureNum;
+	private: System::Windows::Forms::NumericUpDown^ StopEndMeasureNum;
+	private: System::Windows::Forms::NumericUpDown^ StopEndBeatNum2;
 	private: System::Windows::Forms::Label^ label10;
-	private: System::Windows::Forms::NumericUpDown^ StopEndSBNum1;
+	private: System::Windows::Forms::NumericUpDown^ StopEndBeatNum1;
 	private: System::Windows::Forms::GroupBox^ InitialSettingsPane;
 	private: System::Windows::Forms::NumericUpDown^ MovieOffsetNum;
 	private: System::Windows::Forms::Label^ label17;
@@ -427,26 +428,26 @@ private: System::Windows::Forms::Label^ label30;
 			this->SizeLabel = (gcnew System::Windows::Forms::Label());
 			this->PosNum = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->SubBeat2Num = (gcnew System::Windows::Forms::NumericUpDown());
-			this->SubBeat1Num = (gcnew System::Windows::Forms::NumericUpDown());
-			this->BeatNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->BeatNum2 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->BeatNum1 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->MeasureNum = (gcnew System::Windows::Forms::NumericUpDown());
 			this->Beat = (gcnew System::Windows::Forms::Label());
 			this->GimmickBox = (gcnew System::Windows::Forms::GroupBox());
 			this->RemoveMask = (gcnew System::Windows::Forms::RadioButton());
 			this->AddMask = (gcnew System::Windows::Forms::RadioButton());
 			this->GimmickSettingsBox = (gcnew System::Windows::Forms::GroupBox());
-			this->ReverseEnd2SBNum2 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->ReverseEnd2BeatNum2 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label12 = (gcnew System::Windows::Forms::Label());
-			this->ReverseEnd2SBNum1 = (gcnew System::Windows::Forms::NumericUpDown());
-			this->ReverseEnd2BNum = (gcnew System::Windows::Forms::NumericUpDown());
-			this->ReverseEnd1SBNum2 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->ReverseEnd2BeatNum1 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->ReverseEnd2MeasureNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->ReverseEnd1BeatNum2 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label11 = (gcnew System::Windows::Forms::Label());
-			this->ReverseEnd1SBNum1 = (gcnew System::Windows::Forms::NumericUpDown());
-			this->ReverseEnd1BNum = (gcnew System::Windows::Forms::NumericUpDown());
-			this->StopEndBNum = (gcnew System::Windows::Forms::NumericUpDown());
-			this->StopEndSBNum2 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->ReverseEnd1BeatNum1 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->ReverseEnd1MeasureNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->StopEndMeasureNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->StopEndBeatNum2 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label10 = (gcnew System::Windows::Forms::Label());
-			this->StopEndSBNum1 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->StopEndBeatNum1 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->HiSpeedChangeNum = (gcnew System::Windows::Forms::NumericUpDown());
 			this->TimeSigNum2 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label9 = (gcnew System::Windows::Forms::Label());
@@ -538,20 +539,20 @@ private: System::Windows::Forms::Label^ label30;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlaybackSpeedNum))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeNum))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosNum))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat2Num))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat1Num))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BeatNum))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BeatNum2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BeatNum1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MeasureNum))->BeginInit();
 			this->GimmickBox->SuspendLayout();
 			this->GimmickSettingsBox->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2SBNum2))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2SBNum1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2BNum))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1SBNum2))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1SBNum1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1BNum))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndBNum))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndSBNum2))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndSBNum1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2BeatNum2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2BeatNum1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2MeasureNum))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1BeatNum2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1BeatNum1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1MeasureNum))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndMeasureNum))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndBeatNum2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndBeatNum1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->HiSpeedChangeNum))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TimeSigNum2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TimeSigNum1))->BeginInit();
@@ -641,7 +642,7 @@ private: System::Windows::Forms::Label^ label30;
 			// OrangeButton
 			// 
 			resources->ApplyResources(this->OrangeButton, L"OrangeButton");
-			this->OrangeButton->BackColor = System::Drawing::Color::Orange;
+			this->OrangeButton->BackColor = System::Drawing::Color::DarkOrange;
 			this->OrangeButton->Name = L"OrangeButton";
 			this->OrangeButton->UseVisualStyleBackColor = false;
 			this->OrangeButton->Click += gcnew System::EventHandler(this, &MyForm::OrangeButton_Click);
@@ -657,7 +658,7 @@ private: System::Windows::Forms::Label^ label30;
 			// RedButton
 			// 
 			resources->ApplyResources(this->RedButton, L"RedButton");
-			this->RedButton->BackColor = System::Drawing::Color::Tomato;
+			this->RedButton->BackColor = System::Drawing::Color::Red;
 			this->RedButton->Name = L"RedButton";
 			this->RedButton->UseVisualStyleBackColor = false;
 			this->RedButton->Click += gcnew System::EventHandler(this, &MyForm::RedButton_Click);
@@ -665,7 +666,7 @@ private: System::Windows::Forms::Label^ label30;
 			// BlueButton
 			// 
 			resources->ApplyResources(this->BlueButton, L"BlueButton");
-			this->BlueButton->BackColor = System::Drawing::Color::SkyBlue;
+			this->BlueButton->BackColor = System::Drawing::Color::Cyan;
 			this->BlueButton->Name = L"BlueButton";
 			this->BlueButton->UseVisualStyleBackColor = false;
 			this->BlueButton->Click += gcnew System::EventHandler(this, &MyForm::BlueButton_Click);
@@ -880,29 +881,29 @@ private: System::Windows::Forms::Label^ label30;
 			resources->ApplyResources(this->label1, L"label1");
 			this->label1->Name = L"label1";
 			// 
-			// SubBeat2Num
+			// BeatNum2
 			// 
-			resources->ApplyResources(this->SubBeat2Num, L"SubBeat2Num");
-			this->SubBeat2Num->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1920, 0, 0, 0 });
-			this->SubBeat2Num->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-			this->SubBeat2Num->Name = L"SubBeat2Num";
-			this->SubBeat2Num->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 16, 0, 0, 0 });
-			this->SubBeat2Num->ValueChanged += gcnew System::EventHandler(this, &MyForm::SubBeat2Num_ValueChanged);
+			resources->ApplyResources(this->BeatNum2, L"BeatNum2");
+			this->BeatNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1920, 0, 0, 0 });
+			this->BeatNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->BeatNum2->Name = L"BeatNum2";
+			this->BeatNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 16, 0, 0, 0 });
+			this->BeatNum2->ValueChanged += gcnew System::EventHandler(this, &MyForm::BeatNum2_ValueChanged);
 			// 
-			// SubBeat1Num
+			// BeatNum1
 			// 
-			resources->ApplyResources(this->SubBeat1Num, L"SubBeat1Num");
-			this->SubBeat1Num->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1919, 0, 0, 0 });
-			this->SubBeat1Num->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
-			this->SubBeat1Num->Name = L"SubBeat1Num";
-			this->SubBeat1Num->ValueChanged += gcnew System::EventHandler(this, &MyForm::SubBeat1Num_ValueChanged);
+			resources->ApplyResources(this->BeatNum1, L"BeatNum1");
+			this->BeatNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1919, 0, 0, 0 });
+			this->BeatNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
+			this->BeatNum1->Name = L"BeatNum1";
+			this->BeatNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::BeatNum1_ValueChanged);
 			// 
-			// BeatNum
+			// MeasureNum
 			// 
-			resources->ApplyResources(this->BeatNum, L"BeatNum");
-			this->BeatNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
-			this->BeatNum->Name = L"BeatNum";
-			this->BeatNum->ValueChanged += gcnew System::EventHandler(this, &MyForm::BeatNum_ValueChanged);
+			resources->ApplyResources(this->MeasureNum, L"MeasureNum");
+			this->MeasureNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
+			this->MeasureNum->Name = L"MeasureNum";
+			this->MeasureNum->ValueChanged += gcnew System::EventHandler(this, &MyForm::MeasureNum_ValueChanged);
 			// 
 			// Beat
 			// 
@@ -942,18 +943,18 @@ private: System::Windows::Forms::Label^ label30;
 			// GimmickSettingsBox
 			// 
 			resources->ApplyResources(this->GimmickSettingsBox, L"GimmickSettingsBox");
-			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd2SBNum2);
+			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd2BeatNum2);
 			this->GimmickSettingsBox->Controls->Add(this->label12);
-			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd2SBNum1);
-			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd2BNum);
-			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd1SBNum2);
+			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd2BeatNum1);
+			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd2MeasureNum);
+			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd1BeatNum2);
 			this->GimmickSettingsBox->Controls->Add(this->label11);
-			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd1SBNum1);
-			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd1BNum);
-			this->GimmickSettingsBox->Controls->Add(this->StopEndBNum);
-			this->GimmickSettingsBox->Controls->Add(this->StopEndSBNum2);
+			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd1BeatNum1);
+			this->GimmickSettingsBox->Controls->Add(this->ReverseEnd1MeasureNum);
+			this->GimmickSettingsBox->Controls->Add(this->StopEndMeasureNum);
+			this->GimmickSettingsBox->Controls->Add(this->StopEndBeatNum2);
 			this->GimmickSettingsBox->Controls->Add(this->label10);
-			this->GimmickSettingsBox->Controls->Add(this->StopEndSBNum1);
+			this->GimmickSettingsBox->Controls->Add(this->StopEndBeatNum1);
 			this->GimmickSettingsBox->Controls->Add(this->HiSpeedChangeNum);
 			this->GimmickSettingsBox->Controls->Add(this->TimeSigNum2);
 			this->GimmickSettingsBox->Controls->Add(this->label9);
@@ -968,86 +969,86 @@ private: System::Windows::Forms::Label^ label30;
 			this->GimmickSettingsBox->Name = L"GimmickSettingsBox";
 			this->GimmickSettingsBox->TabStop = false;
 			// 
-			// ReverseEnd2SBNum2
+			// ReverseEnd2BeatNum2
 			// 
-			resources->ApplyResources(this->ReverseEnd2SBNum2, L"ReverseEnd2SBNum2");
-			this->ReverseEnd2SBNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
-			this->ReverseEnd2SBNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-			this->ReverseEnd2SBNum2->Name = L"ReverseEnd2SBNum2";
-			this->ReverseEnd2SBNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
+			resources->ApplyResources(this->ReverseEnd2BeatNum2, L"ReverseEnd2BeatNum2");
+			this->ReverseEnd2BeatNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
+			this->ReverseEnd2BeatNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->ReverseEnd2BeatNum2->Name = L"ReverseEnd2BeatNum2";
+			this->ReverseEnd2BeatNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
 			// 
 			// label12
 			// 
 			resources->ApplyResources(this->label12, L"label12");
 			this->label12->Name = L"label12";
 			// 
-			// ReverseEnd2SBNum1
+			// ReverseEnd2BeatNum1
 			// 
-			resources->ApplyResources(this->ReverseEnd2SBNum1, L"ReverseEnd2SBNum1");
-			this->ReverseEnd2SBNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
-			this->ReverseEnd2SBNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
-			this->ReverseEnd2SBNum1->Name = L"ReverseEnd2SBNum1";
-			this->ReverseEnd2SBNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::ReverseEnd2SBNum1_ValueChanged);
+			resources->ApplyResources(this->ReverseEnd2BeatNum1, L"ReverseEnd2BeatNum1");
+			this->ReverseEnd2BeatNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
+			this->ReverseEnd2BeatNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
+			this->ReverseEnd2BeatNum1->Name = L"ReverseEnd2BeatNum1";
+			this->ReverseEnd2BeatNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::ReverseEnd2BeatNum1_ValueChanged);
 			// 
-			// ReverseEnd2BNum
+			// ReverseEnd2MeasureNum
 			// 
-			resources->ApplyResources(this->ReverseEnd2BNum, L"ReverseEnd2BNum");
-			this->ReverseEnd2BNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
-			this->ReverseEnd2BNum->Name = L"ReverseEnd2BNum";
+			resources->ApplyResources(this->ReverseEnd2MeasureNum, L"ReverseEnd2MeasureNum");
+			this->ReverseEnd2MeasureNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
+			this->ReverseEnd2MeasureNum->Name = L"ReverseEnd2MeasureNum";
 			// 
-			// ReverseEnd1SBNum2
+			// ReverseEnd1BeatNum2
 			// 
-			resources->ApplyResources(this->ReverseEnd1SBNum2, L"ReverseEnd1SBNum2");
-			this->ReverseEnd1SBNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
-			this->ReverseEnd1SBNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-			this->ReverseEnd1SBNum2->Name = L"ReverseEnd1SBNum2";
-			this->ReverseEnd1SBNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
+			resources->ApplyResources(this->ReverseEnd1BeatNum2, L"ReverseEnd1BeatNum2");
+			this->ReverseEnd1BeatNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
+			this->ReverseEnd1BeatNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->ReverseEnd1BeatNum2->Name = L"ReverseEnd1BeatNum2";
+			this->ReverseEnd1BeatNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
 			// 
 			// label11
 			// 
 			resources->ApplyResources(this->label11, L"label11");
 			this->label11->Name = L"label11";
 			// 
-			// ReverseEnd1SBNum1
+			// ReverseEnd1BeatNum1
 			// 
-			resources->ApplyResources(this->ReverseEnd1SBNum1, L"ReverseEnd1SBNum1");
-			this->ReverseEnd1SBNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
-			this->ReverseEnd1SBNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
-			this->ReverseEnd1SBNum1->Name = L"ReverseEnd1SBNum1";
-			this->ReverseEnd1SBNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::ReverseEnd1SBNum1_ValueChanged);
+			resources->ApplyResources(this->ReverseEnd1BeatNum1, L"ReverseEnd1BeatNum1");
+			this->ReverseEnd1BeatNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
+			this->ReverseEnd1BeatNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
+			this->ReverseEnd1BeatNum1->Name = L"ReverseEnd1BeatNum1";
+			this->ReverseEnd1BeatNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::ReverseEnd1BeatNum1_ValueChanged);
 			// 
-			// ReverseEnd1BNum
+			// ReverseEnd1MeasureNum
 			// 
-			resources->ApplyResources(this->ReverseEnd1BNum, L"ReverseEnd1BNum");
-			this->ReverseEnd1BNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
-			this->ReverseEnd1BNum->Name = L"ReverseEnd1BNum";
+			resources->ApplyResources(this->ReverseEnd1MeasureNum, L"ReverseEnd1MeasureNum");
+			this->ReverseEnd1MeasureNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
+			this->ReverseEnd1MeasureNum->Name = L"ReverseEnd1MeasureNum";
 			// 
-			// StopEndBNum
+			// StopEndMeasureNum
 			// 
-			resources->ApplyResources(this->StopEndBNum, L"StopEndBNum");
-			this->StopEndBNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
-			this->StopEndBNum->Name = L"StopEndBNum";
+			resources->ApplyResources(this->StopEndMeasureNum, L"StopEndMeasureNum");
+			this->StopEndMeasureNum->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
+			this->StopEndMeasureNum->Name = L"StopEndMeasureNum";
 			// 
-			// StopEndSBNum2
+			// StopEndBeatNum2
 			// 
-			resources->ApplyResources(this->StopEndSBNum2, L"StopEndSBNum2");
-			this->StopEndSBNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
-			this->StopEndSBNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-			this->StopEndSBNum2->Name = L"StopEndSBNum2";
-			this->StopEndSBNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
+			resources->ApplyResources(this->StopEndBeatNum2, L"StopEndBeatNum2");
+			this->StopEndBeatNum2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 192, 0, 0, 0 });
+			this->StopEndBeatNum2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->StopEndBeatNum2->Name = L"StopEndBeatNum2";
+			this->StopEndBeatNum2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
 			// 
 			// label10
 			// 
 			resources->ApplyResources(this->label10, L"label10");
 			this->label10->Name = L"label10";
 			// 
-			// StopEndSBNum1
+			// StopEndBeatNum1
 			// 
-			resources->ApplyResources(this->StopEndSBNum1, L"StopEndSBNum1");
-			this->StopEndSBNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
-			this->StopEndSBNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
-			this->StopEndSBNum1->Name = L"StopEndSBNum1";
-			this->StopEndSBNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::StopEndSBNum1_ValueChanged);
+			resources->ApplyResources(this->StopEndBeatNum1, L"StopEndBeatNum1");
+			this->StopEndBeatNum1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 191, 0, 0, 0 });
+			this->StopEndBeatNum1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, System::Int32::MinValue });
+			this->StopEndBeatNum1->Name = L"StopEndBeatNum1";
+			this->StopEndBeatNum1->ValueChanged += gcnew System::EventHandler(this, &MyForm::StopEndBeatNum1_ValueChanged);
 			// 
 			// HiSpeedChangeNum
 			// 
@@ -1498,13 +1499,13 @@ private: System::Windows::Forms::Label^ label30;
 			this->CurrentNoteBox->Controls->Add(this->SizeTrackBar);
 			this->CurrentNoteBox->Controls->Add(this->PosTrackBar);
 			this->CurrentNoteBox->Controls->Add(this->SizeInfo);
-			this->CurrentNoteBox->Controls->Add(this->SubBeat2Num);
+			this->CurrentNoteBox->Controls->Add(this->BeatNum2);
 			this->CurrentNoteBox->Controls->Add(this->posInfo);
 			this->CurrentNoteBox->Controls->Add(this->label1);
 			this->CurrentNoteBox->Controls->Add(this->PosLabel);
 			this->CurrentNoteBox->Controls->Add(this->Beat);
-			this->CurrentNoteBox->Controls->Add(this->SubBeat1Num);
-			this->CurrentNoteBox->Controls->Add(this->BeatNum);
+			this->CurrentNoteBox->Controls->Add(this->BeatNum1);
+			this->CurrentNoteBox->Controls->Add(this->MeasureNum);
 			this->CurrentNoteBox->Controls->Add(this->SizeLabel);
 			this->CurrentNoteBox->Controls->Add(this->PosNum);
 			this->CurrentNoteBox->Controls->Add(this->SizeNum);
@@ -1624,6 +1625,7 @@ private: System::Windows::Forms::Label^ label30;
 			this->backgroundWorkerPaint->WorkerSupportsCancellation = true;
 			this->backgroundWorkerPaint->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MyForm::backgroundWorkerPaint_DoWork);
 			this->backgroundWorkerPaint->ProgressChanged += gcnew System::ComponentModel::ProgressChangedEventHandler(this, &MyForm::backgroundWorkerPaint_ProgressChanged);
+			this->backgroundWorkerPaint->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MyForm::backgroundWorkerPaint_RunWorkerCompleted);
 			// 
 			// panel1
 			// 
@@ -1652,8 +1654,10 @@ private: System::Windows::Forms::Label^ label30;
 			this->Controls->Add(this->InsertButton);
 			this->Controls->Add(this->NoteTypeBox);
 			this->Controls->Add(this->menuStrip);
+			this->DoubleBuffered = true;
 			this->MainMenuStrip = this->menuStrip;
 			this->Name = L"MyForm";
+			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::MyForm_Paint);
 			this->Resize += gcnew System::EventHandler(this, &MyForm::MyForm_Resize);
 			this->menuStrip->ResumeLayout(false);
@@ -1664,22 +1668,22 @@ private: System::Windows::Forms::Label^ label30;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PlaybackSpeedNum))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeNum))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosNum))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat2Num))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SubBeat1Num))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BeatNum))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BeatNum2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BeatNum1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MeasureNum))->EndInit();
 			this->GimmickBox->ResumeLayout(false);
 			this->GimmickBox->PerformLayout();
 			this->GimmickSettingsBox->ResumeLayout(false);
 			this->GimmickSettingsBox->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2SBNum2))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2SBNum1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2BNum))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1SBNum2))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1SBNum1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1BNum))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndBNum))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndSBNum2))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndSBNum1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2BeatNum2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2BeatNum1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd2MeasureNum))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1BeatNum2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1BeatNum1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ReverseEnd1MeasureNum))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndMeasureNum))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndBeatNum2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->StopEndBeatNum1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->HiSpeedChangeNum))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TimeSigNum2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TimeSigNum1))->EndInit();
@@ -1753,7 +1757,7 @@ private: System::Windows::Forms::Label^ label30;
 
 		for (std::list<NotesNode>::iterator viewMasksITR = theChart.Notes.begin(); viewMasksITR != theChart.Notes.end(); viewMasksITR++) {
 			if (viewMasksITR->noteType == 12 || viewMasksITR->noteType == 13) {
-				float currentTime = (float)viewMasksITR->beat + ((float)viewMasksITR->subBeat / 1920);
+				float currentTime = (float)viewMasksITR->beat + ((float)viewMasksITR->subBeat / 1920.f);
 				int maskStart, maskEnd;
 				maskStart = viewMasksITR->position;
 				maskEnd = viewMasksITR->position + viewMasksITR->size;
@@ -1875,7 +1879,7 @@ private: System::Windows::Forms::Label^ label30;
 	void refreshMapofNotes() {
 		mapOfNotes.clear();
 		for (std::list<NotesNode>::iterator viewMasksITR = theChart.Notes.begin(); viewMasksITR != theChart.Notes.end(); viewMasksITR++) {
-			float currentTime = (float)viewMasksITR->beat + ((float)viewMasksITR->subBeat / (float)1920.0);
+			float currentTime = (float)viewMasksITR->beat + ((float)viewMasksITR->subBeat / 1920.f);
 			if (viewMasksITR->noteType != 12 || viewMasksITR->noteType != 13) {
 				NotesNode tempnode;
 				tempnode.noteType = viewMasksITR->noteType;
@@ -1888,91 +1892,85 @@ private: System::Windows::Forms::Label^ label30;
 	void refreshMapOfTime() {
 		mapOfTimeBetweenBeats.clear(); 
 		mapOfBPMatTime.clear();
+		mapOfTSatTime.clear();
+		//tempo - X bpm - (eg.:120).
+		//time signature - Y / Z - (eg.: 4 / 4).
+		//(60,000 / X) = time of 1/4th of measure, so multiply Time Signiture by 4
+		//(60,000 / X) * (Y / Z) * 4 = time per measure (milliseconds)
+		float oneFourthMultiplier = 4.f;
+		float TS = (float)InitTimeSigNum1->Value / (float)InitTimeSigNum2->Value;
+		// if nothing exists yet then make measure 0 match initial values
+		// PreChart list should overwrite this if it has anything
+		mapOfTimeBetweenBeats[0] = ((float)milInMinute / (float)InitialBPMNum->Value) * oneFourthMultiplier * TS;
+
 		if (!theChart.PreChart.empty()) {
 			for (std::list<PreChartNode>::iterator viewGimmicksITR = theChart.PreChart.begin(); viewGimmicksITR != theChart.PreChart.end(); viewGimmicksITR++) {
-				float currentTime = (float)viewGimmicksITR->beat + ((float)viewGimmicksITR->subBeat / 1920);
-				if (viewGimmicksITR->type == 2) {
-					//copy previous time to current time if current time is empty
-					if (mapOfTimeBetweenBeats.find(currentTime) == mapOfTimeBetweenBeats.end()) {
-						std::map<float, float>::iterator itr = mapOfTimeBetweenBeats.lower_bound(currentTime);
-						if (itr != mapOfTimeBetweenBeats.end()) {
-							if (itr != mapOfTimeBetweenBeats.begin()) {
-								itr--;
-							}
-							if (itr->first < currentTime) {
-								mapOfTimeBetweenBeats[currentTime] = itr->second;
-							}
-						}
-						else {
-							itr = mapOfTimeBetweenBeats.end();
-							if (!mapOfTimeBetweenBeats.empty()) {
-								itr--;
-								mapOfTimeBetweenBeats[currentTime] = itr->second;
-							}
-						}
+				float currentTime = (float)viewGimmicksITR->beat + ((float)viewGimmicksITR->subBeat / 1920.f);
+				if (viewGimmicksITR->type == 2 || viewGimmicksITR->type == 3) { // First run through fills maps of BPMs and Time Signatures
+					//make current time values in maps current to what the PreChart list is saying
+					if(viewGimmicksITR->type == 2)
+						mapOfBPMatTime[currentTime] = (float)viewGimmicksITR->BPM;
+					if (viewGimmicksITR->type == 3) {
+						std::pair<int, int> tempTS(viewGimmicksITR->beatDiv1, viewGimmicksITR->beatDiv2);
+						mapOfTSatTime[currentTime] = tempTS;
 					}
-					mapOfTimeBetweenBeats[currentTime] = ((float)milInMinute / (float)viewGimmicksITR->BPM) * (float)4;
-					mapOfBPMatTime[currentTime] = (float)viewGimmicksITR->BPM;
-				}
-			}
-			for (std::list<PreChartNode>::iterator viewGimmicksITR = theChart.PreChart.begin(); viewGimmicksITR != theChart.PreChart.end(); viewGimmicksITR++) {
-				float currentTime = (float)viewGimmicksITR->beat + ((float)viewGimmicksITR->subBeat / 1920);
-				if (viewGimmicksITR->type == 3) {
 
-					//copy previous time to current time if current time is empty
-					if (mapOfTimeBetweenBeats.find(currentTime) == mapOfTimeBetweenBeats.end()) {
-						std::map<float, float>::iterator itr = mapOfTimeBetweenBeats.lower_bound(currentTime);
-						if (itr != mapOfTimeBetweenBeats.end()) {
-							if (itr != mapOfTimeBetweenBeats.begin()) {
-								itr--;
-							}
-							if (itr->first < currentTime) {
-								mapOfTimeBetweenBeats[currentTime] = itr->second;
-							}
-						}
-						else {
-							itr = mapOfTimeBetweenBeats.end();
-							if (!mapOfTimeBetweenBeats.empty()) {
-								itr--;
-								mapOfTimeBetweenBeats[currentTime] = itr->second;
-							}
-						}
-					}
-					//copy previous BPM to current time if current time is empty
+					//put the previous BPM into map of time at any point a time signature happens and there's no BPM at current time
 					if (mapOfBPMatTime.find(currentTime) == mapOfBPMatTime.end()) {
-						std::map<float, float>::iterator itr = mapOfBPMatTime.lower_bound(currentTime);
-						if (itr != mapOfBPMatTime.end()) {
-							if (itr != mapOfBPMatTime.begin()) {
-								itr--;
+						std::map<float, float>::iterator BPMitr = mapOfBPMatTime.lower_bound(currentTime);
+						if (BPMitr != mapOfBPMatTime.end()) {
+							if (BPMitr != mapOfBPMatTime.begin()) {
+								BPMitr--;
 							}
-							if (itr->first < currentTime) {
-								mapOfBPMatTime[currentTime] = itr->second;
+							if (BPMitr->first < currentTime) {
+								mapOfBPMatTime[currentTime] = BPMitr->second;
 							}
 						}
 						else {
-							itr = mapOfBPMatTime.end();
+							BPMitr = mapOfBPMatTime.end();
 							if (!mapOfBPMatTime.empty()) {
-								itr--;
-								mapOfBPMatTime[currentTime] = itr->second;
+								BPMitr--;
+								mapOfBPMatTime[currentTime] = BPMitr->second;
 							}
 						}
 					}
-					float timeBetween = ((float)milInMinute / mapOfBPMatTime[currentTime]) * (float)4;
-					mapOfTimeBetweenBeats[currentTime] = timeBetween * ((float)viewGimmicksITR->beatDiv1 / (float)viewGimmicksITR->beatDiv2);
+					//put the previous time signature into map of BPMs at any point a BPM happens and there's no BPM at current time
+					if (mapOfTSatTime.find(currentTime) == mapOfTSatTime.end()) {
+						std::map<float, std::pair<int, int>>::iterator TSitr = mapOfTSatTime.lower_bound(currentTime);
+						if (TSitr != mapOfTSatTime.end()) {
+							if (TSitr != mapOfTSatTime.begin()) {
+								TSitr--;
+							}
+							if (TSitr->first < currentTime) {
+								mapOfTSatTime[currentTime] = TSitr->second;
+							}
+						}
+						else {
+							TSitr = mapOfTSatTime.end();
+							if (!mapOfTSatTime.empty()) {
+								TSitr--;
+								mapOfTSatTime[currentTime] = TSitr->second;
+							}
+						}
+					}
 				}
 			}
-		}
-		else {
-			mapOfTimeBetweenBeats[0] = ((float)milInMinute / (float)InitialBPMNum->Value)* (float)4;
+			//Put values into map of time between measures
+			//this itr could be map of time signatures too, doesnt matter
+			for (std::map<float, float>::iterator itr = mapOfBPMatTime.begin(); itr != mapOfBPMatTime.end(); itr++) {
+				float TS = (float)mapOfTSatTime[itr->first].first / (float)mapOfTSatTime[itr->first].second;
+				mapOfTimeBetweenBeats[itr->first] = ((float)milInMinute / (float)mapOfBPMatTime[itr->first]) * oneFourthMultiplier * TS;
+			}
 		}
 		refreshMapOfBeatAtTime();
 	}
 	void refreshMapOfBeatAtTime() {
 		mapOfBeatAtTime.clear();
 		std::map<float, float>::iterator itr = mapOfTimeBetweenBeats.begin();
-		mapOfBeatAtTime[0] = 0; //millisecond 0 of song starts at measure 0 of song;
+		int startTime = (theChart.offset * 1000.f); //convert off from seconds to milliseconds
+		mapOfBeatAtTime[startTime] = 0; //millisecond 0 of song starts at measure 0 of song;
 		if (itr != mapOfTimeBetweenBeats.end()) {
-			float prevTimeMil = 0;
+			float prevTimeMil = startTime;
 			float prevTimeBeats = itr->first;
 			float prevTimePerMeasure = itr->second;
 			for (itr++; itr != mapOfTimeBetweenBeats.end(); itr++) {
@@ -2176,9 +2174,9 @@ private: System::Windows::Forms::Label^ label30;
 			}
 			if (MatchTimeCheckBox->Checked) {
 				noteRefresh = true;
-				BeatNum->Value = viewNotesITR->beat;
-				SubBeat2Num->Value = (int)subBeatValue2(num1, num2); //change 2 first so that 1 doesnt become larger and make it round up to the next beat
-				SubBeat1Num->Value = (int)subBeatValue1(num1, num2);
+				MeasureNum->Value = viewNotesITR->beat;
+				BeatNum2->Value = (int)subBeatValue2(num1, num2); //change 2 first so that 1 doesnt become larger and make it round up to the next beat
+				BeatNum1->Value = (int)subBeatValue1(num1, num2);
 				noteRefresh = false;
 				RefreshPaint();
 			}
@@ -2464,6 +2462,9 @@ private: System::Windows::Forms::Label^ label30;
 			}
 			chartFile >> temp;
 		}
+		if (theChart.offset < 0.0) {
+			songTrackSlider->Minimum = (int)(theChart.offset * 1000.f);
+		}
 
 		int beat;
 		int subBeat;
@@ -2557,8 +2558,8 @@ private: System::Windows::Forms::Label^ label30;
 		PreChartNode tempPreChartNode;
 
 		if (SelectedLineType == 1) {
-			tempNotesNode.beat = (int)BeatNum->Value;
-			tempNotesNode.subBeat = ((1920 / (int)SubBeat2Num->Value) * (int)SubBeat1Num->Value);
+			tempNotesNode.beat = (int)MeasureNum->Value;
+			tempNotesNode.subBeat = std::round((1920.f / (float)BeatNum2->Value) * (float)BeatNum1->Value);
 			tempNotesNode.noteType = SelectedNoteType;
 			tempNotesNode.position = (int)PosNum->Value;
 			tempNotesNode.size = (int)SizeNum->Value;
@@ -2660,8 +2661,8 @@ private: System::Windows::Forms::Label^ label30;
 			refreshNotesView();
 		}
 		else {
-			tempPreChartNode.beat = (int)BeatNum->Value;
-			tempPreChartNode.subBeat = ((1920 / (int)SubBeat2Num->Value) * (int)SubBeat1Num->Value);
+			tempPreChartNode.beat = (int)MeasureNum->Value;
+			tempPreChartNode.subBeat = std::round((1920.f / (float)BeatNum2->Value) * (float)BeatNum1->Value);
 			tempPreChartNode.type = SelectedLineType;
 			if (SelectedLineType == 2) { //BPM Change
 				if (tempPreChartNode.beat == 0 && tempPreChartNode.subBeat == 0) {
@@ -2686,21 +2687,21 @@ private: System::Windows::Forms::Label^ label30;
 			if (SelectedLineType == 6) { //Reverse
 				theChart.PreChart.push_back(tempPreChartNode);
 
-				tempPreChartNode.beat = (int)ReverseEnd1BNum->Value;
-				tempPreChartNode.subBeat = ((1920 / (int)ReverseEnd1SBNum2->Value) * (int)ReverseEnd1SBNum1->Value);
+				tempPreChartNode.beat = (int)ReverseEnd1MeasureNum->Value;
+				tempPreChartNode.subBeat = std::round((1920.f / (float)ReverseEnd1BeatNum2->Value) * (float)ReverseEnd1BeatNum1->Value);
 				tempPreChartNode.type = 7;
 				theChart.PreChart.push_back(tempPreChartNode);
 
-				tempPreChartNode.beat = (int)ReverseEnd2BNum->Value;
-				tempPreChartNode.subBeat = ((1920 / (int)ReverseEnd2SBNum2->Value) * (int)ReverseEnd2SBNum1->Value);
+				tempPreChartNode.beat = (int)ReverseEnd2MeasureNum->Value;
+				tempPreChartNode.subBeat = std::round((1920.f / (float)ReverseEnd2BeatNum2->Value) * (float)ReverseEnd2BeatNum1->Value);
 				tempPreChartNode.type = 8;
 				theChart.PreChart.push_back(tempPreChartNode);
 			}
 			if (SelectedLineType == 9) { //Stop
 				theChart.PreChart.push_back(tempPreChartNode);
 
-				tempPreChartNode.beat = (int)StopEndBNum->Value;
-				tempPreChartNode.subBeat = ((1920 / (int)StopEndSBNum2->Value) * (int)StopEndSBNum1->Value);
+				tempPreChartNode.beat = (int)StopEndMeasureNum->Value;
+				tempPreChartNode.subBeat = std::round((1920.f / (float)StopEndBeatNum2->Value) * (float)StopEndBeatNum1->Value);
 				tempPreChartNode.type = 10;
 				theChart.PreChart.push_back(tempPreChartNode);
 			}
@@ -2754,6 +2755,9 @@ private: System::Windows::Forms::Label^ label30;
 			viewGimmicksITR--;
 		}
 		theChart.PreChart.sort(sortPreChartListByBeat);
+		if (theChart.offset < 0.0) {
+			songTrackSlider->Minimum = (int)(theChart.offset * 1000.f);
+		}
 		refreshGimmickView();
 		refreshMapOfTime();
 		saveToolStripMenuItem_Click(sender, e);
@@ -3108,51 +3112,51 @@ private: System::Windows::Forms::Label^ label30;
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 		}
 	}
-	private: System::Void ReverseEnd1SBNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (ReverseEnd1SBNum1->Value >= ReverseEnd1SBNum2->Value) {
-			ReverseEnd1SBNum1->Value = 0;
-			ReverseEnd1BNum->Value++;
+	private: System::Void ReverseEnd1BeatNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (ReverseEnd1BeatNum1->Value >= ReverseEnd1BeatNum2->Value) {
+			ReverseEnd1BeatNum1->Value = 0;
+			ReverseEnd1MeasureNum->Value++;
 		}
-		if (ReverseEnd1SBNum1->Value < 0) {
-			if (ReverseEnd1BNum->Value > 0) {
-				int temp = (int)ReverseEnd1SBNum2->Value - 1;
-				ReverseEnd1SBNum1->Value = (System::Decimal)temp;
-				ReverseEnd1BNum->Value--;
+		if (ReverseEnd1BeatNum1->Value < 0) {
+			if (ReverseEnd1MeasureNum->Value > 0) {
+				int temp = (int)ReverseEnd1BeatNum2->Value - 1;
+				ReverseEnd1BeatNum1->Value = (System::Decimal)temp;
+				ReverseEnd1MeasureNum->Value--;
 			}
 			else {
-				ReverseEnd1SBNum1->Value = 0;
+				ReverseEnd1BeatNum1->Value = 0;
 			}
 		}
 	}
-	private: System::Void ReverseEnd2SBNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (ReverseEnd2SBNum1->Value >= ReverseEnd2SBNum2->Value) {
-			ReverseEnd2SBNum1->Value = 0;
-			ReverseEnd2BNum->Value++;
+	private: System::Void ReverseEnd2BeatNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (ReverseEnd2BeatNum1->Value >= ReverseEnd2BeatNum2->Value) {
+			ReverseEnd2BeatNum1->Value = 0;
+			ReverseEnd2MeasureNum->Value++;
 		}
-		if (ReverseEnd2SBNum1->Value < 0) {
-			if (ReverseEnd2BNum->Value > 0) {
-				int temp = (int)ReverseEnd2SBNum2->Value - 1;
-				ReverseEnd2SBNum1->Value = (System::Decimal)temp;
-				ReverseEnd2BNum->Value--;
+		if (ReverseEnd2BeatNum1->Value < 0) {
+			if (ReverseEnd2MeasureNum->Value > 0) {
+				int temp = (int)ReverseEnd2BeatNum2->Value - 1;
+				ReverseEnd2BeatNum1->Value = (System::Decimal)temp;
+				ReverseEnd2MeasureNum->Value--;
 			}
 			else {
-				ReverseEnd2SBNum1->Value = 0;
+				ReverseEnd2BeatNum1->Value = 0;
 			}
 		}
 	}
-	private: System::Void StopEndSBNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (StopEndSBNum1->Value >= StopEndSBNum2->Value) {
-			StopEndSBNum1->Value = 0;
-			StopEndBNum->Value++;
+	private: System::Void StopEndBeatNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (StopEndBeatNum1->Value >= StopEndBeatNum2->Value) {
+			StopEndBeatNum1->Value = 0;
+			StopEndMeasureNum->Value++;
 		}
-		if (StopEndSBNum1->Value < 0) {
-			if (StopEndBNum->Value > 0) {
-				int temp = (int)StopEndSBNum2->Value - 1;
-				StopEndSBNum1->Value = (System::Decimal)temp;
-				StopEndBNum->Value--;
+		if (StopEndBeatNum1->Value < 0) {
+			if (StopEndMeasureNum->Value > 0) {
+				int temp = (int)StopEndBeatNum2->Value - 1;
+				StopEndBeatNum1->Value = (System::Decimal)temp;
+				StopEndMeasureNum->Value--;
 			}
 			else {
-				StopEndSBNum1->Value = 0;
+				StopEndBeatNum1->Value = 0;
 			}
 		}
 	}
@@ -3309,14 +3313,6 @@ private: System::Windows::Forms::Label^ label30;
 		}
 		return Color::Transparent;
 	}
-	void RefreshPaint() {
-		if (!alreadyRefreshed && !noteRefresh) {
-			Refresh();
-		}
-		else {
-			alreadyRefreshed = false;
-		}
-	}
 	private: System::Void MyForm_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 		/* MOVED TO PANEL PAINT
 		//Note graphics
@@ -3353,7 +3349,7 @@ private: System::Windows::Forms::Label^ label30;
 		float maskStartAngle;
 		float maskArcLength;
 		//Draw pre-existing mask
-		float currentTime = (float)BeatNum->Value + ((float)SubBeat1Num->Value / (float)SubBeat2Num->Value);
+		float currentTime = (float)MeasureNum->Value + ((float)BeatNum1->Value / (float)BeatNum2->Value);
 		std::map<float, std::list<std::pair<int, int>>>::iterator mapitr = mapOfMasks.lower_bound(currentTime);
 		if (mapOfMasks.find(currentTime) == mapOfMasks.end() && Rect.Width >= 1) {
 			if (mapitr != mapOfMasks.end()) {
@@ -3546,40 +3542,40 @@ private: System::Windows::Forms::Label^ label30;
 		//InitialSettingsPane->Location = position;
 		RefreshPaint();
 	}
-	private: System::Void BeatNum_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-		refreshScrollBarFromBeatNum();
+	private: System::Void MeasureNum_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		refreshScrollBarFromMeasureNum();
 		RefreshPaint();
 	}
-	private: System::Void SubBeat1Num_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (SubBeat1Num->Value >= SubBeat2Num->Value) {
+	private: System::Void BeatNum1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (BeatNum1->Value >= BeatNum2->Value) {
 			alreadyRefreshed = true;
-			SubBeat1Num->Value = 0;
+			BeatNum1->Value = 0;
 			alreadyRefreshed = true;
-			BeatNum->Value++;
+			MeasureNum->Value++;
 		}
-		if (SubBeat1Num->Value < 0) {
-			if (BeatNum->Value > 0) {
-				int temp = (int)SubBeat2Num->Value - 1;
+		if (BeatNum1->Value < 0) {
+			if (MeasureNum->Value > 0) {
+				int temp = (int)BeatNum2->Value - 1;
 				alreadyRefreshed = true;
-				SubBeat1Num->Value = (System::Decimal)temp;
+				BeatNum1->Value = (System::Decimal)temp;
 				alreadyRefreshed = true;
-				BeatNum->Value--;
+				MeasureNum->Value--;
 			}
 			else {
 				alreadyRefreshed = true;
-				SubBeat1Num->Value = 0;
+				BeatNum1->Value = 0;
 			}
 		}
-		refreshScrollBarFromBeatNum();
+		refreshScrollBarFromMeasureNum();
 		RefreshPaint();
 	}
-	private: System::Void SubBeat2Num_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-		refreshScrollBarFromBeatNum();
+	private: System::Void BeatNum2_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+		refreshScrollBarFromMeasureNum();
 		RefreshPaint();
 	}
-	void refreshScrollBarFromBeatNum() {
+	void refreshScrollBarFromMeasureNum() {
 		if (!mapOfTimeBetweenBeats.empty()) {
-			float currentMeasure = (float)BeatNum->Value + ((float)SubBeat1Num->Value / (float)SubBeat2Num->Value); //in measures
+			float currentMeasure = (float)MeasureNum->Value + ((float)BeatNum1->Value / (float)BeatNum2->Value); //in measures
 			float lastTime = 0;
 			float timeBetweenBeats;
 			float lastMeasure;
@@ -3663,8 +3659,8 @@ private: System::Windows::Forms::Label^ label30;
 	}
 	private: System::Void EditNoteButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (!isHold(SelectedNoteType)) {
-			viewNotesITR->beat = (int)BeatNum->Value;
-			viewNotesITR->subBeat = ((1920 / (int)SubBeat2Num->Value) * (int)SubBeat1Num->Value);
+			viewNotesITR->beat = (int)MeasureNum->Value;
+			viewNotesITR->subBeat = ((1920 / (int)BeatNum2->Value) * (int)BeatNum1->Value);
 			viewNotesITR->noteType = SelectedNoteType;
 			viewNotesITR->position = (int)PosNum->Value;
 			viewNotesITR->size = (int)SizeNum->Value;
@@ -3678,9 +3674,23 @@ private: System::Windows::Forms::Label^ label30;
 	private: System::Void PosTrackBar_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		PosNum->Value = PosTrackBar->Value;
 	}
+	void RefreshPaint() {
+		if (!alreadyRefreshed && !noteRefresh) {
+			CirclePanel->Refresh();
+		}
+		else {
+			alreadyRefreshed = false;
+		}
+	}
 	private: System::Void CirclePanel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 		//Note graphics
 		Graphics^ notesGraphics = e->Graphics;
+		BufferedGraphics^ BufferedNotesGraphics;
+		//Configure buffer context
+		BufferedGraphicsContext^ context = BufferedGraphicsManager::Current;
+		context->MaximumBuffer = System::Drawing::Size(CirclePanel->Width + 1, CirclePanel->Height + 1);
+		System::Drawing::Rectangle PanelRect(0, 0, CirclePanel->Width, CirclePanel->Height);
+		BufferedNotesGraphics = context->Allocate(CirclePanel->CreateGraphics(), PanelRect);
 		//Pens for drawing parts of circle
 		float widthOfBasePen = 3;
 		float widthOfLinesPen = 2;
@@ -3706,14 +3716,14 @@ private: System::Windows::Forms::Label^ label30;
 		System::Drawing::Size size(sizeOfRect, sizeOfRect);
 		System::Drawing::Rectangle Rect(location, size);
 		//Drawing mode
-		notesGraphics->SmoothingMode = Drawing2D::SmoothingMode::Default;
+		BufferedNotesGraphics->Graphics->SmoothingMode = Drawing2D::SmoothingMode::HighSpeed;
 		//Current time
 		float currentTime;
 		if (scrollBarChanged) {
 			currentTime = theCurrentMeasure;
 		}
 		else {
-			currentTime = (float)BeatNum->Value + ((float)SubBeat1Num->Value / (float)SubBeat2Num->Value);
+			currentTime = (float)MeasureNum->Value + ((float)BeatNum1->Value / (float)BeatNum2->Value);
 		}
 		//How many measures/beats in the future to show notes
 		float totalTimeShowNotes = (float)VisualHispeed->Value;
@@ -3728,6 +3738,10 @@ private: System::Windows::Forms::Label^ label30;
 		float maskStartAngle;
 		float maskArcLength;
 
+		//Make Background Transparent
+		SolidBrush^ backgroundBrush = gcnew SolidBrush(this->BackColor);
+		BufferedNotesGraphics->Graphics->FillRectangle(backgroundBrush, PanelRect);
+
 		//Draw pre-existing mask
 		std::map<float, std::list<std::pair<int, int>>>::iterator mapitr = mapOfMasks.lower_bound(currentTime);
 		if (mapOfMasks.find(currentTime) == mapOfMasks.end() && Rect.Width >= 1) {
@@ -3739,7 +3753,7 @@ private: System::Windows::Forms::Label^ label30;
 					for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
 						maskStartAngle = -((float)listITR->first * 6);
 						maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
-						notesGraphics->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+						BufferedNotesGraphics->Graphics->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
 					}
 				}
 			}
@@ -3750,7 +3764,7 @@ private: System::Windows::Forms::Label^ label30;
 					for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
 						maskStartAngle = -((float)listITR->first * 6);
 						maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
-						notesGraphics->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+						BufferedNotesGraphics->Graphics->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
 					}
 				}
 			}
@@ -3760,7 +3774,7 @@ private: System::Windows::Forms::Label^ label30;
 				for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
 					maskStartAngle = -((float)listITR->first * 6);
 					maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
-					notesGraphics->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+					BufferedNotesGraphics->Graphics->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
 				}
 			}
 		}
@@ -3768,10 +3782,10 @@ private: System::Windows::Forms::Label^ label30;
 		//Draw selected mask
 		if (SelectedLineType == 1 && Rect.Width >= 1) {
 			if (SelectedNoteTypeVisual == 12) {
-				notesGraphics->FillPie(Brushes::Silver, Rect, startAngle, arcLength);
+				BufferedNotesGraphics->Graphics->FillPie(Brushes::Silver, Rect, startAngle, arcLength);
 			}
 			if (SelectedNoteTypeVisual == 13) {
-				notesGraphics->FillPie(Brushes::White, Rect, startAngle, arcLength);
+				BufferedNotesGraphics->Graphics->FillPie(Brushes::White, Rect, startAngle, arcLength);
 			}
 		}
 
@@ -3779,7 +3793,8 @@ private: System::Windows::Forms::Label^ label30;
 		float nearestMeasure = std::ceil(currentTime);
 		for (float nearestMeasure = std::ceil(currentTime); (nearestMeasure - currentTime) < totalTimeShowNotes; nearestMeasure += 1.0) {
 			//modify rectangle to scale with how long until the measure appears
-			float NoteScale = 1 - ((nearestMeasure - currentTime) * (1 / totalTimeShowNotes)); //0-1 = 0-100%
+			float NoteScaleInitial = 1 - ((nearestMeasure - currentTime) * (1 / totalTimeShowNotes)); //0-1 = 0-100%
+			float NoteScale = (std::pow(10.f, NoteScaleInitial)) / 10.f;
 			sizeOfRectFut = sizeOfRect * NoteScale;
 			circleRadiusFut = (sizeOfRectFut / 2);
 			xPosFut = xPos + (circleRadius - circleRadiusFut) + 1;
@@ -3789,13 +3804,13 @@ private: System::Windows::Forms::Label^ label30;
 			System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
 			System::Drawing::Rectangle RectFut(locationFut, sizeFut);
 			if (RectFut.Width >= 1) {
-				notesGraphics->DrawEllipse(CircleBeatPen, RectFut);
+				BufferedNotesGraphics->Graphics->DrawEllipse(CircleBeatPen, RectFut);
 			}
 		}
 
 
 		//Draw base circle
-		notesGraphics->DrawEllipse(CircleBasePen, Rect);
+		BufferedNotesGraphics->Graphics->DrawEllipse(CircleBasePen, Rect);
 
 		//Draw Degree Lines
 		for (int i = 0; i < 360; i += 6) { //i is the angle n degrees
@@ -3819,7 +3834,7 @@ private: System::Windows::Forms::Label^ label30;
 			yEnd = (innerRadius * sin(degToRad)) + yCenterOfCircle;
 			PointF coordPointEnd(xEnd, yEnd);
 
-			notesGraphics->DrawLine(CircleLinesPen, coordPointStart, coordPointEnd);
+			BufferedNotesGraphics->Graphics->DrawLine(CircleLinesPen, coordPointStart, coordPointEnd);
 		}
 
 		//Draw future holds
@@ -3833,7 +3848,8 @@ private: System::Windows::Forms::Label^ label30;
 						futArcLength = -((float)listofNotesitr->size * 6);
 						CircleNotePen->Color = returnColor(listofNotesitr->noteType);
 						//modify rectangle to scale with how long until the note appears
-						float NoteScale = 1 - ((timeAtITR - currentTime) * (1 / totalTimeShowNotes)); //0-1 = 0-100%
+						float NoteScaleInitial = 1 - ((timeAtITR - currentTime) * (1 / totalTimeShowNotes)); //0-1 = 0-100%
+						float NoteScale = (std::pow(10.f, NoteScaleInitial)) / 10.f;
 						sizeOfRectFut = sizeOfRect * NoteScale;
 						circleRadiusFut = (sizeOfRectFut / 2);
 						xPosFut = xPos + (circleRadius - circleRadiusFut) + 1;
@@ -3844,7 +3860,7 @@ private: System::Windows::Forms::Label^ label30;
 						System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
 						System::Drawing::Rectangle RectFut(locationFut, sizeFut);
 						if (RectFut.Width >= 1) {
-							notesGraphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
+							BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
 						}
 					}
 				}
@@ -3866,7 +3882,8 @@ private: System::Windows::Forms::Label^ label30;
 						futArcLength = -((float)listofNotesitr->size * 6);
 						CircleNotePen->Color = returnColor(listofNotesitr->noteType);
 						//modify rectangle to scale with how long until the note appears
-						float NoteScale = 1 - ((timeAtITR - currentTime) * (1 / totalTimeShowNotes)); //0-1 = 0-100%
+						float NoteScaleInitial = 1 - ((timeAtITR - currentTime) * (1 / totalTimeShowNotes)); //0-1 = 0-100%
+						float NoteScale = (std::pow(10.f, NoteScaleInitial)) / 10.f;
 						sizeOfRectFut = sizeOfRect * NoteScale;
 						circleRadiusFut = (sizeOfRectFut / 2);
 						xPosFut = xPos + (circleRadius - circleRadiusFut) + 1;
@@ -3877,7 +3894,7 @@ private: System::Windows::Forms::Label^ label30;
 						System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
 						System::Drawing::Rectangle RectFut(locationFut, sizeFut);
 						if (RectFut.Width >= 1) {
-							notesGraphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
+							BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
 						}
 					}
 				}
@@ -3893,14 +3910,35 @@ private: System::Windows::Forms::Label^ label30;
 		if (SelectedLineType == 1 && Rect.Width >= 1) {
 			CircleNotePen->Color = returnColor(SelectedNoteTypeVisual);
 			CircleNotePen->Width = 4;
-			notesGraphics->DrawArc(CircleNotePen, Rect, startAngle, arcLength);
+			BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, Rect, startAngle, arcLength);
 		}
+
+		//Draw Buffer to screen
+		BufferedNotesGraphics->Render(notesGraphics);
 	}
 	private: System::Void backgroundWorkerPaint_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e) {
-
+		//unused
+		int j = 0;
+		while (true) {
+			backgroundWorkerPaint->ReportProgress(j);
+			if (j == 1)
+				j = 0;
+			else
+				j = 1;
+			Thread::Sleep(50);
+		}
 	}
 	private: System::Void backgroundWorkerPaint_ProgressChanged(System::Object^ sender, System::ComponentModel::ProgressChangedEventArgs^ e) {
-
+		//unused
+		if (!alreadyRefreshed && !noteRefresh) {
+			CirclePanel->Refresh();
+		}
+		else {
+			alreadyRefreshed = false;
+		}
+	}
+	private: System::Void backgroundWorkerPaint_RunWorkerCompleted(System::Object^ sender, System::ComponentModel::RunWorkerCompletedEventArgs^ e) {
+		//unused
 	}
 	private: System::Void VisualHispeed_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
 		RefreshPaint();
@@ -3987,7 +4025,11 @@ private: System::Windows::Forms::Label^ label30;
 		noteRefresh = true;
 		scrollBarChanged = true;
 		theCurrentMeasure = currentMeasure;
-		BeatNum->Value = (Decimal)std::floor(currentMeasure);
+		if (currentMeasure >= 0) {
+			MeasureNum->Value = (Decimal)std::floor(currentMeasure);
+			float currentSubMeasure = currentMeasure - std::floor(currentMeasure);
+			BeatNum1->Value = (Decimal)(std::floor(currentSubMeasure * (float)BeatNum2->Value));
+		}
 		noteRefresh = false;
 		RefreshPaint();
 		scrollBarChanged = false;
@@ -4007,6 +4049,12 @@ private: System::Windows::Forms::Label^ label30;
 		if (songFilePath != "" && currentlyPlayingSound != nullptr) {
 			currentlyPlayingSound->PlaybackSpeed = (float)PlaybackSpeedNum->Value;
 		}
+	}
+	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
+		//backgroundWorkerPaint->RunWorkerAsync();
+		SetStyle(ControlStyles::OptimizedDoubleBuffer, true);
+		SetStyle(ControlStyles::UserPaint, true);
+		SetStyle(ControlStyles::AllPaintingInWmPaint, true);
 	}
 };
 }
