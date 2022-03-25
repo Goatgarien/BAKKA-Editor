@@ -101,8 +101,6 @@ bool sortNotesListByBeat(const NotesNode& lhs, const NotesNode& rhs) {
 		return true;
 	else if ((lhs.beat == rhs.beat) && (lhs.subBeat < rhs.subBeat))
 		return true;
-	else if ((lhs.beat == rhs.beat) && (lhs.subBeat == rhs.subBeat))
-		return true;
 	else
 		return false;
 }
@@ -2166,11 +2164,11 @@ private: System::Windows::Forms::Label^ label30;
 				PosNum->Value = viewNotesITR->position;
 				SizeNum->Value = viewNotesITR->size;
 				SelectedNoteTypeVisual = viewNotesITR->noteType;
-				if (SelectedNoteTypeVisual != 10 || SelectedNoteTypeVisual != 11) {
+				if (SelectedNoteTypeVisual != 10 && SelectedNoteTypeVisual != 11 && SelectedNoteTypeVisual != 9 && SelectedNoteTypeVisual != 25) {
 					SelectedLineType = 1;
 					SelectedNoteType = viewNotesITR->noteType;
-					CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 				}
+				CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			}
 			if (MatchTimeCheckBox->Checked) {
 				noteRefresh = true;
@@ -2573,17 +2571,14 @@ private: System::Windows::Forms::Label^ label30;
 				else {
 					CurrentObjectText->Text = "Hold Middle";
 				}
-				tempNotesNode.prevNode = theChart.Notes.end();
 				SelectedNoteType = 10;
 				break;
 			case 10:
 				if (EndHoldBox->Checked) {
 					SelectedNoteType = 11;
 					tempNotesNode.noteType = SelectedNoteType;
-					tempNotesNode.prevNode = holdNoteitr;
 					break;
 				}
-				tempNotesNode.prevNode = holdNoteitr;
 				break;
 			case 12:
 				if (MaskClockwise->Checked) {
@@ -2614,7 +2609,6 @@ private: System::Windows::Forms::Label^ label30;
 				else {
 					CurrentObjectText->Text = "Hold Middle";
 				}
-				tempNotesNode.prevNode = theChart.Notes.end();
 				SelectedNoteType = 10;
 				break;
 			}
@@ -2627,7 +2621,6 @@ private: System::Windows::Forms::Label^ label30;
 					SelectedNoteType = 9;
 					CurrentObjectText->Text = "Hold Start (No Bonus)";
 				}
-				tempNotesNode.nextNode = theChart.Notes.end();
 			}
 
 			theChart.Notes.push_back(tempNotesNode);
@@ -2638,17 +2631,25 @@ private: System::Windows::Forms::Label^ label30;
 				viewNotesITR--;
 				switch (viewNotesITR->noteType) {
 				case 9:
+					viewNotesITR->prevNode = theChart.Notes.end();
+					viewNotesITR->nextNode = theChart.Notes.end();
 					holdNoteitr = viewNotesITR;
 					break;
 				case 10:
+					viewNotesITR->prevNode = holdNoteitr;
 					viewNotesITR->prevNode->nextNode = viewNotesITR;
+					viewNotesITR->nextNode = theChart.Notes.end();
 					holdNoteitr = viewNotesITR;
 					break;
 				case 11:
+					viewNotesITR->prevNode = holdNoteitr;
 					viewNotesITR->prevNode->nextNode = viewNotesITR;
+					viewNotesITR->nextNode = theChart.Notes.end();
 					holdNoteitr = theChart.Notes.end();
 					break;
 				case 25:
+					viewNotesITR->prevNode = theChart.Notes.end();
+					viewNotesITR->nextNode = theChart.Notes.end();
 					holdNoteitr = viewNotesITR;
 					break;
 				}
@@ -3220,20 +3221,10 @@ private: System::Windows::Forms::Label^ label30;
 			bool holdDelete = false;
 			do {
 				std::list<NotesNode>::iterator viewNotesITRtemp = viewNotesITR;
-				if (viewNotesITRtemp->noteType == 9 || viewNotesITRtemp->noteType == 25) {
-					holdDelete = true;
-					viewNotesITRtemp = viewNotesITRtemp->nextNode;
-					viewNotesITR = viewNotesITRtemp;
-				}
-				else if (viewNotesITRtemp->noteType == 10) {
-					holdDelete = true;
-					viewNotesITRtemp = viewNotesITRtemp->nextNode;
-					viewNotesITR = viewNotesITRtemp;
-				}
-				else if (viewNotesITRtemp->noteType == 11) { //deletes hold from end until it's all gone
+				if (viewNotesITRtemp->noteType == 9 || viewNotesITRtemp->noteType == 25) { //deletes hold from start until it's all gone
 					holdDelete = true;
 					while (holdDelete) {
-						if (viewNotesITRtemp->noteType == 9 || viewNotesITRtemp->noteType == 25) {
+						if (viewNotesITRtemp->noteType == 11) {
 							if (viewNotesITR == theChart.Notes.begin()) {
 								viewNotesITR++;
 							}
@@ -3244,13 +3235,39 @@ private: System::Windows::Forms::Label^ label30;
 							holdDelete = false;
 						}
 						else {
-							viewNotesITR = viewNotesITRtemp->prevNode;
-							theChart.Notes.erase(viewNotesITRtemp);
-							viewNotesITRtemp = viewNotesITR;
-							viewNotesITRtemp->nextNode = theChart.Notes.end();
+							if (viewNotesITRtemp->nextNode != theChart.Notes.end()) {
+								viewNotesITR = viewNotesITRtemp->nextNode;
+								theChart.Notes.erase(viewNotesITRtemp);
+								viewNotesITRtemp = viewNotesITR;
+								viewNotesITRtemp->prevNode = theChart.Notes.end();
+							}
+							else {
+								if (viewNotesITR == theChart.Notes.begin()) {
+									viewNotesITR++;
+								}
+								else {
+									viewNotesITR--;
+								}
+								SelectedNoteType = 9;
+								if (BonusFlairRadioButton->Checked)
+									SelectedNoteType = 25;
+								CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
+								theChart.Notes.erase(viewNotesITRtemp);
+								holdDelete = false;
+							}
 						}
 					}
 					holdDelete = false;
+				}
+				else if (viewNotesITRtemp->noteType == 10) {
+					holdDelete = true;
+					viewNotesITRtemp = viewNotesITRtemp->prevNode;
+					viewNotesITR = viewNotesITRtemp;
+				}
+				else if (viewNotesITRtemp->noteType == 11) {
+					holdDelete = true;
+					viewNotesITRtemp = viewNotesITRtemp->prevNode;
+					viewNotesITR = viewNotesITRtemp;
 				}
 				else {
 					if (viewNotesITR == theChart.Notes.begin()) {
