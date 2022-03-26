@@ -22,15 +22,16 @@ using namespace IrrKlang;
 Chart theChart;
 std::string songFilePath = "";
 std::string chartFilePath = "";
+std::string tickFilePath = "se_tick.ogg";
 int SelectedLineType = 1;
 int SelectedNoteType = 1;
 int SelectedNoteTypeVisual = 1;
 std::list<NotesNode>::iterator viewNotesITR = theChart.Notes.begin();
 std::list<PreChartNode>::iterator viewGimmicksITR = theChart.PreChart.begin();
 std::list<NotesNode>::iterator holdNoteitr = theChart.Notes.end();
-std::map<float, std::list<std::pair<int, int>>> mapOfMasks;
-std::map<float, std::list<NotesNode>> mapOfNotes;
-std::map<float, float> mapOfTimeBetweenBeats; //current beat, milliseconds beatween beats
+std::map<float, std::list<std::pair<int, int>>> mapOfMasks; //measure, list of masks
+std::map<float, std::list<NotesNode>> mapOfNotes; //measure, list of notes
+std::map<float, float> mapOfTimeBetweenMeasures; //current beat, milliseconds beatween beats
 std::map<float, float> mapOfBeatAtTime; //milliseconds start time, beat start time
 std::map<float, float> mapOfBPMatTime; //measure start time, BPM at time
 std::map<float, std::pair<int, int>> mapOfTSatTime; //measure start time, Time Signature at time
@@ -38,7 +39,7 @@ bool alreadyRefreshed = false;
 bool noteRefresh = false;
 bool subnum1changed = false;
 int songLength = 0;
-const unsigned int update_interval = 8; // update after every 100 milliseconds (1/16th of 100bpm)
+const unsigned int update_interval = 1; // update after every 100 milliseconds (1/16th of 100bpm)
 const int milInMinute = 60000;
 bool scrollBarChanged = false;
 float theCurrentMeasure = 0;
@@ -93,6 +94,8 @@ bool isHold(int note) {
 		return false;
 	case 25:
 		return true;
+	case 26:
+		return false;
 	}
 	return false;
 }
@@ -160,7 +163,8 @@ namespace BAKKAEditor {
 	private: System::Windows::Forms::MenuStrip^ menuStrip;
 	protected:
 		ISoundEngine SoundEngine;
-		ISound^ currentlyPlayingSound = SoundEngine.Play2D(stdStringToSystemString(songFilePath), true, true);
+		ISound^ currentlyPlayingSong = SoundEngine.Play2D(stdStringToSystemString(songFilePath), true, true);
+		ISound^ currentlyPlayingTickSound = SoundEngine.Play2D(stdStringToSystemString(tickFilePath), false, true);
 	protected:
 	private: System::Windows::Forms::ToolStripMenuItem^ fileToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ newToolStripMenuItem;
@@ -325,7 +329,8 @@ private: System::Windows::Forms::Label^ songFileName;
 private: System::Windows::Forms::Button^ selectSongFile;
 private: System::Windows::Forms::OpenFileDialog^ openFileDialogSong;
 private: System::Windows::Forms::Label^ VolumeLabel;
-private: System::Windows::Forms::TrackBar^ Volume;
+private: System::Windows::Forms::TrackBar^ SongVolume;
+
 private: System::ComponentModel::BackgroundWorker^ backgroundWorkerSong;
 private: System::ComponentModel::BackgroundWorker^ backgroundWorkerPaint;
 private: System::ComponentModel::BackgroundWorker^ backgroundWorker1;
@@ -333,6 +338,10 @@ private: System::ComponentModel::BackgroundWorker^ backgroundWorker2;
 private: System::Windows::Forms::Panel^ panel1;
 private: System::Windows::Forms::NumericUpDown^ PlaybackSpeedNum;
 private: System::Windows::Forms::Label^ label30;
+private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
+
+
+
 
 
 
@@ -518,12 +527,13 @@ private: System::Windows::Forms::Label^ label30;
 			this->fileSystemWatcher1 = (gcnew System::IO::FileSystemWatcher());
 			this->CirclePanel = (gcnew System::Windows::Forms::Panel());
 			this->VisualSettingsBox = (gcnew System::Windows::Forms::GroupBox());
+			this->HighlightCheckBox = (gcnew System::Windows::Forms::CheckBox());
 			this->PlayButton = (gcnew System::Windows::Forms::Button());
 			this->songTrackSlider = (gcnew System::Windows::Forms::TrackBar());
 			this->selectSongFile = (gcnew System::Windows::Forms::Button());
 			this->SongPlaybackBox = (gcnew System::Windows::Forms::GroupBox());
 			this->VolumeLabel = (gcnew System::Windows::Forms::Label());
-			this->Volume = (gcnew System::Windows::Forms::TrackBar());
+			this->SongVolume = (gcnew System::Windows::Forms::TrackBar());
 			this->songFileName = (gcnew System::Windows::Forms::Label());
 			this->openFileDialogSong = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->backgroundWorkerSong = (gcnew System::ComponentModel::BackgroundWorker());
@@ -571,7 +581,7 @@ private: System::Windows::Forms::Label^ label30;
 			this->VisualSettingsBox->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->songTrackSlider))->BeginInit();
 			this->SongPlaybackBox->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Volume))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SongVolume))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -640,7 +650,8 @@ private: System::Windows::Forms::Label^ label30;
 			// OrangeButton
 			// 
 			resources->ApplyResources(this->OrangeButton, L"OrangeButton");
-			this->OrangeButton->BackColor = System::Drawing::Color::DarkOrange;
+			this->OrangeButton->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)));
 			this->OrangeButton->Name = L"OrangeButton";
 			this->OrangeButton->UseVisualStyleBackColor = false;
 			this->OrangeButton->Click += gcnew System::EventHandler(this, &MyForm::OrangeButton_Click);
@@ -664,7 +675,7 @@ private: System::Windows::Forms::Label^ label30;
 			// BlueButton
 			// 
 			resources->ApplyResources(this->BlueButton, L"BlueButton");
-			this->BlueButton->BackColor = System::Drawing::Color::Cyan;
+			this->BlueButton->BackColor = System::Drawing::Color::Aqua;
 			this->BlueButton->Name = L"BlueButton";
 			this->BlueButton->UseVisualStyleBackColor = false;
 			this->BlueButton->Click += gcnew System::EventHandler(this, &MyForm::BlueButton_Click);
@@ -672,7 +683,8 @@ private: System::Windows::Forms::Label^ label30;
 			// YellowButton
 			// 
 			resources->ApplyResources(this->YellowButton, L"YellowButton");
-			this->YellowButton->BackColor = System::Drawing::Color::Goldenrod;
+			this->YellowButton->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(204)), static_cast<System::Int32>(static_cast<System::Byte>(190)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)));
 			this->YellowButton->Name = L"YellowButton";
 			this->YellowButton->UseVisualStyleBackColor = false;
 			this->YellowButton->Click += gcnew System::EventHandler(this, &MyForm::YellowButton_Click);
@@ -1538,17 +1550,24 @@ private: System::Windows::Forms::Label^ label30;
 			resources->ApplyResources(this->CirclePanel, L"CirclePanel");
 			this->CirclePanel->BackColor = System::Drawing::Color::Transparent;
 			this->CirclePanel->Name = L"CirclePanel";
+			this->CirclePanel->Scroll += gcnew System::Windows::Forms::ScrollEventHandler(this, &MyForm::CirclePanel_Scroll);
 			this->CirclePanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::CirclePanel_Paint);
 			// 
 			// VisualSettingsBox
 			// 
 			resources->ApplyResources(this->VisualSettingsBox, L"VisualSettingsBox");
-			this->VisualSettingsBox->Controls->Add(this->PlaybackSpeedNum);
-			this->VisualSettingsBox->Controls->Add(this->label30);
+			this->VisualSettingsBox->Controls->Add(this->HighlightCheckBox);
 			this->VisualSettingsBox->Controls->Add(this->label2);
 			this->VisualSettingsBox->Controls->Add(this->VisualHispeed);
 			this->VisualSettingsBox->Name = L"VisualSettingsBox";
 			this->VisualSettingsBox->TabStop = false;
+			// 
+			// HighlightCheckBox
+			// 
+			resources->ApplyResources(this->HighlightCheckBox, L"HighlightCheckBox");
+			this->HighlightCheckBox->Name = L"HighlightCheckBox";
+			this->HighlightCheckBox->UseVisualStyleBackColor = true;
+			this->HighlightCheckBox->CheckedChanged += gcnew System::EventHandler(this, &MyForm::HighlightCheckBox_CheckedChanged);
 			// 
 			// PlayButton
 			// 
@@ -1574,8 +1593,10 @@ private: System::Windows::Forms::Label^ label30;
 			// SongPlaybackBox
 			// 
 			resources->ApplyResources(this->SongPlaybackBox, L"SongPlaybackBox");
+			this->SongPlaybackBox->Controls->Add(this->PlaybackSpeedNum);
 			this->SongPlaybackBox->Controls->Add(this->VolumeLabel);
-			this->SongPlaybackBox->Controls->Add(this->Volume);
+			this->SongPlaybackBox->Controls->Add(this->label30);
+			this->SongPlaybackBox->Controls->Add(this->SongVolume);
 			this->SongPlaybackBox->Controls->Add(this->songFileName);
 			this->SongPlaybackBox->Controls->Add(this->PlayButton);
 			this->SongPlaybackBox->Controls->Add(this->label29);
@@ -1589,15 +1610,15 @@ private: System::Windows::Forms::Label^ label30;
 			resources->ApplyResources(this->VolumeLabel, L"VolumeLabel");
 			this->VolumeLabel->Name = L"VolumeLabel";
 			// 
-			// Volume
+			// SongVolume
 			// 
-			resources->ApplyResources(this->Volume, L"Volume");
-			this->Volume->Maximum = 100;
-			this->Volume->Name = L"Volume";
-			this->Volume->SmallChange = 5;
-			this->Volume->TickFrequency = 10;
-			this->Volume->Value = 100;
-			this->Volume->Scroll += gcnew System::EventHandler(this, &MyForm::Volume_Scroll);
+			resources->ApplyResources(this->SongVolume, L"SongVolume");
+			this->SongVolume->Maximum = 100;
+			this->SongVolume->Name = L"SongVolume";
+			this->SongVolume->SmallChange = 5;
+			this->SongVolume->TickFrequency = 10;
+			this->SongVolume->Value = 100;
+			this->SongVolume->Scroll += gcnew System::EventHandler(this, &MyForm::SongVolume_Scroll);
 			// 
 			// songFileName
 			// 
@@ -1653,10 +1674,12 @@ private: System::Windows::Forms::Label^ label30;
 			this->Controls->Add(this->NoteTypeBox);
 			this->Controls->Add(this->menuStrip);
 			this->DoubleBuffered = true;
+			this->KeyPreview = true;
 			this->MainMenuStrip = this->menuStrip;
 			this->Name = L"MyForm";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::MyForm_Paint);
+			this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::MyForm_KeyPress);
 			this->Resize += gcnew System::EventHandler(this, &MyForm::MyForm_Resize);
 			this->menuStrip->ResumeLayout(false);
 			this->menuStrip->PerformLayout();
@@ -1709,7 +1732,7 @@ private: System::Windows::Forms::Label^ label30;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->songTrackSlider))->EndInit();
 			this->SongPlaybackBox->ResumeLayout(false);
 			this->SongPlaybackBox->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Volume))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SongVolume))->EndInit();
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
 			this->ResumeLayout(false);
@@ -1876,19 +1899,21 @@ private: System::Windows::Forms::Label^ label30;
 	}
 	void refreshMapofNotes() {
 		mapOfNotes.clear();
-		for (std::list<NotesNode>::iterator viewMasksITR = theChart.Notes.begin(); viewMasksITR != theChart.Notes.end(); viewMasksITR++) {
-			float currentTime = (float)viewMasksITR->beat + ((float)viewMasksITR->subBeat / 1920.f);
-			if (viewMasksITR->noteType != 12 || viewMasksITR->noteType != 13) {
+		for (std::list<NotesNode>::iterator NotesITR = theChart.Notes.begin(); NotesITR != theChart.Notes.end(); NotesITR++) {
+			float currentTime = (float)NotesITR->beat + ((float)NotesITR->subBeat / 1920.f);
+			if (NotesITR->noteType != 12 || NotesITR->noteType != 13) {
 				NotesNode tempnode;
-				tempnode.noteType = viewMasksITR->noteType;
-				tempnode.position = viewMasksITR->position;
-				tempnode.size = viewMasksITR->size;
+				tempnode.beat = NotesITR->beat;
+				tempnode.subBeat = NotesITR->subBeat;
+				tempnode.noteType = NotesITR->noteType;
+				tempnode.position = NotesITR->position;
+				tempnode.size = NotesITR->size;
 				mapOfNotes[currentTime].push_back(tempnode);
 			}
 		}
 	}
 	void refreshMapOfTime() {
-		mapOfTimeBetweenBeats.clear(); 
+		mapOfTimeBetweenMeasures.clear(); 
 		mapOfBPMatTime.clear();
 		mapOfTSatTime.clear();
 		//tempo - X bpm - (eg.:120).
@@ -1899,7 +1924,7 @@ private: System::Windows::Forms::Label^ label30;
 		float TS = (float)InitTimeSigNum1->Value / (float)InitTimeSigNum2->Value;
 		// if nothing exists yet then make measure 0 match initial values
 		// PreChart list should overwrite this if it has anything
-		mapOfTimeBetweenBeats[0] = ((float)milInMinute / (float)InitialBPMNum->Value) * oneFourthMultiplier * TS;
+		mapOfTimeBetweenMeasures[0] = ((float)milInMinute / (float)InitialBPMNum->Value) * oneFourthMultiplier * TS;
 
 		if (!theChart.PreChart.empty()) {
 			for (std::list<PreChartNode>::iterator viewGimmicksITR = theChart.PreChart.begin(); viewGimmicksITR != theChart.PreChart.end(); viewGimmicksITR++) {
@@ -1957,21 +1982,21 @@ private: System::Windows::Forms::Label^ label30;
 			//this itr could be map of time signatures too, doesnt matter
 			for (std::map<float, float>::iterator itr = mapOfBPMatTime.begin(); itr != mapOfBPMatTime.end(); itr++) {
 				float TS = (float)mapOfTSatTime[itr->first].first / (float)mapOfTSatTime[itr->first].second;
-				mapOfTimeBetweenBeats[itr->first] = ((float)milInMinute / (float)mapOfBPMatTime[itr->first]) * oneFourthMultiplier * TS;
+				mapOfTimeBetweenMeasures[itr->first] = ((float)milInMinute / (float)mapOfBPMatTime[itr->first]) * oneFourthMultiplier * TS;
 			}
 		}
 		refreshMapOfBeatAtTime();
 	}
 	void refreshMapOfBeatAtTime() {
 		mapOfBeatAtTime.clear();
-		std::map<float, float>::iterator itr = mapOfTimeBetweenBeats.begin();
+		std::map<float, float>::iterator itr = mapOfTimeBetweenMeasures.begin();
 		int startTime = (theChart.offset * 1000.f); //convert off from seconds to milliseconds
 		mapOfBeatAtTime[startTime] = 0; //millisecond 0 of song starts at measure 0 of song;
-		if (itr != mapOfTimeBetweenBeats.end()) {
+		if (itr != mapOfTimeBetweenMeasures.end()) {
 			float prevTimeMil = startTime;
 			float prevTimeBeats = itr->first;
 			float prevTimePerMeasure = itr->second;
-			for (itr++; itr != mapOfTimeBetweenBeats.end(); itr++) {
+			for (itr++; itr != mapOfTimeBetweenMeasures.end(); itr++) {
 				float differenceBetweenMeasures = itr->first - prevTimeBeats;
 				float millisecondsFromLastChange = differenceBetweenMeasures * prevTimePerMeasure;
 				float nextTime = millisecondsFromLastChange + prevTimeMil;
@@ -2101,6 +2126,8 @@ private: System::Windows::Forms::Label^ label30;
 			return "Slide (G) (Bonus With Flair)";
 		case 25:
 			return "Hold Start (Bonus With Flair)";
+		case 26:
+			return "Chain (Bonus With Flair)";
 		}
 		return "None Selected";
 	}
@@ -2148,6 +2175,8 @@ private: System::Windows::Forms::Label^ label30;
 			return "Slide (G) (Bonus With Flair)";
 		case 25:
 			return "Hold Start (Bonus With Flair)";
+		case 26:
+			return "Chain (Bonus With Flair)";
 		}
 		return "List Empty";
 	}
@@ -2159,6 +2188,7 @@ private: System::Windows::Forms::Label^ label30;
 			float num2 = 1920;
 			std::string subBeatString = subBeatValueDisplay(num1, num2);
 			NotesSubBeatLabel->Text = stdStringToSystemString(subBeatString);
+			bool refreshThePaint = false;
 
 			if (MatchNoteCheckBox->Checked) {
 				PosNum->Value = viewNotesITR->position;
@@ -2176,6 +2206,12 @@ private: System::Windows::Forms::Label^ label30;
 				BeatNum2->Value = (int)subBeatValue2(num1, num2); //change 2 first so that 1 doesnt become larger and make it round up to the next beat
 				BeatNum1->Value = (int)subBeatValue1(num1, num2);
 				noteRefresh = false;
+				refreshThePaint = true;
+			}
+			if (HighlightCheckBox->Checked) {
+				refreshThePaint = true;
+			}
+			if (refreshThePaint) {
 				RefreshPaint();
 			}
 
@@ -2844,7 +2880,12 @@ private: System::Windows::Forms::Label^ label30;
 	}
 	private: System::Void YellowButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
-			SelectedNoteType = 16;
+			if (BonusFlairRadioButton->Checked) {
+				SelectedNoteType = 26;
+			}
+			else {
+				SelectedNoteType = 16;
+			}
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
 			SelectedLineType = 1;
@@ -2978,6 +3019,11 @@ private: System::Windows::Forms::Label^ label30;
 					SelectedNoteType = 9;
 				}
 				break;
+			case 26:
+				if (NoBonusRadioButton->Checked) {
+					SelectedNoteType = 16;
+				}
+				break;
 			}
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
@@ -3067,6 +3113,11 @@ private: System::Windows::Forms::Label^ label30;
 			case 9:
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 25;
+				}
+				break;
+			case 16:
+				if (BonusFlairRadioButton->Checked) {
+					SelectedNoteType = 26;
 				}
 				break;
 			}
@@ -3327,6 +3378,8 @@ private: System::Windows::Forms::Label^ label30;
 			return GreenButton->BackColor;
 		case 25:
 			return HoldButton->BackColor;
+		case 26:
+			return YellowButton->BackColor;
 		}
 		return Color::Transparent;
 	}
@@ -3544,6 +3597,13 @@ private: System::Windows::Forms::Label^ label30;
 		int botPos = NotesViewBox->Top - paddingBetweenObjects;
 		int width = rightPos - leftPos;
 		int height = botPos - topPos;
+		/*
+		if (width < (InitialSettingsPane->Left - leftPos)) {
+			topPos = InitialSettingsPane->Top;
+			width = (InitialSettingsPane->Left - paddingBetweenObjects) - leftPos;
+			height = (NotesViewBox->Top - paddingBetweenObjects) - InitialSettingsPane->Top;
+		}
+		*/
 		Point position(leftPos, topPos);
 		CirclePanel->Location = position;
 		if (width > height) {
@@ -3591,21 +3651,21 @@ private: System::Windows::Forms::Label^ label30;
 		RefreshPaint();
 	}
 	void refreshScrollBarFromMeasureNum() {
-		if (!mapOfTimeBetweenBeats.empty()) {
+		if (!mapOfTimeBetweenMeasures.empty()) {
 			float currentMeasure = (float)MeasureNum->Value + ((float)BeatNum1->Value / (float)BeatNum2->Value); //in measures
 			float lastTime = 0;
 			float timeBetweenBeats;
 			float lastMeasure;
-			if (mapOfTimeBetweenBeats.find(currentMeasure) == mapOfTimeBetweenBeats.end()) {
-				std::map<float, float>::iterator itr = mapOfTimeBetweenBeats.lower_bound(currentMeasure);
-				if (itr != mapOfTimeBetweenBeats.end()) {
-					if (itr != mapOfTimeBetweenBeats.begin()) {
+			if (mapOfTimeBetweenMeasures.find(currentMeasure) == mapOfTimeBetweenMeasures.end()) {
+				std::map<float, float>::iterator itr = mapOfTimeBetweenMeasures.lower_bound(currentMeasure);
+				if (itr != mapOfTimeBetweenMeasures.end()) {
+					if (itr != mapOfTimeBetweenMeasures.begin()) {
 						itr--;
 					}
 				}
 				else {
-					itr = mapOfTimeBetweenBeats.end();
-					if (!mapOfTimeBetweenBeats.empty()) {
+					itr = mapOfTimeBetweenMeasures.end();
+					if (!mapOfTimeBetweenMeasures.empty()) {
 						itr--;
 					}
 				}
@@ -3614,7 +3674,7 @@ private: System::Windows::Forms::Label^ label30;
 			}
 			else {
 				lastMeasure = currentMeasure;
-				timeBetweenBeats = mapOfTimeBetweenBeats[currentMeasure]; //use current measure to find last "milliseconds per measure"
+				timeBetweenBeats = mapOfTimeBetweenMeasures[currentMeasure]; //use current measure to find last "milliseconds per measure"
 			}
 			for (std::map<float, float>::iterator itrBaT = mapOfBeatAtTime.begin(); itrBaT != mapOfBeatAtTime.end(); itrBaT++) {
 				if (itrBaT->second == lastMeasure) { //use itr->first value in first map to search for itr->second in second map,
@@ -3625,8 +3685,8 @@ private: System::Windows::Forms::Label^ label30;
 			float differenceInTimeMeasures = currentMeasure - lastMeasure;
 			float currentTimeMil = (differenceInTimeMeasures * timeBetweenBeats) + lastTime; //itr->first in second map + ("milliseconds per measure" * time)
 
-			if (currentlyPlayingSound != nullptr) {
-				if (currentlyPlayingSound->Paused) {
+			if (currentlyPlayingSong != nullptr) {
+				if (currentlyPlayingSong->Paused) {
 					scrollBarChanged = true;
 					if (currentTimeMil < songTrackSlider->Maximum) {
 						songTrackSlider->Value = currentTimeMil;
@@ -3709,14 +3769,23 @@ private: System::Windows::Forms::Label^ label30;
 		System::Drawing::Rectangle PanelRect(0, 0, CirclePanel->Width, CirclePanel->Height);
 		BufferedNotesGraphics = context->Allocate(CirclePanel->CreateGraphics(), PanelRect);
 		//Pens for drawing parts of circle
-		float widthOfBasePen = 3;
-		float widthOfLinesPen = 2;
-		float widthOfNotePen = 5;
-		float widthOfBeatPen = 1;
+		float widthOfBasePen = (float)CirclePanel->Width * (4.f / 600.f); //sizes are essentially the pixel width if the box is 600x600
+		float widthOfLinesPen = (float)CirclePanel->Width * (2.f / 600.f);
+		float widthOfNotePen = (float)CirclePanel->Width * (8.f / 600.f);
+		float widthOfMeasurePen = (float)CirclePanel->Width * (1.f / 600.f);
+		float highlightWidth = (float)CirclePanel->Width * (5.f / 600.f);
+		float baseLineLength = (float)CirclePanel->Width * (10.f / 285.f); //10 pixels if box is 285x285
+		float baseLineWidth = (float)CirclePanel->Width * (1.f / 285.f);
+		int BonusTransparency = 75; //0 is full transparent, 255 is max
+		int SelectedTransparency = 110;
+		Color BonusColor = Color(Color::FromArgb(BonusTransparency, Color::Yellow));
+		Color HighlightColor = Color(Color::FromArgb(SelectedTransparency, Color::LightPink));
 		Pen^ CircleBasePen = gcnew Pen(Color::Black, widthOfBasePen);
 		Pen^ CircleLinesPen = gcnew Pen(Color::Black, widthOfLinesPen);
 		Pen^ CircleNotePen = gcnew Pen(Color::Transparent, widthOfNotePen);
-		Pen^ CircleBeatPen = gcnew Pen(Color::White, widthOfBeatPen);
+		Pen^ CircleBeatPen = gcnew Pen(Color::White, widthOfMeasurePen);
+		SolidBrush^ MaskBrush = gcnew SolidBrush(Color::DimGray);
+		SolidBrush^ MaskRemoveBrush = gcnew SolidBrush(Color::White);
 		//Circle location and size
 		float xPos = widthOfNotePen;
 		float yPos = widthOfNotePen;
@@ -3770,7 +3839,7 @@ private: System::Windows::Forms::Label^ label30;
 					for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
 						maskStartAngle = -((float)listITR->first * 6);
 						maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
-						BufferedNotesGraphics->Graphics->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+						BufferedNotesGraphics->Graphics->FillPie(MaskBrush, Rect, maskStartAngle, maskArcLength);
 					}
 				}
 			}
@@ -3781,7 +3850,7 @@ private: System::Windows::Forms::Label^ label30;
 					for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
 						maskStartAngle = -((float)listITR->first * 6);
 						maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
-						BufferedNotesGraphics->Graphics->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+						BufferedNotesGraphics->Graphics->FillPie(MaskBrush, Rect, maskStartAngle, maskArcLength);
 					}
 				}
 			}
@@ -3791,7 +3860,7 @@ private: System::Windows::Forms::Label^ label30;
 				for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
 					maskStartAngle = -((float)listITR->first * 6);
 					maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
-					BufferedNotesGraphics->Graphics->FillPie(Brushes::Silver, Rect, maskStartAngle, maskArcLength);
+					BufferedNotesGraphics->Graphics->FillPie(MaskBrush, Rect, maskStartAngle, maskArcLength);
 				}
 			}
 		}
@@ -3799,12 +3868,15 @@ private: System::Windows::Forms::Label^ label30;
 		//Draw selected mask
 		if (SelectedLineType == 1 && Rect.Width >= 1) {
 			if (SelectedNoteTypeVisual == 12) {
-				BufferedNotesGraphics->Graphics->FillPie(Brushes::Silver, Rect, startAngle, arcLength);
+				BufferedNotesGraphics->Graphics->FillPie(MaskBrush, Rect, startAngle, arcLength);
 			}
 			if (SelectedNoteTypeVisual == 13) {
-				BufferedNotesGraphics->Graphics->FillPie(Brushes::White, Rect, startAngle, arcLength);
+				BufferedNotesGraphics->Graphics->FillPie(MaskRemoveBrush, Rect, startAngle, arcLength);
 			}
 		}
+
+		//Switch Drawing mode
+		BufferedNotesGraphics->Graphics->SmoothingMode = Drawing2D::SmoothingMode::AntiAlias;
 
 		//Draw measure circle
 		float nearestMeasure = std::ceil(currentTime);
@@ -3814,8 +3886,8 @@ private: System::Windows::Forms::Label^ label30;
 			float NoteScale = (std::pow(10.f, NoteScaleInitial)) / 10.f;
 			sizeOfRectFut = sizeOfRect * NoteScale;
 			circleRadiusFut = (sizeOfRectFut / 2);
-			xPosFut = xPos + (circleRadius - circleRadiusFut) + 1;
-			yPosFut = yPos + (circleRadius - circleRadiusFut) + 1;
+			xPosFut = xPos + (circleRadius - circleRadiusFut);
+			yPosFut = yPos + (circleRadius - circleRadiusFut);
 
 			System::Drawing::Point locationFut(xPosFut, yPosFut);
 			System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
@@ -3837,15 +3909,15 @@ private: System::Windows::Forms::Label^ label30;
 			yStart = (circleRadius * sin(degToRad)) + yCenterOfCircle;
 			PointF coordPointStart(xStart, yStart);
 
-			float innerRadius = circleRadius - 10;
-			CircleLinesPen->Width = 1;
+			float innerRadius = circleRadius - baseLineLength;
+			CircleLinesPen->Width = baseLineWidth;
 			if (i % 90 == 0) {
-				innerRadius = circleRadius - 35;
-				CircleLinesPen->Width = 4;
+				innerRadius = circleRadius - (baseLineLength * 3.5);
+				CircleLinesPen->Width = (baseLineWidth * 3.5);
 			}
 			else if (i % 30 == 0) {
-				innerRadius = circleRadius - 25;
-				CircleLinesPen->Width = 2;
+				innerRadius = circleRadius - (baseLineLength * 2.5);
+				CircleLinesPen->Width = (baseLineWidth * 2);
 			}
 			xEnd = (innerRadius * cos(degToRad)) + xCenterOfCircle;
 			yEnd = (innerRadius * sin(degToRad)) + yCenterOfCircle;
@@ -3863,21 +3935,42 @@ private: System::Windows::Forms::Label^ label30;
 						//Future hold values
 						futStartAngle = -((float)listofNotesitr->position * 6);
 						futArcLength = -((float)listofNotesitr->size * 6);
+						if (futArcLength != -360) { //increase size for highlight slightly decrease size to better match ingame
+							futStartAngle -= 2;
+							futArcLength += 4;
+						}
 						CircleNotePen->Color = returnColor(listofNotesitr->noteType);
 						//modify rectangle to scale with how long until the note appears
 						float NoteScaleInitial = 1 - ((timeAtITR - currentTime) * (1 / totalTimeShowNotes)); //0-1 = 0-100%
 						float NoteScale = (std::pow(10.f, NoteScaleInitial)) / 10.f;
 						sizeOfRectFut = sizeOfRect * NoteScale;
 						circleRadiusFut = (sizeOfRectFut / 2);
-						xPosFut = xPos + (circleRadius - circleRadiusFut) + 1;
-						yPosFut = yPos + (circleRadius - circleRadiusFut) + 1;
+						xPosFut = xPos + (circleRadius - circleRadiusFut);
+						yPosFut = yPos + (circleRadius - circleRadiusFut);
 						CircleNotePen->Width = widthOfNotePen * NoteScale + 2;
 
 						System::Drawing::Point locationFut(xPosFut, yPosFut);
 						System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
 						System::Drawing::Rectangle RectFut(locationFut, sizeFut);
 						if (RectFut.Width >= 1) {
-							BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
+							BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw hold
+
+							if (listofNotesitr->noteType == 25) { //If bonus hold
+								CircleNotePen->Color = BonusColor;
+								CircleNotePen->Width += highlightWidth;
+								futStartAngle += 2; //increase size for highlight
+								futArcLength -= 4;
+								BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw highlight
+							}
+							if (HighlightCheckBox->Checked) {
+								if (islistITREqualToViewITR(listofNotesitr)) {
+									CircleNotePen->Color = HighlightColor;
+									CircleNotePen->Width += highlightWidth;
+									futStartAngle += 2; //increase size for highlight
+									futArcLength -= 4;
+									BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw highlight
+								}
+							}
 						}
 					}
 				}
@@ -3893,25 +3986,46 @@ private: System::Windows::Forms::Label^ label30;
 			float timeAtITR = notemapitr->first;
 			if (timeAtITR <= (currentTime + totalTimeShowNotes)) {
 				for (std::list<NotesNode>::iterator listofNotesitr = notemapitr->second.begin(); listofNotesitr != notemapitr->second.end(); listofNotesitr++) {
-					if (!isHold(listofNotesitr->noteType)) {
+					if (!isHold(listofNotesitr->noteType) && listofNotesitr->noteType != 12 && listofNotesitr->noteType != 13) {
 						//Future note values
 						futStartAngle = -((float)listofNotesitr->position * 6);
 						futArcLength = -((float)listofNotesitr->size * 6);
+						if (futArcLength != -360) { //increase size for highlight slightly decrease size to better match ingame
+							futStartAngle -= 2;
+							futArcLength += 4;
+						}
 						CircleNotePen->Color = returnColor(listofNotesitr->noteType);
 						//modify rectangle to scale with how long until the note appears
 						float NoteScaleInitial = 1 - ((timeAtITR - currentTime) * (1 / totalTimeShowNotes)); //0-1 = 0-100%
 						float NoteScale = (std::pow(10.f, NoteScaleInitial)) / 10.f;
 						sizeOfRectFut = sizeOfRect * NoteScale;
 						circleRadiusFut = (sizeOfRectFut / 2);
-						xPosFut = xPos + (circleRadius - circleRadiusFut) + 1;
-						yPosFut = yPos + (circleRadius - circleRadiusFut) + 1;
+						xPosFut = xPos + (circleRadius - circleRadiusFut);
+						yPosFut = yPos + (circleRadius - circleRadiusFut);
 						CircleNotePen->Width = widthOfNotePen * NoteScale;
 
 						System::Drawing::Point locationFut(xPosFut, yPosFut);
 						System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
 						System::Drawing::Rectangle RectFut(locationFut, sizeFut);
 						if (RectFut.Width >= 1) {
-							BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength);
+							BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw note
+
+							if (listofNotesitr->noteType >= 20) { //If bonus note
+								CircleNotePen->Color = BonusColor;
+								CircleNotePen->Width += highlightWidth;
+								futStartAngle += 2; //increase size for highlight
+								futArcLength -= 4;
+								BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw highlight
+							}
+							if (HighlightCheckBox->Checked) {
+								if (islistITREqualToViewITR(listofNotesitr)) {
+									CircleNotePen->Color = HighlightColor;
+									CircleNotePen->Width += highlightWidth;
+									futStartAngle += 2; //increase size for highlight
+									futArcLength -= 4;
+									BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw highlight
+								}
+							}
 						}
 					}
 				}
@@ -3926,12 +4040,25 @@ private: System::Windows::Forms::Label^ label30;
 		//Draw selected note
 		if (SelectedLineType == 1 && Rect.Width >= 1) {
 			CircleNotePen->Color = returnColor(SelectedNoteTypeVisual);
-			CircleNotePen->Width = 4;
+			CircleNotePen->Width = widthOfNotePen;
 			BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, Rect, startAngle, arcLength);
 		}
 
 		//Draw Buffer to screen
 		BufferedNotesGraphics->Render(notesGraphics);
+	}
+	bool islistITREqualToViewITR(std::list<NotesNode>::iterator listITR) {
+		if (listITR->beat != viewNotesITR->beat)
+			return false;
+		if (listITR->subBeat != viewNotesITR->subBeat)
+			return false;
+		if (listITR->noteType != viewNotesITR->noteType)
+			return false;
+		if (listITR->position != viewNotesITR->position)
+			return false;
+		if (listITR->size != viewNotesITR->size)
+			return false;
+		return true;
 	}
 	private: System::Void backgroundWorkerPaint_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e) {
 		//unused
@@ -3967,31 +4094,32 @@ private: System::Windows::Forms::Label^ label30;
 		if (songFilePath != "") {
 			theChart.songFileName = songFilePath;
 			songFileName->Text = stdStringToSystemString(songFilePath);
-			currentlyPlayingSound = SoundEngine.Play2D(stdStringToSystemString(songFilePath), true, true);
+			currentlyPlayingSong = SoundEngine.Play2D(stdStringToSystemString(songFilePath), true, true);
 			songTrackSlider->Value = 0;
-			songTrackSlider->Maximum = currentlyPlayingSound->PlayLength;
+			songTrackSlider->Maximum = currentlyPlayingSong->PlayLength;
 			refreshMapOfTime();
 		}
 	}
 	private: System::Void PlayButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (songFilePath != "" && currentlyPlayingSound != nullptr) {
-			currentlyPlayingSound->PlaybackSpeed = (float)PlaybackSpeedNum->Value;
-			currentlyPlayingSound->Paused = !currentlyPlayingSound->Paused;
-			if (currentlyPlayingSound->Paused) {
-				PlayButton->Text = "Play";
+		if (songFilePath != "" && currentlyPlayingSong != nullptr) {
+			currentlyPlayingSong->PlayPosition = songTrackSlider->Value;
+			currentlyPlayingSong->PlaybackSpeed = (float)PlaybackSpeedNum->Value;
+			currentlyPlayingSong->Paused = !currentlyPlayingSong->Paused;
+			if (currentlyPlayingSong->Paused) {
+				PlayButton->Text = "Play (P)";
 				if (backgroundWorkerSong->IsBusy) {
 					backgroundWorkerSong->CancelAsync();
 				}
 			}
 			else {
-				PlayButton->Text = "Pause";
+				PlayButton->Text = "Pause (P)";
 				backgroundWorkerSong->RunWorkerAsync();
 			}
 		}
 	}
 	private: System::Void backgroundWorkerSong_DoWork(System::Object^ sender, System::ComponentModel::DoWorkEventArgs^ e) {
 		int i = 0;
-		while (!currentlyPlayingSound->Paused) {
+		while (!currentlyPlayingSong->Paused) {
 			backgroundWorkerSong->ReportProgress(i);
 			i++;
 			Thread::Sleep(update_interval);
@@ -3999,7 +4127,7 @@ private: System::Windows::Forms::Label^ label30;
 		backgroundWorkerSong->CancelAsync();
 	}
 	private: System::Void backgroundWorkerSong_ProgressChanged(System::Object^ sender, System::ComponentModel::ProgressChangedEventArgs^ e) {
-		songTrackSlider->Value = currentlyPlayingSound->PlayPosition;
+		songTrackSlider->Value = currentlyPlayingSong->PlayPosition;
 		refreshVisualFromSongScroll();
 	}
 	private: System::Void backgroundWorkerSong_RunWorkerCompleted(System::Object^ sender, System::ComponentModel::RunWorkerCompletedEventArgs^ e) {
@@ -4013,6 +4141,7 @@ private: System::Windows::Forms::Label^ label30;
 			last measure start time + measures from last measure = current measure   */
 		float currentTime = songTrackSlider->Value; //in milliseconds
 		float currentMeasure = 0;
+		float timeBetweenMeasures;
 		if (mapOfBeatAtTime.find(currentTime) == mapOfBeatAtTime.end()) {
 			std::map<float, float>::iterator itr = mapOfBeatAtTime.lower_bound(currentTime);
 			float lastMeasure;
@@ -4031,7 +4160,7 @@ private: System::Windows::Forms::Label^ label30;
 					lastMeasure = itr->second; //find last millisecond start time which will tell you the "last measure start time"
 				}
 			}
-			float timeBetweenMeasures = mapOfTimeBetweenBeats[lastMeasure]; // use last measure to find "milliseconds per measure" since then
+			timeBetweenMeasures = mapOfTimeBetweenMeasures[lastMeasure]; // use last measure to find "milliseconds per measure" since then
 			float measuresFromLastMeasure = (currentTime - itr->first) / timeBetweenMeasures; //(current time - last measure start time) / (milliseconds per measure) = measures from last measure
 			currentMeasure = lastMeasure + measuresFromLastMeasure; //last measure + measures from last measure = current measure
 		}
@@ -4050,21 +4179,90 @@ private: System::Windows::Forms::Label^ label30;
 		noteRefresh = false;
 		RefreshPaint();
 		scrollBarChanged = false;
+		/*
+		//Play note tick if a note is within range and song is playing
+		bool playTickSoundBool = false;
+		//Convert update_interval time to how many measures it takes up
+		float updateIntToMeasure = ((float)update_interval / timeBetweenMeasures) * (float)PlaybackSpeedNum->Value;
+		//Find notes near current time
+		std::list<NotesNode> listOfNotesAtCurrentMeasure;
+		if (mapOfNotes.find(currentMeasure) == mapOfNotes.end()) {
+			std::map<float, std::list<NotesNode>>::iterator itr = mapOfNotes.lower_bound(currentMeasure);
+			if (itr != mapOfNotes.end()) {
+				if (itr != mapOfNotes.begin()) {
+					itr--;
+				}
+				if (itr->first < currentMeasure) {
+					listOfNotesAtCurrentMeasure = itr->second; //find last millisecond start time which will tell you the "last measure start time"
+				}
+			}
+			else {
+				itr = mapOfNotes.end();
+				if (!mapOfNotes.empty()) {
+					itr--;
+					listOfNotesAtCurrentMeasure = itr->second; //find last millisecond start time which will tell you the "last measure start time"
+				}
+			}
+		}
+		else {
+			listOfNotesAtCurrentMeasure = mapOfNotes[currentMeasure];
+		}
+		if (!listOfNotesAtCurrentMeasure.empty()) {
+			float measureAtListTime = listOfNotesAtCurrentMeasure.begin()->beat + (listOfNotesAtCurrentMeasure.begin()->subBeat / 1920.f);
+			if (measureAtListTime <= currentMeasure && measureAtListTime >= (currentMeasure - updateIntToMeasure)) {
+				for (std::list<NotesNode>::iterator listofNotesitr = listOfNotesAtCurrentMeasure.begin(); listofNotesitr != listOfNotesAtCurrentMeasure.end(); listofNotesitr++) {
+					switch (listofNotesitr->noteType) {
+					case 10:
+						break;
+					case 11:
+						break;
+					case 12:
+						break;
+					case 13:
+						break;
+					default:
+						playTickSoundBool = true;
+					}
+				}
+			}
+		}
+		if (currentlyPlayingSong != nullptr) {
+			if (currentlyPlayingSong->Paused == false && playTickSoundBool == true) {
+				PlayTickSound();
+			}
+		}
+		*/
 	}
 	private: System::Void songTrackSlider_Scroll(System::Object^ sender, System::EventArgs^ e) {
-		if (currentlyPlayingSound != nullptr) {
-			currentlyPlayingSound->PlayPosition = songTrackSlider->Value;
+		if (currentlyPlayingSong != nullptr) {
+			currentlyPlayingSong->PlayPosition = songTrackSlider->Value;
 			refreshVisualFromSongScroll();
 		}
 	}
-	private: System::Void Volume_Scroll(System::Object^ sender, System::EventArgs^ e) {
-		if (currentlyPlayingSound != nullptr) {
-			currentlyPlayingSound->Volume = Volume->Value / (float)100.0;
+	private: System::Void SongVolume_Scroll(System::Object^ sender, System::EventArgs^ e) {
+		if (currentlyPlayingSong != nullptr) {
+			currentlyPlayingSong->Volume = SongVolume->Value / (float)100.0;
 		}
 	}
+	private: System::Void TickVolume_Scroll(System::Object^ sender, System::EventArgs^ e) {
+		/*
+		if (currentlyPlayingTickSound != nullptr) {
+			currentlyPlayingTickSound->Volume = TickVolume->Value / (float)100.0;
+		}
+		*/
+	}
+	void PlayTickSound() {
+		/*
+		currentlyPlayingTickSound = SoundEngine.Play2D(stdStringToSystemString(tickFilePath), false, true);
+		if (currentlyPlayingTickSound != nullptr) {
+			currentlyPlayingTickSound->Volume = TickVolume->Value / (float)100.0;
+			currentlyPlayingTickSound->Paused = !currentlyPlayingTickSound->Paused;
+		}
+		*/
+	}
 	private: System::Void PlaybackSpeedNum_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (songFilePath != "" && currentlyPlayingSound != nullptr) {
-			currentlyPlayingSound->PlaybackSpeed = (float)PlaybackSpeedNum->Value;
+		if (songFilePath != "" && currentlyPlayingSong != nullptr) {
+			currentlyPlayingSong->PlaybackSpeed = (float)PlaybackSpeedNum->Value;
 		}
 	}
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
@@ -4072,6 +4270,64 @@ private: System::Windows::Forms::Label^ label30;
 		SetStyle(ControlStyles::OptimizedDoubleBuffer, true);
 		SetStyle(ControlStyles::UserPaint, true);
 		SetStyle(ControlStyles::AllPaintingInWmPaint, true);
+	}
+	private: System::Void CirclePanel_Scroll(System::Object^ sender, System::Windows::Forms::ScrollEventArgs^ e) {
+		if (e->ScrollOrientation == ScrollOrientation::VerticalScroll) {
+			if (e->OldValue < e->NewValue) {
+				BeatNum1->Value++;
+			}
+			else {
+				BeatNum1->Value--;
+			}
+		}
+	}
+	private: System::Void MyForm_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+		wchar_t keyPressed = std::toupper(e->KeyChar);
+		switch (keyPressed) {
+		case 'T': //Touch
+			TapButton_Click(sender, e);
+			e->Handled = true;
+			break;
+		case 'O': //Orange Slide
+			OrangeButton_Click(sender, e);
+			e->Handled = true;
+			break;
+		case 'G': //Green Slide
+			GreenButton_Click(sender, e);
+			e->Handled = true;
+			break;
+		case 'R': //Red Snap
+			RedButton_Click(sender, e);
+			e->Handled = true;
+			break;
+		case 'B': //Blue Snap
+			BlueButton_Click(sender, e);
+			e->Handled = true;
+			break;
+		case 'Y': //Chain
+			YellowButton_Click(sender, e);
+			e->Handled = true;
+			break;
+		case 'H': //Hold
+			HoldButton_Click(sender, e);
+			e->Handled = true;
+			break;
+		case 'M': //Mask
+			Mask_Click(sender, e);
+			e->Handled = true;
+			break;
+		case 'I': //Insert
+			InsertButton_Click(sender, e);
+			e->Handled = true;
+			break;
+		case 'P': //Play/Pause
+			PlayButton_Click(sender, e);
+			e->Handled = true;
+			break;
+		}
+	}
+	private: System::Void HighlightCheckBox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+		RefreshPaint();
 	}
 };
 }
