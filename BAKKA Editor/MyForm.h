@@ -1,5 +1,4 @@
 #pragma once
-#pragma comment(lib, "irrKlang.lib") // link with irrKlang.dll
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -8,7 +7,6 @@
 #include <vector>
 #include <stack>
 #include <algorithm>
-#include <irrKlang.h>
 #include <stdio.h>
 #include <conio.h>
 #include <thread>
@@ -134,6 +132,7 @@ namespace BAKKAEditor {
 	using namespace System::Drawing;
 	using namespace System::IO;
 	using namespace System::Threading;
+	using namespace System::Reflection;
 
 	/// <summary>
 	/// Summary for MyForm
@@ -144,9 +143,6 @@ namespace BAKKAEditor {
 		MyForm(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
 		}
 
 	protected:
@@ -165,6 +161,8 @@ namespace BAKKAEditor {
 		ISoundEngine SoundEngine;
 		ISound^ currentlyPlayingSong = SoundEngine.Play2D(stdStringToSystemString(songFilePath), true, true);
 		ISound^ currentlyPlayingTickSound = SoundEngine.Play2D(stdStringToSystemString(tickFilePath), false, true);
+		BufferedGraphicsContext^ bufferedGfxContext;
+		BufferedGraphics^ bufferedGfx;
 	protected:
 	private: System::Windows::Forms::ToolStripMenuItem^ fileToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ newToolStripMenuItem;
@@ -329,6 +327,7 @@ private: System::Windows::Forms::Label^ songFileName;
 private: System::Windows::Forms::Button^ selectSongFile;
 private: System::Windows::Forms::OpenFileDialog^ openFileDialogSong;
 private: System::Windows::Forms::Label^ VolumeLabel;
+private: System::Windows::Forms::Timer^ timer1;
 private: System::Windows::Forms::TrackBar^ SongVolume;
 
 private: System::ComponentModel::BackgroundWorker^ backgroundWorkerSong;
@@ -541,6 +540,7 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->backgroundWorker2 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->menuStrip->SuspendLayout();
 			this->NoteTypeBox->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->VisualHispeed))->BeginInit();
@@ -1652,6 +1652,12 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 			this->panel1->Controls->Add(this->label18);
 			this->panel1->Controls->Add(this->CurrentObjectText);
 			this->panel1->Name = L"panel1";
+			// 
+			// timer1
+			// 
+			this->timer1->Enabled = true;
+			this->timer1->Interval = 20;
+			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
 			// 
 			// MyForm
 			// 
@@ -3617,6 +3623,13 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 		//InitialSettingsPane->Width = (this->Width - NoteTypeBox->Width - 36);
 		//Point position(NoteTypeBox->Width + 12, 27);
 		//InitialSettingsPane->Location = position;
+
+		// Update BufferedGraphics size
+		bufferedGfxContext->MaximumBuffer = Drawing::Size(CirclePanel->Width + 1, CirclePanel->Height + 1);
+		bufferedGfx = bufferedGfxContext->Allocate(CirclePanel->CreateGraphics(),
+			Drawing::Rectangle(0, 0, CirclePanel->Width, CirclePanel->Height));
+		DrawToGraphics(bufferedGfx->Graphics);
+
 		RefreshPaint();
 	}
 	private: System::Void MeasureNum_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -3760,14 +3773,11 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 		}
 	}
 	private: System::Void CirclePanel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-		//Note graphics
-		Graphics^ notesGraphics = e->Graphics;
-		BufferedGraphics^ BufferedNotesGraphics;
-		//Configure buffer context
-		BufferedGraphicsContext^ context = BufferedGraphicsManager::Current;
-		context->MaximumBuffer = System::Drawing::Size(CirclePanel->Width + 1, CirclePanel->Height + 1);
+		bufferedGfx->Render(e->Graphics);
+	}
+
+	void DrawToGraphics(Graphics^ g) {
 		System::Drawing::Rectangle PanelRect(0, 0, CirclePanel->Width, CirclePanel->Height);
-		BufferedNotesGraphics = context->Allocate(CirclePanel->CreateGraphics(), PanelRect);
 		//Pens for drawing parts of circle
 		float widthOfBasePen = (float)CirclePanel->Width * (4.f / 600.f); //sizes are essentially the pixel width if the box is 600x600
 		float widthOfLinesPen = (float)CirclePanel->Width * (2.f / 600.f);
@@ -3802,7 +3812,7 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 		System::Drawing::Size size(sizeOfRect, sizeOfRect);
 		System::Drawing::Rectangle Rect(location, size);
 		//Drawing mode
-		BufferedNotesGraphics->Graphics->SmoothingMode = Drawing2D::SmoothingMode::HighSpeed;
+		g->SmoothingMode = Drawing2D::SmoothingMode::HighSpeed;
 		//Current time
 		float currentTime;
 		if (scrollBarChanged) {
@@ -3826,7 +3836,7 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 
 		//Make Background Transparent
 		SolidBrush^ backgroundBrush = gcnew SolidBrush(this->BackColor);
-		BufferedNotesGraphics->Graphics->FillRectangle(backgroundBrush, PanelRect);
+		g->FillRectangle(backgroundBrush, PanelRect);
 
 		//Draw pre-existing mask
 		std::map<float, std::list<std::pair<int, int>>>::iterator mapitr = mapOfMasks.lower_bound(currentTime);
@@ -3839,7 +3849,7 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 					for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
 						maskStartAngle = -((float)listITR->first * 6);
 						maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
-						BufferedNotesGraphics->Graphics->FillPie(MaskBrush, Rect, maskStartAngle, maskArcLength);
+						g->FillPie(MaskBrush, Rect, maskStartAngle, maskArcLength);
 					}
 				}
 			}
@@ -3850,7 +3860,7 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 					for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
 						maskStartAngle = -((float)listITR->first * 6);
 						maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
-						BufferedNotesGraphics->Graphics->FillPie(MaskBrush, Rect, maskStartAngle, maskArcLength);
+						g->FillPie(MaskBrush, Rect, maskStartAngle, maskArcLength);
 					}
 				}
 			}
@@ -3860,7 +3870,7 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 				for (std::list<std::pair<int, int>>::iterator listITR = mapitr->second.begin(); listITR != mapitr->second.end(); listITR++) {
 					maskStartAngle = -((float)listITR->first * 6);
 					maskArcLength = -(((float)listITR->second - (float)listITR->first) * 6);
-					BufferedNotesGraphics->Graphics->FillPie(MaskBrush, Rect, maskStartAngle, maskArcLength);
+					g->FillPie(MaskBrush, Rect, maskStartAngle, maskArcLength);
 				}
 			}
 		}
@@ -3868,15 +3878,15 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 		//Draw selected mask
 		if (SelectedLineType == 1 && Rect.Width >= 1) {
 			if (SelectedNoteTypeVisual == 12) {
-				BufferedNotesGraphics->Graphics->FillPie(MaskBrush, Rect, startAngle, arcLength);
+				g->FillPie(MaskBrush, Rect, startAngle, arcLength);
 			}
 			if (SelectedNoteTypeVisual == 13) {
-				BufferedNotesGraphics->Graphics->FillPie(MaskRemoveBrush, Rect, startAngle, arcLength);
+				g->FillPie(MaskRemoveBrush, Rect, startAngle, arcLength);
 			}
 		}
 
 		//Switch Drawing mode
-		BufferedNotesGraphics->Graphics->SmoothingMode = Drawing2D::SmoothingMode::AntiAlias;
+		g->SmoothingMode = Drawing2D::SmoothingMode::AntiAlias;
 
 		//Draw measure circle
 		float nearestMeasure = std::ceil(currentTime);
@@ -3893,13 +3903,13 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 			System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
 			System::Drawing::Rectangle RectFut(locationFut, sizeFut);
 			if (RectFut.Width >= 1) {
-				BufferedNotesGraphics->Graphics->DrawEllipse(CircleBeatPen, RectFut);
+				g->DrawEllipse(CircleBeatPen, RectFut);
 			}
 		}
 
 
 		//Draw base circle
-		BufferedNotesGraphics->Graphics->DrawEllipse(CircleBasePen, Rect);
+		g->DrawEllipse(CircleBasePen, Rect);
 
 		//Draw Degree Lines
 		for (int i = 0; i < 360; i += 6) { //i is the angle n degrees
@@ -3923,7 +3933,7 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 			yEnd = (innerRadius * sin(degToRad)) + yCenterOfCircle;
 			PointF coordPointEnd(xEnd, yEnd);
 
-			BufferedNotesGraphics->Graphics->DrawLine(CircleLinesPen, coordPointStart, coordPointEnd);
+			g->DrawLine(CircleLinesPen, coordPointStart, coordPointEnd);
 		}
 
 		//Draw future holds
@@ -3953,14 +3963,14 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 						System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
 						System::Drawing::Rectangle RectFut(locationFut, sizeFut);
 						if (RectFut.Width >= 1) {
-							BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw hold
+							g->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw hold
 
 							if (listofNotesitr->noteType == 25) { //If bonus hold
 								CircleNotePen->Color = BonusColor;
 								CircleNotePen->Width += highlightWidth;
 								futStartAngle += 2; //increase size for highlight
 								futArcLength -= 4;
-								BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw highlight
+								g->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw highlight
 							}
 							if (HighlightCheckBox->Checked) {
 								if (islistITREqualToViewITR(listofNotesitr)) {
@@ -3968,7 +3978,7 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 									CircleNotePen->Width += highlightWidth;
 									futStartAngle += 2; //increase size for highlight
 									futArcLength -= 4;
-									BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw highlight
+									g->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw highlight
 								}
 							}
 						}
@@ -4008,14 +4018,14 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 						System::Drawing::Size sizeFut(sizeOfRectFut, sizeOfRectFut);
 						System::Drawing::Rectangle RectFut(locationFut, sizeFut);
 						if (RectFut.Width >= 1) {
-							BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw note
+							g->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw note
 
 							if (listofNotesitr->noteType >= 20) { //If bonus note
 								CircleNotePen->Color = BonusColor;
 								CircleNotePen->Width += highlightWidth;
 								futStartAngle += 2; //increase size for highlight
 								futArcLength -= 4;
-								BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw highlight
+								g->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw highlight
 							}
 							if (HighlightCheckBox->Checked) {
 								if (islistITREqualToViewITR(listofNotesitr)) {
@@ -4023,7 +4033,7 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 									CircleNotePen->Width += highlightWidth;
 									futStartAngle += 2; //increase size for highlight
 									futArcLength -= 4;
-									BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw highlight
+									g->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw highlight
 								}
 							}
 						}
@@ -4041,11 +4051,8 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 		if (SelectedLineType == 1 && Rect.Width >= 1) {
 			CircleNotePen->Color = returnColor(SelectedNoteTypeVisual);
 			CircleNotePen->Width = widthOfNotePen;
-			BufferedNotesGraphics->Graphics->DrawArc(CircleNotePen, Rect, startAngle, arcLength);
+			g->DrawArc(CircleNotePen, Rect, startAngle, arcLength);
 		}
-
-		//Draw Buffer to screen
-		BufferedNotesGraphics->Render(notesGraphics);
 	}
 	bool islistITREqualToViewITR(std::list<NotesNode>::iterator listITR) {
 		if (listITR->beat != viewNotesITR->beat)
@@ -4270,6 +4277,18 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 		SetStyle(ControlStyles::OptimizedDoubleBuffer, true);
 		SetStyle(ControlStyles::UserPaint, true);
 		SetStyle(ControlStyles::AllPaintingInWmPaint, true);
+
+		// Initialize BufferedGraphics
+		bufferedGfxContext = BufferedGraphicsManager::Current;
+		bufferedGfxContext->MaximumBuffer = Drawing::Size(CirclePanel->Width + 1, CirclePanel->Height + 1);
+		bufferedGfx = bufferedGfxContext->Allocate(CirclePanel->CreateGraphics(),
+			Drawing::Rectangle(0, 0, CirclePanel->Width, CirclePanel->Height));
+		DrawToGraphics(bufferedGfx->Graphics);
+
+		// Force double buffering on CirlcePanel
+		Type^ controlType = CirclePanel->GetType();
+		PropertyInfo^ pi = controlType->GetProperty("DoubleBuffered", BindingFlags::Instance | BindingFlags::NonPublic);
+		pi->SetValue(CirclePanel, true);
 	}
 	private: System::Void CirclePanel_Scroll(System::Object^ sender, System::Windows::Forms::ScrollEventArgs^ e) {
 		if (e->ScrollOrientation == ScrollOrientation::VerticalScroll) {
@@ -4329,5 +4348,8 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 	private: System::Void HighlightCheckBox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		RefreshPaint();
 	}
+private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
+	DrawToGraphics(bufferedGfx->Graphics);
+}
 };
 }
