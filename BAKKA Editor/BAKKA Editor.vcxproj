@@ -89,12 +89,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\otaku\source\repos\BAKKA Editor\BAKKA Editor\irrKlang-64bit-1.6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link />
     <Link>
-      <AdditionalDependencies>irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\otaku\source\repos\BAKKA Editor\BAKKA Editor\irrKlang-64bit-1.6.0\lib\Winx64-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
@@ -118,12 +118,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\otaku\source\repos\BAKKA Editor\BAKKA Editor\irrKlang-64bit-1.6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link />
     <Link>
-      <AdditionalDependencies>irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\otaku\source\repos\BAKKA Editor\BAKKA Editor\irrKlang-64bit-1.6.0\lib\Winx64-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
@@ -133,7 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="irrKlang.NET4">
-      <HintPath>O:\Wacca_Stuff\Charting\irrKlang-64bit-1.6.0\bin\dotnet-4-64\irrKlang.NET4.dll</HintPath>
+      <HintPath>irrKlang-64bit-1.6.0\lib\dotnet-4-64\irrKlang.NET4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
