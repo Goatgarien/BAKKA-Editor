@@ -4297,12 +4297,50 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 		CirclePanel->MouseWheel += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::CirclePanel_MouseWheel);
 	}
 	private: System::Void CirclePanel_MouseWheel(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
-		if (e->Delta > 0)
-		{
-			BeatNum1->Value++;
+		if (Control::ModifierKeys == Keys::Alt) { 
+			// Shift beat division by standard musical quantizations
+			// TODO: take into account time signature?
+			if (BeatNum2->Value < 2) {
+				if (e->Delta > 0) {
+					BeatNum2->Value = 2;
+				}
+				return;
+			}
+			else if (BeatNum2->Value == 2 && e->Delta < 0) {
+				BeatNum2->Value = 1;
+				return;
+			}
+			
+			int low = 0;
+			int high = 1;
+
+			while (!(BeatNum2->Value >= (1 << low) && BeatNum2->Value <= (1 << high))) {
+				low++;
+				high++;
+			}
+			if (e->Delta < 0) {
+				BeatNum2->Value = (1 << low);
+			}
+			else {
+				if (high < 10) {
+					BeatNum2->Value = (1 << (high + 1));
+				}
+			}
+		}
+		else if (Control::ModifierKeys == Keys::Shift) {
+
+		}
+		else if (Control::ModifierKeys == Keys::Control) {
+
 		}
 		else {
-			BeatNum1->Value--;
+			// Scroll by one beat at a time
+			if (e->Delta > 0) {
+				BeatNum1->Value++;
+			}
+			else {
+				BeatNum1->Value--;
+			}
 		}
 	}
 	private: System::Void MyForm_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
