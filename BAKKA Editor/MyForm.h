@@ -343,6 +343,9 @@ private: System::Windows::Forms::Panel^ panel1;
 private: System::Windows::Forms::NumericUpDown^ PlaybackSpeedNum;
 private: System::Windows::Forms::Label^ label30;
 private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
+private: System::Windows::Forms::ToolStripMenuItem^ viewToolStripMenuItem;
+private: System::Windows::Forms::ToolStripMenuItem^ showCursorToolStripMenuItem;
+private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackToolStripMenuItem;
 
 
 
@@ -406,6 +409,8 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 			this->saveToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->saveAsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->exitToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->viewToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->showCursorToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->aboutToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->TapButton = (gcnew System::Windows::Forms::Button());
 			this->OrangeButton = (gcnew System::Windows::Forms::Button());
@@ -545,6 +550,7 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->backgroundWorker2 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->showCursorDuringPlaybackToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip->SuspendLayout();
 			this->NoteTypeBox->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->VisualHispeed))->BeginInit();
@@ -592,9 +598,9 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 			// menuStrip
 			// 
 			this->menuStrip->ImageScalingSize = System::Drawing::Size(24, 24);
-			this->menuStrip->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+			this->menuStrip->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->fileToolStripMenuItem,
-					this->aboutToolStripMenuItem
+					this->viewToolStripMenuItem, this->aboutToolStripMenuItem
 			});
 			resources->ApplyResources(this->menuStrip, L"menuStrip");
 			this->menuStrip->Name = L"menuStrip";
@@ -637,6 +643,23 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 			this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
 			resources->ApplyResources(this->exitToolStripMenuItem, L"exitToolStripMenuItem");
 			this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::exitToolStripMenuItem_Click);
+			// 
+			// viewToolStripMenuItem
+			// 
+			this->viewToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->showCursorToolStripMenuItem,
+					this->showCursorDuringPlaybackToolStripMenuItem
+			});
+			this->viewToolStripMenuItem->Name = L"viewToolStripMenuItem";
+			resources->ApplyResources(this->viewToolStripMenuItem, L"viewToolStripMenuItem");
+			// 
+			// showCursorToolStripMenuItem
+			// 
+			this->showCursorToolStripMenuItem->Checked = true;
+			this->showCursorToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->showCursorToolStripMenuItem->Name = L"showCursorToolStripMenuItem";
+			resources->ApplyResources(this->showCursorToolStripMenuItem, L"showCursorToolStripMenuItem");
+			this->showCursorToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::showCursorToolStripMenuItem_Click);
 			// 
 			// aboutToolStripMenuItem
 			// 
@@ -1658,6 +1681,12 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 			this->panel1->Controls->Add(this->label18);
 			this->panel1->Controls->Add(this->CurrentObjectText);
 			this->panel1->Name = L"panel1";
+			// 
+			// showCursorDuringPlaybackToolStripMenuItem
+			// 
+			this->showCursorDuringPlaybackToolStripMenuItem->Name = L"showCursorDuringPlaybackToolStripMenuItem";
+			resources->ApplyResources(this->showCursorDuringPlaybackToolStripMenuItem, L"showCursorDuringPlaybackToolStripMenuItem");
+			this->showCursorDuringPlaybackToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::showCursorDuringPlaybackToolStripMenuItem_Click);
 			// 
 			// MyForm
 			// 
@@ -3781,6 +3810,7 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 		float widthOfBasePen = (float)CirclePanel->Width * (4.f / 600.f); //sizes are essentially the pixel width if the box is 600x600
 		float widthOfLinesPen = (float)CirclePanel->Width * (2.f / 600.f);
 		float widthOfNotePen = (float)CirclePanel->Width * (8.f / 600.f);
+		float widthOfCurrentNotePen = (float)CirclePanel->Width * (4.f / 600.f);
 		float widthOfMeasurePen = (float)CirclePanel->Width * (1.f / 600.f);
 		float highlightWidth = (float)CirclePanel->Width * (5.f / 600.f);
 		float baseLineLength = (float)CirclePanel->Width * (10.f / 285.f); //10 pixels if box is 285x285
@@ -3796,9 +3826,9 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 		SolidBrush^ MaskBrush = gcnew SolidBrush(Color::DimGray);
 		SolidBrush^ MaskRemoveBrush = gcnew SolidBrush(Color::White);
 		//Circle location and size
-		float xPos = widthOfNotePen;
-		float yPos = widthOfNotePen;
-		float sizeOfRect = CirclePanel->Width - (widthOfNotePen*2);
+		float xPos = widthOfNotePen*2;
+		float yPos = widthOfNotePen*2;
+		float sizeOfRect = CirclePanel->Width - (widthOfNotePen*4);
 		//Circle info
 		float circleRadius = ((float)sizeOfRect / 2);
 		float xCenterOfCircle = circleRadius + xPos;
@@ -4044,13 +4074,24 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 				notemapitr--;
 			}
 		}
-
+		
+		// Generate flag for showing cursor
+		bool showCursor = showCursorToolStripMenuItem->Checked;
+		if (currentlyPlayingSong != nullptr) {
+			if (!currentlyPlayingSong->Paused) {
+				showCursor = showCursorDuringPlaybackToolStripMenuItem->Checked;
+			}
+		}
 
 		//Draw selected note
-		if (SelectedLineType == 1 && Rect.Width >= 1) {
+		if (SelectedLineType == 1 && Rect.Width >= 1 && showCursor) {
 			CircleNotePen->Color = returnColor(SelectedNoteTypeVisual);
-			CircleNotePen->Width = widthOfNotePen;
-			bufferedGfx->Graphics->DrawArc(CircleNotePen, Rect, startAngle, arcLength);
+			CircleNotePen->Width = widthOfCurrentNotePen;
+			float spacing = widthOfNotePen + widthOfCurrentNotePen;
+			Rectangle innerRect(Rect.X + spacing, Rect.Y + spacing, Rect.Width - spacing * 2, Rect.Height - spacing * 2);
+			Rectangle outerRect(Rect.X - spacing, Rect.Y - spacing, Rect.Width + spacing * 2, Rect.Height + spacing * 2);
+			bufferedGfx->Graphics->DrawArc(CircleNotePen, innerRect, startAngle, arcLength);
+			bufferedGfx->Graphics->DrawArc(CircleNotePen, outerRect, startAngle, arcLength);
 		}
 
 		//Render
@@ -4119,6 +4160,7 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 				if (backgroundWorkerSong->IsBusy) {
 					backgroundWorkerSong->CancelAsync();
 				}
+				RefreshPaint();
 			}
 			else {
 				PlayButton->Text = "Pause (P)";
@@ -4396,6 +4438,13 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 		DrawToGraphics(bufferedGfx->Graphics);
 	}
 	*/
+private: System::Void showCursorToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	showCursorToolStripMenuItem->Checked = !showCursorToolStripMenuItem->Checked;
+	RefreshPaint();
+}
+private: System::Void showCursorDuringPlaybackToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	showCursorDuringPlaybackToolStripMenuItem->Checked = !showCursorDuringPlaybackToolStripMenuItem->Checked;
+}
 private: System::Void CirclePanel_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 	// Determine location of mouse click in the circle
 	// X and Y are relative to upper left of image
