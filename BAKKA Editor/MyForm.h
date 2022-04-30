@@ -4086,13 +4086,13 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 
 		//Draw selected note
 		if (SelectedLineType == 1 && Rect.Width >= 1 && showCursor) {
-			CircleNotePen->Color = returnColor(SelectedNoteTypeVisual);
-			CircleNotePen->Width = widthOfCurrentNotePen;
+			CircleNotePen->Color = Color(Color::FromArgb(SelectedTransparency, returnColor(SelectedNoteTypeVisual)));
 			float spacing = widthOfNotePen + widthOfCurrentNotePen;
-			Rectangle innerRect(Rect.X + spacing, Rect.Y + spacing, Rect.Width - spacing * 2, Rect.Height - spacing * 2);
-			Rectangle outerRect(Rect.X - spacing, Rect.Y - spacing, Rect.Width + spacing * 2, Rect.Height + spacing * 2);
-			bufferedGfx->Graphics->DrawArc(CircleNotePen, innerRect, startAngle, arcLength);
-			bufferedGfx->Graphics->DrawArc(CircleNotePen, outerRect, startAngle, arcLength);
+			CircleNotePen->Width = spacing * 2.f;
+			//Rectangle innerRect(Rect.X + spacing, Rect.Y + spacing, Rect.Width - spacing * 2, Rect.Height - spacing * 2);
+			//Rectangle outerRect(Rect.X - spacing, Rect.Y - spacing, Rect.Width + spacing * 2, Rect.Height + spacing * 2);
+			bufferedGfx->Graphics->DrawArc(CircleNotePen, Rect, startAngle, arcLength);
+			//bufferedGfx->Graphics->DrawArc(CircleNotePen, outerRect, startAngle, arcLength);
 		}
 
 		//Render
