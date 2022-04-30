@@ -2788,6 +2788,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			refreshGimmickView();
 			refreshMapOfTime();
 		}
+		RefreshPaint();
 	}
 	private: System::Void InitialSetSave_Click(System::Object^ sender, System::EventArgs^ e) {
 		bool BPMFound = false;
