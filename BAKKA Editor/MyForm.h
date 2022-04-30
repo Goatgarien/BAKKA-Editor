@@ -41,6 +41,11 @@ const unsigned int update_interval = 4; // update after every 100 milliseconds (
 const int milInMinute = 60000;
 bool scrollBarChanged = false;
 float theCurrentMeasure = 0;
+// Variables for mouse things
+int mouseDownPos = 0;
+int lastMousePos = -1;
+bool rolloverPos = false;
+bool rolloverNeg = false;
 
 
 int findLine(std::list<NotesNode>::iterator nextNode) {
@@ -540,7 +545,6 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->backgroundWorker2 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			//this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->menuStrip->SuspendLayout();
 			this->NoteTypeBox->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->VisualHispeed))->BeginInit();
@@ -1550,8 +1554,10 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 			resources->ApplyResources(this->CirclePanel, L"CirclePanel");
 			this->CirclePanel->BackColor = System::Drawing::Color::Transparent;
 			this->CirclePanel->Name = L"CirclePanel";
-			this->CirclePanel->Scroll += gcnew System::Windows::Forms::ScrollEventHandler(this, &MyForm::CirclePanel_Scroll);
 			this->CirclePanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::CirclePanel_Paint);
+			this->CirclePanel->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::CirclePanel_MouseDown);
+			this->CirclePanel->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::CirclePanel_MouseMove);
+			this->CirclePanel->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::CirclePanel_MouseUp);
 			// 
 			// VisualSettingsBox
 			// 
@@ -1652,12 +1658,6 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 			this->panel1->Controls->Add(this->label18);
 			this->panel1->Controls->Add(this->CurrentObjectText);
 			this->panel1->Name = L"panel1";
-			// 
-			// timer1
-			// 
-			//this->timer1->Enabled = true;
-			//this->timer1->Interval = 20;
-			//this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
 			// 
 			// MyForm
 			// 
@@ -2594,6 +2594,9 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 		refreshMapOfTime();
 	}
 	private: System::Void InsertButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		InsertObject();
+	}
+	System::Void InsertObject() {
 		NotesNode tempNotesNode;
 		PreChartNode tempPreChartNode;
 
@@ -4289,10 +4292,50 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 		Type^ controlType = CirclePanel->GetType();
 		PropertyInfo^ pi = controlType->GetProperty("DoubleBuffered", BindingFlags::Instance | BindingFlags::NonPublic);
 		pi->SetValue(CirclePanel, true);
+
+		// Add MouseWheel event to CirclePanel
+		CirclePanel->MouseWheel += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::CirclePanel_MouseWheel);
 	}
-	private: System::Void CirclePanel_Scroll(System::Object^ sender, System::Windows::Forms::ScrollEventArgs^ e) {
-		if (e->ScrollOrientation == ScrollOrientation::VerticalScroll) {
-			if (e->OldValue < e->NewValue) {
+	private: System::Void CirclePanel_MouseWheel(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+		if (Control::ModifierKeys == Keys::Alt) { 
+			// Shift beat division by standard musical quantizations
+			// TODO: take into account time signature?
+			if (BeatNum2->Value < 2) {
+				if (e->Delta > 0) {
+					BeatNum2->Value = 2;
+				}
+				return;
+			}
+			else if (BeatNum2->Value == 2 && e->Delta < 0) {
+				BeatNum2->Value = 1;
+				return;
+			}
+			
+			int low = 0;
+			int high = 1;
+
+			while (!(BeatNum2->Value >= (1 << low) && BeatNum2->Value <= (1 << high))) {
+				low++;
+				high++;
+			}
+			if (e->Delta < 0) {
+				BeatNum2->Value = (1 << low);
+			}
+			else {
+				if (high < 10) {
+					BeatNum2->Value = (1 << (high + 1));
+				}
+			}
+		}
+		else if (Control::ModifierKeys == Keys::Shift) {
+
+		}
+		else if (Control::ModifierKeys == Keys::Control) {
+
+		}
+		else {
+			// Scroll by one beat at a time
+			if (e->Delta > 0) {
 				BeatNum1->Value++;
 			}
 			else {
@@ -4353,5 +4396,77 @@ private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
 		DrawToGraphics(bufferedGfx->Graphics);
 	}
 	*/
+private: System::Void CirclePanel_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	// Determine location of mouse click in the circle
+	// X and Y are relative to upper left of image
+	float xCen = e->X - (CirclePanel->Width / 2);
+	float yCen = -(e->Y - (CirclePanel->Height / 2));
+	float theta = Math::Atan2(yCen, xCen) * 180.0f / PI;
+	if (theta < 0)
+		theta += 360.0f;
+	PosNum->Value = (int)(theta / 6.0f);
+	mouseDownPos = (int)PosNum->Value;
+	lastMousePos = -1;
+	rolloverPos = false;
+	rolloverNeg = false;
+}
+private: System::Void CirclePanel_MouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	InsertObject();
+}
+private: System::Void CirclePanel_MouseMove(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	// Calculate angle
+	float xCen = e->X - (CirclePanel->Width / 2);
+	float yCen = -(e->Y - (CirclePanel->Height / 2));
+	float thetaCalc = Math::Atan2(yCen, xCen) * 180.0f / PI;
+	if (thetaCalc < 0)
+		thetaCalc += 360.0f;
+	int theta = thetaCalc / 6.0f;
+	// Left click will alter the note width and possibly the position depending on which direction is being turned
+	if (e->Button == System::Windows::Forms::MouseButtons::Left) {
+		int delta = theta - lastMousePos;
+		// Handle rollover
+		if (delta == -59) {
+			if (rolloverNeg) {
+				rolloverNeg = false;
+			}
+			else {
+				rolloverPos = true;
+			}
+		}
+		else if (delta == 59) {
+			if (rolloverPos) {
+				rolloverPos = false;
+			}
+			else {
+				rolloverNeg = true;
+			}
+		}
+		if (theta == mouseDownPos) {
+			PosNum->Value = mouseDownPos;
+			SizeNum->Value = 1;
+		}
+		else if ((theta > mouseDownPos || rolloverPos) && !rolloverNeg) {
+			PosNum->Value = mouseDownPos;
+			if (rolloverPos) {
+				
+				SizeNum->Value = Math::Min(theta + 60 - mouseDownPos + 1, 60);
+			}
+			else {
+				SizeNum->Value = theta - mouseDownPos + 1;
+			}
+		}
+		else if (theta < mouseDownPos || rolloverNeg) {
+			if (rolloverNeg) {
+				PosNum->Value = theta;
+				SizeNum->Value = Math::Min(mouseDownPos + 60 - theta + 1, 60);
+			}
+			else {
+				PosNum->Value = theta;
+				SizeNum->Value = mouseDownPos - theta + 1;
+			}
+		}
+		lastMousePos = theta;
+	}
+}
 };
 }
