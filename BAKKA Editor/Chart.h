@@ -3,10 +3,35 @@
 #include <iterator>
 #include <list>
 
+enum NoteType {
+	TouchNoBonus = 1,
+	TouchBonus = 2,
+	SnapRedNoBonus = 3,
+	SnapBlueNoBonus = 4,
+	SlideOrangeNoBonus = 5,
+	SlideOrangeBonus = 6,
+	SlideGreenNoBonus = 7,
+	SlideGreenBonus = 8,
+	HoldStartNoBonus = 9,
+	HoldMiddle = 10,
+	HoldEnd = 11,
+	MaskAdd = 12,
+	MaskRemove = 13,
+	EndOfChart = 14,
+	Chain = 16,
+	TouchBonusFlair = 20,
+	SnapRedBonusFlair = 21,
+	SnapBlueBonusFlair = 22,
+	SlideOrangeBonusFlair = 23,
+	SlideGreenBonusFlair = 24,
+	HoldStartBonusFlair = 25,
+	ChainBonusFlair = 26,
+};
+
 struct NotesNode {
 	int beat;
 	int subBeat;
-	int noteType;
+	NoteType noteType;
 	int position;
 	int size;
 	int holdChange;
