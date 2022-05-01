@@ -4454,14 +4454,20 @@ private: System::Void CirclePanel_MouseDown(System::Object^ sender, System::Wind
 	float theta = Math::Atan2(yCen, xCen) * 180.0f / PI;
 	if (theta < 0)
 		theta += 360.0f;
-	PosNum->Value = (int)(theta / 6.0f);
-	mouseDownPos = (int)PosNum->Value;
-	lastMousePos = -1;
-	rolloverPos = false;
-	rolloverNeg = false;
+	// Left click moves the cursor
+	if (e->Button == System::Windows::Forms::MouseButtons::Left) {
+		PosNum->Value = (int)(theta / 6.0f);
+		mouseDownPos = (int)PosNum->Value;
+		lastMousePos = -1;
+		rolloverPos = false;
+		rolloverNeg = false;
+	}
 }
 private: System::Void CirclePanel_MouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
-	InsertObject();
+	// Only Left Click should create notes
+	if (e->Button == System::Windows::Forms::MouseButtons::Left) {
+		InsertObject();
+	}
 }
 private: System::Void CirclePanel_MouseMove(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 	// Calculate angle
