@@ -21,7 +21,7 @@ Chart theChart;
 std::string songFilePath = "";
 std::string chartFilePath = "";
 std::string tickFilePath = "se_tick.ogg";
-int SelectedLineType = 1;
+GimmickType SelectedLineType = NoGimmick;
 NoteType SelectedNoteType = TouchNoBonus;
 NoteType SelectedNoteTypeVisual = TouchNoBonus;
 std::list<NotesNode>::iterator viewNotesITR = theChart.Notes.begin();
@@ -1237,14 +1237,14 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			resources->ApplyResources(this->MaskCenter, L"MaskCenter");
 			this->MaskCenter->Name = L"MaskCenter";
 			this->MaskCenter->UseVisualStyleBackColor = true;
-			this->MaskCenter->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MaskCenter_CheckedChanged);
+			this->MaskCenter->CheckedChanged += gcnew System::EventHandler(this, &MyForm::Mask_CheckedChanged);
 			// 
 			// MaskCClockwise
 			// 
 			resources->ApplyResources(this->MaskCClockwise, L"MaskCClockwise");
 			this->MaskCClockwise->Name = L"MaskCClockwise";
 			this->MaskCClockwise->UseVisualStyleBackColor = true;
-			this->MaskCClockwise->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MaskCClockwise_CheckedChanged);
+			this->MaskCClockwise->CheckedChanged += gcnew System::EventHandler(this, &MyForm::Mask_CheckedChanged);
 			// 
 			// MaskClockwise
 			// 
@@ -1253,7 +1253,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			this->MaskClockwise->Name = L"MaskClockwise";
 			this->MaskClockwise->TabStop = true;
 			this->MaskClockwise->UseVisualStyleBackColor = true;
-			this->MaskClockwise->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MaskClockwise_CheckedChanged);
+			this->MaskClockwise->CheckedChanged += gcnew System::EventHandler(this, &MyForm::Mask_CheckedChanged);
 			// 
 			// label18
 			// 
@@ -2022,36 +2022,36 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			GimmickSubBeatLabel->Text = stdStringToSystemString(subBeatString);
 
 			switch ((viewGimmicksITR)->type) {
-			case 2:
+			case BpmChange:
 				GimmickTypeLabel->Text = "BPM Change";
 				GimmickValueLabel->Text = stdStringToSystemString(to_string((viewGimmicksITR)->BPM));
 				break;
-			case 3:
+			case TimeSignatureChange:
 				GimmickTypeLabel->Text = "Time Signature Change";
 				GimmickValueLabel->Text = stdStringToSystemString(to_string((viewGimmicksITR)->beatDiv1))
 					+ "/" + stdStringToSystemString(to_string((viewGimmicksITR)->beatDiv2));
 				break;
-			case 5:
+			case HiSpeedChange:
 				GimmickTypeLabel->Text = "Hi-Speed Change";
 				GimmickValueLabel->Text = stdStringToSystemString(to_string((viewGimmicksITR)->hiSpeed));
 				break;
-			case 6:
+			case ReverseStart:
 				GimmickTypeLabel->Text = "Reverse Start";
 				GimmickValueLabel->Text = "N/A";
 				break;
-			case 7:
+			case ReverseMiddle:
 				GimmickTypeLabel->Text = "Reverse Middle";
 				GimmickValueLabel->Text = "N/A";
 				break;
-			case 8:
+			case ReverseEnd:
 				GimmickTypeLabel->Text = "Reverse End";
 				GimmickValueLabel->Text = "N/A";
 				break;
-			case 9:
+			case StopStart:
 				GimmickTypeLabel->Text = "Stop Start";
 				GimmickValueLabel->Text = "N/A";
 				break;
-			case 10:
+			case StopEnd:
 				GimmickTypeLabel->Text = "Stop End";
 				GimmickValueLabel->Text = "N/A";
 				break;
@@ -2202,7 +2202,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 				SizeNum->Value = viewNotesITR->size;
 				SelectedNoteTypeVisual = viewNotesITR->noteType;
 				if (SelectedNoteTypeVisual != HoldMiddle && SelectedNoteTypeVisual != HoldEnd && SelectedNoteTypeVisual != HoldStartNoBonus && SelectedNoteTypeVisual != HoldStartBonusFlair) {
-					SelectedLineType = 1;
+					SelectedLineType = NoGimmick;
 					SelectedNoteType = viewNotesITR->noteType;
 				}
 				CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
@@ -2509,18 +2509,20 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 
 		int beat;
 		int subBeat;
-		int type;
+		GimmickType type;
+		int typeTemp;
 		int lineTemp;
 		int noteTemp;
 		std::map<int, int> Holds;
 		NotesNode tempNotes;
 		PreChartNode tempPCNode;
 		while (!chartFile.eof()) {
-			chartFile >> beat >> subBeat >> type;
+			typeTemp = (int)type;
+			chartFile >> beat >> subBeat >> typeTemp;
 			if (chartFile.eof()) break;
 
 			switch (type) {
-			case 1:
+			case NoGimmick:
 				tempNotes.beat = beat;
 				tempNotes.subBeat = subBeat;
 				noteTemp = (int)tempNotes.noteType;
@@ -2533,7 +2535,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 				}
 				theChart.Notes.push_back(tempNotes);
 				break;
-			case 2:
+			case BpmChange:
 				tempPCNode.beat = beat;
 				tempPCNode.subBeat = subBeat;
 				tempPCNode.type = type;
@@ -2543,7 +2545,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 					InitialBPMNum->Value = (System::Decimal)tempPCNode.BPM;
 				}
 				break;
-			case 3:
+			case TimeSignatureChange:
 				tempPCNode.beat = beat;
 				tempPCNode.subBeat = subBeat;
 				tempPCNode.type = type;
@@ -2554,7 +2556,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 					InitTimeSigNum2->Value = (System::Decimal)tempPCNode.beatDiv2;
 				}
 				break;
-			case 5:
+			case HiSpeedChange:
 				tempPCNode.beat = beat;
 				tempPCNode.subBeat = subBeat;
 				tempPCNode.type = type;
@@ -2603,7 +2605,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		NotesNode tempNotesNode;
 		PreChartNode tempPreChartNode;
 
-		if (SelectedLineType == 1) {
+		if (SelectedLineType == NoGimmick) {
 			tempNotesNode.beat = (int)MeasureNum->Value;
 			tempNotesNode.subBeat = std::round((1920.f / (float)BeatNum2->Value) * (float)BeatNum1->Value);
 			tempNotesNode.noteType = SelectedNoteType;
@@ -2678,24 +2680,24 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 				viewNotesITR = theChart.Notes.end();
 				viewNotesITR--;
 				switch (viewNotesITR->noteType) {
-				case 9:
+				case HoldStartNoBonus:
 					viewNotesITR->prevNode = theChart.Notes.end();
 					viewNotesITR->nextNode = theChart.Notes.end();
 					holdNoteitr = viewNotesITR;
 					break;
-				case 10:
+				case HoldMiddle:
 					viewNotesITR->prevNode = holdNoteitr;
 					viewNotesITR->prevNode->nextNode = viewNotesITR;
 					viewNotesITR->nextNode = theChart.Notes.end();
 					holdNoteitr = viewNotesITR;
 					break;
-				case 11:
+				case HoldEnd:
 					viewNotesITR->prevNode = holdNoteitr;
 					viewNotesITR->prevNode->nextNode = viewNotesITR;
 					viewNotesITR->nextNode = theChart.Notes.end();
 					holdNoteitr = theChart.Notes.end();
 					break;
-				case 25:
+				case HoldStartBonusFlair:
 					viewNotesITR->prevNode = theChart.Notes.end();
 					viewNotesITR->nextNode = theChart.Notes.end();
 					holdNoteitr = viewNotesITR;
@@ -2713,14 +2715,14 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			tempPreChartNode.beat = (int)MeasureNum->Value;
 			tempPreChartNode.subBeat = std::round((1920.f / (float)BeatNum2->Value) * (float)BeatNum1->Value);
 			tempPreChartNode.type = SelectedLineType;
-			if (SelectedLineType == 2) { //BPM Change
+			if (SelectedLineType == BpmChange) { //BPM Change
 				if (tempPreChartNode.beat == 0 && tempPreChartNode.subBeat == 0) {
 					InitialBPMNum->Value = BPMChangeNum->Value;
 				}
 				tempPreChartNode.BPM = (double)BPMChangeNum->Value;
 				theChart.PreChart.push_back(tempPreChartNode);
 			}
-			if (SelectedLineType == 3) { //Time Signature Change
+			if (SelectedLineType == TimeSignatureChange) { //Time Signature Change
 				if (tempPreChartNode.beat == 0 && tempPreChartNode.subBeat == 0) {
 					InitTimeSigNum1->Value = TimeSigNum1->Value;
 					InitTimeSigNum2->Value = TimeSigNum2->Value;
@@ -2729,29 +2731,29 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 				tempPreChartNode.beatDiv2 = (int)TimeSigNum2->Value;
 				theChart.PreChart.push_back(tempPreChartNode);
 			}
-			if (SelectedLineType == 5) { //Hi-speed Change
+			if (SelectedLineType == HiSpeedChange) { //Hi-speed Change
 				tempPreChartNode.hiSpeed = (double)HiSpeedChangeNum->Value;
 				theChart.PreChart.push_back(tempPreChartNode);
 			}
-			if (SelectedLineType == 6) { //Reverse
+			if (SelectedLineType == ReverseStart) { //Reverse
 				theChart.PreChart.push_back(tempPreChartNode);
 
 				tempPreChartNode.beat = (int)ReverseEnd1MeasureNum->Value;
 				tempPreChartNode.subBeat = std::round((1920.f / (float)ReverseEnd1BeatNum2->Value) * (float)ReverseEnd1BeatNum1->Value);
-				tempPreChartNode.type = 7;
+				tempPreChartNode.type = ReverseMiddle;
 				theChart.PreChart.push_back(tempPreChartNode);
 
 				tempPreChartNode.beat = (int)ReverseEnd2MeasureNum->Value;
 				tempPreChartNode.subBeat = std::round((1920.f / (float)ReverseEnd2BeatNum2->Value) * (float)ReverseEnd2BeatNum1->Value);
-				tempPreChartNode.type = 8;
+				tempPreChartNode.type = ReverseEnd;
 				theChart.PreChart.push_back(tempPreChartNode);
 			}
-			if (SelectedLineType == 9) { //Stop
+			if (SelectedLineType == StopStart) { //Stop
 				theChart.PreChart.push_back(tempPreChartNode);
 
 				tempPreChartNode.beat = (int)StopEndMeasureNum->Value;
 				tempPreChartNode.subBeat = std::round((1920.f / (float)StopEndBeatNum2->Value) * (float)StopEndBeatNum1->Value);
-				tempPreChartNode.type = 10;
+				tempPreChartNode.type = StopEnd;
 				theChart.PreChart.push_back(tempPreChartNode);
 			}
 			if (!theChart.PreChart.empty()) {
@@ -2788,7 +2790,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		if (!BPMFound) {
 			tempPreChartNode.beat = 0;
 			tempPreChartNode.subBeat = 0;
-			tempPreChartNode.type = 2;
+			tempPreChartNode.type = BpmChange;
 			tempPreChartNode.BPM = (double)InitialBPMNum->Value;
 			theChart.PreChart.push_back(tempPreChartNode);
 			viewGimmicksITR = theChart.PreChart.end();
@@ -2797,7 +2799,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		if (!TimeSigFound) {
 			tempPreChartNode.beat = 0;
 			tempPreChartNode.subBeat = 0;
-			tempPreChartNode.type = 3;
+			tempPreChartNode.type = TimeSignatureChange;
 			tempPreChartNode.beatDiv1 = (int)InitTimeSigNum1->Value;
 			tempPreChartNode.beatDiv2 = (int)InitTimeSigNum2->Value;
 			theChart.PreChart.push_back(tempPreChartNode);
@@ -2826,7 +2828,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
 		}
-		SelectedLineType = 1;
+		SelectedLineType = NoGimmick;
 		RefreshPaint();
 	}
 	private: System::Void OrangeButton_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -2842,7 +2844,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			}
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
-			SelectedLineType = 1;
+			SelectedLineType = NoGimmick;
 		}
 		RefreshPaint();
 	}
@@ -2859,7 +2861,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			}
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
-			SelectedLineType = 1;
+			SelectedLineType = NoGimmick;
 		}
 		RefreshPaint();
 	}
@@ -2873,7 +2875,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			}
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
-			SelectedLineType = 1;
+			SelectedLineType = NoGimmick;
 		}
 		RefreshPaint();
 	}
@@ -2887,7 +2889,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			}
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
-			SelectedLineType = 1;
+			SelectedLineType = NoGimmick;
 		}
 		RefreshPaint();
 	}
@@ -2901,7 +2903,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			}
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
-			SelectedLineType = 1;
+			SelectedLineType = NoGimmick;
 		}
 		RefreshPaint();
 	}
@@ -2910,7 +2912,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			SelectedNoteType = EndOfChart;
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
-			SelectedLineType = 1;
+			SelectedLineType = NoGimmick;
 		}
 		RefreshPaint();
 	}
@@ -2924,7 +2926,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			}
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
-			SelectedLineType = 1;
+			SelectedLineType = NoGimmick;
 		}
 		RefreshPaint();
 	}
@@ -2938,42 +2940,42 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			}
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
-			SelectedLineType = 1;
+			SelectedLineType = NoGimmick;
 		}
 		RefreshPaint();
 	}
 	private: System::Void BPMChange_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != HoldMiddle) {
 			CurrentObjectText->Text = "BPM Change";
-			SelectedLineType = 2;
+			SelectedLineType = BpmChange;
 		}
 		RefreshPaint();
 	}
 	private: System::Void TimeSignature_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != HoldMiddle) {
 			CurrentObjectText->Text = "Time Signature Change";
-			SelectedLineType = 3;
+			SelectedLineType = TimeSignatureChange;
 		}
 		RefreshPaint();
 	}
 	private: System::Void Hispeed_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != HoldMiddle) {
 			CurrentObjectText->Text = "Hi-Speed Change";
-			SelectedLineType = 5;
+			SelectedLineType = HiSpeedChange;
 		}
 		RefreshPaint();
 	}
 	private: System::Void Stop_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != HoldMiddle) {
 			CurrentObjectText->Text = "Stop";
-			SelectedLineType = 9;
+			SelectedLineType = StopStart;
 		}
 		RefreshPaint();
 	}
 	private: System::Void Reverse_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != HoldMiddle) {
 			CurrentObjectText->Text = "Reverse";
-			SelectedLineType = 6;
+			SelectedLineType = ReverseStart;
 		}
 		RefreshPaint();
 	}
@@ -2985,7 +2987,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		RefreshPaint();
 	}
 	private: System::Void NoteRadioButton_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedLineType == 1) {
+		if (SelectedLineType == NoGimmick) {
 			switch (SelectedNoteType) {
 			case TouchNoBonus:
 			case TouchBonus:
@@ -3069,7 +3071,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		}
 	}
 	private: System::Void AddMask_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedLineType == 1) {
+		if (SelectedLineType == NoGimmick) {
 			if (SelectedNoteType == MaskRemove) {
 				if (AddMask->Checked) {
 					SelectedNoteType = MaskAdd;
@@ -3081,7 +3083,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		RefreshPaint();
 	}
 	private: System::Void RemoveMask_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedLineType == 1) {
+		if (SelectedLineType == NoGimmick) {
 			if (SelectedNoteType == MaskAdd) {
 				if (RemoveMask->Checked) {
 					SelectedNoteType = MaskRemove;
@@ -3092,18 +3094,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		}
 		RefreshPaint();
 	}
-	private: System::Void MaskClockwise_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedLineType == 1) {
-			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
-		}
-	}
-	private: System::Void MaskCClockwise_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedLineType == 1) {
-			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
-		}
-	}
-	private: System::Void MaskCenter_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedLineType == 1) {
+	private: System::Void Mask_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (SelectedLineType == NoGimmick) {
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 		}
 	}

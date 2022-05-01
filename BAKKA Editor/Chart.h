@@ -40,10 +40,22 @@ struct NotesNode {
 	std::list<NotesNode>::iterator prevNode;
 };
 
+enum GimmickType {
+	NoGimmick = 1,
+	BpmChange = 2,
+	TimeSignatureChange = 3,
+	HiSpeedChange = 5,
+	ReverseStart = 6,
+	ReverseMiddle = 7,
+	ReverseEnd = 8,
+	StopStart = 9,
+	StopEnd = 10,
+};
+
 struct PreChartNode {
 	int beat;
 	int subBeat;
-	int type;
+	GimmickType type;
 	double BPM;		//2
 	int beatDiv1;	//3
 	int beatDiv2;	//3
