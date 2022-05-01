@@ -1781,7 +1781,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		mapOfMasks[0].push_back(zero);
 
 		for (std::list<NotesNode>::iterator viewMasksITR = theChart.Notes.begin(); viewMasksITR != theChart.Notes.end(); viewMasksITR++) {
-			if (viewMasksITR->noteType == 12 || viewMasksITR->noteType == 13) {
+			if (viewMasksITR->noteType == MaskAdd || viewMasksITR->noteType == MaskRemove) {
 				float currentTime = (float)viewMasksITR->beat + ((float)viewMasksITR->subBeat / 1920.f);
 				int maskStart, maskEnd;
 				maskStart = viewMasksITR->position;
@@ -1813,7 +1813,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 					}
 				}
 
-				if (viewMasksITR->noteType == 12) {
+				if (viewMasksITR->noteType == MaskAdd) {
 					if (maskEnd > 60) {
 						int differenceEnd = maskEnd - 60;
 						int differenceStart = 0;
@@ -1829,7 +1829,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 					}
 				}
 
-				if (viewMasksITR->noteType == 13) {
+				if (viewMasksITR->noteType == MaskRemove) {
 					if (maskEnd > 60) {
 						int differenceEnd = maskEnd - 60;
 						int differenceStart = 0;
@@ -1933,11 +1933,11 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		if (!theChart.PreChart.empty()) {
 			for (std::list<PreChartNode>::iterator viewGimmicksITR = theChart.PreChart.begin(); viewGimmicksITR != theChart.PreChart.end(); viewGimmicksITR++) {
 				float currentTime = (float)viewGimmicksITR->beat + ((float)viewGimmicksITR->subBeat / 1920.f);
-				if (viewGimmicksITR->type == 2 || viewGimmicksITR->type == 3) { // First run through fills maps of BPMs and Time Signatures
+				if (viewGimmicksITR->type == BpmChange || viewGimmicksITR->type == TimeSignatureChange) { // First run through fills maps of BPMs and Time Signatures
 					//make current time values in maps current to what the PreChart list is saying
-					if(viewGimmicksITR->type == 2)
+					if(viewGimmicksITR->type == BpmChange)
 						mapOfBPMatTime[currentTime] = (float)viewGimmicksITR->BPM;
-					if (viewGimmicksITR->type == 3) {
+					if (viewGimmicksITR->type == TimeSignatureChange) {
 						std::pair<int, int> tempTS(viewGimmicksITR->beatDiv1, viewGimmicksITR->beatDiv2);
 						mapOfTSatTime[currentTime] = tempTS;
 					}
@@ -2227,7 +2227,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			NotesMaskLabel->Text = "N/A";
 
 			NotesTypeLabel->Text = stdStringToSystemString(refreshCurrentNoteViewLabel((viewNotesITR)->noteType));
-			if ((viewNotesITR)->noteType == 12) {
+			if ((viewNotesITR)->noteType == MaskAdd) {
 				switch ((viewNotesITR)->BGType) {
 				case 0:
 					NotesMaskLabel->Text = "Counter-Clockwise";
@@ -2240,7 +2240,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 					break;
 				}
 			}
-			if ((viewNotesITR)->noteType == 13) {
+			if ((viewNotesITR)->noteType == MaskRemove) {
 				switch ((viewNotesITR)->BGType) {
 				case 0:
 					NotesMaskLabel->Text = "Counter-Clockwise";
@@ -2517,16 +2517,16 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		NotesNode tempNotes;
 		PreChartNode tempPCNode;
 		while (!chartFile.eof()) {
-			typeTemp = (int)type;
 			chartFile >> beat >> subBeat >> typeTemp;
+			type = (GimmickType)typeTemp;
 			if (chartFile.eof()) break;
 
 			switch (type) {
 			case NoGimmick:
 				tempNotes.beat = beat;
 				tempNotes.subBeat = subBeat;
-				noteTemp = (int)tempNotes.noteType;
 				chartFile >> noteTemp >> lineTemp >> tempNotes.position >> tempNotes.size >> tempNotes.holdChange;
+				tempNotes.noteType = (NoteType)noteTemp;
 				if (tempNotes.noteType == MaskAdd || tempNotes.noteType == MaskRemove) {
 					chartFile >> tempNotes.BGType;
 				}
@@ -2706,7 +2706,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			}
 			SelectedNoteTypeVisual = viewNotesITR->noteType;
 			theChart.Notes.sort(sortNotesListByBeat);
-			if (SelectedNoteType == 12 || SelectedNoteType == 13) {
+			if (SelectedNoteType == MaskAdd || SelectedNoteType == MaskRemove) {
 				refreshMapofMasks();
 			}
 			refreshNotesView();
@@ -2775,11 +2775,11 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 
 		std::list<PreChartNode>::iterator itr;
 		for (itr = theChart.PreChart.begin(); itr != theChart.PreChart.end(); ++itr) {
-			if ((itr)->type == 2 && (itr)->beat == 0 && (itr)->subBeat == 0) {
+			if ((itr)->type == BpmChange && (itr)->beat == 0 && (itr)->subBeat == 0) {
 				(itr)->BPM = (double)InitialBPMNum->Value;
 				BPMFound = true;
 			}
-			if ((itr)->type == 3 && (itr)->beat == 0 && (itr)->subBeat == 0) {
+			if ((itr)->type == TimeSignatureChange && (itr)->beat == 0 && (itr)->subBeat == 0) {
 				(itr)->beatDiv1 = (int)InitTimeSigNum1->Value;
 				(itr)->beatDiv2 = (int)InitTimeSigNum2->Value;
 				TimeSigFound = true;
@@ -3792,7 +3792,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		}
 
 		//Draw selected mask
-		if (SelectedLineType == 1 && Rect.Width >= 1) {
+		if (SelectedLineType == NoGimmick && Rect.Width >= 1) {
 			if (SelectedNoteTypeVisual == MaskAdd) {
 				bufferedGfx->Graphics->FillPie(MaskBrush, Rect, startAngle, arcLength);
 			}
@@ -3971,7 +3971,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		}
 
 		//Draw selected note
-		if (SelectedLineType == 1 && Rect.Width >= 1 && showCursor) {
+		if (SelectedLineType == NoGimmick && Rect.Width >= 1 && showCursor) {
 			CircleNotePen->Color = Color(Color::FromArgb(SelectedTransparency, returnColor(SelectedNoteTypeVisual)));
 			float spacing = widthOfNotePen + widthOfCurrentNotePen;
 			CircleNotePen->Width = spacing * 2.f;
