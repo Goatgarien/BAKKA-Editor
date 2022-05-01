@@ -42,7 +42,7 @@ const int milInMinute = 60000;
 bool scrollBarChanged = false;
 float theCurrentMeasure = 0;
 // Variables for mouse things
-int mouseDownPos = 0;
+int mouseDownPos = -1;
 int lastMousePos = -1;
 bool rolloverPos = false;
 bool rolloverNeg = false;
@@ -4077,7 +4077,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		}
 		
 		// Generate flag for showing cursor
-		bool showCursor = showCursorToolStripMenuItem->Checked;
+		bool showCursor = showCursorToolStripMenuItem->Checked || mouseDownPos != -1;
 		if (currentlyPlayingSong != nullptr) {
 			if (!currentlyPlayingSong->Paused) {
 				showCursor = showCursorDuringPlaybackToolStripMenuItem->Checked;
@@ -4461,6 +4461,7 @@ private: System::Void CirclePanel_MouseDown(System::Object^ sender, System::Wind
 	rolloverNeg = false;
 }
 private: System::Void CirclePanel_MouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	mouseDownPos = -1;
 	InsertObject();
 }
 private: System::Void CirclePanel_MouseMove(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
