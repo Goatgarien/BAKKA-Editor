@@ -61,46 +61,14 @@ int findLine(std::list<NotesNode>::iterator nextNode) {
 }
 bool isHold(int note) {
 	switch (note) {
-	case 1:
-		return false;
-	case 2:
-		return false;
-	case 3:
-		return false;
-	case 4:
-		return false;
-	case 5:
-		return false;
-	case 6:
-		return false;
-	case 7:
-		return false;
-	case 8:
-		return false;
-	case 9:
-		return true;
-	case 10:
-		return true;
-	case 11:
-		return true;
-	case 16:
-		return false;
-	case 20:
-		return false;
-	case 21:
-		return false;
-	case 22:
-		return false;
-	case 23:
-		return false;
-	case 24:
-		return false;
-	case 25:
-		return true;
-	case 26:
-		return false;
+		case 9:
+		case 10:
+		case 11:
+		case 25:
+			return true;
+		default:
+			return false;
 	}
-	return false;
 }
 bool sortNotesListByBeat(const NotesNode& lhs, const NotesNode& rhs) {
 	if (lhs.beat < rhs.beat)
@@ -209,7 +177,7 @@ namespace BAKKAEditor {
 
 
 	private: System::Windows::Forms::GroupBox^ GimmickBox;
-	private: System::Windows::Forms::Button^ Mask;
+	private: System::Windows::Forms::Button^ MaskButton;
 	private: System::Windows::Forms::RadioButton^ RemoveMask;
 	private: System::Windows::Forms::RadioButton^ AddMask;
 	private: System::Windows::Forms::Button^ Reverse;
@@ -267,7 +235,7 @@ private: System::Windows::Forms::GroupBox^ MaskSettingsBox;
 private: System::Windows::Forms::RadioButton^ MaskCenter;
 private: System::Windows::Forms::RadioButton^ MaskCClockwise;
 private: System::Windows::Forms::RadioButton^ MaskClockwise;
-private: System::Windows::Forms::Label^ label18;
+
 private: System::Windows::Forms::Label^ CurrentObjectText;
 private: System::Windows::Forms::GroupBox^ PreChartViewBox;
 private: System::Windows::Forms::Button^ NextGimmickButton;
@@ -339,13 +307,16 @@ private: System::ComponentModel::BackgroundWorker^ backgroundWorkerSong;
 private: System::ComponentModel::BackgroundWorker^ backgroundWorkerPaint;
 private: System::ComponentModel::BackgroundWorker^ backgroundWorker1;
 private: System::ComponentModel::BackgroundWorker^ backgroundWorker2;
-private: System::Windows::Forms::Panel^ panel1;
+
 private: System::Windows::Forms::NumericUpDown^ PlaybackSpeedNum;
 private: System::Windows::Forms::Label^ label30;
-private: System::Windows::Forms::CheckBox^ HighlightCheckBox;
+
 private: System::Windows::Forms::ToolStripMenuItem^ viewToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^ showCursorToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackToolStripMenuItem;
+private: System::Windows::Forms::GroupBox^ CurrentObjectBox;
+private: System::Windows::Forms::ToolStripMenuItem^ aboutBAKKAEditorToolStripMenuItem;
+private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStripMenuItem;
 
 
 
@@ -411,7 +382,10 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			this->exitToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->viewToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->showCursorToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->showCursorDuringPlaybackToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->highlightViewedNoteToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->aboutToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->aboutBAKKAEditorToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->TapButton = (gcnew System::Windows::Forms::Button());
 			this->OrangeButton = (gcnew System::Windows::Forms::Button());
 			this->GreenButton = (gcnew System::Windows::Forms::Button());
@@ -431,11 +405,12 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			this->Hispeed = (gcnew System::Windows::Forms::Button());
 			this->Stop = (gcnew System::Windows::Forms::Button());
 			this->Reverse = (gcnew System::Windows::Forms::Button());
-			this->Mask = (gcnew System::Windows::Forms::Button());
 			this->VisualHispeed = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label30 = (gcnew System::Windows::Forms::Label());
 			this->PlaybackSpeedNum = (gcnew System::Windows::Forms::NumericUpDown());
+			this->EditNoteButton = (gcnew System::Windows::Forms::Button());
+			this->MaskButton = (gcnew System::Windows::Forms::Button());
 			this->InsertButton = (gcnew System::Windows::Forms::Button());
 			this->PosLabel = (gcnew System::Windows::Forms::Label());
 			this->posInfo = (gcnew System::Windows::Forms::Label());
@@ -492,7 +467,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			this->MaskCenter = (gcnew System::Windows::Forms::RadioButton());
 			this->MaskCClockwise = (gcnew System::Windows::Forms::RadioButton());
 			this->MaskClockwise = (gcnew System::Windows::Forms::RadioButton());
-			this->label18 = (gcnew System::Windows::Forms::Label());
 			this->CurrentObjectText = (gcnew System::Windows::Forms::Label());
 			this->PreChartViewBox = (gcnew System::Windows::Forms::GroupBox());
 			this->GimmickValueLabel = (gcnew System::Windows::Forms::Label());
@@ -507,7 +481,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			this->PrevGimmickButton = (gcnew System::Windows::Forms::Button());
 			this->DeleteGimmickButton = (gcnew System::Windows::Forms::Button());
 			this->NotesViewBox = (gcnew System::Windows::Forms::GroupBox());
-			this->EditNoteButton = (gcnew System::Windows::Forms::Button());
 			this->PrevBeatButton = (gcnew System::Windows::Forms::Button());
 			this->NextBeatButton = (gcnew System::Windows::Forms::Button());
 			this->MatchNoteCheckBox = (gcnew System::Windows::Forms::CheckBox());
@@ -536,7 +509,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			this->fileSystemWatcher1 = (gcnew System::IO::FileSystemWatcher());
 			this->CirclePanel = (gcnew System::Windows::Forms::Panel());
 			this->VisualSettingsBox = (gcnew System::Windows::Forms::GroupBox());
-			this->HighlightCheckBox = (gcnew System::Windows::Forms::CheckBox());
 			this->PlayButton = (gcnew System::Windows::Forms::Button());
 			this->songTrackSlider = (gcnew System::Windows::Forms::TrackBar());
 			this->selectSongFile = (gcnew System::Windows::Forms::Button());
@@ -549,8 +521,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			this->backgroundWorkerPaint = (gcnew System::ComponentModel::BackgroundWorker());
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->backgroundWorker2 = (gcnew System::ComponentModel::BackgroundWorker());
-			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->showCursorDuringPlaybackToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->CurrentObjectBox = (gcnew System::Windows::Forms::GroupBox());
 			this->menuStrip->SuspendLayout();
 			this->NoteTypeBox->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->VisualHispeed))->BeginInit();
@@ -588,21 +559,22 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeTrackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosTrackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fileSystemWatcher1))->BeginInit();
+			this->CirclePanel->SuspendLayout();
 			this->VisualSettingsBox->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->songTrackSlider))->BeginInit();
 			this->SongPlaybackBox->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SongVolume))->BeginInit();
-			this->panel1->SuspendLayout();
+			this->CurrentObjectBox->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// menuStrip
 			// 
+			resources->ApplyResources(this->menuStrip, L"menuStrip");
 			this->menuStrip->ImageScalingSize = System::Drawing::Size(24, 24);
 			this->menuStrip->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->fileToolStripMenuItem,
 					this->viewToolStripMenuItem, this->aboutToolStripMenuItem
 			});
-			resources->ApplyResources(this->menuStrip, L"menuStrip");
 			this->menuStrip->Name = L"menuStrip";
 			// 
 			// fileToolStripMenuItem
@@ -646,9 +618,9 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			// 
 			// viewToolStripMenuItem
 			// 
-			this->viewToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+			this->viewToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->showCursorToolStripMenuItem,
-					this->showCursorDuringPlaybackToolStripMenuItem
+					this->showCursorDuringPlaybackToolStripMenuItem, this->highlightViewedNoteToolStripMenuItem
 			});
 			this->viewToolStripMenuItem->Name = L"viewToolStripMenuItem";
 			resources->ApplyResources(this->viewToolStripMenuItem, L"viewToolStripMenuItem");
@@ -656,15 +628,38 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			// showCursorToolStripMenuItem
 			// 
 			this->showCursorToolStripMenuItem->Checked = true;
+			this->showCursorToolStripMenuItem->CheckOnClick = true;
 			this->showCursorToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->showCursorToolStripMenuItem->Name = L"showCursorToolStripMenuItem";
 			resources->ApplyResources(this->showCursorToolStripMenuItem, L"showCursorToolStripMenuItem");
 			this->showCursorToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::showCursorToolStripMenuItem_Click);
 			// 
+			// showCursorDuringPlaybackToolStripMenuItem
+			// 
+			this->showCursorDuringPlaybackToolStripMenuItem->CheckOnClick = true;
+			this->showCursorDuringPlaybackToolStripMenuItem->Name = L"showCursorDuringPlaybackToolStripMenuItem";
+			resources->ApplyResources(this->showCursorDuringPlaybackToolStripMenuItem, L"showCursorDuringPlaybackToolStripMenuItem");
+			// 
+			// highlightViewedNoteToolStripMenuItem
+			// 
+			this->highlightViewedNoteToolStripMenuItem->Checked = true;
+			this->highlightViewedNoteToolStripMenuItem->CheckOnClick = true;
+			this->highlightViewedNoteToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->highlightViewedNoteToolStripMenuItem->Name = L"highlightViewedNoteToolStripMenuItem";
+			resources->ApplyResources(this->highlightViewedNoteToolStripMenuItem, L"highlightViewedNoteToolStripMenuItem");
+			this->highlightViewedNoteToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::highlightViewedNoteToolStripMenuItem_Click);
+			// 
 			// aboutToolStripMenuItem
 			// 
+			this->aboutToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->aboutBAKKAEditorToolStripMenuItem });
 			this->aboutToolStripMenuItem->Name = L"aboutToolStripMenuItem";
 			resources->ApplyResources(this->aboutToolStripMenuItem, L"aboutToolStripMenuItem");
+			// 
+			// aboutBAKKAEditorToolStripMenuItem
+			// 
+			this->aboutBAKKAEditorToolStripMenuItem->Name = L"aboutBAKKAEditorToolStripMenuItem";
+			resources->ApplyResources(this->aboutBAKKAEditorToolStripMenuItem, L"aboutBAKKAEditorToolStripMenuItem");
+			this->aboutBAKKAEditorToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::aboutBAKKAEditorToolStripMenuItem_Click);
 			// 
 			// TapButton
 			// 
@@ -695,6 +690,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			// 
 			resources->ApplyResources(this->RedButton, L"RedButton");
 			this->RedButton->BackColor = System::Drawing::Color::Red;
+			this->RedButton->ForeColor = System::Drawing::Color::White;
 			this->RedButton->Name = L"RedButton";
 			this->RedButton->UseVisualStyleBackColor = false;
 			this->RedButton->Click += gcnew System::EventHandler(this, &MyForm::RedButton_Click);
@@ -735,7 +731,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			// 
 			// NoteTypeBox
 			// 
-			resources->ApplyResources(this->NoteTypeBox, L"NoteTypeBox");
 			this->NoteTypeBox->Controls->Add(this->BonusFlairRadioButton);
 			this->NoteTypeBox->Controls->Add(this->BonusGetRadioButton);
 			this->NoteTypeBox->Controls->Add(this->NoBonusRadioButton);
@@ -748,6 +743,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			this->NoteTypeBox->Controls->Add(this->GreenButton);
 			this->NoteTypeBox->Controls->Add(this->BlueButton);
 			this->NoteTypeBox->Controls->Add(this->RedButton);
+			resources->ApplyResources(this->NoteTypeBox, L"NoteTypeBox");
 			this->NoteTypeBox->Name = L"NoteTypeBox";
 			this->NoteTypeBox->TabStop = false;
 			// 
@@ -824,14 +820,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			this->Reverse->UseVisualStyleBackColor = true;
 			this->Reverse->Click += gcnew System::EventHandler(this, &MyForm::Reverse_Click);
 			// 
-			// Mask
-			// 
-			resources->ApplyResources(this->Mask, L"Mask");
-			this->Mask->Name = L"Mask";
-			this->ToolTip->SetToolTip(this->Mask, resources->GetString(L"Mask.ToolTip"));
-			this->Mask->UseVisualStyleBackColor = true;
-			this->Mask->Click += gcnew System::EventHandler(this, &MyForm::Mask_Click);
-			// 
 			// VisualHispeed
 			// 
 			this->VisualHispeed->BackColor = System::Drawing::SystemColors::Window;
@@ -869,6 +857,21 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			this->ToolTip->SetToolTip(this->PlaybackSpeedNum, resources->GetString(L"PlaybackSpeedNum.ToolTip"));
 			this->PlaybackSpeedNum->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->PlaybackSpeedNum->ValueChanged += gcnew System::EventHandler(this, &MyForm::PlaybackSpeedNum_ValueChanged);
+			// 
+			// EditNoteButton
+			// 
+			resources->ApplyResources(this->EditNoteButton, L"EditNoteButton");
+			this->EditNoteButton->Name = L"EditNoteButton";
+			this->ToolTip->SetToolTip(this->EditNoteButton, resources->GetString(L"EditNoteButton.ToolTip"));
+			this->EditNoteButton->UseVisualStyleBackColor = true;
+			this->EditNoteButton->Click += gcnew System::EventHandler(this, &MyForm::EditNoteButton_Click);
+			// 
+			// MaskButton
+			// 
+			resources->ApplyResources(this->MaskButton, L"MaskButton");
+			this->MaskButton->Name = L"MaskButton";
+			this->MaskButton->UseVisualStyleBackColor = true;
+			this->MaskButton->Click += gcnew System::EventHandler(this, &MyForm::MaskButton_Click);
 			// 
 			// InsertButton
 			// 
@@ -949,7 +952,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			// 
 			// GimmickBox
 			// 
-			resources->ApplyResources(this->GimmickBox, L"GimmickBox");
 			this->GimmickBox->Controls->Add(this->Reverse);
 			this->GimmickBox->Controls->Add(this->Stop);
 			this->GimmickBox->Controls->Add(this->Hispeed);
@@ -957,7 +959,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			this->GimmickBox->Controls->Add(this->BPMChange);
 			this->GimmickBox->Controls->Add(this->RemoveMask);
 			this->GimmickBox->Controls->Add(this->AddMask);
-			this->GimmickBox->Controls->Add(this->Mask);
+			this->GimmickBox->Controls->Add(this->MaskButton);
+			resources->ApplyResources(this->GimmickBox, L"GimmickBox");
 			this->GimmickBox->Name = L"GimmickBox";
 			this->GimmickBox->TabStop = false;
 			// 
@@ -1250,10 +1253,10 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			// 
 			// MaskSettingsBox
 			// 
-			resources->ApplyResources(this->MaskSettingsBox, L"MaskSettingsBox");
 			this->MaskSettingsBox->Controls->Add(this->MaskCenter);
 			this->MaskSettingsBox->Controls->Add(this->MaskCClockwise);
 			this->MaskSettingsBox->Controls->Add(this->MaskClockwise);
+			resources->ApplyResources(this->MaskSettingsBox, L"MaskSettingsBox");
 			this->MaskSettingsBox->Name = L"MaskSettingsBox";
 			this->MaskSettingsBox->TabStop = false;
 			// 
@@ -1279,11 +1282,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			this->MaskClockwise->TabStop = true;
 			this->MaskClockwise->UseVisualStyleBackColor = true;
 			this->MaskClockwise->CheckedChanged += gcnew System::EventHandler(this, &MyForm::MaskClockwise_CheckedChanged);
-			// 
-			// label18
-			// 
-			resources->ApplyResources(this->label18, L"label18");
-			this->label18->Name = L"label18";
 			// 
 			// CurrentObjectText
 			// 
@@ -1394,13 +1392,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			this->NotesViewBox->Name = L"NotesViewBox";
 			this->NotesViewBox->TabStop = false;
 			// 
-			// EditNoteButton
-			// 
-			resources->ApplyResources(this->EditNoteButton, L"EditNoteButton");
-			this->EditNoteButton->Name = L"EditNoteButton";
-			this->EditNoteButton->UseVisualStyleBackColor = true;
-			this->EditNoteButton->Click += gcnew System::EventHandler(this, &MyForm::EditNoteButton_Click);
-			// 
 			// PrevBeatButton
 			// 
 			resources->ApplyResources(this->PrevBeatButton, L"PrevBeatButton");
@@ -1507,6 +1498,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			// DeleteNoteButton
 			// 
 			resources->ApplyResources(this->DeleteNoteButton, L"DeleteNoteButton");
+			this->DeleteNoteButton->ForeColor = System::Drawing::Color::Red;
 			this->DeleteNoteButton->Name = L"DeleteNoteButton";
 			this->DeleteNoteButton->UseVisualStyleBackColor = true;
 			this->DeleteNoteButton->Click += gcnew System::EventHandler(this, &MyForm::DeleteNoteButton_Click);
@@ -1518,7 +1510,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			// 
 			// openFileDialogChart
 			// 
-			this->openFileDialogChart->FileName = L"chart.mer";
 			resources->ApplyResources(this->openFileDialogChart, L"openFileDialogChart");
 			this->openFileDialogChart->RestoreDirectory = true;
 			this->openFileDialogChart->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::openFileDialog_FileOk);
@@ -1532,20 +1523,20 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			// 
 			// CurrentNoteBox
 			// 
-			resources->ApplyResources(this->CurrentNoteBox, L"CurrentNoteBox");
-			this->CurrentNoteBox->Controls->Add(this->SizeTrackBar);
-			this->CurrentNoteBox->Controls->Add(this->PosTrackBar);
-			this->CurrentNoteBox->Controls->Add(this->SizeInfo);
 			this->CurrentNoteBox->Controls->Add(this->BeatNum2);
-			this->CurrentNoteBox->Controls->Add(this->posInfo);
 			this->CurrentNoteBox->Controls->Add(this->label1);
-			this->CurrentNoteBox->Controls->Add(this->PosLabel);
 			this->CurrentNoteBox->Controls->Add(this->Beat);
 			this->CurrentNoteBox->Controls->Add(this->BeatNum1);
 			this->CurrentNoteBox->Controls->Add(this->MeasureNum);
-			this->CurrentNoteBox->Controls->Add(this->SizeLabel);
+			this->CurrentNoteBox->Controls->Add(this->SizeTrackBar);
+			this->CurrentNoteBox->Controls->Add(this->PosTrackBar);
+			this->CurrentNoteBox->Controls->Add(this->posInfo);
+			this->CurrentNoteBox->Controls->Add(this->PosLabel);
 			this->CurrentNoteBox->Controls->Add(this->PosNum);
+			this->CurrentNoteBox->Controls->Add(this->SizeLabel);
+			this->CurrentNoteBox->Controls->Add(this->SizeInfo);
 			this->CurrentNoteBox->Controls->Add(this->SizeNum);
+			resources->ApplyResources(this->CurrentNoteBox, L"CurrentNoteBox");
 			this->CurrentNoteBox->Name = L"CurrentNoteBox";
 			this->CurrentNoteBox->TabStop = false;
 			// 
@@ -1574,8 +1565,9 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			// 
 			// CirclePanel
 			// 
-			resources->ApplyResources(this->CirclePanel, L"CirclePanel");
 			this->CirclePanel->BackColor = System::Drawing::Color::Transparent;
+			this->CirclePanel->Controls->Add(this->MadeByLabel);
+			resources->ApplyResources(this->CirclePanel, L"CirclePanel");
 			this->CirclePanel->Name = L"CirclePanel";
 			this->CirclePanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::CirclePanel_Paint);
 			this->CirclePanel->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::CirclePanel_MouseDown);
@@ -1585,18 +1577,10 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			// VisualSettingsBox
 			// 
 			resources->ApplyResources(this->VisualSettingsBox, L"VisualSettingsBox");
-			this->VisualSettingsBox->Controls->Add(this->HighlightCheckBox);
 			this->VisualSettingsBox->Controls->Add(this->label2);
 			this->VisualSettingsBox->Controls->Add(this->VisualHispeed);
 			this->VisualSettingsBox->Name = L"VisualSettingsBox";
 			this->VisualSettingsBox->TabStop = false;
-			// 
-			// HighlightCheckBox
-			// 
-			resources->ApplyResources(this->HighlightCheckBox, L"HighlightCheckBox");
-			this->HighlightCheckBox->Name = L"HighlightCheckBox";
-			this->HighlightCheckBox->UseVisualStyleBackColor = true;
-			this->HighlightCheckBox->CheckedChanged += gcnew System::EventHandler(this, &MyForm::HighlightCheckBox_CheckedChanged);
 			// 
 			// PlayButton
 			// 
@@ -1656,7 +1640,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			// 
 			// openFileDialogSong
 			// 
-			this->openFileDialogSong->FileName = L"openFileDialogSong";
 			resources->ApplyResources(this->openFileDialogSong, L"openFileDialogSong");
 			// 
 			// backgroundWorkerSong
@@ -1675,38 +1658,31 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			this->backgroundWorkerPaint->ProgressChanged += gcnew System::ComponentModel::ProgressChangedEventHandler(this, &MyForm::backgroundWorkerPaint_ProgressChanged);
 			this->backgroundWorkerPaint->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &MyForm::backgroundWorkerPaint_RunWorkerCompleted);
 			// 
-			// panel1
+			// CurrentObjectBox
 			// 
-			resources->ApplyResources(this->panel1, L"panel1");
-			this->panel1->Controls->Add(this->label18);
-			this->panel1->Controls->Add(this->CurrentObjectText);
-			this->panel1->Name = L"panel1";
-			// 
-			// showCursorDuringPlaybackToolStripMenuItem
-			// 
-			this->showCursorDuringPlaybackToolStripMenuItem->Name = L"showCursorDuringPlaybackToolStripMenuItem";
-			resources->ApplyResources(this->showCursorDuringPlaybackToolStripMenuItem, L"showCursorDuringPlaybackToolStripMenuItem");
-			this->showCursorDuringPlaybackToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::showCursorDuringPlaybackToolStripMenuItem_Click);
+			this->CurrentObjectBox->Controls->Add(this->CurrentObjectText);
+			resources->ApplyResources(this->CurrentObjectBox, L"CurrentObjectBox");
+			this->CurrentObjectBox->Name = L"CurrentObjectBox";
+			this->CurrentObjectBox->TabStop = false;
 			// 
 			// MyForm
 			// 
 			this->AllowDrop = true;
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Dpi;
-			this->Controls->Add(this->panel1);
-			this->Controls->Add(this->SongPlaybackBox);
+			this->Controls->Add(this->NotesViewBox);
 			this->Controls->Add(this->VisualSettingsBox);
+			this->Controls->Add(this->CurrentObjectBox);
+			this->Controls->Add(this->GimmickBox);
+			this->Controls->Add(this->NoteTypeBox);
+			this->Controls->Add(this->SongPlaybackBox);
 			this->Controls->Add(this->CirclePanel);
 			this->Controls->Add(this->CurrentNoteBox);
-			this->Controls->Add(this->MadeByLabel);
-			this->Controls->Add(this->NotesViewBox);
 			this->Controls->Add(this->PreChartViewBox);
 			this->Controls->Add(this->MaskSettingsBox);
 			this->Controls->Add(this->InitialSettingsPane);
 			this->Controls->Add(this->GimmickSettingsBox);
-			this->Controls->Add(this->GimmickBox);
 			this->Controls->Add(this->InsertButton);
-			this->Controls->Add(this->NoteTypeBox);
 			this->Controls->Add(this->menuStrip);
 			this->DoubleBuffered = true;
 			this->KeyPreview = true;
@@ -1762,14 +1738,16 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeTrackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosTrackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fileSystemWatcher1))->EndInit();
+			this->CirclePanel->ResumeLayout(false);
+			this->CirclePanel->PerformLayout();
 			this->VisualSettingsBox->ResumeLayout(false);
 			this->VisualSettingsBox->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->songTrackSlider))->EndInit();
 			this->SongPlaybackBox->ResumeLayout(false);
 			this->SongPlaybackBox->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SongVolume))->EndInit();
-			this->panel1->ResumeLayout(false);
-			this->panel1->PerformLayout();
+			this->CurrentObjectBox->ResumeLayout(false);
+			this->CurrentObjectBox->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -2099,23 +2077,23 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		//CurrentObjectText->ForeColor = returnColor(currentNoteType);
 		switch (currentNoteType) {
 		case 1:
-			return "Touch (No Bonus)";
+			return "Touch [No Bonus]";
 		case 2:
-			return "Touch (Bonus Get)";
+			return "Touch [Bonus Get]";
 		case 3:
-			return "Snap (R) (No Bonus)";
+			return "Snap (R) [No Bonus]";
 		case 4:
-			return "Snap (B) (No Bonus)";
+			return "Snap (B) [No Bonus]";
 		case 5:
-			return "Slide (O) (No Bonus)";
+			return "Slide (O) [No Bonus]";
 		case 6:
-			return "Slide (O) (Bonus Get)";
+			return "Slide (O) [Bonus Get]";
 		case 7:
-			return "Slide (G) (No Bonus)";
+			return "Slide (G) [No Bonus]";
 		case 8:
-			return "Slide (G) (Bonus Get)";
+			return "Slide (G) [Bonus Get]";
 		case 9:
-			return "Hold Start (No Bonus)";
+			return "Hold Start [No Bonus]";
 		case 10:
 			if (EndHoldBox->Checked) {
 				return "Hold End";
@@ -2150,42 +2128,42 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		case 16:
 			return "Chain";
 		case 20:
-			return "Touch (Bonus With Flair)";
+			return "Touch [R Note]";
 		case 21:
-			return "Snap (R) (Bonus With Flair)";
+			return "Snap (R) [R Note]";
 		case 22:
-			return "Snap (B) (Bonus With Flair)";
+			return "Snap (B) [R Note]";
 		case 23:
-			return "Slide (O) (Bonus With Flair)";
+			return "Slide (O) [R Note]";
 		case 24:
-			return "Slide (G) (Bonus With Flair)";
+			return "Slide (G) [R Note]";
 		case 25:
-			return "Hold Start (Bonus With Flair)";
+			return "Hold Start [R Note]";
 		case 26:
-			return "Chain (Bonus With Flair)";
+			return "Chain [R Note]";
 		}
 		return "None Selected";
 	}
 	std::string refreshCurrentNoteViewLabel(int currentNoteType) {
 		switch (currentNoteType) {
 		case 1:
-			return "Touch (No Bonus)";
+			return "Touch [No Bonus]";
 		case 2:
-			return "Touch (Bonus Get)";
+			return "Touch [Bonus Get]";
 		case 3:
-			return "Snap (R) (No Bonus)";
+			return "Snap (R) [No Bonus]";
 		case 4:
-			return "Snap (B) (No Bonus)";
+			return "Snap (B) [No Bonus]";
 		case 5:
-			return "Slide (O) (No Bonus)";
+			return "Slide (O) [No Bonus]";
 		case 6:
-			return "Slide (O) (Bonus Get)";
+			return "Slide (O) [Bonus Get]";
 		case 7:
-			return "Slide (G) (No Bonus)";
+			return "Slide (G) [No Bonus]";
 		case 8:
-			return "Slide (G) (Bonus Get)";
+			return "Slide (G) [Bonus Get]";
 		case 9:
-			return "Hold Start (No Bonus)";
+			return "Hold Start [No Bonus]";
 		case 10:
 			return "Hold Middle";
 		case 11:
@@ -2199,19 +2177,19 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		case 16:
 			return "Chain";
 		case 20:
-			return "Touch (Bonus With Flair)";
+			return "Touch [R Note]";
 		case 21:
-			return "Snap (R) (Bonus With Flair)";
+			return "Snap (R) [R Note]";
 		case 22:
-			return "Snap (B) (Bonus With Flair)";
+			return "Snap (B) [R Note]";
 		case 23:
-			return "Slide (O) (Bonus With Flair)";
+			return "Slide (O) [R Note]";
 		case 24:
-			return "Slide (G) (Bonus With Flair)";
+			return "Slide (G) [R Note]";
 		case 25:
-			return "Hold Start (Bonus With Flair)";
+			return "Hold Start [R Note]";
 		case 26:
-			return "Chain (Bonus With Flair)";
+			return "Chain [R Note]";
 		}
 		return "List Empty";
 	}
@@ -2243,7 +2221,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 				noteRefresh = false;
 				refreshThePaint = true;
 			}
-			if (HighlightCheckBox->Checked) {
+			if (highlightViewedNoteToolStripMenuItem->Checked) {
 				refreshThePaint = true;
 			}
 			if (refreshThePaint) {
@@ -2689,11 +2667,11 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 			if (SelectedNoteType == 11) {
 				if (BonusFlairRadioButton->Checked) {
 					SelectedNoteType = 25;
-					CurrentObjectText->Text = "Hold Start (Bonus With Flair)";
+					CurrentObjectText->Text = "Hold Start [R Note]";
 				}
 				else {
 					SelectedNoteType = 9;
-					CurrentObjectText->Text = "Hold Start (No Bonus)";
+					CurrentObjectText->Text = "Hold Start [No Bonus]";
 				}
 			}
 
@@ -2954,7 +2932,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		}
 		RefreshPaint();
 	}
-	private: System::Void Mask_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void MaskButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != 10) {
 			if (AddMask->Checked) {
 				SelectedNoteType = 12;
@@ -3165,6 +3143,9 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		}
 	}
 	private: System::Void AddMask_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (AddMask->Checked) {
+			MaskCenter->Text = "From Center";
+		}
 		if (SelectedLineType == 1) {
 			if (SelectedNoteType == 13) {
 				if (AddMask->Checked) {
@@ -3177,6 +3158,9 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		RefreshPaint();
 	}
 	private: System::Void RemoveMask_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (RemoveMask->Checked) {
+			MaskCenter->Text = "To Center";
+		}
 		if (SelectedLineType == 1) {
 			if (SelectedNoteType == 12) {
 				if (RemoveMask->Checked) {
@@ -3630,10 +3614,10 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 	private: System::Void MyForm_Resize(System::Object^ sender, System::EventArgs^ e) {
 		int paddingFromEdge = 28;
 		int paddingBetweenObjects = 6;
-		int leftPos = NoteTypeBox->Right + paddingBetweenObjects;
-		int rightPos = this->Width - paddingFromEdge;
-		int topPos = InitialSettingsPane->Bottom + paddingBetweenObjects;
-		int botPos = NotesViewBox->Top - paddingBetweenObjects;
+		int leftPos = GimmickBox->Right + paddingBetweenObjects;
+		int rightPos = PreChartViewBox->Left - paddingBetweenObjects;
+		int topPos = GimmickBox->Top;
+		int botPos = SongPlaybackBox->Top - paddingBetweenObjects;
 		int width = rightPos - leftPos;
 		int height = botPos - topPos;
 		/*
@@ -4002,7 +3986,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 								futArcLength -= 4;
 								bufferedGfx->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw highlight
 							}
-							if (HighlightCheckBox->Checked) {
+							if (highlightViewedNoteToolStripMenuItem->Checked) {
 								if (islistITREqualToViewITR(listofNotesitr)) {
 									CircleNotePen->Color = HighlightColor;
 									CircleNotePen->Width += highlightWidth;
@@ -4057,7 +4041,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 								futArcLength -= 4;
 								bufferedGfx->Graphics->DrawArc(CircleNotePen, RectFut, futStartAngle, futArcLength); //Draw highlight
 							}
-							if (HighlightCheckBox->Checked) {
+							if (highlightViewedNoteToolStripMenuItem->Checked) {
 								if (islistITREqualToViewITR(listofNotesitr)) {
 									CircleNotePen->Color = HighlightColor;
 									CircleNotePen->Width += highlightWidth;
@@ -4391,47 +4375,57 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 		switch (keyPressed) {
 		case 'T': //Touch
 			TapButton_Click(sender, e);
+			TapButton->Focus();
 			e->Handled = true;
 			break;
 		case 'O': //Orange Slide
 			OrangeButton_Click(sender, e);
+			OrangeButton->Focus();
 			e->Handled = true;
 			break;
 		case 'G': //Green Slide
 			GreenButton_Click(sender, e);
+			GreenButton->Focus();
 			e->Handled = true;
 			break;
 		case 'R': //Red Snap
 			RedButton_Click(sender, e);
+			RedButton->Focus();
 			e->Handled = true;
 			break;
 		case 'B': //Blue Snap
 			BlueButton_Click(sender, e);
+			BlueButton->Focus();
 			e->Handled = true;
 			break;
 		case 'Y': //Chain
 			YellowButton_Click(sender, e);
+			YellowButton->Focus();
 			e->Handled = true;
 			break;
 		case 'H': //Hold
 			HoldButton_Click(sender, e);
+			HoldButton->Focus();
 			e->Handled = true;
 			break;
 		case 'M': //Mask
-			Mask_Click(sender, e);
+			MaskButton_Click(sender, e);
+			MaskButton->Focus();
 			e->Handled = true;
 			break;
 		case 'I': //Insert
 			InsertButton_Click(sender, e);
+			InsertButton->Focus();
 			e->Handled = true;
 			break;
 		case 'P': //Play/Pause
 			PlayButton_Click(sender, e);
+			PlayButton->Focus();
 			e->Handled = true;
 			break;
 		}
 	}
-	private: System::Void HighlightCheckBox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void highlightViewedNoteToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 		RefreshPaint();
 	}
 	/*
@@ -4440,11 +4434,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ showCursorDuringPlaybackTool
 	}
 	*/
 private: System::Void showCursorToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-	showCursorToolStripMenuItem->Checked = !showCursorToolStripMenuItem->Checked;
 	RefreshPaint();
-}
-private: System::Void showCursorDuringPlaybackToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-	showCursorDuringPlaybackToolStripMenuItem->Checked = !showCursorDuringPlaybackToolStripMenuItem->Checked;
 }
 private: System::Void CirclePanel_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 	// Determine location of mouse click in the circle
@@ -4454,14 +4444,20 @@ private: System::Void CirclePanel_MouseDown(System::Object^ sender, System::Wind
 	float theta = Math::Atan2(yCen, xCen) * 180.0f / PI;
 	if (theta < 0)
 		theta += 360.0f;
-	PosNum->Value = (int)(theta / 6.0f);
-	mouseDownPos = (int)PosNum->Value;
-	lastMousePos = -1;
-	rolloverPos = false;
-	rolloverNeg = false;
+	// Left click moves the cursor
+	if (e->Button == System::Windows::Forms::MouseButtons::Left) {
+		PosNum->Value = (int)(theta / 6.0f);
+		mouseDownPos = (int)PosNum->Value;
+		lastMousePos = -1;
+		rolloverPos = false;
+		rolloverNeg = false;
+	}
 }
 private: System::Void CirclePanel_MouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
-	InsertObject();
+	// Only Left Click should create notes
+	if (e->Button == System::Windows::Forms::MouseButtons::Left) {
+		InsertObject();
+	}
 }
 private: System::Void CirclePanel_MouseMove(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 	// Calculate angle
@@ -4517,6 +4513,9 @@ private: System::Void CirclePanel_MouseMove(System::Object^ sender, System::Wind
 		}
 		lastMousePos = theta;
 	}
+}
+private: System::Void aboutBAKKAEditorToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	MessageBox::Show(this->Text + "\n\nCredits:\nGoatgarien - Initial editor and idea\nZoids - Various fixes\nYellowberry - UI redesign", "About BAKKA Editor");
 }
 };
 }
