@@ -42,7 +42,7 @@ const int milInMinute = 60000;
 bool scrollBarChanged = false;
 float theCurrentMeasure = 0;
 // Variables for mouse things
-int mouseDownPos = 0;
+int mouseDownPos = -1;
 int lastMousePos = -1;
 bool rolloverPos = false;
 bool rolloverNeg = false;
@@ -4061,7 +4061,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		}
 		
 		// Generate flag for showing cursor
-		bool showCursor = showCursorToolStripMenuItem->Checked;
+		bool showCursor = showCursorToolStripMenuItem->Checked || mouseDownPos != -1;
 		if (currentlyPlayingSong != nullptr) {
 			if (!currentlyPlayingSong->Paused) {
 				showCursor = showCursorDuringPlaybackToolStripMenuItem->Checked;
@@ -4456,6 +4456,7 @@ private: System::Void CirclePanel_MouseDown(System::Object^ sender, System::Wind
 private: System::Void CirclePanel_MouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 	// Only Left Click should create notes
 	if (e->Button == System::Windows::Forms::MouseButtons::Left) {
+		mouseDownPos = -1;
 		InsertObject();
 	}
 }
@@ -4468,7 +4469,7 @@ private: System::Void CirclePanel_MouseMove(System::Object^ sender, System::Wind
 		thetaCalc += 360.0f;
 	int theta = thetaCalc / 6.0f;
 	// Left click will alter the note width and possibly the position depending on which direction is being turned
-	if (e->Button == System::Windows::Forms::MouseButtons::Left) {
+	if (e->Button == System::Windows::Forms::MouseButtons::Left && mouseDownPos != -1) {
 		int delta = theta - lastMousePos;
 		// Handle rollover
 		if (delta == -59) {
