@@ -4473,7 +4473,7 @@ private: System::Void CirclePanel_MouseMove(System::Object^ sender, System::Wind
 		thetaCalc += 360.0f;
 	int theta = thetaCalc / 6.0f;
 	// Left click will alter the note width and possibly the position depending on which direction is being turned
-	if (e->Button == System::Windows::Forms::MouseButtons::Left) {
+	if (e->Button == System::Windows::Forms::MouseButtons::Left && mouseDownPos != -1) {
 		int delta = theta - lastMousePos;
 		// Handle rollover
 		if (delta == -59) {
