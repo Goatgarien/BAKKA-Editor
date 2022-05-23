@@ -59,17 +59,6 @@ int findLine(std::list<NotesNode>::iterator nextNode) {
 
 	return outputLine;
 }
-<<<<<<< HEAD
-bool isHold(int note) {
-	switch (note) {
-		case 9:
-		case 10:
-		case 11:
-		case 25:
-			return true;
-		default:
-			return false;
-=======
 bool isHold(NoteType note) {
 	switch (note)
 	{
@@ -80,7 +69,6 @@ bool isHold(NoteType note) {
 		return true;
 	default:
 		return false;
->>>>>>> origin/master
 	}
 }
 bool sortNotesListByBeat(const NotesNode& lhs, const NotesNode& rhs) {
@@ -396,10 +384,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			this->viewToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->showCursorToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->showCursorDuringPlaybackToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-<<<<<<< HEAD
 			this->highlightViewedNoteToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-=======
->>>>>>> origin/master
 			this->aboutToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->aboutBAKKAEditorToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->TapButton = (gcnew System::Windows::Forms::Button());
@@ -537,11 +522,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			this->backgroundWorkerPaint = (gcnew System::ComponentModel::BackgroundWorker());
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->backgroundWorker2 = (gcnew System::ComponentModel::BackgroundWorker());
-<<<<<<< HEAD
 			this->CurrentObjectBox = (gcnew System::Windows::Forms::GroupBox());
-=======
-			this->panel1 = (gcnew System::Windows::Forms::Panel());
->>>>>>> origin/master
 			this->menuStrip->SuspendLayout();
 			this->NoteTypeBox->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->VisualHispeed))->BeginInit();
@@ -656,7 +637,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			// 
 			// showCursorDuringPlaybackToolStripMenuItem
 			// 
-<<<<<<< HEAD
 			this->showCursorDuringPlaybackToolStripMenuItem->CheckOnClick = true;
 			this->showCursorDuringPlaybackToolStripMenuItem->Name = L"showCursorDuringPlaybackToolStripMenuItem";
 			resources->ApplyResources(this->showCursorDuringPlaybackToolStripMenuItem, L"showCursorDuringPlaybackToolStripMenuItem");
@@ -669,11 +649,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			this->highlightViewedNoteToolStripMenuItem->Name = L"highlightViewedNoteToolStripMenuItem";
 			resources->ApplyResources(this->highlightViewedNoteToolStripMenuItem, L"highlightViewedNoteToolStripMenuItem");
 			this->highlightViewedNoteToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::highlightViewedNoteToolStripMenuItem_Click);
-=======
-			this->showCursorDuringPlaybackToolStripMenuItem->Name = L"showCursorDuringPlaybackToolStripMenuItem";
-			resources->ApplyResources(this->showCursorDuringPlaybackToolStripMenuItem, L"showCursorDuringPlaybackToolStripMenuItem");
-			this->showCursorDuringPlaybackToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::showCursorDuringPlaybackToolStripMenuItem_Click);
->>>>>>> origin/master
 			// 
 			// aboutToolStripMenuItem
 			// 
@@ -1686,17 +1661,10 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			// 
 			// CurrentObjectBox
 			// 
-<<<<<<< HEAD
 			this->CurrentObjectBox->Controls->Add(this->CurrentObjectText);
 			resources->ApplyResources(this->CurrentObjectBox, L"CurrentObjectBox");
 			this->CurrentObjectBox->Name = L"CurrentObjectBox";
 			this->CurrentObjectBox->TabStop = false;
-=======
-			resources->ApplyResources(this->panel1, L"panel1");
-			this->panel1->Controls->Add(this->label18);
-			this->panel1->Controls->Add(this->CurrentObjectText);
-			this->panel1->Name = L"panel1";
->>>>>>> origin/master
 			// 
 			// MyForm
 			// 
@@ -2106,53 +2074,28 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			GimmickValueLabel->Text = "N/A";
 		}
 	}
-<<<<<<< HEAD
-	std::string refreshCurrentNoteLabel(int currentNoteType) {
-		//CurrentObjectText->ForeColor = returnColor(currentNoteType);
-		switch (currentNoteType) {
-		case 1:
-			return "Touch [No Bonus]";
-		case 2:
-			return "Touch [Bonus Get]";
-		case 3:
-			return "Snap (R) [No Bonus]";
-		case 4:
-			return "Snap (B) [No Bonus]";
-		case 5:
-			return "Slide (O) [No Bonus]";
-		case 6:
-			return "Slide (O) [Bonus Get]";
-		case 7:
-			return "Slide (G) [No Bonus]";
-		case 8:
-			return "Slide (G) [Bonus Get]";
-		case 9:
-			return "Hold Start [No Bonus]";
-		case 10:
-=======
 	std::string refreshCurrentNoteLabel(NoteType currentNoteType) {
 		switch (currentNoteType)
 		{
 		case TouchNoBonus:
-			return "Touch (No Bonus)";
+			return "Touch";
 		case TouchBonus:
-			return "Touch (Bonus Get)";
+			return "Touch [Bonus]";
 		case SnapRedNoBonus:
-			return "Snap (R) (No Bonus)";
+			return "Snap (R)";
 		case SnapBlueNoBonus:
-			return "Snap (B) (No Bonus)";
+			return "Snap (B)";
 		case SlideOrangeNoBonus:
-			return "Slide (O) (No Bonus)";
+			return "Slide (O)";
 		case SlideOrangeBonus:
-			return "Slide (O) (Bonus Get)";
+			return "Slide (O) [Bonus]";
 		case SlideGreenNoBonus:
-			return "Slide (G) (No Bonus)";
+			return "Slide (G)";
 		case SlideGreenBonus:
-			return "Slide (G) (Bonus Get)";
+			return "Slide (G) [Bonus]";
 		case HoldStartNoBonus:
-			return "Hold Start (No Bonus)";
+			return "Hold Start";
 		case HoldMiddle:
->>>>>>> origin/master
 			if (EndHoldBox->Checked) {
 				return "Hold End";
 			}
@@ -2185,87 +2128,46 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			return "End Of Chart";
 		case Chain:
 			return "Chain";
-<<<<<<< HEAD
-		case 20:
-			return "Touch [R Note]";
-		case 21:
-			return "Snap (R) [R Note]";
-		case 22:
-			return "Snap (B) [R Note]";
-		case 23:
-			return "Slide (O) [R Note]";
-		case 24:
-			return "Slide (G) [R Note]";
-		case 25:
-			return "Hold Start [R Note]";
-		case 26:
-			return "Chain [R Note]";
-=======
 		case TouchBonusFlair:
-			return "Touch (Bonus With Flair)";
+			return "Touch [R Note]";
 		case SnapRedBonusFlair:
-			return "Snap (R) (Bonus With Flair)";
+			return "Snap (R) [R Note]";
 		case SnapBlueBonusFlair:
-			return "Snap (B) (Bonus With Flair)";
+			return "Snap (B) [R Note]";
 		case SlideOrangeBonusFlair:
-			return "Slide (O) (Bonus With Flair)";
+			return "Slide (O) [R Note]";
 		case SlideGreenBonusFlair:
-			return "Slide (G) (Bonus With Flair)";
+			return "Slide (G) [R Note]";
 		case HoldStartBonusFlair:
-			return "Hold Start (Bonus With Flair)";
+			return "Hold Start [R Note]";
 		case ChainBonusFlair:
-			return "Chain (Bonus With Flair)";
+			return "Chain [R Note]";
 		default:
 			return "None Selected";
->>>>>>> origin/master
 		}
 	}
-<<<<<<< HEAD
-	std::string refreshCurrentNoteViewLabel(int currentNoteType) {
-		switch (currentNoteType) {
-		case 1:
-			return "Touch [No Bonus]";
-		case 2:
-			return "Touch [Bonus Get]";
-		case 3:
-			return "Snap (R) [No Bonus]";
-		case 4:
-			return "Snap (B) [No Bonus]";
-		case 5:
-			return "Slide (O) [No Bonus]";
-		case 6:
-			return "Slide (O) [Bonus Get]";
-		case 7:
-			return "Slide (G) [No Bonus]";
-		case 8:
-			return "Slide (G) [Bonus Get]";
-		case 9:
-			return "Hold Start [No Bonus]";
-		case 10:
-=======
 	std::string refreshCurrentNoteViewLabel(NoteType currentNoteType) {
 		switch (currentNoteType)
 		{
 		case TouchNoBonus:
-			return "Touch (No Bonus)";
+			return "Touch";
 		case TouchBonus:
-			return "Touch (Bonus Get)";
+			return "Touch [Bonus]";
 		case SnapRedNoBonus:
-			return "Snap (R) (No Bonus)";
+			return "Snap (R)";
 		case SnapBlueNoBonus:
-			return "Snap (B) (No Bonus)";
+			return "Snap (B)";
 		case SlideOrangeNoBonus:
-			return "Slide (O) (No Bonus)";
+			return "Slide (O)";
 		case SlideOrangeBonus:
-			return "Slide (O) (Bonus Get)";
+			return "Slide (O) [Bonus]";
 		case SlideGreenNoBonus:
-			return "Slide (G) (No Bonus)";
+			return "Slide (G)";
 		case SlideGreenBonus:
-			return "Slide (G) (Bonus Get)";
+			return "Slide (G) [Bonus]";
 		case HoldStartNoBonus:
-			return "Hold Start (No Bonus)";
+			return "Hold Start";
 		case HoldMiddle:
->>>>>>> origin/master
 			return "Hold Middle";
 		case HoldEnd:
 			return "Hold End";
@@ -2277,39 +2179,22 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			return "End Of Chart";
 		case Chain:
 			return "Chain";
-<<<<<<< HEAD
-		case 20:
-			return "Touch [R Note]";
-		case 21:
-			return "Snap (R) [R Note]";
-		case 22:
-			return "Snap (B) [R Note]";
-		case 23:
-			return "Slide (O) [R Note]";
-		case 24:
-			return "Slide (G) [R Note]";
-		case 25:
-			return "Hold Start [R Note]";
-		case 26:
-			return "Chain [R Note]";
-=======
 		case TouchBonusFlair:
-			return "Touch (Bonus With Flair)";
+			return "Touch [R Note]";
 		case SnapRedBonusFlair:
-			return "Snap (R) (Bonus With Flair)";
+			return "Snap (R) [R Note]";
 		case SnapBlueBonusFlair:
-			return "Snap (B) (Bonus With Flair)";
+			return "Snap (B) [R Note]";
 		case SlideOrangeBonusFlair:
-			return "Slide (O) (Bonus With Flair)";
+			return "Slide (O) [R Note]";
 		case SlideGreenBonusFlair:
-			return "Slide (G) (Bonus With Flair)";
+			return "Slide (G) [R Note]";
 		case HoldStartBonusFlair:
-			return "Hold Start (Bonus With Flair)";
+			return "Hold Start [R Note]";
 		case ChainBonusFlair:
-			return "Chain (Bonus With Flair)";
+			return "Chain [R Note]";
 		default:
 			return "List Empty";
->>>>>>> origin/master
 		}
 	}
 	void refreshNotesView() {
@@ -2789,21 +2674,12 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			}
 			if (SelectedNoteType == HoldEnd) {
 				if (BonusFlairRadioButton->Checked) {
-<<<<<<< HEAD
-					SelectedNoteType = 25;
+					SelectedNoteType = HoldStartBonusFlair;
 					CurrentObjectText->Text = "Hold Start [R Note]";
 				}
 				else {
-					SelectedNoteType = 9;
-					CurrentObjectText->Text = "Hold Start [No Bonus]";
-=======
-					SelectedNoteType = HoldStartBonusFlair;
-					CurrentObjectText->Text = "Hold Start (Bonus With Flair)";
-				}
-				else {
 					SelectedNoteType = HoldStartNoBonus;
-					CurrentObjectText->Text = "Hold Start (No Bonus)";
->>>>>>> origin/master
+					CurrentObjectText->Text = "Hold Start";
 				}
 			}
 
@@ -3064,13 +2940,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		}
 		RefreshPaint();
 	}
-<<<<<<< HEAD
 	private: System::Void MaskButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType != 10) {
-=======
-	private: System::Void Mask_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (SelectedNoteType != HoldMiddle) {
->>>>>>> origin/master
 			if (AddMask->Checked) {
 				SelectedNoteType = MaskAdd;
 			}
@@ -3210,16 +3081,11 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		}
 	}
 	private: System::Void AddMask_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-<<<<<<< HEAD
 		if (AddMask->Checked) {
 			MaskCenter->Text = "From Center";
 		}
-		if (SelectedLineType == 1) {
-			if (SelectedNoteType == 13) {
-=======
 		if (SelectedLineType == NoGimmick) {
 			if (SelectedNoteType == MaskRemove) {
->>>>>>> origin/master
 				if (AddMask->Checked) {
 					SelectedNoteType = MaskAdd;
 				}
@@ -3230,16 +3096,11 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		RefreshPaint();
 	}
 	private: System::Void RemoveMask_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-<<<<<<< HEAD
 		if (RemoveMask->Checked) {
 			MaskCenter->Text = "To Center";
 		}
-		if (SelectedLineType == 1) {
-			if (SelectedNoteType == 12) {
-=======
 		if (SelectedLineType == NoGimmick) {
 			if (SelectedNoteType == MaskAdd) {
->>>>>>> origin/master
 				if (RemoveMask->Checked) {
 					SelectedNoteType = MaskRemove;
 				}
