@@ -120,11 +120,14 @@
   <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="menuStrip.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="newToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+N</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="newToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>186, 22</value>
   </data>
@@ -182,11 +185,23 @@
   <data name="showCursorDuringPlaybackToolStripMenuItem.Text" xml:space="preserve">
     <value>Show Cursor During Playback</value>
   </data>
+  <data name="highlightViewedNoteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 22</value>
+  </data>
+  <data name="highlightViewedNoteToolStripMenuItem.Text" xml:space="preserve">
+    <value>Highlight Viewed Note</value>
+  </data>
   <data name="viewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 20</value>
   </data>
   <data name="viewToolStripMenuItem.Text" xml:space="preserve">
     <value>View</value>
+  </data>
+  <data name="aboutBAKKAEditorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 22</value>
+  </data>
+  <data name="aboutBAKKAEditorToolStripMenuItem.Text" xml:space="preserve">
+    <value>About BAKKA Editor</value>
   </data>
   <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 20</value>
@@ -198,7 +213,7 @@
     <value>0, 0</value>
   </data>
   <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>990, 24</value>
+    <value>1142, 24</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
@@ -217,7 +232,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>13</value>
   </data>
   <data name="TapButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -232,7 +247,7 @@
     <value>6, 19</value>
   </data>
   <data name="TapButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>84, 23</value>
   </data>
   <data name="TapButton.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -262,7 +277,7 @@
     <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
   </data>
   <data name="OrangeButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>87, 19</value>
+    <value>6, 48</value>
   </data>
   <data name="OrangeButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 23</value>
@@ -292,10 +307,10 @@
     <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
   </data>
   <data name="GreenButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>177, 19</value>
+    <value>6, 77</value>
   </data>
   <data name="GreenButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 23</value>
+    <value>84, 23</value>
   </data>
   <data name="GreenButton.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -322,10 +337,10 @@
     <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
   </data>
   <data name="RedButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>261, 19</value>
+    <value>6, 106</value>
   </data>
   <data name="RedButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 23</value>
+    <value>84, 23</value>
   </data>
   <data name="RedButton.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -352,10 +367,10 @@
     <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
   </data>
   <data name="BlueButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>342, 19</value>
+    <value>6, 135</value>
   </data>
   <data name="BlueButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 23</value>
+    <value>84, 23</value>
   </data>
   <data name="BlueButton.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -382,10 +397,10 @@
     <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
   </data>
   <data name="YellowButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>423, 19</value>
+    <value>6, 164</value>
   </data>
   <data name="YellowButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>84, 23</value>
   </data>
   <data name="YellowButton.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -412,10 +427,10 @@
     <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
   </data>
   <data name="HoldButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>504, 19</value>
+    <value>6, 193</value>
   </data>
   <data name="HoldButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>84, 23</value>
   </data>
   <data name="HoldButton.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -447,10 +462,10 @@ Check box to add end of hold</value>
     <value>True</value>
   </data>
   <data name="EndChartButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>585, 19</value>
+    <value>6, 222</value>
   </data>
   <data name="EndChartButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 23</value>
+    <value>84, 23</value>
   </data>
   <data name="EndChartButton.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -475,23 +490,20 @@ otherwise it will crash.</value>
   <data name="&gt;&gt;EndChartButton.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="NoteTypeBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="BonusFlairRadioButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="BonusFlairRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>177, 47</value>
+    <value>6, 320</value>
   </data>
   <data name="BonusFlairRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>93, 17</value>
+    <value>87, 17</value>
   </data>
   <data name="BonusFlairRadioButton.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
   </data>
   <data name="BonusFlairRadioButton.Text" xml:space="preserve">
-    <value>Bonus w/ Flair</value>
+    <value>R Note (Flair)</value>
   </data>
   <data name="BonusFlairRadioButton.ToolTip" xml:space="preserve">
     <value>Applies to all note types except Yellow Tap</value>
@@ -515,7 +527,7 @@ otherwise it will crash.</value>
     <value>NoControl</value>
   </data>
   <data name="BonusGetRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>87, 47</value>
+    <value>6, 297</value>
   </data>
   <data name="BonusGetRadioButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 17</value>
@@ -550,7 +562,7 @@ Tap, Orange Flicks, and Green Flicks
     <value>NoControl</value>
   </data>
   <data name="NoBonusRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 47</value>
+    <value>6, 274</value>
   </data>
   <data name="NoBonusRadioButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 17</value>
@@ -577,7 +589,7 @@ Tap, Orange Flicks, and Green Flicks
     <value>True</value>
   </data>
   <data name="EndHoldBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>504, 50</value>
+    <value>6, 251</value>
   </data>
   <data name="EndHoldBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 17</value>
@@ -607,7 +619,7 @@ Tap, Orange Flicks, and Green Flicks
     <value>12, 27</value>
   </data>
   <data name="NoteTypeBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>678, 86</value>
+    <value>97, 346</value>
   </data>
   <data name="NoteTypeBox.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -625,13 +637,13 @@ Tap, Orange Flicks, and Green Flicks
     <value>$this</value>
   </data>
   <data name="&gt;&gt;NoteTypeBox.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>4</value>
   </data>
   <data name="BPMChange.Location" type="System.Drawing.Point, System.Drawing">
-    <value>87, 19</value>
+    <value>7, 48</value>
   </data>
   <data name="BPMChange.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>97, 23</value>
   </data>
   <data name="BPMChange.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -655,16 +667,16 @@ Tap, Orange Flicks, and Green Flicks
     <value>4</value>
   </data>
   <data name="TimeSignature.Location" type="System.Drawing.Point, System.Drawing">
-    <value>168, 19</value>
+    <value>7, 77</value>
   </data>
   <data name="TimeSignature.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>97, 23</value>
   </data>
   <data name="TimeSignature.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
   </data>
   <data name="TimeSignature.Text" xml:space="preserve">
-    <value>Time Sig</value>
+    <value>Time Signature</value>
   </data>
   <data name="TimeSignature.ToolTip" xml:space="preserve">
     <value>Insert Time Signature change at currently selected time</value>
@@ -682,10 +694,10 @@ Tap, Orange Flicks, and Green Flicks
     <value>3</value>
   </data>
   <data name="Hispeed.Location" type="System.Drawing.Point, System.Drawing">
-    <value>249, 19</value>
+    <value>7, 106</value>
   </data>
   <data name="Hispeed.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>97, 23</value>
   </data>
   <data name="Hispeed.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -711,10 +723,10 @@ etc.</value>
     <value>2</value>
   </data>
   <data name="Stop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>330, 19</value>
+    <value>7, 135</value>
   </data>
   <data name="Stop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>97, 23</value>
   </data>
   <data name="Stop.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -739,10 +751,10 @@ Use Stop End to indicate end of stop</value>
     <value>1</value>
   </data>
   <data name="Reverse.Location" type="System.Drawing.Point, System.Drawing">
-    <value>411, 19</value>
+    <value>7, 164</value>
   </data>
   <data name="Reverse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>97, 23</value>
   </data>
   <data name="Reverse.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -769,39 +781,6 @@ Notes that appear are from End 1 -&gt; End 2</value>
   <data name="&gt;&gt;Reverse.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="Mask.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Mask.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Mask.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 19</value>
-  </data>
-  <data name="Mask.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="Mask.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="Mask.Text" xml:space="preserve">
-    <value>Mask (M)</value>
-  </data>
-  <data name="Mask.ToolTip" xml:space="preserve">
-    <value>Mask is actually a note but I put it here lol</value>
-  </data>
-  <data name="&gt;&gt;Mask.Name" xml:space="preserve">
-    <value>Mask</value>
-  </data>
-  <data name="&gt;&gt;Mask.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Mask.Parent" xml:space="preserve">
-    <value>GimmickBox</value>
-  </data>
-  <data name="&gt;&gt;Mask.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
   <data name="VisualHispeed.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 32</value>
   </data>
@@ -825,7 +804,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>VisualSettingsBox</value>
   </data>
   <data name="&gt;&gt;VisualHispeed.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -859,7 +838,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>VisualSettingsBox</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="label30.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -874,7 +853,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>329, 59</value>
   </data>
   <data name="label30.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 32</value>
+    <value>122, 32</value>
   </data>
   <data name="label30.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -924,14 +903,68 @@ Default: 0.5 (1/2 of a measure)</value>
   <data name="&gt;&gt;PlaybackSpeedNum.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="EditNoteButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 228</value>
+  </data>
+  <data name="EditNoteButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 23</value>
+  </data>
+  <data name="EditNoteButton.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="EditNoteButton.Text" xml:space="preserve">
+    <value>Modify Viewed Note</value>
+  </data>
+  <data name="EditNoteButton.ToolTip" xml:space="preserve">
+    <value>A bit confusing, changes the note in Notes View to the values set for the current note settings on the left.</value>
+  </data>
+  <data name="&gt;&gt;EditNoteButton.Name" xml:space="preserve">
+    <value>EditNoteButton</value>
+  </data>
+  <data name="&gt;&gt;EditNoteButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EditNoteButton.Parent" xml:space="preserve">
+    <value>NotesViewBox</value>
+  </data>
+  <data name="&gt;&gt;EditNoteButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="MaskButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 19</value>
+  </data>
+  <data name="MaskButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>97, 23</value>
+  </data>
+  <data name="MaskButton.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="MaskButton.Text" xml:space="preserve">
+    <value>Mask</value>
+  </data>
+  <data name="&gt;&gt;MaskButton.Name" xml:space="preserve">
+    <value>MaskButton</value>
+  </data>
+  <data name="&gt;&gt;MaskButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MaskButton.Parent" xml:space="preserve">
+    <value>GimmickBox</value>
+  </data>
+  <data name="&gt;&gt;MaskButton.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
   <data name="InsertButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="InsertButton.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
   <data name="InsertButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>351, 348</value>
+    <value>12, 585</value>
   </data>
   <data name="InsertButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>339, 49</value>
+    <value>213, 50</value>
   </data>
   <data name="InsertButton.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -955,7 +988,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="PosLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="PosLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -964,7 +997,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>6, 16</value>
   </data>
   <data name="PosLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 20</value>
+    <value>71, 17</value>
   </data>
   <data name="PosLabel.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -982,7 +1015,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;PosLabel.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="posInfo.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -991,7 +1024,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="posInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>299, 21</value>
+    <value>179, 38</value>
   </data>
   <data name="posInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 13</value>
@@ -1012,10 +1045,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;posInfo.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="SizeNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>90, 45</value>
+    <value>6, 79</value>
   </data>
   <data name="SizeNum.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1042,7 +1075,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="SizeInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>299, 50</value>
+    <value>179, 81</value>
   </data>
   <data name="SizeInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 13</value>
@@ -1063,22 +1096,22 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;SizeInfo.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>11</value>
   </data>
   <data name="SizeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="SizeLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="SizeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="SizeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 45</value>
+    <value>6, 59</value>
   </data>
   <data name="SizeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 20</value>
+    <value>44, 17</value>
   </data>
   <data name="SizeLabel.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -1099,7 +1132,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>10</value>
   </data>
   <data name="PosNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>90, 19</value>
+    <value>6, 36</value>
   </data>
   <data name="PosNum.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1117,7 +1150,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;PosNum.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>9</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1129,7 +1162,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>197, 94</value>
+    <value>146, 122</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>14, 20</value>
@@ -1150,10 +1183,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>1</value>
   </data>
   <data name="BeatNum2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>217, 94</value>
+    <value>163, 122</value>
   </data>
   <data name="BeatNum2.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1171,10 +1204,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;BeatNum2.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>0</value>
   </data>
   <data name="BeatNum1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>155, 94</value>
+    <value>108, 122</value>
   </data>
   <data name="BeatNum1.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 20</value>
@@ -1192,13 +1225,13 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;BeatNum1.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>3</value>
   </data>
   <data name="MeasureNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>90, 94</value>
+    <value>6, 122</value>
   </data>
   <data name="MeasureNum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 20</value>
+    <value>96, 20</value>
   </data>
   <data name="MeasureNum.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -1213,22 +1246,22 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;MeasureNum.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>4</value>
   </data>
   <data name="Beat.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="Beat.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="Beat.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="Beat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 94</value>
+    <value>6, 102</value>
   </data>
   <data name="Beat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 20</value>
+    <value>75, 17</value>
   </data>
   <data name="Beat.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -1246,10 +1279,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;Beat.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="GimmickBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+    <value>2</value>
   </data>
   <data name="RemoveMask.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1258,7 +1288,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="RemoveMask.Location" type="System.Drawing.Point, System.Drawing">
-    <value>85, 48</value>
+    <value>6, 228</value>
   </data>
   <data name="RemoveMask.Size" type="System.Drawing.Size, System.Drawing">
     <value>94, 17</value>
@@ -1285,7 +1315,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="AddMask.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 48</value>
+    <value>6, 205</value>
   </data>
   <data name="AddMask.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 17</value>
@@ -1309,10 +1339,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>6</value>
   </data>
   <data name="GimmickBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 119</value>
+    <value>115, 27</value>
   </data>
   <data name="GimmickBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>496, 84</value>
+    <value>110, 253</value>
   </data>
   <data name="GimmickBox.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -1330,13 +1360,13 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;GimmickBox.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>3</value>
   </data>
-  <data name="GimmickSettingsBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="GimmickSettingsBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="ReverseEnd2BeatNum2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>274, 149</value>
+    <value>218, 150</value>
   </data>
   <data name="ReverseEnd2BeatNum2.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1366,7 +1396,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>254, 146</value>
+    <value>202, 150</value>
   </data>
   <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
     <value>14, 20</value>
@@ -1390,7 +1420,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>1</value>
   </data>
   <data name="ReverseEnd2BeatNum1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>212, 146</value>
+    <value>164, 150</value>
   </data>
   <data name="ReverseEnd2BeatNum1.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 20</value>
@@ -1411,7 +1441,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>2</value>
   </data>
   <data name="ReverseEnd2MeasureNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 146</value>
+    <value>99, 150</value>
   </data>
   <data name="ReverseEnd2MeasureNum.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 20</value>
@@ -1432,7 +1462,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>3</value>
   </data>
   <data name="ReverseEnd1BeatNum2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>274, 120</value>
+    <value>218, 124</value>
   </data>
   <data name="ReverseEnd1BeatNum2.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1462,7 +1492,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>254, 120</value>
+    <value>202, 124</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>14, 20</value>
@@ -1486,7 +1516,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>5</value>
   </data>
   <data name="ReverseEnd1BeatNum1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>212, 120</value>
+    <value>164, 124</value>
   </data>
   <data name="ReverseEnd1BeatNum1.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 20</value>
@@ -1507,7 +1537,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>6</value>
   </data>
   <data name="ReverseEnd1MeasureNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 120</value>
+    <value>99, 124</value>
   </data>
   <data name="ReverseEnd1MeasureNum.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 20</value>
@@ -1528,7 +1558,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>7</value>
   </data>
   <data name="StopEndMeasureNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 94</value>
+    <value>99, 98</value>
   </data>
   <data name="StopEndMeasureNum.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 20</value>
@@ -1549,7 +1579,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>8</value>
   </data>
   <data name="StopEndBeatNum2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>274, 94</value>
+    <value>218, 98</value>
   </data>
   <data name="StopEndBeatNum2.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1579,7 +1609,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>254, 94</value>
+    <value>202, 98</value>
   </data>
   <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
     <value>14, 20</value>
@@ -1603,7 +1633,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>10</value>
   </data>
   <data name="StopEndBeatNum1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>212, 94</value>
+    <value>164, 98</value>
   </data>
   <data name="StopEndBeatNum1.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 20</value>
@@ -1624,10 +1654,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>11</value>
   </data>
   <data name="HiSpeedChangeNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 68</value>
+    <value>99, 72</value>
   </data>
   <data name="HiSpeedChangeNum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 20</value>
+    <value>96, 20</value>
   </data>
   <data name="HiSpeedChangeNum.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
@@ -1645,7 +1675,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>12</value>
   </data>
   <data name="TimeSigNum2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>207, 42</value>
+    <value>154, 45</value>
   </data>
   <data name="TimeSigNum2.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1675,7 +1705,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>187, 42</value>
+    <value>137, 45</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
     <value>14, 20</value>
@@ -1699,7 +1729,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>14</value>
   </data>
   <data name="TimeSigNum1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 42</value>
+    <value>99, 45</value>
   </data>
   <data name="TimeSigNum1.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 20</value>
@@ -1720,10 +1750,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>15</value>
   </data>
   <data name="BPMChangeNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 16</value>
+    <value>99, 20</value>
   </data>
   <data name="BPMChangeNum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 20</value>
+    <value>96, 20</value>
   </data>
   <data name="BPMChangeNum.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
@@ -1744,22 +1774,22 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label8.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
   </data>
   <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 145</value>
+    <value>7, 150</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 20</value>
+    <value>86, 16</value>
   </data>
   <data name="label8.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
-    <value>Reverse End 2:</value>
+    <value>Rev. End 2:</value>
   </data>
   <data name="&gt;&gt;label8.Name" xml:space="preserve">
     <value>label8</value>
@@ -1777,16 +1807,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
   </data>
   <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 94</value>
+    <value>19, 98</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 20</value>
+    <value>74, 16</value>
   </data>
   <data name="label7.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
@@ -1810,22 +1840,22 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
   </data>
   <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 120</value>
+    <value>7, 124</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 20</value>
+    <value>86, 16</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>Reverse End 1:</value>
+    <value>Rev. End 1:</value>
   </data>
   <data name="&gt;&gt;label6.Name" xml:space="preserve">
     <value>label6</value>
@@ -1843,22 +1873,22 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
   </data>
   <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 42</value>
+    <value>20, 45</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 20</value>
+    <value>73, 16</value>
   </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
-    <value>Time Signature:</value>
+    <value>Time Sig:</value>
   </data>
   <data name="&gt;&gt;label5.Name" xml:space="preserve">
     <value>label5</value>
@@ -1876,16 +1906,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
   </data>
   <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 68</value>
+    <value>16, 72</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 20</value>
+    <value>77, 16</value>
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -1909,16 +1939,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
   </data>
   <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>90, 16</value>
+    <value>50, 20</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 20</value>
+    <value>43, 16</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -1939,10 +1969,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>22</value>
   </data>
   <data name="GimmickSettingsBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 209</value>
+    <value>864, 189</value>
   </data>
   <data name="GimmickSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>333, 188</value>
+    <value>266, 176</value>
   </data>
   <data name="GimmickSettingsBox.TabIndex" type="System.Int32, mscorlib">
     <value>23</value>
@@ -1960,13 +1990,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;GimmickSettingsBox.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="InitialSettingsPane.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
-  </data>
-  <data name="InitialSettingsPane.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="InitialSetSave.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
@@ -1975,7 +2002,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>3, 128</value>
   </data>
   <data name="InitialSetSave.Size" type="System.Drawing.Size, System.Drawing">
-    <value>276, 29</value>
+    <value>260, 29</value>
   </data>
   <data name="InitialSetSave.TabIndex" type="System.Int32, mscorlib">
     <value>42</value>
@@ -1996,10 +2023,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>0</value>
   </data>
   <data name="MovieOffsetNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>170, 102</value>
+    <value>147, 103</value>
   </data>
   <data name="MovieOffsetNum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 20</value>
+    <value>97, 20</value>
   </data>
   <data name="MovieOffsetNum.TabIndex" type="System.Int32, mscorlib">
     <value>41</value>
@@ -2020,16 +2047,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label17.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="label17.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 99</value>
+    <value>30, 103</value>
   </data>
   <data name="label17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 20</value>
+    <value>104, 17</value>
   </data>
   <data name="label17.TabIndex" type="System.Int32, mscorlib">
     <value>40</value>
@@ -2050,10 +2077,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>2</value>
   </data>
   <data name="OffsetNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>170, 73</value>
+    <value>147, 74</value>
   </data>
   <data name="OffsetNum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 20</value>
+    <value>97, 20</value>
   </data>
   <data name="OffsetNum.TabIndex" type="System.Int32, mscorlib">
     <value>39</value>
@@ -2074,16 +2101,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label16.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>100, 70</value>
+    <value>77, 74</value>
   </data>
   <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 20</value>
+    <value>57, 17</value>
   </data>
   <data name="label16.TabIndex" type="System.Int32, mscorlib">
     <value>38</value>
@@ -2104,7 +2131,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>4</value>
   </data>
   <data name="InitTimeSigNum2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>232, 47</value>
+    <value>203, 48</value>
   </data>
   <data name="InitTimeSigNum2.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -2134,7 +2161,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>212, 47</value>
+    <value>186, 48</value>
   </data>
   <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
     <value>14, 20</value>
@@ -2158,7 +2185,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>6</value>
   </data>
   <data name="InitTimeSigNum1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>170, 47</value>
+    <value>147, 48</value>
   </data>
   <data name="InitTimeSigNum1.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 20</value>
@@ -2182,16 +2209,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label14.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 44</value>
+    <value>11, 48</value>
   </data>
   <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 20</value>
+    <value>123, 17</value>
   </data>
   <data name="label14.TabIndex" type="System.Int32, mscorlib">
     <value>38</value>
@@ -2212,10 +2239,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>8</value>
   </data>
   <data name="InitialBPMNum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>170, 19</value>
+    <value>147, 20</value>
   </data>
   <data name="InitialBPMNum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 20</value>
+    <value>97, 20</value>
   </data>
   <data name="InitialBPMNum.TabIndex" type="System.Int32, mscorlib">
     <value>38</value>
@@ -2236,16 +2263,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label13.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="label13.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>113, 16</value>
+    <value>89, 20</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 20</value>
+    <value>45, 17</value>
   </data>
   <data name="label13.TabIndex" type="System.Int32, mscorlib">
     <value>38</value>
@@ -2266,10 +2293,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>10</value>
   </data>
   <data name="InitialSettingsPane.Location" type="System.Drawing.Point, System.Drawing">
-    <value>696, 27</value>
+    <value>864, 27</value>
   </data>
   <data name="InitialSettingsPane.Size" type="System.Drawing.Size, System.Drawing">
-    <value>282, 160</value>
+    <value>266, 160</value>
   </data>
   <data name="InitialSettingsPane.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
@@ -2287,13 +2314,13 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;InitialSettingsPane.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="label29.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label29.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="label29.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2302,7 +2329,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>6, 97</value>
   </data>
   <data name="label29.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 20</value>
+    <value>81, 17</value>
   </data>
   <data name="label29.TabIndex" type="System.Int32, mscorlib">
     <value>43</value>
@@ -2322,23 +2349,20 @@ Default: 0.5 (1/2 of a measure)</value>
   <data name="&gt;&gt;label29.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="MaskSettingsBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="MaskCenter.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="MaskCenter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 48</value>
+    <value>7, 65</value>
   </data>
   <data name="MaskCenter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 17</value>
+    <value>82, 17</value>
   </data>
   <data name="MaskCenter.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="MaskCenter.Text" xml:space="preserve">
-    <value>From/To Center</value>
+    <value>From Center</value>
   </data>
   <data name="&gt;&gt;MaskCenter.Name" xml:space="preserve">
     <value>MaskCenter</value>
@@ -2356,7 +2380,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="MaskCClockwise.Location" type="System.Drawing.Point, System.Drawing">
-    <value>84, 19</value>
+    <value>7, 42</value>
   </data>
   <data name="MaskCClockwise.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 17</value>
@@ -2407,10 +2431,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>2</value>
   </data>
   <data name="MaskSettingsBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>514, 119</value>
+    <value>115, 286</value>
   </data>
   <data name="MaskSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 84</value>
+    <value>110, 87</value>
   </data>
   <data name="MaskSettingsBox.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
@@ -2428,40 +2452,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MaskSettingsBox.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="label18.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label18.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
-  </data>
-  <data name="label18.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
-    <value>145, 7</value>
-  </data>
-  <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 16</value>
-  </data>
-  <data name="label18.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="label18.Text" xml:space="preserve">
-    <value>Currently Selected Object:</value>
-  </data>
-  <data name="&gt;&gt;label18.Name" xml:space="preserve">
-    <value>label18</value>
-  </data>
-  <data name="&gt;&gt;label18.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label18.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>9</value>
   </data>
   <data name="CurrentObjectText.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2470,7 +2461,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>Microsoft Sans Serif, 9pt, style=Bold</value>
   </data>
   <data name="CurrentObjectText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>339, 8</value>
+    <value>6, 16</value>
   </data>
   <data name="CurrentObjectText.Size" type="System.Drawing.Size, System.Drawing">
     <value>122, 15</value>
@@ -2488,10 +2479,13 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;CurrentObjectText.Parent" xml:space="preserve">
-    <value>panel1</value>
+    <value>CurrentObjectBox</value>
   </data>
   <data name="&gt;&gt;CurrentObjectText.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
+  </data>
+  <data name="PreChartViewBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
   <data name="PreChartViewBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2503,7 +2497,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="GimmickValueLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 154</value>
+    <value>67, 91</value>
   </data>
   <data name="GimmickValueLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>27, 13</value>
@@ -2533,7 +2527,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="GimmickTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 123</value>
+    <value>67, 68</value>
   </data>
   <data name="GimmickTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 13</value>
@@ -2563,7 +2557,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="GimmickSubBeatLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 92</value>
+    <value>222, 47</value>
   </data>
   <data name="GimmickSubBeatLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 13</value>
@@ -2590,7 +2584,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="GimmickBeatLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 62</value>
+    <value>67, 47</value>
   </data>
   <data name="GimmickBeatLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 13</value>
@@ -2617,16 +2611,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label22.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="label22.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 149</value>
+    <value>9, 89</value>
   </data>
   <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 20</value>
+    <value>54, 17</value>
   </data>
   <data name="label22.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
@@ -2650,16 +2644,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label21.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="label21.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
-    <value>43, 118</value>
+    <value>9, 66</value>
   </data>
   <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 20</value>
+    <value>49, 17</value>
   </data>
   <data name="label21.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
@@ -2683,16 +2677,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label20.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="label20.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label20.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 87</value>
+    <value>143, 45</value>
   </data>
   <data name="label20.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 20</value>
+    <value>79, 17</value>
   </data>
   <data name="label20.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
@@ -2716,16 +2710,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label19.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="label19.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
-    <value>43, 57</value>
+    <value>9, 45</value>
   </data>
   <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 20</value>
+    <value>46, 17</value>
   </data>
   <data name="label19.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
@@ -2746,10 +2740,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>7</value>
   </data>
   <data name="NextGimmickButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>246, 20</value>
+    <value>146, 19</value>
   </data>
   <data name="NextGimmickButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 23</value>
+    <value>130, 23</value>
   </data>
   <data name="NextGimmickButton.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2770,10 +2764,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>8</value>
   </data>
   <data name="PrevGimmickButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 20</value>
+    <value>6, 19</value>
   </data>
   <data name="PrevGimmickButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 23</value>
+    <value>130, 23</value>
   </data>
   <data name="PrevGimmickButton.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2797,10 +2791,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>Bottom</value>
   </data>
   <data name="DeleteGimmickButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 182</value>
+    <value>3, 106</value>
   </data>
   <data name="DeleteGimmickButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>476, 23</value>
+    <value>277, 23</value>
   </data>
   <data name="DeleteGimmickButton.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -2821,10 +2815,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>10</value>
   </data>
   <data name="PreChartViewBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 578</value>
+    <value>847, 643</value>
   </data>
   <data name="PreChartViewBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>482, 208</value>
+    <value>283, 132</value>
   </data>
   <data name="PreChartViewBox.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
@@ -2842,43 +2836,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;PreChartViewBox.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="NotesViewBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
-  </data>
-  <data name="NotesViewBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="EditNoteButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>238, 155</value>
-  </data>
-  <data name="EditNoteButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 23</value>
-  </data>
-  <data name="EditNoteButton.TabIndex" type="System.Int32, mscorlib">
-    <value>38</value>
-  </data>
-  <data name="EditNoteButton.Text" xml:space="preserve">
-    <value>Edit Current Viewed Note</value>
-  </data>
-  <data name="&gt;&gt;EditNoteButton.Name" xml:space="preserve">
-    <value>EditNoteButton</value>
-  </data>
-  <data name="&gt;&gt;EditNoteButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;EditNoteButton.Parent" xml:space="preserve">
-    <value>NotesViewBox</value>
-  </data>
-  <data name="&gt;&gt;EditNoteButton.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="PrevBeatButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="PrevBeatButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
+    <value>6, 47</value>
   </data>
   <data name="PrevBeatButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>110, 23</value>
@@ -2887,7 +2854,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>37</value>
   </data>
   <data name="PrevBeatButton.Text" xml:space="preserve">
-    <value>Previous Beat</value>
+    <value>&lt;&lt; Previous Beat</value>
   </data>
   <data name="&gt;&gt;PrevBeatButton.Name" xml:space="preserve">
     <value>PrevBeatButton</value>
@@ -2902,7 +2869,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>1</value>
   </data>
   <data name="NextBeatButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>354, 19</value>
+    <value>122, 47</value>
   </data>
   <data name="NextBeatButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>110, 23</value>
@@ -2911,7 +2878,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>36</value>
   </data>
   <data name="NextBeatButton.Text" xml:space="preserve">
-    <value>Next Beat</value>
+    <value>Next Beat &gt;&gt;</value>
   </data>
   <data name="&gt;&gt;NextBeatButton.Name" xml:space="preserve">
     <value>NextBeatButton</value>
@@ -2932,7 +2899,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="MatchNoteCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 159</value>
+    <value>6, 205</value>
   </data>
   <data name="MatchNoteCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>196, 17</value>
@@ -2959,7 +2926,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="MatchTimeCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 141</value>
+    <value>6, 187</value>
   </data>
   <data name="MatchTimeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>196, 17</value>
@@ -2989,7 +2956,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="NotesMaskLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>351, 123</value>
+    <value>126, 137</value>
   </data>
   <data name="NotesMaskLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>27, 13</value>
@@ -3019,7 +2986,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="NotesSizeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>351, 92</value>
+    <value>176, 114</value>
   </data>
   <data name="NotesSizeLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>27, 13</value>
@@ -3049,7 +3016,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="NotesPosLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>351, 62</value>
+    <value>86, 114</value>
   </data>
   <data name="NotesPosLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>27, 13</value>
@@ -3079,7 +3046,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="NotesTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 123</value>
+    <value>126, 159</value>
   </data>
   <data name="NotesTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 13</value>
@@ -3109,7 +3076,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="NotesSubBeatLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>100, 92</value>
+    <value>126, 94</value>
   </data>
   <data name="NotesSubBeatLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 13</value>
@@ -3139,7 +3106,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="NotesBeatLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>100, 62</value>
+    <value>126, 76</value>
   </data>
   <data name="NotesBeatLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 13</value>
@@ -3166,16 +3133,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label28.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="label28.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label28.Location" type="System.Drawing.Point, System.Drawing">
-    <value>296, 87</value>
+    <value>126, 112</value>
   </data>
   <data name="label28.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 20</value>
+    <value>44, 17</value>
   </data>
   <data name="label28.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
@@ -3199,16 +3166,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label27.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="label27.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label27.Location" type="System.Drawing.Point, System.Drawing">
-    <value>267, 57</value>
+    <value>9, 112</value>
   </data>
   <data name="label27.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 20</value>
+    <value>71, 17</value>
   </data>
   <data name="label27.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
@@ -3232,16 +3199,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label26.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="label26.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label26.Location" type="System.Drawing.Point, System.Drawing">
-    <value>238, 118</value>
+    <value>19, 133</value>
   </data>
   <data name="label26.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 20</value>
+    <value>96, 17</value>
   </data>
   <data name="label26.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
@@ -3265,16 +3232,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label25.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="label25.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label25.Location" type="System.Drawing.Point, System.Drawing">
-    <value>40, 118</value>
+    <value>66, 155</value>
   </data>
   <data name="label25.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 20</value>
+    <value>49, 17</value>
   </data>
   <data name="label25.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
@@ -3298,16 +3265,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label24.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="label24.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label24.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 87</value>
+    <value>37, 92</value>
   </data>
   <data name="label24.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 20</value>
+    <value>79, 17</value>
   </data>
   <data name="label24.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
@@ -3331,16 +3298,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="label23.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="label23.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label23.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 57</value>
+    <value>70, 73</value>
   </data>
   <data name="label23.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 20</value>
+    <value>46, 17</value>
   </data>
   <data name="label23.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
@@ -3364,7 +3331,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="NextNoteButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>238, 19</value>
+    <value>122, 18</value>
   </data>
   <data name="NextNoteButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>110, 23</value>
@@ -3373,7 +3340,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>3</value>
   </data>
   <data name="NextNoteButton.Text" xml:space="preserve">
-    <value>Next Note</value>
+    <value>Next Note &gt;</value>
   </data>
   <data name="&gt;&gt;NextNoteButton.Name" xml:space="preserve">
     <value>NextNoteButton</value>
@@ -3391,7 +3358,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="PrevNoteButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>122, 19</value>
+    <value>6, 19</value>
   </data>
   <data name="PrevNoteButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>110, 23</value>
@@ -3400,7 +3367,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>3</value>
   </data>
   <data name="PrevNoteButton.Text" xml:space="preserve">
-    <value>Previous Note</value>
+    <value>&lt; Previous Note</value>
   </data>
   <data name="&gt;&gt;PrevNoteButton.Name" xml:space="preserve">
     <value>PrevNoteButton</value>
@@ -3414,23 +3381,23 @@ Default: 0.5 (1/2 of a measure)</value>
   <data name="&gt;&gt;PrevNoteButton.ZOrder" xml:space="preserve">
     <value>18</value>
   </data>
-  <data name="DeleteNoteButton.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
+  <data name="DeleteNoteButton.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
   <data name="DeleteNoteButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="DeleteNoteButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 182</value>
+    <value>122, 228</value>
   </data>
   <data name="DeleteNoteButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>464, 23</value>
+    <value>111, 23</value>
   </data>
   <data name="DeleteNoteButton.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="DeleteNoteButton.Text" xml:space="preserve">
-    <value>Delete Current Note</value>
+    <value>Delete Viewed Note</value>
   </data>
   <data name="&gt;&gt;DeleteNoteButton.Name" xml:space="preserve">
     <value>DeleteNoteButton</value>
@@ -3445,10 +3412,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>19</value>
   </data>
   <data name="NotesViewBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>508, 578</value>
+    <value>892, 371</value>
   </data>
   <data name="NotesViewBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 208</value>
+    <value>238, 266</value>
   </data>
   <data name="NotesViewBox.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
@@ -3466,10 +3433,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;NotesViewBox.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="MadeByLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+    <value>0</value>
   </data>
   <data name="MadeByLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3478,16 +3442,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>Javanese Text, 9.75pt, style=Bold</value>
   </data>
   <data name="MadeByLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>725, 546</value>
+    <value>3, 0</value>
   </data>
   <data name="MadeByLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 29</value>
+    <value>209, 29</value>
   </data>
   <data name="MadeByLabel.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
   </data>
   <data name="MadeByLabel.Text" xml:space="preserve">
-    <value>BAKKA Editor Made By: Goatgarien</value>
+    <value>BAKKA Editor By Goatgarien</value>
   </data>
   <data name="&gt;&gt;MadeByLabel.Name" xml:space="preserve">
     <value>MadeByLabel</value>
@@ -3496,10 +3460,10 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;MadeByLabel.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>CirclePanel</value>
   </data>
   <data name="&gt;&gt;MadeByLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>0</value>
   </data>
   <metadata name="openFileDialogChart.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>216, 17</value>
@@ -3513,14 +3477,11 @@ Default: 0.5 (1/2 of a measure)</value>
   <data name="saveFileDialog1.Filter" xml:space="preserve">
     <value>mer files (*.mer)|*.mer|All Files (*.*)|*.*</value>
   </data>
-  <data name="CurrentNoteBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="SizeTrackBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>137, 45</value>
+    <value>53, 79</value>
   </data>
   <data name="SizeTrackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 45</value>
+    <value>120, 45</value>
   </data>
   <data name="SizeTrackBar.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
@@ -3535,13 +3496,13 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;SizeTrackBar.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>5</value>
   </data>
   <data name="PosTrackBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>138, 16</value>
+    <value>53, 36</value>
   </data>
   <data name="PosTrackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 45</value>
+    <value>120, 45</value>
   </data>
   <data name="PosTrackBar.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
@@ -3556,13 +3517,13 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>CurrentNoteBox</value>
   </data>
   <data name="&gt;&gt;PosTrackBar.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>6</value>
   </data>
   <data name="CurrentNoteBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>351, 209</value>
+    <value>12, 430</value>
   </data>
   <data name="CurrentNoteBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>339, 133</value>
+    <value>213, 149</value>
   </data>
   <data name="CurrentNoteBox.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -3580,7 +3541,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;CurrentNoteBox.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <metadata name="fileSystemWatcher1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>491, 20</value>
@@ -3591,47 +3552,68 @@ Default: 0.5 (1/2 of a measure)</value>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>96, 96</value>
   </data>
-  <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="$this.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="$this.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>990, 798</value>
+    <value>1142, 787</value>
   </data>
-  <data name="panel1.AutoSize" type="System.Boolean, mscorlib">
+  <data name="VisualSettingsBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="VisualSettingsBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 403</value>
+  <data name="VisualSettingsBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>741, 643</value>
   </data>
-  <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
+  <data name="VisualSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 133</value>
   </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>678, 33</value>
+  <data name="VisualSettingsBox.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
   </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>39</value>
+  <data name="VisualSettingsBox.Text" xml:space="preserve">
+    <value>Visual Settings</value>
   </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
+  <data name="&gt;&gt;VisualSettingsBox.Name" xml:space="preserve">
+    <value>VisualSettingsBox</value>
   </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;VisualSettingsBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;VisualSettingsBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;VisualSettingsBox.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="SongPlaybackBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="CurrentObjectBox.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="CurrentObjectBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 379</value>
+  </data>
+  <data name="CurrentObjectBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 43</value>
+  </data>
+  <data name="CurrentObjectBox.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="CurrentObjectBox.Text" xml:space="preserve">
+    <value>Current Selection</value>
+  </data>
+  <data name="&gt;&gt;CurrentObjectBox.Name" xml:space="preserve">
+    <value>CurrentObjectBox</value>
+  </data>
+  <data name="&gt;&gt;CurrentObjectBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CurrentObjectBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;CurrentObjectBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="SongPlaybackBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
   <data name="VolumeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3643,7 +3625,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>91, 55</value>
   </data>
   <data name="VolumeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 32</value>
+    <value>63, 32</value>
   </data>
   <data name="VolumeLabel.TabIndex" type="System.Int32, mscorlib">
     <value>47</value>
@@ -3740,7 +3722,7 @@ Volume:</value>
     <value>87, 19</value>
   </data>
   <data name="songTrackSlider.Size" type="System.Drawing.Size, System.Drawing">
-    <value>479, 45</value>
+    <value>630, 45</value>
   </data>
   <data name="songTrackSlider.TabIndex" type="System.Int32, mscorlib">
     <value>36</value>
@@ -3782,10 +3764,10 @@ Volume:</value>
     <value>8</value>
   </data>
   <data name="SongPlaybackBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 439</value>
+    <value>12, 643</value>
   </data>
   <data name="SongPlaybackBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>572, 133</value>
+    <value>723, 133</value>
   </data>
   <data name="SongPlaybackBox.TabIndex" type="System.Int32, mscorlib">
     <value>38</value>
@@ -3803,74 +3785,13 @@ Volume:</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;SongPlaybackBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="VisualSettingsBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="HighlightCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="HighlightCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 58</value>
-  </data>
-  <data name="HighlightCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 30</value>
-  </data>
-  <data name="HighlightCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="HighlightCheckBox.Text" xml:space="preserve">
-    <value>Highlight
-Viewed Note</value>
-  </data>
-  <data name="&gt;&gt;HighlightCheckBox.Name" xml:space="preserve">
-    <value>HighlightCheckBox</value>
-  </data>
-  <data name="&gt;&gt;HighlightCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HighlightCheckBox.Parent" xml:space="preserve">
-    <value>VisualSettingsBox</value>
-  </data>
-  <data name="&gt;&gt;HighlightCheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="VisualSettingsBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>590, 439</value>
-  </data>
-  <data name="VisualSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 133</value>
-  </data>
-  <data name="VisualSettingsBox.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
-  </data>
-  <data name="VisualSettingsBox.Text" xml:space="preserve">
-    <value>Visual Settings</value>
-  </data>
-  <data name="&gt;&gt;VisualSettingsBox.Name" xml:space="preserve">
-    <value>VisualSettingsBox</value>
-  </data>
-  <data name="&gt;&gt;VisualSettingsBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;VisualSettingsBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;VisualSettingsBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="CirclePanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="CirclePanel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+    <value>5</value>
   </data>
   <data name="CirclePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>696, 193</value>
+    <value>231, 27</value>
   </data>
   <data name="CirclePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>282, 282</value>
+    <value>610, 610</value>
   </data>
   <data name="CirclePanel.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -3885,7 +3806,7 @@ Viewed Note</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;CirclePanel.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4223,8 +4144,11 @@ Viewed Note</value>
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AwE8AAE87VMJAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1158, 826</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>BAKKA Editor</value>
+    <value>BAKKA Editor 1.4.0</value>
   </data>
   <data name="&gt;&gt;fileToolStripMenuItem.Name" xml:space="preserve">
     <value>fileToolStripMenuItem</value>
@@ -4280,10 +4204,22 @@ Viewed Note</value>
   <data name="&gt;&gt;showCursorDuringPlaybackToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;highlightViewedNoteToolStripMenuItem.Name" xml:space="preserve">
+    <value>highlightViewedNoteToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;highlightViewedNoteToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;aboutToolStripMenuItem.Name" xml:space="preserve">
     <value>aboutToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;aboutToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;aboutBAKKAEditorToolStripMenuItem.Name" xml:space="preserve">
+    <value>aboutBAKKAEditorToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;aboutBAKKAEditorToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ToolTip.Name" xml:space="preserve">
