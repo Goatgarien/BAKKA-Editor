@@ -270,7 +270,7 @@ private: System::Windows::Forms::Label^ NotesPosLabel;
 private: System::Windows::Forms::Label^ NotesTypeLabel;
 private: System::Windows::Forms::Label^ NotesSubBeatLabel;
 private: System::Windows::Forms::Label^ NotesBeatLabel;
-private: System::Windows::Forms::Label^ MadeByLabel;
+
 
 private: System::Windows::Forms::Label^ label29;
 private: System::Windows::Forms::OpenFileDialog^ openFileDialogChart;
@@ -501,7 +501,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			this->NextNoteButton = (gcnew System::Windows::Forms::Button());
 			this->PrevNoteButton = (gcnew System::Windows::Forms::Button());
 			this->DeleteNoteButton = (gcnew System::Windows::Forms::Button());
-			this->MadeByLabel = (gcnew System::Windows::Forms::Label());
 			this->openFileDialogChart = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->CurrentNoteBox = (gcnew System::Windows::Forms::GroupBox());
@@ -560,7 +559,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeTrackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosTrackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fileSystemWatcher1))->BeginInit();
-			this->CirclePanel->SuspendLayout();
 			this->VisualSettingsBox->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->songTrackSlider))->BeginInit();
 			this->SongPlaybackBox->SuspendLayout();
@@ -1504,11 +1502,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			this->DeleteNoteButton->UseVisualStyleBackColor = true;
 			this->DeleteNoteButton->Click += gcnew System::EventHandler(this, &MyForm::DeleteNoteButton_Click);
 			// 
-			// MadeByLabel
-			// 
-			resources->ApplyResources(this->MadeByLabel, L"MadeByLabel");
-			this->MadeByLabel->Name = L"MadeByLabel";
-			// 
 			// openFileDialogChart
 			// 
 			resources->ApplyResources(this->openFileDialogChart, L"openFileDialogChart");
@@ -1567,7 +1560,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			// CirclePanel
 			// 
 			this->CirclePanel->BackColor = System::Drawing::Color::Transparent;
-			this->CirclePanel->Controls->Add(this->MadeByLabel);
 			resources->ApplyResources(this->CirclePanel, L"CirclePanel");
 			this->CirclePanel->Name = L"CirclePanel";
 			this->CirclePanel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::CirclePanel_Paint);
@@ -1739,8 +1731,6 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->SizeTrackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PosTrackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fileSystemWatcher1))->EndInit();
-			this->CirclePanel->ResumeLayout(false);
-			this->CirclePanel->PerformLayout();
 			this->VisualSettingsBox->ResumeLayout(false);
 			this->VisualSettingsBox->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->songTrackSlider))->EndInit();

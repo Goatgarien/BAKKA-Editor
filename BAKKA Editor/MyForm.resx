@@ -853,7 +853,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>329, 59</value>
   </data>
   <data name="label30.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 32</value>
+    <value>123, 32</value>
   </data>
   <data name="label30.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1783,7 +1783,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>7, 150</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 16</value>
+    <value>87, 16</value>
   </data>
   <data name="label8.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -1816,7 +1816,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>19, 98</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 16</value>
+    <value>75, 16</value>
   </data>
   <data name="label7.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
@@ -1849,7 +1849,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>7, 124</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 16</value>
+    <value>87, 16</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -1882,7 +1882,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>20, 45</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 16</value>
+    <value>74, 16</value>
   </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -1915,7 +1915,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>16, 72</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 16</value>
+    <value>78, 16</value>
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -1948,7 +1948,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>50, 20</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 16</value>
+    <value>44, 16</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -2497,7 +2497,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="GimmickValueLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>67, 91</value>
+    <value>84, 91</value>
   </data>
   <data name="GimmickValueLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>27, 13</value>
@@ -2527,7 +2527,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="GimmickTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>67, 68</value>
+    <value>84, 68</value>
   </data>
   <data name="GimmickTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 13</value>
@@ -2557,7 +2557,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="GimmickSubBeatLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>222, 47</value>
+    <value>204, 47</value>
   </data>
   <data name="GimmickSubBeatLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 13</value>
@@ -2584,7 +2584,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>True</value>
   </data>
   <data name="GimmickBeatLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>67, 47</value>
+    <value>84, 49</value>
   </data>
   <data name="GimmickBeatLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 13</value>
@@ -2617,7 +2617,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 89</value>
+    <value>24, 89</value>
   </data>
   <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 17</value>
@@ -2650,7 +2650,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 66</value>
+    <value>29, 66</value>
   </data>
   <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
     <value>49, 17</value>
@@ -2683,16 +2683,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="label20.Location" type="System.Drawing.Point, System.Drawing">
-    <value>143, 45</value>
+    <value>152, 45</value>
   </data>
   <data name="label20.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 17</value>
+    <value>46, 17</value>
   </data>
   <data name="label20.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
   </data>
   <data name="label20.Text" xml:space="preserve">
-    <value>Sub-beat:</value>
+    <value>Beat:</value>
   </data>
   <data name="&gt;&gt;label20.Name" xml:space="preserve">
     <value>label20</value>
@@ -2716,16 +2716,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 45</value>
+    <value>3, 45</value>
   </data>
   <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 17</value>
+    <value>75, 17</value>
   </data>
   <data name="label19.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
   </data>
   <data name="label19.Text" xml:space="preserve">
-    <value>Beat:</value>
+    <value>Measure:</value>
   </data>
   <data name="&gt;&gt;label19.Name" xml:space="preserve">
     <value>label19</value>
@@ -3271,16 +3271,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="label24.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 92</value>
+    <value>67, 92</value>
   </data>
   <data name="label24.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 17</value>
+    <value>46, 17</value>
   </data>
   <data name="label24.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
   </data>
   <data name="label24.Text" xml:space="preserve">
-    <value>Sub-beat:</value>
+    <value>Beat:</value>
   </data>
   <data name="&gt;&gt;label24.Name" xml:space="preserve">
     <value>label24</value>
@@ -3304,16 +3304,16 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>NoControl</value>
   </data>
   <data name="label23.Location" type="System.Drawing.Point, System.Drawing">
-    <value>70, 73</value>
+    <value>40, 72</value>
   </data>
   <data name="label23.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 17</value>
+    <value>75, 17</value>
   </data>
   <data name="label23.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
   </data>
   <data name="label23.Text" xml:space="preserve">
-    <value>Beat:</value>
+    <value>Measure:</value>
   </data>
   <data name="&gt;&gt;label23.Name" xml:space="preserve">
     <value>label23</value>
@@ -3433,36 +3433,6 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;NotesViewBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="MadeByLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="MadeByLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Javanese Text, 9.75pt, style=Bold</value>
-  </data>
-  <data name="MadeByLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 0</value>
-  </data>
-  <data name="MadeByLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>209, 29</value>
-  </data>
-  <data name="MadeByLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="MadeByLabel.Text" xml:space="preserve">
-    <value>BAKKA Editor By Goatgarien</value>
-  </data>
-  <data name="&gt;&gt;MadeByLabel.Name" xml:space="preserve">
-    <value>MadeByLabel</value>
-  </data>
-  <data name="&gt;&gt;MadeByLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MadeByLabel.Parent" xml:space="preserve">
-    <value>CirclePanel</value>
-  </data>
-  <data name="&gt;&gt;MadeByLabel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="openFileDialogChart.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -3625,7 +3595,7 @@ Default: 0.5 (1/2 of a measure)</value>
     <value>91, 55</value>
   </data>
   <data name="VolumeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 32</value>
+    <value>64, 32</value>
   </data>
   <data name="VolumeLabel.TabIndex" type="System.Int32, mscorlib">
     <value>47</value>
