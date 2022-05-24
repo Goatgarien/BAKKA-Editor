@@ -13,12 +13,16 @@ enum NoteType {
 	SlideGreenNoBonus = 7,
 	SlideGreenBonus = 8,
 	HoldStartNoBonus = 9,
-	HoldMiddle = 10,
+	HoldJoint = 10,
 	HoldEnd = 11,
 	MaskAdd = 12,
 	MaskRemove = 13,
 	EndOfChart = 14,
+	//MaskSameTime = 15,
 	Chain = 16,
+	//MaskLane = 17,
+	//TutorialTag = 18,
+	//BarLine = 19,
 	TouchBonusFlair = 20,
 	SnapRedBonusFlair = 21,
 	SnapBlueBonusFlair = 22,
@@ -29,8 +33,8 @@ enum NoteType {
 };
 
 struct NotesNode {
+	int measure;
 	int beat;
-	int subBeat;
 	NoteType noteType;
 	int position;
 	int size;
@@ -53,8 +57,8 @@ enum GimmickType {
 };
 
 struct PreChartNode {
+	int measure;
 	int beat;
-	int subBeat;
 	GimmickType type;
 	double BPM;		//2
 	int beatDiv1;	//3

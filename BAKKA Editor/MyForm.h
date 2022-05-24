@@ -29,8 +29,8 @@ std::list<PreChartNode>::iterator viewGimmicksITR = theChart.PreChart.begin();
 std::list<NotesNode>::iterator holdNoteitr = theChart.Notes.end();
 std::map<float, std::list<std::pair<int, int>>> mapOfMasks; //measure, list of masks
 std::map<float, std::list<NotesNode>> mapOfNotes; //measure, list of notes
-std::map<float, float> mapOfTimeBetweenMeasures; //current beat, milliseconds beatween beats
-std::map<float, float> mapOfBeatAtTime; //milliseconds start time, beat start time
+std::map<float, float> mapOfTimeBetweenMeasures; //current measure, milliseconds beatween beats
+std::map<float, float> mapOfBeatAtTime; //milliseconds start time, measure start time
 std::map<float, float> mapOfBPMatTime; //measure start time, BPM at time
 std::map<float, std::pair<int, int>> mapOfTSatTime; //measure start time, Time Signature at time
 bool alreadyRefreshed = false;
@@ -63,7 +63,7 @@ bool isHold(NoteType note) {
 	switch (note)
 	{
 	case HoldStartNoBonus:
-	case HoldMiddle:
+	case HoldJoint:
 	case HoldEnd:
 	case HoldStartBonusFlair:
 		return true;
@@ -72,17 +72,17 @@ bool isHold(NoteType note) {
 	}
 }
 bool sortNotesListByBeat(const NotesNode& lhs, const NotesNode& rhs) {
-	if (lhs.beat < rhs.beat)
+	if (lhs.measure < rhs.measure)
 		return true;
-	else if ((lhs.beat == rhs.beat) && (lhs.subBeat < rhs.subBeat))
+	else if ((lhs.measure == rhs.measure) && (lhs.beat < rhs.beat))
 		return true;
 	else
 		return false;
 }
 bool sortPreChartListByBeat(const PreChartNode& lhs, const PreChartNode& rhs) {
-	if (lhs.beat < rhs.beat)
+	if (lhs.measure < rhs.measure)
 		return true;
-	else if ((lhs.beat == rhs.beat) && (lhs.subBeat < rhs.subBeat))
+	else if ((lhs.measure == rhs.measure) && (lhs.beat < rhs.beat))
 		return true;
 	return false;
 }
@@ -1782,7 +1782,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 
 		for (std::list<NotesNode>::iterator viewMasksITR = theChart.Notes.begin(); viewMasksITR != theChart.Notes.end(); viewMasksITR++) {
 			if (viewMasksITR->noteType == MaskAdd || viewMasksITR->noteType == MaskRemove) {
-				float currentTime = (float)viewMasksITR->beat + ((float)viewMasksITR->subBeat / 1920.f);
+				float currentTime = (float)viewMasksITR->measure + ((float)viewMasksITR->beat / 1920.f);
 				int maskStart, maskEnd;
 				maskStart = viewMasksITR->position;
 				maskEnd = viewMasksITR->position + viewMasksITR->size;
@@ -1904,14 +1904,16 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 	void refreshMapofNotes() {
 		mapOfNotes.clear();
 		for (std::list<NotesNode>::iterator NotesITR = theChart.Notes.begin(); NotesITR != theChart.Notes.end(); NotesITR++) {
-			float currentTime = (float)NotesITR->beat + ((float)NotesITR->subBeat / 1920.f);
+			float currentTime = (float)NotesITR->measure + ((float)NotesITR->beat / 1920.f);
 			if (NotesITR->noteType != 12 || NotesITR->noteType != 13) {
 				NotesNode tempnode;
+				tempnode.measure = NotesITR->measure;
 				tempnode.beat = NotesITR->beat;
-				tempnode.subBeat = NotesITR->subBeat;
 				tempnode.noteType = NotesITR->noteType;
 				tempnode.position = NotesITR->position;
 				tempnode.size = NotesITR->size;
+				tempnode.nextNode = NotesITR->nextNode;
+				tempnode.prevNode = NotesITR->prevNode;
 				mapOfNotes[currentTime].push_back(tempnode);
 			}
 		}
@@ -1932,7 +1934,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 
 		if (!theChart.PreChart.empty()) {
 			for (std::list<PreChartNode>::iterator viewGimmicksITR = theChart.PreChart.begin(); viewGimmicksITR != theChart.PreChart.end(); viewGimmicksITR++) {
-				float currentTime = (float)viewGimmicksITR->beat + ((float)viewGimmicksITR->subBeat / 1920.f);
+				float currentTime = (float)viewGimmicksITR->measure + ((float)viewGimmicksITR->beat / 1920.f);
 				if (viewGimmicksITR->type == BpmChange || viewGimmicksITR->type == TimeSignatureChange) { // First run through fills maps of BPMs and Time Signatures
 					//make current time values in maps current to what the PreChart list is saying
 					if(viewGimmicksITR->type == BpmChange)
@@ -2014,9 +2016,9 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 	}
 	void refreshGimmickView() {
 		if (!theChart.PreChart.empty()) {
-			GimmickBeatLabel->Text = ((viewGimmicksITR)->beat).ToString();
+			GimmickBeatLabel->Text = ((viewGimmicksITR)->measure).ToString();
 
-			int num1 = (viewGimmicksITR)->subBeat;
+			int num1 = (viewGimmicksITR)->beat;
 			int num2 = 1920;
 			std::string subBeatString = subBeatValueDisplay(num1, num2);
 			GimmickSubBeatLabel->Text = stdStringToSystemString(subBeatString);
@@ -2085,12 +2087,12 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			return "Slide (G) [Bonus]";
 		case HoldStartNoBonus:
 			return "Hold Start";
-		case HoldMiddle:
+		case HoldJoint:
 			if (EndHoldBox->Checked) {
 				return "Hold End";
 			}
 			else {
-				return "Hold Middle";
+				return "Hold Joint";
 			}
 		case HoldEnd:
 			return "Hold End";
@@ -2157,8 +2159,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			return "Slide (G) [Bonus]";
 		case HoldStartNoBonus:
 			return "Hold Start";
-		case HoldMiddle:
-			return "Hold Middle";
+		case HoldJoint:
+			return "Hold Joint";
 		case HoldEnd:
 			return "Hold End";
 		case MaskAdd:
@@ -2189,9 +2191,9 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 	}
 	void refreshNotesView() {
 		if (!theChart.Notes.empty()) {
-			NotesBeatLabel->Text = ((viewNotesITR)->beat).ToString();
+			NotesBeatLabel->Text = ((viewNotesITR)->measure).ToString();
 
-			float num1 = (viewNotesITR)->subBeat;
+			float num1 = (viewNotesITR)->beat;
 			float num2 = 1920;
 			std::string subBeatString = subBeatValueDisplay(num1, num2);
 			NotesSubBeatLabel->Text = stdStringToSystemString(subBeatString);
@@ -2201,7 +2203,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 				PosNum->Value = viewNotesITR->position;
 				SizeNum->Value = viewNotesITR->size;
 				SelectedNoteTypeVisual = viewNotesITR->noteType;
-				if (SelectedNoteTypeVisual != HoldMiddle && SelectedNoteTypeVisual != HoldEnd && SelectedNoteTypeVisual != HoldStartNoBonus && SelectedNoteTypeVisual != HoldStartBonusFlair) {
+				if (SelectedNoteTypeVisual != HoldJoint && SelectedNoteTypeVisual != HoldEnd && SelectedNoteTypeVisual != HoldStartNoBonus && SelectedNoteTypeVisual != HoldStartBonusFlair) {
 					SelectedLineType = NoGimmick;
 					SelectedNoteType = viewNotesITR->noteType;
 				}
@@ -2209,8 +2211,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			}
 			if (MatchTimeCheckBox->Checked) {
 				noteRefresh = true;
-				MeasureNum->Value = viewNotesITR->beat;
-				BeatNum2->Value = (int)subBeatValue2(num1, num2); //change 2 first so that 1 doesnt become larger and make it round up to the next beat
+				MeasureNum->Value = viewNotesITR->measure;
+				BeatNum2->Value = (int)subBeatValue2(num1, num2); //change 2 first so that 1 doesnt become larger and make it round up to the next measure
 				BeatNum1->Value = (int)subBeatValue1(num1, num2);
 				noteRefresh = false;
 				refreshThePaint = true;
@@ -2384,8 +2386,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			<< "#BODY\n";
 
 		for (std::list<PreChartNode>::iterator itr = theChart.PreChart.begin(); itr != theChart.PreChart.end(); itr++) {
-			chartFile << std::right << std::fixed << std::setw(4) << (itr)->beat
-				<< std::right << std::fixed << std::setw(5) << (itr)->subBeat
+			chartFile << std::right << std::fixed << std::setw(4) << (itr)->measure
+				<< std::right << std::fixed << std::setw(5) << (itr)->beat
 				<< std::right << std::fixed << std::setw(5) << (itr)->type;
 			switch ((itr)->type) {
 			case 2:
@@ -2406,8 +2408,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 
 		int line = 0;
 		for (std::list<NotesNode>::iterator itr = theChart.Notes.begin(); itr != theChart.Notes.end(); itr++) {
-			chartFile << std::right << std::fixed << std::setw(4) << (itr)->beat
-				<< std::right << std::fixed << std::setw(5) << (itr)->subBeat
+			chartFile << std::right << std::fixed << std::setw(4) << (itr)->measure
+				<< std::right << std::fixed << std::setw(5) << (itr)->beat
 				<< std::right << std::fixed << std::setw(5) << 1
 				<< std::right << std::fixed << std::setw(5) << (itr)->noteType
 				<< std::right << std::fixed << std::setw(5) << line
@@ -2507,8 +2509,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			songTrackSlider->Minimum = (int)(theChart.offset * 1000.f);
 		}
 
+		int measure;
 		int beat;
-		int subBeat;
 		GimmickType type;
 		int typeTemp;
 		int lineTemp;
@@ -2517,55 +2519,55 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		NotesNode tempNotes;
 		PreChartNode tempPCNode;
 		while (!chartFile.eof()) {
-			chartFile >> beat >> subBeat >> typeTemp;
+			chartFile >> measure >> beat >> typeTemp;
 			type = (GimmickType)typeTemp;
 			if (chartFile.eof()) break;
 
 			switch (type) {
 			case NoGimmick:
+				tempNotes.measure = measure;
 				tempNotes.beat = beat;
-				tempNotes.subBeat = subBeat;
 				chartFile >> noteTemp >> lineTemp >> tempNotes.position >> tempNotes.size >> tempNotes.holdChange;
 				tempNotes.noteType = (NoteType)noteTemp;
 				if (tempNotes.noteType == MaskAdd || tempNotes.noteType == MaskRemove) {
 					chartFile >> tempNotes.BGType;
 				}
-				if (tempNotes.noteType == HoldStartNoBonus || tempNotes.noteType == HoldMiddle || tempNotes.noteType == HoldStartBonusFlair) {
+				if (tempNotes.noteType == HoldStartNoBonus || tempNotes.noteType == HoldJoint || tempNotes.noteType == HoldStartBonusFlair) {
 					chartFile >> Holds[lineTemp];
 				}
 				theChart.Notes.push_back(tempNotes);
 				break;
 			case BpmChange:
+				tempPCNode.measure = measure;
 				tempPCNode.beat = beat;
-				tempPCNode.subBeat = subBeat;
 				tempPCNode.type = type;
 				chartFile >> tempPCNode.BPM;
 				theChart.PreChart.push_back(tempPCNode);
-				if (beat == 0 && subBeat == 0) {
+				if (measure == 0 && beat == 0) {
 					InitialBPMNum->Value = (System::Decimal)tempPCNode.BPM;
 				}
 				break;
 			case TimeSignatureChange:
+				tempPCNode.measure = measure;
 				tempPCNode.beat = beat;
-				tempPCNode.subBeat = subBeat;
 				tempPCNode.type = type;
 				chartFile >> tempPCNode.beatDiv1 >> tempPCNode.beatDiv2;
 				theChart.PreChart.push_back(tempPCNode);
-				if (beat == 0 && subBeat == 0) {
+				if (measure == 0 && beat == 0) {
 					InitTimeSigNum1->Value = (System::Decimal)tempPCNode.beatDiv1;
 					InitTimeSigNum2->Value = (System::Decimal)tempPCNode.beatDiv2;
 				}
 				break;
 			case HiSpeedChange:
+				tempPCNode.measure = measure;
 				tempPCNode.beat = beat;
-				tempPCNode.subBeat = subBeat;
 				tempPCNode.type = type;
 				chartFile >> tempPCNode.hiSpeed;
 				theChart.PreChart.push_back(tempPCNode);
 				break;
 			default:
+				tempPCNode.measure = measure;
 				tempPCNode.beat = beat;
-				tempPCNode.subBeat = subBeat;
 				tempPCNode.type = type;
 				theChart.PreChart.push_back(tempPCNode);
 			}
@@ -2606,8 +2608,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		PreChartNode tempPreChartNode;
 
 		if (SelectedLineType == NoGimmick) {
-			tempNotesNode.beat = (int)MeasureNum->Value;
-			tempNotesNode.subBeat = std::round((1920.f / (float)BeatNum2->Value) * (float)BeatNum1->Value);
+			tempNotesNode.measure = (int)MeasureNum->Value;
+			tempNotesNode.beat = std::round((1920.f / (float)BeatNum2->Value) * (float)BeatNum1->Value);
 			tempNotesNode.noteType = SelectedNoteType;
 			tempNotesNode.position = (int)PosNum->Value;
 			tempNotesNode.size = (int)SizeNum->Value;
@@ -2619,11 +2621,11 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 					CurrentObjectText->Text = "Hold End";
 				}
 				else {
-					CurrentObjectText->Text = "Hold Middle";
+					CurrentObjectText->Text = "Hold Joint";
 				}
-				SelectedNoteType = HoldMiddle;
+				SelectedNoteType = HoldJoint;
 				break;
-			case HoldMiddle:
+			case HoldJoint:
 				if (EndHoldBox->Checked) {
 					SelectedNoteType = HoldEnd;
 					tempNotesNode.noteType = SelectedNoteType;
@@ -2657,9 +2659,9 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 					CurrentObjectText->Text = "Hold End";
 				}
 				else {
-					CurrentObjectText->Text = "Hold Middle";
+					CurrentObjectText->Text = "Hold Joint";
 				}
-				SelectedNoteType = HoldMiddle;
+				SelectedNoteType = HoldJoint;
 				break;
 			}
 			if (SelectedNoteType == HoldEnd) {
@@ -2674,7 +2676,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			}
 
 			theChart.Notes.push_back(tempNotesNode);
-			float currentTime = (float)tempNotesNode.beat + ((float)tempNotesNode.subBeat / 1920);
+			float currentTime = (float)tempNotesNode.measure + ((float)tempNotesNode.beat / 1920);
 			mapOfNotes[currentTime].push_back(tempNotesNode);
 			if (!theChart.Notes.empty()) {
 				viewNotesITR = theChart.Notes.end();
@@ -2685,7 +2687,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 					viewNotesITR->nextNode = theChart.Notes.end();
 					holdNoteitr = viewNotesITR;
 					break;
-				case HoldMiddle:
+				case HoldJoint:
 					viewNotesITR->prevNode = holdNoteitr;
 					viewNotesITR->prevNode->nextNode = viewNotesITR;
 					viewNotesITR->nextNode = theChart.Notes.end();
@@ -2712,18 +2714,18 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			refreshNotesView();
 		}
 		else {
-			tempPreChartNode.beat = (int)MeasureNum->Value;
-			tempPreChartNode.subBeat = std::round((1920.f / (float)BeatNum2->Value) * (float)BeatNum1->Value);
+			tempPreChartNode.measure = (int)MeasureNum->Value;
+			tempPreChartNode.beat = std::round((1920.f / (float)BeatNum2->Value) * (float)BeatNum1->Value);
 			tempPreChartNode.type = SelectedLineType;
 			if (SelectedLineType == BpmChange) { //BPM Change
-				if (tempPreChartNode.beat == 0 && tempPreChartNode.subBeat == 0) {
+				if (tempPreChartNode.measure == 0 && tempPreChartNode.beat == 0) {
 					InitialBPMNum->Value = BPMChangeNum->Value;
 				}
 				tempPreChartNode.BPM = (double)BPMChangeNum->Value;
 				theChart.PreChart.push_back(tempPreChartNode);
 			}
 			if (SelectedLineType == TimeSignatureChange) { //Time Signature Change
-				if (tempPreChartNode.beat == 0 && tempPreChartNode.subBeat == 0) {
+				if (tempPreChartNode.measure == 0 && tempPreChartNode.beat == 0) {
 					InitTimeSigNum1->Value = TimeSigNum1->Value;
 					InitTimeSigNum2->Value = TimeSigNum2->Value;
 				}
@@ -2738,21 +2740,21 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			if (SelectedLineType == ReverseStart) { //Reverse
 				theChart.PreChart.push_back(tempPreChartNode);
 
-				tempPreChartNode.beat = (int)ReverseEnd1MeasureNum->Value;
-				tempPreChartNode.subBeat = std::round((1920.f / (float)ReverseEnd1BeatNum2->Value) * (float)ReverseEnd1BeatNum1->Value);
+				tempPreChartNode.measure = (int)ReverseEnd1MeasureNum->Value;
+				tempPreChartNode.beat = std::round((1920.f / (float)ReverseEnd1BeatNum2->Value) * (float)ReverseEnd1BeatNum1->Value);
 				tempPreChartNode.type = ReverseMiddle;
 				theChart.PreChart.push_back(tempPreChartNode);
 
-				tempPreChartNode.beat = (int)ReverseEnd2MeasureNum->Value;
-				tempPreChartNode.subBeat = std::round((1920.f / (float)ReverseEnd2BeatNum2->Value) * (float)ReverseEnd2BeatNum1->Value);
+				tempPreChartNode.measure = (int)ReverseEnd2MeasureNum->Value;
+				tempPreChartNode.beat = std::round((1920.f / (float)ReverseEnd2BeatNum2->Value) * (float)ReverseEnd2BeatNum1->Value);
 				tempPreChartNode.type = ReverseEnd;
 				theChart.PreChart.push_back(tempPreChartNode);
 			}
 			if (SelectedLineType == StopStart) { //Stop
 				theChart.PreChart.push_back(tempPreChartNode);
 
-				tempPreChartNode.beat = (int)StopEndMeasureNum->Value;
-				tempPreChartNode.subBeat = std::round((1920.f / (float)StopEndBeatNum2->Value) * (float)StopEndBeatNum1->Value);
+				tempPreChartNode.measure = (int)StopEndMeasureNum->Value;
+				tempPreChartNode.beat = std::round((1920.f / (float)StopEndBeatNum2->Value) * (float)StopEndBeatNum1->Value);
 				tempPreChartNode.type = StopEnd;
 				theChart.PreChart.push_back(tempPreChartNode);
 			}
@@ -2775,11 +2777,11 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 
 		std::list<PreChartNode>::iterator itr;
 		for (itr = theChart.PreChart.begin(); itr != theChart.PreChart.end(); ++itr) {
-			if ((itr)->type == BpmChange && (itr)->beat == 0 && (itr)->subBeat == 0) {
+			if ((itr)->type == BpmChange && (itr)->measure == 0 && (itr)->beat == 0) {
 				(itr)->BPM = (double)InitialBPMNum->Value;
 				BPMFound = true;
 			}
-			if ((itr)->type == TimeSignatureChange && (itr)->beat == 0 && (itr)->subBeat == 0) {
+			if ((itr)->type == TimeSignatureChange && (itr)->measure == 0 && (itr)->beat == 0) {
 				(itr)->beatDiv1 = (int)InitTimeSigNum1->Value;
 				(itr)->beatDiv2 = (int)InitTimeSigNum2->Value;
 				TimeSigFound = true;
@@ -2788,8 +2790,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 
 		PreChartNode tempPreChartNode;
 		if (!BPMFound) {
+			tempPreChartNode.measure = 0;
 			tempPreChartNode.beat = 0;
-			tempPreChartNode.subBeat = 0;
 			tempPreChartNode.type = BpmChange;
 			tempPreChartNode.BPM = (double)InitialBPMNum->Value;
 			theChart.PreChart.push_back(tempPreChartNode);
@@ -2797,8 +2799,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			viewGimmicksITR--;
 		}
 		if (!TimeSigFound) {
+			tempPreChartNode.measure = 0;
 			tempPreChartNode.beat = 0;
-			tempPreChartNode.subBeat = 0;
 			tempPreChartNode.type = TimeSignatureChange;
 			tempPreChartNode.beatDiv1 = (int)InitTimeSigNum1->Value;
 			tempPreChartNode.beatDiv2 = (int)InitTimeSigNum2->Value;
@@ -2815,7 +2817,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		saveToolStripMenuItem_Click(sender, e);
 	}
 	private: System::Void TapButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType != HoldMiddle) {
+		if (SelectedNoteType != HoldJoint) {
 			if (BonusGetRadioButton->Checked) {
 				SelectedNoteType = TouchBonus;
 			}
@@ -2832,7 +2834,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		RefreshPaint();
 	}
 	private: System::Void OrangeButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType != HoldMiddle) {
+		if (SelectedNoteType != HoldJoint) {
 			if (BonusGetRadioButton->Checked) {
 				SelectedNoteType = SlideOrangeBonus;
 			}
@@ -2849,7 +2851,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		RefreshPaint();
 	}
 	private: System::Void GreenButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType != HoldMiddle) {
+		if (SelectedNoteType != HoldJoint) {
 			if (BonusGetRadioButton->Checked == true) {
 				SelectedNoteType = SlideGreenBonus;
 			}
@@ -2866,7 +2868,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		RefreshPaint();
 	}
 	private: System::Void RedButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType != HoldMiddle) {
+		if (SelectedNoteType != HoldJoint) {
 			if (BonusFlairRadioButton->Checked) {
 				SelectedNoteType = SnapRedBonusFlair;
 			}
@@ -2880,7 +2882,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		RefreshPaint();
 	}
 	private: System::Void BlueButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType != HoldMiddle) {
+		if (SelectedNoteType != HoldJoint) {
 			if (BonusFlairRadioButton->Checked) {
 				SelectedNoteType = SnapBlueBonusFlair;
 			}
@@ -2894,7 +2896,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		RefreshPaint();
 	}
 	private: System::Void YellowButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType != HoldMiddle) {
+		if (SelectedNoteType != HoldJoint) {
 			if (BonusFlairRadioButton->Checked) {
 				SelectedNoteType = ChainBonusFlair;
 			}
@@ -2908,7 +2910,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		RefreshPaint();
 	}
 	private: System::Void EndChartButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType != HoldMiddle) {
+		if (SelectedNoteType != HoldJoint) {
 			SelectedNoteType = EndOfChart;
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
@@ -2917,7 +2919,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		RefreshPaint();
 	}
 	private: System::Void HoldButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType != HoldMiddle) {
+		if (SelectedNoteType != HoldJoint) {
 			if (BonusFlairRadioButton->Checked) {
 				SelectedNoteType = HoldStartBonusFlair;
 			}
@@ -2931,7 +2933,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		RefreshPaint();
 	}
 	private: System::Void MaskButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType != HoldMiddle) {
+		if (SelectedNoteType != HoldJoint) {
 			if (AddMask->Checked) {
 				SelectedNoteType = MaskAdd;
 			}
@@ -2945,42 +2947,42 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		RefreshPaint();
 	}
 	private: System::Void BPMChange_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType != HoldMiddle) {
+		if (SelectedNoteType != HoldJoint) {
 			CurrentObjectText->Text = "BPM Change";
 			SelectedLineType = BpmChange;
 		}
 		RefreshPaint();
 	}
 	private: System::Void TimeSignature_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType != HoldMiddle) {
+		if (SelectedNoteType != HoldJoint) {
 			CurrentObjectText->Text = "Time Signature Change";
 			SelectedLineType = TimeSignatureChange;
 		}
 		RefreshPaint();
 	}
 	private: System::Void Hispeed_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType != HoldMiddle) {
+		if (SelectedNoteType != HoldJoint) {
 			CurrentObjectText->Text = "Hi-Speed Change";
 			SelectedLineType = HiSpeedChange;
 		}
 		RefreshPaint();
 	}
 	private: System::Void Stop_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType != HoldMiddle) {
+		if (SelectedNoteType != HoldJoint) {
 			CurrentObjectText->Text = "Stop";
 			SelectedLineType = StopStart;
 		}
 		RefreshPaint();
 	}
 	private: System::Void Reverse_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType != HoldMiddle) {
+		if (SelectedNoteType != HoldJoint) {
 			CurrentObjectText->Text = "Reverse";
 			SelectedLineType = ReverseStart;
 		}
 		RefreshPaint();
 	}
 	private: System::Void EndHoldBox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (SelectedNoteType == HoldMiddle) {
+		if (SelectedNoteType == HoldJoint) {
 			CurrentObjectText->Text = stdStringToSystemString(refreshCurrentNoteLabel(SelectedNoteType));
 			SelectedNoteTypeVisual = SelectedNoteType;
 		}
@@ -3251,7 +3253,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 					}
 					holdDelete = false;
 				}
-				else if (viewNotesITRtemp->noteType == HoldMiddle) {
+				else if (viewNotesITRtemp->noteType == HoldJoint) {
 					holdDelete = true;
 					viewNotesITRtemp = viewNotesITRtemp->prevNode;
 					viewNotesITR = viewNotesITRtemp;
@@ -3303,7 +3305,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		case SlideGreenBonusFlair:
 			return GreenButton->BackColor;
 		case HoldStartNoBonus:
-		case HoldMiddle:
+		case HoldJoint:
 		case HoldEnd:
 		case HoldStartBonusFlair:
 			return HoldButton->BackColor;
@@ -3642,8 +3644,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 	}
 	private: System::Void NextBeatButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (!theChart.Notes.empty()) {
-			int initialBeat = viewNotesITR->beat;
-			while (viewNotesITR->beat == initialBeat) {
+			int initialBeat = viewNotesITR->measure;
+			while (viewNotesITR->measure == initialBeat) {
 				viewNotesITR++;
 				if (viewNotesITR == theChart.Notes.end()) {
 					viewNotesITR = theChart.Notes.begin();
@@ -3655,8 +3657,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 	}
 	private: System::Void PrevBeatButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (!theChart.Notes.empty()) {
-			int initialBeat = viewNotesITR->beat;
-			while (viewNotesITR->beat == initialBeat) {
+			int initialBeat = viewNotesITR->measure;
+			while (viewNotesITR->measure == initialBeat) {
 				if (viewNotesITR != theChart.Notes.begin()) {
 					viewNotesITR--;
 				}
@@ -3674,8 +3676,8 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 	}
 	private: System::Void EditNoteButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (!isHold(SelectedNoteType)) {
-			viewNotesITR->beat = (int)MeasureNum->Value;
-			viewNotesITR->subBeat = ((1920 / (int)BeatNum2->Value) * (int)BeatNum1->Value);
+			viewNotesITR->measure = (int)MeasureNum->Value;
+			viewNotesITR->beat = ((1920 / (int)BeatNum2->Value) * (int)BeatNum1->Value);
 			viewNotesITR->noteType = SelectedNoteType;
 			viewNotesITR->position = (int)PosNum->Value;
 			viewNotesITR->size = (int)SizeNum->Value;
@@ -3991,9 +3993,9 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 		bufferedGfx->Render(e->Graphics);
 	}
 	bool islistITREqualToViewITR(std::list<NotesNode>::iterator listITR) {
-		if (listITR->beat != viewNotesITR->beat)
+		if (listITR->measure != viewNotesITR->measure)
 			return false;
-		if (listITR->subBeat != viewNotesITR->subBeat)
+		if (listITR->beat != viewNotesITR->beat)
 			return false;
 		if (listITR->noteType != viewNotesITR->noteType)
 			return false;
@@ -4152,7 +4154,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 			listOfNotesAtCurrentMeasure = mapOfNotes[currentMeasure];
 		}
 		if (!listOfNotesAtCurrentMeasure.empty()) {
-			float measureAtListTime = listOfNotesAtCurrentMeasure.begin()->beat + (listOfNotesAtCurrentMeasure.begin()->subBeat / 1920.f);
+			float measureAtListTime = listOfNotesAtCurrentMeasure.begin()->measure + (listOfNotesAtCurrentMeasure.begin()->beat / 1920.f);
 			if (measureAtListTime <= currentMeasure && measureAtListTime >= (currentMeasure - updateIntToMeasure)) {
 				for (std::list<NotesNode>::iterator listofNotesitr = listOfNotesAtCurrentMeasure.begin(); listofNotesitr != listOfNotesAtCurrentMeasure.end(); listofNotesitr++) {
 					switch (listofNotesitr->noteType) {
@@ -4233,7 +4235,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 	}
 	private: System::Void CirclePanel_MouseWheel(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 		if (Control::ModifierKeys == Keys::Alt) { 
-			// Shift beat division by standard musical quantizations
+			// Shift measure division by standard musical quantizations
 			// TODO: take into account time signature?
 			if (BeatNum2->Value < 2) {
 				if (e->Delta > 0) {
@@ -4269,7 +4271,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ highlightViewedNoteToolStrip
 
 		}
 		else {
-			// Scroll by one beat at a time
+			// Scroll by one measure at a time
 			if (e->Delta > 0) {
 				BeatNum1->Value++;
 			}
