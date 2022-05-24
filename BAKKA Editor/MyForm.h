@@ -2811,8 +2811,11 @@ private: System::Windows::Forms::ToolStripMenuItem^ redoToolStripMenuItem;
 			refreshGimmickView();
 			refreshMapOfTime();
 		}
-		if(!operationReversal)
+		if(!operationReversal) {
 			undoStack.push(tempOperation);
+			while(!redoStack.empty())
+				redoStack.pop();
+		}
 		RefreshPaint();
 	}
 	private: System::Void InitialSetSave_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -3237,8 +3240,11 @@ private: System::Windows::Forms::ToolStripMenuItem^ redoToolStripMenuItem;
 			}
 			tempOperation.Gimmick.push_back(*viewGimmicksITRtemp);
 			theChart.PreChart.erase(viewGimmicksITRtemp);
-			if (!operationReversal)
+			if (!operationReversal) {
 				undoStack.push(tempOperation);
+				while (!redoStack.empty())
+					redoStack.pop();
+			}
 			refreshGimmickView();
 		}
 	}
@@ -3334,8 +3340,11 @@ private: System::Windows::Forms::ToolStripMenuItem^ redoToolStripMenuItem;
 					holdDelete = false;
 				}
 			} while (holdDelete);
-			if (!operationReversal)
+			if (!operationReversal) {
 				undoStack.push(tempOperation);
+				while (!redoStack.empty())
+					redoStack.pop();
+			}
 			refreshNotesView();
 			refreshMapofNotes();
 			refreshMapofMasks();
@@ -3751,8 +3760,11 @@ private: System::Windows::Forms::ToolStripMenuItem^ redoToolStripMenuItem;
 		viewNotesITR->size = (int)SizeNum->Value;
 
 		tempOperation.Note.push_back(*viewNotesITR);
-		if (!operationReversal)
+		if (!operationReversal) {
 			undoStack.push(tempOperation);
+			while (!redoStack.empty())
+				redoStack.pop();
+		}
 		refreshNotesView();
 		refreshMapofNotes();
 		RefreshPaint();
@@ -4674,53 +4686,126 @@ private: System::Void undoToolStripMenuItem_Click(System::Object^ sender, System
 private: System::Void redoToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (!redoStack.empty()) {
 		operationReversal = true;
-		Operation tempOperation = redoStack.top();
+		Operation currentOperation = redoStack.top();
 		redoStack.pop();
-		undoStack.push(tempOperation);
+		undoStack.push(currentOperation);
 
-		std::list<NotesNode>::iterator noteITR = tempOperation.Note.begin();
-		std::list<PreChartNode>::iterator gimmickITR = tempOperation.Gimmick.begin();
-		std::list<NotesNode>::iterator oldNoteITR = tempOperation.oldNote.begin();
-		std::list<PreChartNode>::iterator oldGimmickITR = tempOperation.oldGimmick.begin();
+		std::list<NotesNode>::iterator noteITR = currentOperation.Note.begin();
+		std::list<PreChartNode>::iterator gimmickITR = currentOperation.Gimmick.begin();
+		std::list<NotesNode>::iterator oldNoteITR = currentOperation.oldNote.begin();
+		std::list<PreChartNode>::iterator oldGimmickITR = currentOperation.oldGimmick.begin();
 
-		switch (tempOperation.operationType) {
+		switch (currentOperation.operationType) {
 		case 1: //Insert
-			switch (tempOperation.objectType) {
+			switch (currentOperation.objectType) {
 			case 1: //Note
-				if (noteITR != tempOperation.Note.end()) {
-
+				while (noteITR != currentOperation.Note.end()) {
+					SelectedLineType = NoGimmick;
+					MeasureNum->Value = noteITR->measure;
+					float num1 = noteITR->beat;
+					float num2 = 1920;
+					BeatNum2->Value = (int)subBeatValue2(num1, num2); //change 2 first so that 1 doesnt become larger and make it round up to the next measure
+					BeatNum1->Value = (int)subBeatValue1(num1, num2);
+					SelectedNoteType = noteITR->noteType;
+					if (SelectedNoteType == HoldJoint) {
+						EndHoldBox->Checked = false;
+					}
+					if (SelectedNoteType == HoldEnd) {
+						SelectedNoteType = HoldJoint;
+						EndHoldBox->Checked = true;
+					}
+					PosNum->Value = noteITR->position;
+					SizeNum->Value = noteITR->size;
+					InsertObject();
+					noteITR++;
 				}
 				break;
 			case 2: //Gimmick
-				if (gimmickITR != tempOperation.Gimmick.end()) {
+				while (gimmickITR != currentOperation.Gimmick.end()) {
+					PreChartNode tempPreChartNode;
+					tempPreChartNode.measure = gimmickITR->measure;
+					tempPreChartNode.beat = gimmickITR->beat;
+					tempPreChartNode.type = gimmickITR->type;
+					SelectedLineType = gimmickITR->type;
 
+					switch (SelectedLineType) {
+					case BpmChange:
+						if (tempPreChartNode.measure == 0 && tempPreChartNode.beat == 0) {
+							InitialBPMNum->Value = (System::Decimal)gimmickITR->BPM;
+						}
+						tempPreChartNode.BPM = gimmickITR->BPM;
+						theChart.PreChart.push_back(tempPreChartNode);
+						break;
+					case TimeSignatureChange:
+						if (tempPreChartNode.measure == 0 && tempPreChartNode.beat == 0) {
+							InitTimeSigNum1->Value = (System::Decimal)gimmickITR->beatDiv1;
+							InitTimeSigNum2->Value = (System::Decimal)gimmickITR->beatDiv2;
+						}
+						tempPreChartNode.beatDiv1 = gimmickITR->beatDiv1;
+						tempPreChartNode.beatDiv2 = gimmickITR->beatDiv2;
+						theChart.PreChart.push_back(tempPreChartNode);
+						break;
+					case HiSpeedChange:
+						tempPreChartNode.hiSpeed = gimmickITR->hiSpeed;
+						theChart.PreChart.push_back(tempPreChartNode);
+						break;
+					case ReverseStart:
+					case ReverseEnd:
+					case ReverseNoteEnd:
+					case StopStart:
+					case StopEnd:
+						theChart.PreChart.push_back(tempPreChartNode);
+						break;
+					}
+					if (!theChart.PreChart.empty()) {
+						viewGimmicksITR = theChart.PreChart.end();
+						viewGimmicksITR--;
+					}
+					theChart.PreChart.sort(sortPreChartListByBeat);
+					refreshGimmickView();
+					refreshMapOfTime();
+
+					gimmickITR++;
 				}
 				break;
 			}
 			break;
 		case 2: //Delete
-			switch (tempOperation.objectType) {
+			switch (currentOperation.objectType) {
 			case 1: //Note
-				if (noteITR != tempOperation.Note.end()) {
-
+				if (noteITR != currentOperation.Note.end()) {
+					viewNotesITR = findMatchNote(*noteITR);
+					refreshNotesView();
+					DeleteNoteButton_Click(sender, e);
 				}
 				break;
 			case 2: //Gimmick
-				if (gimmickITR != tempOperation.Gimmick.end()) {
-
+				while (gimmickITR != currentOperation.Gimmick.end()) {
+					viewGimmicksITR = findMatchGimmick(*gimmickITR);
+					DeleteGimmickButton_Click(sender, e);
+					gimmickITR++;
 				}
 				break;
 			}
 			break;
 		case 3: //Edit
-			switch (tempOperation.objectType) {
+			switch (currentOperation.objectType) {
 			case 1: //Note
-				if (noteITR != tempOperation.Note.end()) {
-
+				if (noteITR != currentOperation.Note.end()) {
+					viewNotesITR = findMatchNote(*oldNoteITR);
+					viewNotesITR->measure = noteITR->measure;
+					viewNotesITR->beat = noteITR->beat;
+					if (!isHold(oldNoteITR->noteType))
+						viewNotesITR->noteType = noteITR->noteType;
+					viewNotesITR->position = noteITR->position;
+					viewNotesITR->size = noteITR->size;
+					refreshNotesView();
+					refreshMapofNotes();
+					RefreshPaint();
 				}
 				break;
-			case 2: //Gimmick
-				if (gimmickITR != tempOperation.Gimmick.end()) {
+			case 2: //Gimmick (currently no edit button implemented for gimmicks
+				if (gimmickITR != currentOperation.Gimmick.end()) {
 
 				}
 				break;
