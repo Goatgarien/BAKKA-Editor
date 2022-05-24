@@ -48,10 +48,11 @@ enum GimmickType {
 	NoGimmick = 1,
 	BpmChange = 2,
 	TimeSignatureChange = 3,
+	//Stop = 4, //No clue what this does
 	HiSpeedChange = 5,
 	ReverseStart = 6,
-	ReverseMiddle = 7,
-	ReverseEnd = 8,
+	ReverseEnd = 7,
+	ReverseNoteEnd = 8,
 	StopStart = 9,
 	StopEnd = 10,
 };
@@ -73,4 +74,13 @@ struct Chart {
 	double offset;
 	double movieOffset;
 	std::string songFileName;
+};
+
+struct Operation {
+	int operationType; //1=insert, 2=delete, 3=edit
+	int objectType; //1=Note, 2=Gimmick
+	std::list<NotesNode> oldNote; //only used for edit
+	std::list<PreChartNode> oldGimmick; //only used for edit
+	std::list<NotesNode> Note;
+	std::list<PreChartNode> Gimmick;
 };
