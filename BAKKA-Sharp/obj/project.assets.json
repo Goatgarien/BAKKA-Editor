@@ -1,0 +1,115 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0-windows7.0": {
+      "Tomlyn/0.15.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Tomlyn.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Tomlyn.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Tomlyn/0.15.0": {
+      "sha512": "WyEYqnQ7iN2m6N9cZjhAFqSa6Mz+M04AgUfDxXabTh+dToDPNKqh2r8V7oZLoRAIk3f0YEia08R9eYcrW1Txxg==",
+      "type": "package",
+      "path": "tomlyn/0.15.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net6.0/Tomlyn.dll",
+        "lib/net6.0/Tomlyn.xml",
+        "lib/netstandard2.0/Tomlyn.dll",
+        "lib/netstandard2.0/Tomlyn.xml",
+        "logo.png",
+        "readme.md",
+        "tomlyn.0.15.0.nupkg.sha512",
+        "tomlyn.nuspec"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0-windows7.0": [
+      "Tomlyn >= 0.15.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\otaku\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+  },
+  "project": {
+    "version": "1.0.0-rc8",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\otaku\\source\\repos\\BAKKA-Sharp\\BAKKA-Sharp\\BAKKA-Sharp.csproj",
+      "projectName": "BAKKA-Sharp",
+      "projectPath": "C:\\Users\\otaku\\source\\repos\\BAKKA-Sharp\\BAKKA-Sharp\\BAKKA-Sharp.csproj",
+      "packagesPath": "C:\\Users\\otaku\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\otaku\\source\\repos\\BAKKA-Sharp\\BAKKA-Sharp\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\otaku\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0-windows"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0-windows7.0": {
+        "targetAlias": "net6.0-windows",
+        "dependencies": {
+          "Tomlyn": {
+            "target": "Package",
+            "version": "[0.15.0, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WindowsForms": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
