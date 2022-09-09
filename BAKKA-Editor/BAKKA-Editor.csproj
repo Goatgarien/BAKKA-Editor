@@ -15,7 +15,15 @@
     <StartupObject>BAKKA_Editor.Program</StartupObject>
     <ApplicationIcon />
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Tomlyn" Version="0.15.0" />
