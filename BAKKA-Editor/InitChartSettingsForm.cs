@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace BAKKA_Editor
 {
-    public partial class Form1 : Form
+    public partial class InitChartSettingsForm : Form
     {
-        public Form1()
+        public InitChartSettingsForm()
         {
             InitializeComponent();
         }

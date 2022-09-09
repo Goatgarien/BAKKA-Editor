@@ -1,0 +1,37 @@
+name: build-validation
+
+on:
+    push:
+    pull_request:
+        branches: [ main ]
+        paths:
+        - '**.cs'
+        - '**.csproj'
+        
+
+env:
+    DOTNET_VERSION: '6.x'
+
+jobs:
+    build:
+        name: build-windows
+        runs-on: [ windows-latest ]
+        
+        steps:
+        - uses: actions/checkout@v2
+        - name: Setup .NET Core
+          uses: actions/setup-dotnet@v1
+          with:
+            dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+        - name: Install dependencies
+          run: dotnet restore
+          
+        - name: Build
+          run: dotnet build --configuration Release --no-restore
+          
+        - name: Publish artifacts
+          uses: actions/upload-artifact@v1
+          with:
+            name: build
+            path: BAKKA-Sharp\bin\Release\net6.0-windows\
