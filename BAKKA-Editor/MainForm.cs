@@ -18,9 +18,9 @@ namespace BAKKA_Editor
         OperationManager opManager = new OperationManager();
 
         // Graphics
-        BufferedGraphicsContext gfxContext;
+        BufferedGraphicsContext gfxContext = BufferedGraphicsManager.Current;
         BufferedGraphics bufGraphics;
-        CircleView circleView;
+        CircleView circleView = new CircleView(new SizeF(611, 611));
 
         // Note Selection
         NoteType currentNoteType = NoteType.TouchNoBonus;
@@ -70,7 +70,7 @@ namespace BAKKA_Editor
             circlePanel.MouseWheel += circlePanel_MouseWheel;
 
             // Setup graphics
-            gfxContext = BufferedGraphicsManager.Current;
+            //gfxContext = BufferedGraphicsManager.Current;
             SetBufferedGraphicsContext();
             circleView = new CircleView(circlePanel.Size);
 
@@ -171,7 +171,7 @@ namespace BAKKA_Editor
         {
             string save = chart.IsSaved ? "" : "*";
             string name = isRecoveredFile ? "Auto-Save Recover" : (isNewFile ? "New File" : saveFileDialog.FileName);
-            Text = $"{save}BAKKA Sharp {fileVersion} - [{name}]";
+            Text = $"{save}BAKKA Editor {fileVersion} - [{name}]";
         }
 
         private void SetBufferedGraphicsContext()
@@ -1421,7 +1421,7 @@ namespace BAKKA_Editor
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"A reimagining of Goatgarien's BAKKA Editor.\n\nCode: VeroxZik\n\nUI Inspiration: Yellowberry", $"BAKKA Sharp {fileVersion}");
+            MessageBox.Show($"A reimagining of Goatgarien's BAKKA Editor.\n\nCode: VeroxZik\n\nUI Inspiration: Yellowberry", $"BAKKA Editor {fileVersion}");
         }
 
         private void initialChartSettingsToolStripMenuItem_Click(object sender, EventArgs e)
