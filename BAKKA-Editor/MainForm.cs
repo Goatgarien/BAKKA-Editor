@@ -1422,7 +1422,11 @@ namespace BAKKA_Editor
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"A reimagining of Goatgarien's BAKKA Editor.\n\nCode: VeroxZik\n\nUI Inspiration: Yellowberry", $"BAKKA Editor {fileVersion}");
+            MessageBox.Show($"VeroxZik's C# port of Goatgarien's BAKKA Editor.\n\n" +
+                $"Original C++ version: Goatgarien\n" +
+                $"Initial C# port: VeroxZik\n" +
+                $"UI Inspiration: Yellowberry", 
+                $"BAKKA Editor {fileVersion}");
         }
 
         private void initialChartSettingsToolStripMenuItem_Click(object sender, EventArgs e)
