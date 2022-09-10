@@ -34,4 +34,4 @@ jobs:
           uses: actions/upload-artifact@v1
           with:
             name: build
-            path: BAKKA-Sharp\bin\Release\net6.0-windows\
+            path: BAKKA-Editor\bin\Release\net6.0-windows\
