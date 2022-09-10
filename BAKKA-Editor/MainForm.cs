@@ -70,9 +70,7 @@ namespace BAKKA_Editor
             circlePanel.MouseWheel += circlePanel_MouseWheel;
 
             // Setup graphics
-            //gfxContext = BufferedGraphicsManager.Current;
-            SetBufferedGraphicsContext();
-            circleView = new CircleView(circlePanel.Size);
+            MainForm_Resize(this, new EventArgs());
 
             // Force double buffering on circlePanel
             Type controlType = circlePanel.GetType();
