@@ -1267,6 +1267,7 @@ namespace BAKKA_Editor
         private void visualHispeedNumeric_ValueChanged(object sender, EventArgs e)
         {
             circleView.TotalMeasureShowNotes = (float)visualHispeedNumeric.Value;
+            circlePanel.Invalidate();
         }
 
         private void insertButton_Click(object sender, EventArgs e)
