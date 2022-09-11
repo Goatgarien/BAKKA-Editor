@@ -2055,7 +2055,7 @@ namespace BAKKA_Editor
 
         private void trackBarVolume_MouseDown(object sender, MouseEventArgs e)
         {
-            float val = ((float)e.Location.Y / (float)trackBarVolume.Height) *
+            float val = ((float)e.Location.X / (float)trackBarVolume.Width) *
                         (trackBarVolume.Maximum - trackBarVolume.Minimum);
             trackBarVolume.Value = (int)val;
         }
