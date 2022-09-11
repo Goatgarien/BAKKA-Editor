@@ -1159,6 +1159,8 @@ namespace BAKKA_Editor
 
         private void songTrackBar_ValueChanged(object sender, EventArgs e)
         {
+            if (currentSong == null)
+                return;
             if (IsSongPlaying())
                 return;
 
