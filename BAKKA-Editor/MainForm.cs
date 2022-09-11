@@ -1926,39 +1926,48 @@ namespace BAKKA_Editor
             switch (keyData)
             {
                 case Keys.T:
-                    tapButton_Click(sender, e);
+                    if(tapButton.Enabled)
+                        tapButton_Click(sender, e);
                     tapButton.Focus();
                     return true;
                 case Keys.O:
-                    orangeButton_Click(sender, e);
+                    if (orangeButton.Enabled)
+                        orangeButton_Click(sender, e);
                     orangeButton.Focus();
                     return true;
                 case Keys.G:
-                    greenButton_Click(sender, e);
+                    if (greenButton.Enabled)
+                        greenButton_Click(sender, e);
                     greenButton.Focus();
                     return true;
                 case Keys.R:
-                    redButton_Click(sender, e);
+                    if (redButton.Enabled)
+                        redButton_Click(sender, e);
                     redButton.Focus();
                     return true;
                 case Keys.B:
-                    blueButton_Click(sender, e);
+                    if (blueButton.Enabled)
+                        blueButton_Click(sender, e);
                     blueButton.Focus();
                     return true;
                 case Keys.Y:
-                    chainButton_Click(sender, e);
+                    if (chainButton.Enabled)
+                        chainButton_Click(sender, e);
                     chainButton.Focus();
                     return true;
                 case Keys.H:
-                    holdButton_Click(sender, e);
+                    if (holdButton.Enabled)
+                        holdButton_Click(sender, e);
                     holdButton.Focus();
                     return true;
                 case Keys.I:
-                    insertButton_Click(sender, e);
+                    if (insertButton.Enabled)
+                        insertButton_Click(sender, e);
                     insertButton.Focus();
                     return true;
                 case Keys.P:
-                    playButton_Click(sender, e);
+                    if (playButton.Enabled)
+                        playButton_Click(sender, e);
                     playButton.Focus();
                     return true;
                 case Keys.Up | Keys.Shift:
