@@ -1976,5 +1976,12 @@ namespace BAKKA_Editor
                     File.Delete(file);
             }
         }
+
+        private void songTrackBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            float val = ((float)e.Location.X / (float)songTrackBar.Width) *
+                        (songTrackBar.Maximum - songTrackBar.Minimum);
+            songTrackBar.Value = (int)val;
+        }
     }
 }
