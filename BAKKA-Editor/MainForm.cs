@@ -1118,6 +1118,9 @@ namespace BAKKA_Editor
                 songFilePath = openSongDialog.FileName;
                 songFileLabel.Text = songFilePath;
                 currentSong = soundEngine.Play2D(songFilePath, true, true);
+                /* Volume is represented as a float from 0-1. */
+                currentSong.Volume = (float)trackBarVolume.Value / (float)trackBarVolume.Maximum;
+
                 songTrackBar.Value = 0;
                 songTrackBar.Maximum = (int)currentSong.PlayLength;
             }
@@ -1181,6 +1184,8 @@ namespace BAKKA_Editor
 
         private void songTrackBar_ValueChanged(object sender, EventArgs e)
         {
+            if (currentSong == null)
+                return;
             if (IsSongPlaying())
                 return;
 
@@ -1889,6 +1894,29 @@ namespace BAKKA_Editor
                 circlePanel.Invalidate();
             }
         }
+        private void playbackVolumeChange(bool increase)
+        {
+            int val = trackBarVolume.LargeChange;
+            /* Bounds check. */
+            if (increase && (trackBarVolume.Value + val > trackBarVolume.Maximum))
+            {
+                val = trackBarVolume.Maximum - trackBarVolume.Value;
+            }
+            else if (!increase && (trackBarVolume.Value - val<trackBarVolume.Minimum))
+            {
+                val = trackBarVolume.Value - trackBarVolume.Minimum;
+            }
+            if (!increase)
+            {
+                val *= -1;
+            }
+            /*
+             * Updating the trackbar volume will call the trackBarVolume_Changed
+             * callback, which will update the current song volume.
+             */
+            trackBarVolume.Value += val;
+            trackBarVolume.Focus();
+        }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -1933,6 +1961,12 @@ namespace BAKKA_Editor
                     playButton_Click(sender, e);
                     playButton.Focus();
                     return true;
+                case Keys.Up | Keys.Shift:
+                    /* Fallthrough */
+                case Keys.Down | Keys.Shift:
+                    keyData &= ~Keys.Shift;
+                    playbackVolumeChange(keyData == Keys.Up);
+                    return true;
                 default:
                     break;
             }
@@ -1952,7 +1986,20 @@ namespace BAKKA_Editor
                 opManager.Redo();
         }
 
-        private void MainForm_Resize(object sender, EventArgs e)
+        
+        private void trackBarVolume_ValueChanged(object sender, EventArgs e)
+        {
+            /* No song, nothing to do. */
+            if (currentSong == null)
+            {
+                return;
+            }
+            /* Volume is represented as a float from 0-1. */
+            currentSong.Volume = (float) trackBarVolume.Value / (float) trackBarVolume.Maximum;
+            circlePanel.Invalidate();
+        }
+
+    private void MainForm_Resize(object sender, EventArgs e)
         {
             var zoneWidth = noteViewGroupBox.Left - gimmickTypeGroupBox.Right - 12;
             var zoneHeight = playbackGroupBox.Top - gimmickTypeGroupBox.Top - 6;
@@ -1997,6 +2044,20 @@ namespace BAKKA_Editor
                 if (file != keep)
                     File.Delete(file);
             }
+        }
+
+        private void songTrackBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            float val = ((float)e.Location.X / (float)songTrackBar.Width) *
+                        (songTrackBar.Maximum - songTrackBar.Minimum);
+            songTrackBar.Value = (int)val;
+        }
+
+        private void trackBarVolume_MouseDown(object sender, MouseEventArgs e)
+        {
+            float val = ((float)e.Location.Y / (float)trackBarVolume.Height) *
+                        (trackBarVolume.Maximum - trackBarVolume.Minimum);
+            trackBarVolume.Value = (int)val;
         }
     }
 }
