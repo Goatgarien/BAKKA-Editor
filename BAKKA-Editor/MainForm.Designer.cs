@@ -703,7 +703,7 @@
             // 
             this.trackBarVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarVolume.Location = new System.Drawing.Point(686, 36);
-            this.trackBarVolume.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.trackBarVolume.Margin = new System.Windows.Forms.Padding(2);
             this.trackBarVolume.Maximum = 100;
             this.trackBarVolume.Name = "trackBarVolume";
             this.trackBarVolume.Orientation = System.Windows.Forms.Orientation.Vertical;
@@ -751,6 +751,7 @@
             this.songTrackBar.Name = "songTrackBar";
             this.songTrackBar.Size = new System.Drawing.Size(572, 45);
             this.songTrackBar.TabIndex = 2;
+            this.songTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.songTrackBar.ValueChanged += new System.EventHandler(this.songTrackBar_ValueChanged);
             // 
             // selectSongButton
