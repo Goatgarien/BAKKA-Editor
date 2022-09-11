@@ -712,6 +712,7 @@
             this.trackBarVolume.TickFrequency = 50;
             this.trackBarVolume.Value = 50;
             this.trackBarVolume.ValueChanged += new System.EventHandler(this.trackBarVolume_ValueChanged);
+            this.trackBarVolume.MouseDown += new System.Windows.Forms.MouseEventHandler(this.trackBarVolume_MouseDown);
             // 
             // labelVolume
             // 

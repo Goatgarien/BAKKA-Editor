@@ -1983,5 +1983,12 @@ namespace BAKKA_Editor
                         (songTrackBar.Maximum - songTrackBar.Minimum);
             songTrackBar.Value = (int)val;
         }
+
+        private void trackBarVolume_MouseDown(object sender, MouseEventArgs e)
+        {
+            float val = ((float)e.Location.Y / (float)trackBarVolume.Height) *
+                        (trackBarVolume.Maximum - trackBarVolume.Minimum);
+            trackBarVolume.Value = (int)val;
+        }
     }
 }
