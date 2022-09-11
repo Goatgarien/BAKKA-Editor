@@ -363,7 +363,10 @@ namespace BAKKA_Editor
                     break;
                 case NoteType.HoldJoint:
                     if (endHoldCheck.Checked)
+                    {
                         updateLabel("Hold End");
+                        currentNoteType = NoteType.HoldEnd;
+                    }
                     else
                         updateLabel("Hold Middle");
                     break;
@@ -801,7 +804,7 @@ namespace BAKKA_Editor
 
         private void beat2Numeric_ValueChanged(object sender, EventArgs e)
         {
-
+            updateTime();
         }
 
         private void updateTime()
@@ -810,6 +813,14 @@ namespace BAKKA_Editor
             {
                 circleView.CurrentMeasure = (float)measureNumeric.Value + ((float)beat1Numeric.Value / (float)beat2Numeric.Value);
                 circlePanel.Invalidate();
+            }
+
+            if(currentNoteType == NoteType.HoldJoint || currentNoteType == NoteType.HoldEnd)
+            {
+                if (lastNote.BeatInfo.MeasureDecimal >= circleView.CurrentMeasure)
+                    insertButton.Enabled = false;
+                else
+                    insertButton.Enabled = true;
             }
         }
 
@@ -908,6 +919,11 @@ namespace BAKKA_Editor
 
         private void holdButton_Click(object sender, EventArgs e)
         {
+            holdButtonClicked();
+        }
+
+        private void holdButtonClicked()
+        {
             if (noBonusRadio.Checked)
                 SetSelectedObject(NoteType.HoldStartNoBonus);
             else if (bonusRadio.Checked)
@@ -929,7 +945,14 @@ namespace BAKKA_Editor
 
         private void endHoldCheck_CheckedChanged(object sender, EventArgs e)
         {
-
+            if(endHoldCheck.Checked && currentNoteType == NoteType.HoldJoint)
+            {
+                SetSelectedObject(NoteType.HoldEnd);
+            }
+            if (!endHoldCheck.Checked && currentNoteType == NoteType.HoldEnd)
+            {
+                SetSelectedObject(NoteType.HoldJoint);
+            }
         }
 
         private void BonusRadioCheck(object sender, EventArgs e)
@@ -1116,11 +1139,13 @@ namespace BAKKA_Editor
                 {
                     playButton.Text = "Play (P)";
                     updateTimer.Enabled = false;
+                    insertButton.Enabled = true;
                 }
                 else
                 {
                     playButton.Text = "Pause (P)";
                     updateTimer.Enabled = true;
+                    insertButton.Enabled = false;
                 }
             }
         }
@@ -1275,6 +1300,9 @@ namespace BAKKA_Editor
 
         private void InsertObject()
         {
+            if (!insertButton.Enabled)
+                return;
+
             var currentBeat = new BeatInfo((int)measureNumeric.Value, (int)beat1Numeric.Value * 1920 / (int)beat2Numeric.Value);
 
             if (currentGimmickType == GimmickType.NoGimmick)
@@ -1293,13 +1321,18 @@ namespace BAKKA_Editor
                     case NoteType.HoldStartBonusFlair:
                         SetSelectedObject(NoteType.HoldJoint);
                         lastNote = tempNote;
+                        disableNonHoldButtons();
                         break;
                     case NoteType.HoldJoint:
                     case NoteType.HoldEnd:
                         tempNote.PrevNote = lastNote;
                         tempNote.PrevNote.NextNote = tempNote;
                         if (endHoldCheck.Checked)
+                        {
                             tempNote.NoteType = NoteType.HoldEnd;
+                            enableNonHoldButtons();
+                            holdButtonClicked();
+                        }
                         else
                             lastNote = tempNote;
                         break;
@@ -1319,6 +1352,42 @@ namespace BAKKA_Editor
                 chart.IsSaved = false;
                 opManager.Push(new InsertNote(chart, tempNote));
             }
+        }
+
+        private void disableNonHoldButtons()
+        {
+            tapButton.Enabled = false;
+            orangeButton.Enabled = false;
+            greenButton.Enabled = false;
+            redButton.Enabled = false;
+            blueButton.Enabled = false;
+            chainButton.Enabled = false;
+            endChartButton.Enabled = false;
+
+            maskButton.Enabled = false;
+            bpmChangeButton.Enabled = false;
+            timeSigButton.Enabled = false;
+            hiSpeedButton.Enabled = false;
+            stopButton.Enabled = false;
+            reverseButton.Enabled = false;
+        }
+
+        private void enableNonHoldButtons()
+        {
+            tapButton.Enabled = true;
+            orangeButton.Enabled = true;
+            greenButton.Enabled = true;
+            redButton.Enabled = true;
+            blueButton.Enabled = true;
+            chainButton.Enabled = true;
+            endChartButton.Enabled = true;
+
+            maskButton.Enabled = true;
+            bpmChangeButton.Enabled = true;
+            timeSigButton.Enabled = true;
+            hiSpeedButton.Enabled = true;
+            stopButton.Enabled = true;
+            reverseButton.Enabled = true;
         }
 
         private void maskButton_Click(object sender, EventArgs e)
