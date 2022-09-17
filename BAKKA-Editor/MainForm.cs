@@ -81,6 +81,9 @@ namespace BAKKA_Editor
             gimmickForm = new GimmickForm();
             initSettingsForm = new InitChartSettingsForm();
 
+            //Set Initial Song File :)
+            SetInitialSong();
+
             // Operation Manager
             opManager.OperationHistoryChanged += (s, e) =>
             {
@@ -1111,6 +1114,24 @@ namespace BAKKA_Editor
             }
         }
 
+        private void SetInitialSong()
+        {
+            // :)
+            songFilePath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "ERROR.ogg");
+            currentSong = soundEngine.Play2D(songFilePath, true, true);
+            if (currentSong != null)
+            {
+                /* Volume is represented as a float from 0-1. */
+                currentSong.Volume = (float)trackBarVolume.Value / (float)trackBarVolume.Maximum;
+
+                songTrackBar.Value = 0;
+                songTrackBar.Maximum = (int)currentSong.PlayLength;
+            }
+            else
+            {
+                playButton.Enabled = false;
+            }
+        }
         private void selectSongButton_Click(object sender, EventArgs e)
         {
             if (openSongDialog.ShowDialog() != DialogResult.Cancel)
@@ -1123,6 +1144,7 @@ namespace BAKKA_Editor
 
                 songTrackBar.Value = 0;
                 songTrackBar.Maximum = (int)currentSong.PlayLength;
+                playButton.Enabled = true;
             }
         }
 
