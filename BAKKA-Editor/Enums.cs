@@ -63,4 +63,10 @@ namespace BAKKA_Editor
 		Bonus = 1,
 		Flair = 2
     }
+
+	internal enum OperationDirection
+    {
+		Undo,
+		Redo
+    }
 }
