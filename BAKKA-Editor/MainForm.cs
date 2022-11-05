@@ -17,9 +17,7 @@ namespace BAKKA_Editor
         // Operations
         OperationManager opManager = new OperationManager();
 
-        // Graphics
-        BufferedGraphicsContext gfxContext = BufferedGraphicsManager.Current;
-        BufferedGraphics bufGraphics;
+        // Playfield
         CircleView circleView = new CircleView(new SizeF(611, 611));
 
         // Note Selection
@@ -29,13 +27,6 @@ namespace BAKKA_Editor
         int selectedGimmickIndex = -1;
         int selectedNoteIndex = -1;
         Note lastNote;
-
-        // Mouse
-        int mouseDownPos = -1;
-        Point mouseDownPt;
-        int lastMousePos = -1;
-        bool rolloverPos = false;
-        bool rolloverNeg = false;
 
         // Music
         ISoundEngine soundEngine = new ISoundEngine();
@@ -173,13 +164,6 @@ namespace BAKKA_Editor
             string save = chart.IsSaved ? "" : "*";
             string name = isRecoveredFile ? "Auto-Save Recover" : (isNewFile ? "New File" : saveFileDialog.FileName);
             Text = $"{save}BAKKA Editor {fileVersion} - [{name}]";
-        }
-
-        private void SetBufferedGraphicsContext()
-        {
-            gfxContext.MaximumBuffer = new Size(circlePanel.Width + 1, circlePanel.Height + 1);
-            bufGraphics = gfxContext.Allocate(circlePanel.CreateGraphics(),
-                new Rectangle(0, 0, circlePanel.Width, circlePanel.Height));
         }
 
         /// <summary>
@@ -506,256 +490,26 @@ namespace BAKKA_Editor
 
         private void circlePanel_Paint(object sender, PaintEventArgs e)
         {
-            Rectangle panelRect = new Rectangle(0, 0, circlePanel.Width, circlePanel.Height);
-
-            // Set drawing mode
-            bufGraphics.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
-
             // Draw background
-            bufGraphics.Graphics.FillRectangle(new SolidBrush(this.BackColor), panelRect);
-
-            // Set hi-speed
+            circleView.DrawBackground(circlePanel.Width, circlePanel.Height, this.BackColor);
 
             // Draw masks
-            var masks = chart.Notes.Where(
-                x => x.Measure <= circleView.CurrentMeasure
-                && x.IsMask).ToList();
-            foreach (var mask in masks)
-            {
-                if (mask.NoteType == NoteType.MaskAdd)
-                {
-                    // Check if there's a MaskRemove that counters the MaskAdd (unless the MaskAdd is later)
-                    var rem = masks.FirstOrDefault(x => x.NoteType == NoteType.MaskRemove && x.Position == mask.Position && x.Size == mask.Size);
-                    if (rem == null || rem.Measure < mask.Measure)
-                        bufGraphics.Graphics.FillPie(circleView.MaskBrush, circleView.DrawRect.ToInt(), -mask.Position * 6.0f, -mask.Size * 6.0f);
-                }
-            }
+            circleView.DrawMasks(chart);
 
-            // Draw selected mask
-
-            // Switch drawing modes
-            bufGraphics.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-
-            // Draw measure circle
-            for (float meas = (float)Math.Ceiling(circleView.CurrentMeasure); (meas - circleView.CurrentMeasure) < circleView.TotalMeasureShowNotes; meas += 1.0f)
-            {
-                var info = circleView.GetScaledRect(meas);
-                if (info.Rect.Width >= 1)
-                {
-                    bufGraphics.Graphics.DrawEllipse(circleView.BeatPen, info.Rect);
-                }
-            }
-
-            // Draw base circle
-            bufGraphics.Graphics.DrawEllipse(circleView.TickMediumPen, circleView.DrawRect);
+            // Draw base and measure circle.
+            circleView.DrawCircle();
 
             // Draw degree lines
-            for (int i = 0; i < 360; i += 6)
-            {
-                PointF startPoint = new PointF(
-                   (float)(circleView.Radius * Math.Cos(Utils.DegToRad(i))) + circleView.CenterPoint.X,
-                   (float)(circleView.Radius * Math.Sin(Utils.DegToRad(i))) + circleView.CenterPoint.Y);
-                float tickLength = circleView.PanelSize.Width * 10.0f / 285.0f;
-                float innerRad = circleView.Radius - tickLength;
-                Pen activePen;
-                if (i % 90 == 0)
-                {
-                    innerRad = circleView.Radius - (tickLength * 3.5f);
-                    activePen = circleView.TickMajorPen;
-                }
-                else if (i % 30 == 0)
-                {
-                    innerRad = circleView.Radius - (tickLength * 2.5f);
-                    activePen = circleView.TickMediumPen;
-                }
-                else
-                {
-                    activePen = circleView.TickMinorPen;
-                }
-                PointF endPoint = new PointF(
-                    (float)(innerRad * Math.Cos(Utils.DegToRad(i))) + circleView.CenterPoint.X,
-                   (float)(innerRad * Math.Sin(Utils.DegToRad(i))) + circleView.CenterPoint.Y);
-
-                bufGraphics.Graphics.DrawLine(activePen, startPoint, endPoint);
-            }
-
-            // Some variables for use later
-            ArcInfo currentInfo = circleView.GetScaledRect(circleView.CurrentMeasure);
-            ArcInfo endInfo = circleView.GetScaledRect(circleView.CurrentMeasure + circleView.TotalMeasureShowNotes);
+            circleView.DrawDegreeLines();
 
             // Draw holds
-            // First, draw holes that start before the viewpoint and have nodes that end after
-            List<Note> holdNotes = chart.Notes.Where(
-                x => x.Measure < circleView.CurrentMeasure
-                && x.NextNote != null
-                && x.NextNote.Measure > (circleView.CurrentMeasure + circleView.TotalMeasureShowNotes)
-                && x.IsHold).ToList();
-            foreach (var note in holdNotes)
-            {
-                ArcInfo info = circleView.GetArcInfo(note);
-                ArcInfo nextInfo = circleView.GetArcInfo((Note)note.NextNote);
-                //GraphicsPath path = new GraphicsPath();
-                //path.AddArc(endInfo.Rect, info.StartAngle, info.ArcLength);
-                //path.AddArc(currentInfo.Rect, info.StartAngle + info.ArcLength, -info.ArcLength);
-                //bufGraphics.Graphics.FillPath(circleView.HoldBrush, path);
-
-                float ratio = (currentInfo.Rect.Width - nextInfo.Rect.Width) / (info.Rect.Width - nextInfo.Rect.Width);
-                float startNoteAngle = nextInfo.StartAngle;
-                float endNoteAngle = info.StartAngle;
-                if (nextInfo.StartAngle > info.StartAngle && (Math.Abs(nextInfo.StartAngle - info.StartAngle) > 180))
-                {
-                    startNoteAngle -= 360;
-                }
-                else if (info.StartAngle > nextInfo.StartAngle && (Math.Abs(nextInfo.StartAngle - info.StartAngle) > 180))
-                {
-                    endNoteAngle -= 360;
-                }
-                float startAngle = ratio * (endNoteAngle - startNoteAngle) + startNoteAngle;
-                float endAngle = ratio * ((endNoteAngle - info.ArcLength) - (startNoteAngle - nextInfo.ArcLength)) +
-                    (startNoteAngle - nextInfo.ArcLength);
-                float arcLength = startAngle - endAngle;
-
-                float ratio2 = (endInfo.Rect.Width - nextInfo.Rect.Width) / (info.Rect.Width - nextInfo.Rect.Width);
-                float startNoteAngle2 = nextInfo.StartAngle;
-                float endNoteAngle2 = info.StartAngle;
-                if (nextInfo.StartAngle > info.StartAngle && (Math.Abs(nextInfo.StartAngle - info.StartAngle) > 180))
-                {
-                    startNoteAngle2 -= 360;
-                }
-                else if (info.StartAngle > nextInfo.StartAngle && (Math.Abs(nextInfo.StartAngle - info.StartAngle) > 180))
-                {
-                    endNoteAngle2 -= 360;
-                }
-                float startAngle2 = ratio2 * (endNoteAngle2 - startNoteAngle2) + startNoteAngle2;
-                float endAngle2 = ratio2 * ((endNoteAngle2 - info.ArcLength) - (startNoteAngle2 - nextInfo.ArcLength)) +
-                    (startNoteAngle2 - nextInfo.ArcLength);
-                float arcLength2 = startAngle2 - endAngle2;
-
-                GraphicsPath path = new GraphicsPath();
-                path.AddArc(currentInfo.Rect, startAngle, arcLength);
-                path.AddArc(endInfo.Rect, startAngle2 + arcLength2, -arcLength2);
-                bufGraphics.Graphics.FillPath(circleView.HoldBrush, path);
-            }
-            // Second, draw all the notes on-screen
-            holdNotes = chart.Notes.Where(
-                x => x.Measure >= circleView.CurrentMeasure
-                && x.Measure <= (circleView.CurrentMeasure + circleView.TotalMeasureShowNotes)
-                && x.IsHold).ToList();
-            foreach (var note in holdNotes)
-            {
-                ArcInfo info = circleView.GetArcInfo(note);
-
-                // If the previous note is off-screen, this case handles that
-                if (note.PrevNote != null && note.PrevNote.Measure < circleView.CurrentMeasure)
-                {
-                    ArcInfo prevInfo = circleView.GetArcInfo((Note)note.PrevNote);
-                    float ratio = (currentInfo.Rect.Width - info.Rect.Width) / (prevInfo.Rect.Width - info.Rect.Width);
-                    float startNoteAngle = info.StartAngle;
-                    float endNoteAngle = prevInfo.StartAngle;
-                    if (info.StartAngle > prevInfo.StartAngle && (Math.Abs(info.StartAngle - prevInfo.StartAngle) > 180))
-                    {
-                        startNoteAngle -= 360;
-                    }
-                    else if (prevInfo.StartAngle > info.StartAngle && (Math.Abs(info.StartAngle - prevInfo.StartAngle) > 180))
-                    {
-                        endNoteAngle -= 360;
-                    }
-                    float startAngle = ratio * (endNoteAngle - startNoteAngle) + startNoteAngle;
-                    float endAngle = ratio * ((endNoteAngle - prevInfo.ArcLength) - (startNoteAngle - info.ArcLength)) +
-                        (startNoteAngle - info.ArcLength);
-                    float arcLength = startAngle - endAngle;
-
-                    GraphicsPath path = new GraphicsPath();
-                    path.AddArc(info.Rect, info.StartAngle, info.ArcLength);
-                    path.AddArc(currentInfo.Rect, startAngle + arcLength, -arcLength);
-                    bufGraphics.Graphics.FillPath(circleView.HoldBrush, path);
-                }
-
-                // If the next note is on-screen, this case handles that
-                if (note.NextNote != null && note.NextNote.Measure <= (circleView.CurrentMeasure + circleView.TotalMeasureShowNotes))
-                {
-                    ArcInfo nextInfo = circleView.GetArcInfo((Note)note.NextNote);
-                    GraphicsPath path = new GraphicsPath();
-                    path.AddArc(info.Rect, info.StartAngle, info.ArcLength);
-                    path.AddArc(nextInfo.Rect, nextInfo.StartAngle + nextInfo.ArcLength, -nextInfo.ArcLength);
-                    bufGraphics.Graphics.FillPath(circleView.HoldBrush, path);
-                }
-
-                // If the next note is off-screen, this case handles that
-                if (note.NextNote != null && note.NextNote.Measure > (circleView.CurrentMeasure + circleView.TotalMeasureShowNotes))
-                {
-                    ArcInfo nextInfo = circleView.GetArcInfo((Note)note.NextNote);
-                    float ratio = (endInfo.Rect.Width - nextInfo.Rect.Width) / (info.Rect.Width - nextInfo.Rect.Width);
-                    float startNoteAngle = nextInfo.StartAngle;
-                    float endNoteAngle = info.StartAngle;
-                    if (nextInfo.StartAngle > info.StartAngle && (Math.Abs(nextInfo.StartAngle - info.StartAngle) > 180))
-                    {
-                        startNoteAngle -= 360;
-                    }
-                    else if (info.StartAngle > nextInfo.StartAngle && (Math.Abs(nextInfo.StartAngle - info.StartAngle) > 180))
-                    {
-                        endNoteAngle -= 360;
-                    }
-                    float startAngle = ratio * (endNoteAngle - startNoteAngle) + startNoteAngle;
-                    float endAngle = ratio * ((endNoteAngle - info.ArcLength) - (startNoteAngle - nextInfo.ArcLength)) +
-                        (startNoteAngle - nextInfo.ArcLength);
-                    float arcLength = startAngle - endAngle;
-
-                    GraphicsPath path = new GraphicsPath();
-                    path.AddArc(endInfo.Rect, startAngle, arcLength);
-                    path.AddArc(info.Rect, info.StartAngle + info.ArcLength, -info.ArcLength);
-                    bufGraphics.Graphics.FillPath(circleView.HoldBrush, path);
-                }
-
-                // Draw note
-                if (info.Rect.Width >= 1)
-                {
-                    bufGraphics.Graphics.DrawArc(circleView.GetPen(note), info.Rect, info.StartAngle, info.ArcLength);
-
-                    // Draw bonus
-                    if (note.IsFlair)
-                        bufGraphics.Graphics.DrawArc(circleView.HighlightPen, info.Rect, info.StartAngle + 2, info.ArcLength - 4);
-
-                    // Plot highlighted
-                    if (highlightViewedNoteToolStripMenuItem.Checked)
-                    {
-                        if (selectedNoteIndex != -1 && note == chart.Notes[selectedNoteIndex])
-                        {
-                            bufGraphics.Graphics.DrawArc(circleView.HighlightPen, info.Rect, info.StartAngle + 2, info.ArcLength - 4);
-                        }
-                    }
-                }
-            }
+            circleView.DrawHolds(chart, highlightViewedNoteToolStripMenuItem.Checked, selectedNoteIndex);
 
             // Draw notes
-            List<Note> drawNotes = chart.Notes.Where(
-                x => x.Measure >= circleView.CurrentMeasure
-                && x.Measure <= (circleView.CurrentMeasure + circleView.TotalMeasureShowNotes)
-                && !x.IsHold && !x.IsMask).ToList();
-            foreach (var note in drawNotes)
-            {
-                ArcInfo info = circleView.GetArcInfo(note);
-
-                if (info.Rect.Width >= 1)
-                {
-                    bufGraphics.Graphics.DrawArc(circleView.GetPen(note, info.NoteScale), info.Rect, info.StartAngle, info.ArcLength);
-                    if (note.IsFlair)
-                    {
-                        bufGraphics.Graphics.DrawArc(circleView.FlairPen, info.Rect, info.StartAngle + 2, info.ArcLength - 4);
-                    }
-                    // Plot highlighted
-                    if (highlightViewedNoteToolStripMenuItem.Checked)
-                    {
-                        if (selectedNoteIndex != -1 && note == chart.Notes[selectedNoteIndex])
-                        {
-                            bufGraphics.Graphics.DrawArc(circleView.HighlightPen, info.Rect, info.StartAngle + 2, info.ArcLength - 4);
-                        }
-                    }
-                }
-            }
+            circleView.DrawNotes(chart, highlightViewedNoteToolStripMenuItem.Checked, selectedNoteIndex);
 
             // Determine if cursor should be showing
-            bool showCursor = showCursorToolStripMenuItem.Checked || mouseDownPos != -1;
+            bool showCursor = showCursorToolStripMenuItem.Checked || circleView.mouseDownPos != -1;
             if (currentSong != null && !currentSong.Paused)
             {
                 showCursor = showCursorDuringPlaybackToolStripMenuItem.Checked;
@@ -764,14 +518,11 @@ namespace BAKKA_Editor
             // Draw cursor
             if (showCursor)
             {
-                bufGraphics.Graphics.DrawArc(
-                    circleView.GetPen(currentNoteType),
-                    circleView.DrawRect,
-                    -(float)positionNumeric.Value * 6.0f,
-                    -(float)sizeNumeric.Value * 6.0f);
+                circleView.DrawCursor(currentNoteType, (float)positionNumeric.Value, (float)sizeNumeric.Value);
             }
 
-            bufGraphics.Render(e.Graphics);
+            // Everything has been drawn, render it.
+            circleView.Render(e.Graphics);
         }
 
         private void measureNumeric_ValueChanged(object sender, EventArgs e)
@@ -1232,92 +983,72 @@ namespace BAKKA_Editor
 
         private void circlePanel_MouseDown(object sender, MouseEventArgs e)
         {
-            // Determine the location of mouse click inside the circle
+            if (e.Button != MouseButtons.Left)
+            {
+                return;
+            }
+
             // X and Y are relative to the upper left of the panel
             float xCen = e.X - (circlePanel.Width / 2);
             float yCen = -(e.Y - (circlePanel.Height / 2));
-            float theta = (float)(Math.Atan2(yCen, xCen) * 180.0f / Math.PI);
-            if (theta < 0)
-                theta += 360.0f;
-            // Left click moves the cursor
-            if (e.Button == MouseButtons.Left)
-            {
-                positionNumeric.Value = (int)(theta / 6.0f);
-                mouseDownPos = (int)positionNumeric.Value;
-                mouseDownPt = e.Location;
-                lastMousePos = -1;
-                rolloverPos = false;
-                rolloverNeg = false;
-                circlePanel.Invalidate();
-            }
+            // Update the location of mouse click inside the circle
+            circleView.UpdateMouseDown(xCen, yCen, e.Location);
+            positionNumeric.Value = circleView.mouseDownPos;
+            circlePanel.Invalidate();
         }
 
         private void circlePanel_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && mouseDownPos > -1)
+            // Mouse down position wasn't within the window or wasn't a left click, do nothing.
+            if (e.Button != MouseButtons.Left || circleView.mouseDownPos <= -1)
             {
-                var dist = Utils.GetDist(e.Location, mouseDownPt);
-                if (dist > 5.0f)
-                    InsertObject();
-                mouseDownPos = -1;
-                mouseDownPt = new Point();
-                circlePanel.Invalidate();
+                return;
             }
+
+            var dist = Utils.GetDist(e.Location, circleView.mouseDownPt);
+            if (dist > 5.0f)
+                InsertObject();
+            circleView.UpdateMouseUp();
+            circlePanel.Invalidate();
         }
 
         private void circlePanel_MouseMove(object sender, MouseEventArgs e)
         {
-            // Determine the location of mouse click inside the circle
+            // Mouse down position wasn't within the window or wasn't a left click, do nothing.
+            if (e.Button != MouseButtons.Left || circleView.mouseDownPos <= -1)
+            {
+                return;
+            }
+
             // X and Y are relative to the upper left of the panel
             float xCen = e.X - (circlePanel.Width / 2);
             float yCen = -(e.Y - (circlePanel.Height / 2));
-            float thetaCalc = (float)(Math.Atan2(yCen, xCen) * 180.0f / Math.PI);
-            if (thetaCalc < 0)
-                thetaCalc += 360.0f;
-            int theta = (int)(thetaCalc / 6.0f);
+            // Update the location of mouse click inside the circle.
+            int theta = circleView.UpdateMouseMove(xCen, yCen);
             // Left click will alter the note width and possibly position depending on which direction we move
-            if (e.Button == MouseButtons.Left && mouseDownPos != -1)
+            if (theta == circleView.mouseDownPos)
             {
-                int delta = theta - lastMousePos;
-                // Handle rollover
-                if (delta == -59)
-                {
-                    if (rolloverNeg)
-                        rolloverNeg = false;
-                    else
-                        rolloverPos = true;
-                }
-                else if (delta == 59)
-                {
-                    if (rolloverPos)
-                        rolloverPos = false;
-                    else
-                        rolloverNeg = true;
-                }
-                if (theta == mouseDownPos)
-                {
-                    positionNumeric.Value = mouseDownPos;
-                    sizeNumeric.Value = 1;
-                }
-                else if ((theta > mouseDownPos || rolloverPos) && !rolloverNeg)
-                {
-                    positionNumeric.Value = mouseDownPos;
-                    if (rolloverPos)
-                        sizeNumeric.Value = (int)Math.Min(theta + 60 - mouseDownPos + 1, 60);
-                    else
-                        sizeNumeric.Value = theta - mouseDownPos + 1;
-                }
-                else if (theta < mouseDownPos || rolloverNeg)
-                {
-                    positionNumeric.Value = theta;
-                    if (rolloverNeg)
-                        sizeNumeric.Value = (int)Math.Min(mouseDownPos + 60 - theta + 1, 60);
-                    else
-                        sizeNumeric.Value = mouseDownPos - theta + 1;
-                }
-                lastMousePos = theta;
-                circlePanel.Invalidate();
+                positionNumeric.Value = circleView.mouseDownPos;
+                sizeNumeric.Value = 1;
             }
+            else if ((theta > circleView.mouseDownPos || circleView.rolloverPos) && !circleView.rolloverNeg)
+            {
+                positionNumeric.Value = circleView.mouseDownPos;
+                if (circleView.rolloverPos)
+                    sizeNumeric.Value = (int)Math.Min(theta + 60 - circleView.mouseDownPos + 1, 60);
+                else
+                    sizeNumeric.Value = theta - circleView.mouseDownPos + 1;
+            }
+            else if (theta < circleView.mouseDownPos || circleView.rolloverNeg)
+            {
+                positionNumeric.Value = theta;
+                if (circleView.rolloverNeg)
+                    sizeNumeric.Value = (int)Math.Min(circleView.mouseDownPos + 60 - theta + 1, 60);
+                else
+                    sizeNumeric.Value = circleView.mouseDownPos - theta + 1;
+            }
+
+            circlePanel.Invalidate();
         }
 
         private void visualHispeedNumeric_ValueChanged(object sender, EventArgs e)
@@ -2123,7 +1854,7 @@ namespace BAKKA_Editor
             circlePanel.Invalidate();
         }
 
-    private void MainForm_Resize(object sender, EventArgs e)
+        private void MainForm_Resize(object sender, EventArgs e)
         {
             var zoneWidth = noteViewGroupBox.Left - gimmickTypeGroupBox.Right - 12;
             var zoneHeight = playbackGroupBox.Top - gimmickTypeGroupBox.Top - 6;
@@ -2139,7 +1870,7 @@ namespace BAKKA_Editor
             }
             int paddingLeft = (zoneWidth - circlePanel.Width) / 2;
             circlePanel.Left = gimmickTypeGroupBox.Right + 6 + paddingLeft;
-            SetBufferedGraphicsContext();
+            circleView.SetBufferedGraphicsContext(circlePanel.Width, circlePanel.Height, circlePanel.CreateGraphics());
             circleView.Update(circlePanel.Size);
             circlePanel.Invalidate();
         }
