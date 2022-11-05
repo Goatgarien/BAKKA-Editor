@@ -1854,7 +1854,7 @@ namespace BAKKA_Editor
             circlePanel.Invalidate();
         }
 
-    private void MainForm_Resize(object sender, EventArgs e)
+        private void MainForm_Resize(object sender, EventArgs e)
         {
             var zoneWidth = noteViewGroupBox.Left - gimmickTypeGroupBox.Right - 12;
             var zoneHeight = playbackGroupBox.Top - gimmickTypeGroupBox.Top - 6;
