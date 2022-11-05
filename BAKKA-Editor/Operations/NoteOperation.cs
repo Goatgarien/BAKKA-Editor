@@ -8,7 +8,7 @@ namespace BAKKA_Editor.Operations
 {
     internal abstract class NoteOperation : IOperation
     {
-        protected Note Note { get; }
+        public Note Note { get; }
         protected Chart Chart { get; }
         public abstract string Description { get; }
 
@@ -86,6 +86,96 @@ namespace BAKKA_Editor.Operations
             Base.BeatInfo = new BeatInfo(OldNote.BeatInfo);
             Base.Position = OldNote.Position;
             Base.Size = OldNote.Size;
+        }
+    }
+
+    internal class InsertHoldNote : NoteOperation
+    {
+        public override string Description => "Insert hold note";
+        private Note prevNote;
+
+        public InsertHoldNote(Chart chart, Note item) : base(chart, item)
+        {
+            prevNote = item.PrevNote;
+        }
+
+        public override void Redo()
+        {
+            if (Note.PrevNote != null)
+                Note.PrevNote.NextNote = Note;
+            Chart.Notes.Add(Note);
+        }
+
+        public override void Undo()
+        {
+            if (Note.PrevNote != null)
+                Note.PrevNote.NextNote = null;
+            Chart.Notes.Remove(Note);
+        }
+    }
+
+    internal class RemoveHoldNote : NoteOperation
+    {
+        public override string Description => "Remove hold note";
+        private Note prevNote;
+        private NoteType prevNoteType;
+        private Note nextNote;
+        private NoteType nextNoteType;
+
+        public RemoveHoldNote(Chart chart, Note item) : base(chart, item)
+        {
+            prevNote = item.PrevNote;
+            if (prevNote != null)
+                prevNoteType = prevNote.NoteType;
+            nextNote = item.NextNote;
+            if (nextNote != null)
+                nextNoteType = nextNote.NoteType;
+        }
+
+        public override void Redo()
+        {
+            switch (Note.NoteType)
+            {
+                case NoteType.HoldStartNoBonus:
+                case NoteType.HoldStartBonusFlair:
+                    nextNote.PrevNote = null;
+                    nextNote.NoteType = Note.NoteType;
+                    break;
+                case NoteType.HoldJoint:
+                    prevNote.NextNote = nextNote;
+                    nextNote.PrevNote = prevNote;
+                    break;
+                case NoteType.HoldEnd:
+                    prevNote.NextNote = null;
+                    prevNote.NoteType = NoteType.HoldEnd;
+                    break;
+                default:
+                    break;
+            }
+            Chart.Notes.Remove(Note);
+        }
+
+        public override void Undo()
+        {
+            switch (Note.NoteType)
+            {
+                case NoteType.HoldStartNoBonus:
+                case NoteType.HoldStartBonusFlair:
+                    nextNote.PrevNote = Note;
+                    nextNote.NoteType = nextNoteType;
+                    break;
+                case NoteType.HoldJoint:
+                    prevNote.NextNote = Note;
+                    nextNote.PrevNote = Note;
+                    break;
+                case NoteType.HoldEnd:
+                    prevNote.NextNote = Note;
+                    prevNote.NoteType = prevNoteType;
+                    break;
+                default:
+                    break;
+            }
+            Chart.Notes.Add(Note);
         }
     }
 }

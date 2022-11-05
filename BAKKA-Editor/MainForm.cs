@@ -72,6 +72,9 @@ namespace BAKKA_Editor
             gimmickForm = new GimmickForm();
             initSettingsForm = new InitChartSettingsForm();
 
+            //Set Initial Song File :)
+            SetInitialSong();
+
             // Operation Manager
             opManager.OperationHistoryChanged += (s, e) =>
             {
@@ -566,12 +569,20 @@ namespace BAKKA_Editor
                 circlePanel.Invalidate();
             }
 
-            if(currentNoteType == NoteType.HoldJoint || currentNoteType == NoteType.HoldEnd)
+            if (currentNoteType == NoteType.HoldJoint || currentNoteType == NoteType.HoldEnd)
             {
                 if (lastNote.BeatInfo.MeasureDecimal >= circleView.CurrentMeasure)
                     insertButton.Enabled = false;
                 else
                     insertButton.Enabled = true;
+            }
+            else if (currentSong != null && !currentSong.Paused)
+            {
+                insertButton.Enabled = false;
+            }
+            else
+            { 
+                insertButton.Enabled = true;
             }
         }
 
@@ -862,6 +873,24 @@ namespace BAKKA_Editor
             }
         }
 
+        private void SetInitialSong()
+        {
+            // :)
+            songFilePath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "ERROR.ogg");
+            currentSong = soundEngine.Play2D(songFilePath, true, true);
+            if (currentSong != null)
+            {
+                /* Volume is represented as a float from 0-1. */
+                currentSong.Volume = (float)trackBarVolume.Value / (float)trackBarVolume.Maximum;
+
+                songTrackBar.Value = 0;
+                songTrackBar.Maximum = (int)currentSong.PlayLength;
+            }
+            else
+            {
+                playButton.Enabled = false;
+            }
+        }
         private void selectSongButton_Click(object sender, EventArgs e)
         {
             if (openSongDialog.ShowDialog() != DialogResult.Cancel)
@@ -874,6 +903,7 @@ namespace BAKKA_Editor
 
                 songTrackBar.Value = 0;
                 songTrackBar.Maximum = (int)currentSong.PlayLength;
+                playButton.Enabled = true;
             }
         }
 
@@ -893,13 +923,11 @@ namespace BAKKA_Editor
                 {
                     playButton.Text = "Play (P)";
                     updateTimer.Enabled = false;
-                    insertButton.Enabled = true;
                 }
                 else
                 {
                     playButton.Text = "Pause (P)";
                     updateTimer.Enabled = true;
-                    insertButton.Enabled = false;
                 }
             }
         }
@@ -1057,7 +1085,7 @@ namespace BAKKA_Editor
                     case NoteType.HoldStartBonusFlair:
                         SetSelectedObject(NoteType.HoldJoint);
                         lastNote = tempNote;
-                        disableNonHoldButtons();
+                        SetNonHoldButtonState(false);
                         break;
                     case NoteType.HoldJoint:
                     case NoteType.HoldEnd:
@@ -1066,7 +1094,7 @@ namespace BAKKA_Editor
                         if (endHoldCheck.Checked)
                         {
                             tempNote.NoteType = NoteType.HoldEnd;
-                            enableNonHoldButtons();
+                            SetNonHoldButtonState(true);
                             holdButtonClicked();
                         }
                         else
@@ -1086,44 +1114,37 @@ namespace BAKKA_Editor
                 }
                 chart.Notes.Add(tempNote);
                 chart.IsSaved = false;
-                opManager.Push(new InsertNote(chart, tempNote));
+                switch (currentNoteType)
+                {
+                    case NoteType.HoldStartNoBonus:
+                    case NoteType.HoldStartBonusFlair:
+                    case NoteType.HoldJoint:
+                    case NoteType.HoldEnd:
+                        opManager.Push(new InsertHoldNote(chart, tempNote));
+                        break;
+                    default:
+                        opManager.Push(new InsertNote(chart, tempNote));
+                        break;
+                }
             }
         }
 
-        private void disableNonHoldButtons()
+        private void SetNonHoldButtonState(bool state)
         {
-            tapButton.Enabled = false;
-            orangeButton.Enabled = false;
-            greenButton.Enabled = false;
-            redButton.Enabled = false;
-            blueButton.Enabled = false;
-            chainButton.Enabled = false;
-            endChartButton.Enabled = false;
+            tapButton.Enabled = state;
+            orangeButton.Enabled = state;
+            greenButton.Enabled = state;
+            redButton.Enabled = state;
+            blueButton.Enabled = state;
+            chainButton.Enabled = state;
+            endChartButton.Enabled = state;
 
-            maskButton.Enabled = false;
-            bpmChangeButton.Enabled = false;
-            timeSigButton.Enabled = false;
-            hiSpeedButton.Enabled = false;
-            stopButton.Enabled = false;
-            reverseButton.Enabled = false;
-        }
-
-        private void enableNonHoldButtons()
-        {
-            tapButton.Enabled = true;
-            orangeButton.Enabled = true;
-            greenButton.Enabled = true;
-            redButton.Enabled = true;
-            blueButton.Enabled = true;
-            chainButton.Enabled = true;
-            endChartButton.Enabled = true;
-
-            maskButton.Enabled = true;
-            bpmChangeButton.Enabled = true;
-            timeSigButton.Enabled = true;
-            hiSpeedButton.Enabled = true;
-            stopButton.Enabled = true;
-            reverseButton.Enabled = true;
+            maskButton.Enabled = state;
+            bpmChangeButton.Enabled = state;
+            timeSigButton.Enabled = state;
+            hiSpeedButton.Enabled = state;
+            stopButton.Enabled = state;
+            reverseButton.Enabled = state;
         }
 
         private void maskButton_Click(object sender, EventArgs e)
@@ -1618,7 +1639,9 @@ namespace BAKKA_Editor
                 return;
 
             int delIndex = selectedNoteIndex;
-            opManager.InvokeAndPush(new RemoveNote(chart, chart.Notes[selectedNoteIndex]));
+            NoteOperation op = chart.Notes[selectedNoteIndex].IsHold ? new RemoveHoldNote(chart, chart.Notes[selectedNoteIndex]) : new RemoveNote(chart, chart.Notes[selectedNoteIndex]);
+            opManager.InvokeAndPush(op);
+            UpdateControlsFromOperation(op, OperationDirection.Redo);
             if (selectedNoteIndex == delIndex)
             {
                 UpdateNoteLabels(delIndex - 1);
@@ -1717,13 +1740,105 @@ namespace BAKKA_Editor
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (opManager.CanUndo)
-                opManager.Undo();
+            {
+                var op = opManager.Undo();
+                if (op != null)
+                {
+                    UpdateControlsFromOperation(op, OperationDirection.Undo);
+                }
+            }
         }
 
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (opManager.CanRedo)
-                opManager.Redo();
+            {
+                var op = opManager.Redo();
+                if (op != null)
+                {
+                    UpdateControlsFromOperation(op, OperationDirection.Redo);
+                }
+            }
+        }
+
+        private void UpdateControlsFromOperation(IOperation op, OperationDirection dir)
+        {
+            if (dir == OperationDirection.Undo)
+            {
+                bool isInsertHold = op.GetType() == typeof(InsertHoldNote);
+                bool isRemoveHold = op.GetType() == typeof(RemoveHoldNote);
+                var note = op.GetType().IsSubclassOf(typeof(NoteOperation)) ? (op as NoteOperation).Note : null;
+                if (note != null)
+                {
+                    if (note.NoteType == NoteType.HoldStartNoBonus || note.NoteType == NoteType.HoldStartBonusFlair)
+                    {
+                        if (isInsertHold)
+                        {
+                            SetNonHoldButtonState(true);
+                            SetSelectedObject(note.NoteType);
+                        }
+                        if (isRemoveHold)
+                        {
+                            if (note.NextNote == null)
+                            {
+                                SetNonHoldButtonState(true);
+                                SetSelectedObject(note.NoteType);
+                            }
+                        }
+                    }
+                    else if (note.NoteType == NoteType.HoldJoint)
+                    {
+                        if (isInsertHold)
+                        {
+                            lastNote = note.PrevNote;
+                        }
+                    }
+                    else if (note.NoteType == NoteType.HoldEnd)
+                    {
+                        if (isInsertHold)
+                        {
+                            SetNonHoldButtonState(false);
+                            SetSelectedObject(note.NoteType);
+                            lastNote = note.PrevNote;
+                        }
+                    }
+                    updateTime();
+                }
+            }
+            else
+            {
+                bool isInsertHold = op.GetType() == typeof(InsertHoldNote);
+                bool isRemoveHold = op.GetType() == typeof(RemoveHoldNote);
+                var note = op.GetType().IsSubclassOf(typeof(NoteOperation)) ? (op as NoteOperation).Note : null;
+                if (note != null)
+                {
+                    if (note.NoteType == NoteType.HoldStartNoBonus || note.NoteType == NoteType.HoldStartBonusFlair)
+                    {
+                        if (isInsertHold)
+                        {
+                            SetNonHoldButtonState(true);
+                            SetSelectedObject(NoteType.HoldJoint);
+                        }
+                    }
+                    else if (note.NoteType == NoteType.HoldJoint)
+                    {
+                        if (isInsertHold)
+                        {
+                            lastNote = note;
+                        }
+                    }
+                    else if (note.NoteType == NoteType.HoldEnd)
+                    {
+                        if (isInsertHold)
+                        {
+                            SetNonHoldButtonState(true);
+                            SetSelectedObject(flairRadio.Checked ? NoteType.HoldStartBonusFlair : NoteType.HoldStartNoBonus);
+                            lastNote = note;
+                        }
+                    }
+                    updateTime();
+                }
+            }
         }
 
         

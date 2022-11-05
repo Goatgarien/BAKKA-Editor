@@ -43,20 +43,23 @@ namespace BAKKA_Editor.Operations
             Push(op);
         }
 
-        public void Undo()
+        public IOperation Undo()
         {
             IOperation op = UndoStack.Pop();
             op.Undo();
+            var type = op.GetType();
             RedoStack.Push(op);
             OperationHistoryChanged?.Invoke(this, EventArgs.Empty);
+            return op;
         }
 
-        public void Redo()
+        public IOperation Redo()
         {
             IOperation op = RedoStack.Pop();
             op.Redo();
             UndoStack.Push(op);
             OperationHistoryChanged?.Invoke(this, EventArgs.Empty);
+            return op;
         }
 
         public void Clear()
