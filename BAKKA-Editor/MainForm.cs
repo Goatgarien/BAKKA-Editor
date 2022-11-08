@@ -534,9 +534,11 @@ namespace BAKKA_Editor
 
         private void beat1Numeric_ValueChanged(object sender, EventArgs e)
         {
+            if (valueTriggerEvent == EventSource.None)
+                valueTriggerEvent = EventSource.ManualMeasureSet;
+
             if (beat1Numeric.Value >= beat2Numeric.Value)
             {
-                valueTriggerEvent = EventSource.ManualMeasureSet;
                 measureNumeric.Value++;
                 beat1Numeric.Value = 0; // will send another event
                 return;
@@ -545,14 +547,12 @@ namespace BAKKA_Editor
             {
                 if (measureNumeric.Value > 0)
                 {
-                    valueTriggerEvent = EventSource.ManualMeasureSet;
                     measureNumeric.Value--;
                     beat1Numeric.Value = beat2Numeric.Value - 1; // will send another event
                     return;
                 }
                 else if (measureNumeric.Value == 0)
                 {
-                    valueTriggerEvent = EventSource.ManualMeasureSet;
                     beat1Numeric.Value = 0; // will send another event
                     return;
                 }
@@ -560,8 +560,6 @@ namespace BAKKA_Editor
             updateTime();
             if (currentSong != null && !IsSongPlaying() && valueTriggerEvent != EventSource.TrackBar)
             {
-                if (valueTriggerEvent == EventSource.None)
-                    valueTriggerEvent = EventSource.ManualMeasureSet;
                 songTrackBar.Value = chart.GetTime(new BeatInfo((int)measureNumeric.Value, (int)beat1Numeric.Value * 1920 / (int)beat2Numeric.Value));
             }
 
