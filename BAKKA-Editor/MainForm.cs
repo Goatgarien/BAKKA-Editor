@@ -1154,6 +1154,8 @@ namespace BAKKA_Editor
                         opManager.Push(new InsertNote(chart, tempNote));
                         break;
                 }
+                // new object so update the currently selected note to the new one
+                UpdateNoteLabels(chart.Notes.Count - 1);
             }
         }
 
