@@ -143,7 +143,8 @@ namespace BAKKA_Editor.Operations
                     break;
                 case NoteType.HoldJoint:
                     prevNote.NextNote = nextNote;
-                    nextNote.PrevNote = prevNote;
+                    if (nextNote != null)
+                        nextNote.PrevNote = prevNote;
                     break;
                 case NoteType.HoldEnd:
                     prevNote.NextNote = null;
@@ -166,7 +167,8 @@ namespace BAKKA_Editor.Operations
                     break;
                 case NoteType.HoldJoint:
                     prevNote.NextNote = Note;
-                    nextNote.PrevNote = Note;
+                    if (nextNote != null)
+                        nextNote.PrevNote = Note;
                     break;
                 case NoteType.HoldEnd:
                     prevNote.NextNote = Note;
