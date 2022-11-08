@@ -507,7 +507,7 @@ namespace BAKKA_Editor
             circleView.DrawHolds(chart, highlightViewedNoteToolStripMenuItem.Checked, selectedNoteIndex);
 
             // Draw notes
-            circleView.DrawNotes(chart, highlightViewedNoteToolStripMenuItem.Checked && selectedNoteIndex != 2, selectedNoteIndex);
+            circleView.DrawNotes(chart, highlightViewedNoteToolStripMenuItem.Checked, selectedNoteIndex);
 
             // Determine if cursor should be showing
             bool showCursor = showCursorToolStripMenuItem.Checked || circleView.mouseDownPos != -1;
