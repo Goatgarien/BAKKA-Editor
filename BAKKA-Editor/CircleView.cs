@@ -405,7 +405,7 @@ namespace BAKKA_Editor
                     // Plot highlighted
                     if (highlightSelectedNote)
                     {
-                        if (selectedNoteIndex != -1 && note == chart.Notes[selectedNoteIndex])
+                        if (selectedNoteIndex is not (-1 or -2) && note == chart.Notes[selectedNoteIndex])
                         {
                             bufGraphics.Graphics.DrawArc(HighlightPen, info.Rect, info.StartAngle + 2, info.ArcLength - 4);
                         }

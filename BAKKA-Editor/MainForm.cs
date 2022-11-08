@@ -38,7 +38,8 @@ namespace BAKKA_Editor
             None,
             MouseWheel,
             SongPlaying,
-            TrackBar
+            TrackBar,
+            ManualMeasureSet // to prevent duplicate events
         };
         EventSource valueTriggerEvent = EventSource.None;
 
@@ -506,7 +507,7 @@ namespace BAKKA_Editor
             circleView.DrawHolds(chart, highlightViewedNoteToolStripMenuItem.Checked, selectedNoteIndex);
 
             // Draw notes
-            circleView.DrawNotes(chart, highlightViewedNoteToolStripMenuItem.Checked, selectedNoteIndex);
+            circleView.DrawNotes(chart, highlightViewedNoteToolStripMenuItem.Checked && selectedNoteIndex != 2, selectedNoteIndex);
 
             // Determine if cursor should be showing
             bool showCursor = showCursorToolStripMenuItem.Checked || circleView.mouseDownPos != -1;
@@ -527,31 +528,42 @@ namespace BAKKA_Editor
 
         private void measureNumeric_ValueChanged(object sender, EventArgs e)
         {
-            updateTime();
+            if (valueTriggerEvent != EventSource.ManualMeasureSet)
+                updateTime();
         }
 
         private void beat1Numeric_ValueChanged(object sender, EventArgs e)
         {
             if (beat1Numeric.Value >= beat2Numeric.Value)
             {
+                valueTriggerEvent = EventSource.ManualMeasureSet;
                 measureNumeric.Value++;
-                beat1Numeric.Value = 0;
+                beat1Numeric.Value = 0; // will send another event
+                return;
             }
             else if (beat1Numeric.Value < 0)
             {
                 if (measureNumeric.Value > 0)
                 {
+                    valueTriggerEvent = EventSource.ManualMeasureSet;
                     measureNumeric.Value--;
-                    beat1Numeric.Value = beat2Numeric.Value - 1;
+                    beat1Numeric.Value = beat2Numeric.Value - 1; // will send another event
+                    return;
                 }
                 else if (measureNumeric.Value == 0)
                 {
-                    beat1Numeric.Value = 0;
+                    valueTriggerEvent = EventSource.ManualMeasureSet;
+                    beat1Numeric.Value = 0; // will send another event
+                    return;
                 }
             }
             updateTime();
             if (currentSong != null && !IsSongPlaying() && valueTriggerEvent != EventSource.TrackBar)
+            {
+                if (valueTriggerEvent == EventSource.None)
+                    valueTriggerEvent = EventSource.ManualMeasureSet;
                 songTrackBar.Value = chart.GetTime(new BeatInfo((int)measureNumeric.Value, (int)beat1Numeric.Value * 1920 / (int)beat2Numeric.Value));
+            }
 
             valueTriggerEvent = EventSource.None;
         }
@@ -970,11 +982,15 @@ namespace BAKKA_Editor
 
             currentSong.PlayPosition = (uint)songTrackBar.Value;
             var info = chart.GetBeat(currentSong.PlayPosition);
+            var ignoreBeatSet = valueTriggerEvent == EventSource.ManualMeasureSet;
             if (info != null && info.Measure != -1 && valueTriggerEvent != EventSource.MouseWheel)
             {
                 valueTriggerEvent = EventSource.TrackBar;
-                measureNumeric.Value = info.Measure;
-                beat1Numeric.Value = (int)((float)info.Beat / 1920.0f * (float)beat2Numeric.Value);
+                if (!ignoreBeatSet)
+                {
+                    measureNumeric.Value = info.Measure;
+                    beat1Numeric.Value = (int)((float)info.Beat / 1920.0f * (float)beat2Numeric.Value);
+                }
                 circleView.CurrentMeasure = info.MeasureDecimal;
             }
             circlePanel.Invalidate();
@@ -1502,7 +1518,7 @@ namespace BAKKA_Editor
         {
             if (val != -2)
                 selectedNoteIndex = val;
-            if(selectedNoteIndex == -1)
+            if(selectedNoteIndex <= -1 || selectedNoteIndex >= chart.Notes.Count)
             {
                 noteMeasureLabel.Text = "None";
                 noteBeatLabel.Text = "None";
