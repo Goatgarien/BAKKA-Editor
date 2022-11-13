@@ -74,6 +74,8 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.currentSelectionLabel = new System.Windows.Forms.Label();
             this.playbackGroupBox = new System.Windows.Forms.GroupBox();
+            this.labelSpeed = new System.Windows.Forms.Label();
+            this.trackBarSpeed = new System.Windows.Forms.TrackBar();
             this.trackBarVolume = new System.Windows.Forms.TrackBar();
             this.labelVolume = new System.Windows.Forms.Label();
             this.songFileLabel = new System.Windows.Forms.Label();
@@ -150,6 +152,7 @@
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.playbackGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.songTrackBar)).BeginInit();
             this.groupBox9.SuspendLayout();
@@ -161,9 +164,8 @@
             // 
             // openFileDialog
             // 
-            this.openFileDialog.FileName = "openFileDialog";
             this.openFileDialog.Filter = "MER files|*.mer";
-            this.openFileDialog.Title = "Select Chart File to Open";
+            this.openFileDialog.Title = "Select chart file to open";
             // 
             // saveFileDialog
             // 
@@ -686,6 +688,8 @@
             // 
             this.playbackGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.playbackGroupBox.Controls.Add(this.labelSpeed);
+            this.playbackGroupBox.Controls.Add(this.trackBarSpeed);
             this.playbackGroupBox.Controls.Add(this.trackBarVolume);
             this.playbackGroupBox.Controls.Add(this.labelVolume);
             this.playbackGroupBox.Controls.Add(this.songFileLabel);
@@ -699,6 +703,31 @@
             this.playbackGroupBox.TabIndex = 32;
             this.playbackGroupBox.TabStop = false;
             this.playbackGroupBox.Text = "Playback";
+            // 
+            // labelSpeed
+            // 
+            this.labelSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSpeed.AutoSize = true;
+            this.labelSpeed.Location = new System.Drawing.Point(311, 51);
+            this.labelSpeed.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelSpeed.Name = "labelSpeed";
+            this.labelSpeed.Size = new System.Drawing.Size(77, 15);
+            this.labelSpeed.TabIndex = 36;
+            this.labelSpeed.Text = "Speed (x1.00)";
+            // 
+            // trackBarSpeed
+            // 
+            this.trackBarSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarSpeed.LargeChange = 1;
+            this.trackBarSpeed.Location = new System.Drawing.Point(392, 52);
+            this.trackBarSpeed.Margin = new System.Windows.Forms.Padding(2);
+            this.trackBarSpeed.Maximum = 4;
+            this.trackBarSpeed.Minimum = 1;
+            this.trackBarSpeed.Name = "trackBarSpeed";
+            this.trackBarSpeed.Size = new System.Drawing.Size(137, 45);
+            this.trackBarSpeed.TabIndex = 35;
+            this.trackBarSpeed.Value = 4;
+            this.trackBarSpeed.ValueChanged += new System.EventHandler(this.trackBarSpeed_ValueChanged);
             // 
             // trackBarVolume
             // 
@@ -718,7 +747,7 @@
             // 
             this.labelVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelVolume.AutoSize = true;
-            this.labelVolume.Location = new System.Drawing.Point(533, 51);
+            this.labelVolume.Location = new System.Drawing.Point(537, 51);
             this.labelVolume.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelVolume.Name = "labelVolume";
             this.labelVolume.Size = new System.Drawing.Size(47, 15);
@@ -730,9 +759,9 @@
             this.songFileLabel.AutoSize = true;
             this.songFileLabel.Location = new System.Drawing.Point(98, 81);
             this.songFileLabel.Name = "songFileLabel";
-            this.songFileLabel.Size = new System.Drawing.Size(99, 15);
+            this.songFileLabel.Size = new System.Drawing.Size(134, 15);
             this.songFileLabel.TabIndex = 33;
-            this.songFileLabel.Text = "Select File (*.ogg)";
+            this.songFileLabel.Text = "Select File (*.ogg, *.wav)";
             // 
             // label20
             // 
@@ -1389,6 +1418,7 @@
             this.groupBox5.PerformLayout();
             this.playbackGroupBox.ResumeLayout(false);
             this.playbackGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.songTrackBar)).EndInit();
             this.groupBox9.ResumeLayout(false);
@@ -1513,5 +1543,7 @@
         private System.Windows.Forms.Timer autoSaveTimer;
         private Label labelVolume;
         private TrackBar trackBarVolume;
+        private Label labelSpeed;
+        private TrackBar trackBarSpeed;
     }
 }
