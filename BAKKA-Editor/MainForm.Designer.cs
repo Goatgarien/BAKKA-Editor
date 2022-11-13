@@ -442,7 +442,7 @@
             this.holdButton.Name = "holdButton";
             this.holdButton.Size = new System.Drawing.Size(86, 23);
             this.holdButton.TabIndex = 11;
-            this.holdButton.Text = "Hold (H)";
+            this.holdButton.Text = "Hold";
             this.holdButton.UseVisualStyleBackColor = false;
             this.holdButton.Click += new System.EventHandler(this.holdButton_Click);
             // 
@@ -453,7 +453,7 @@
             this.chainButton.Name = "chainButton";
             this.chainButton.Size = new System.Drawing.Size(86, 23);
             this.chainButton.TabIndex = 10;
-            this.chainButton.Text = "Chain (Y)";
+            this.chainButton.Text = "Chain";
             this.chainButton.UseVisualStyleBackColor = false;
             this.chainButton.Click += new System.EventHandler(this.chainButton_Click);
             // 
@@ -465,7 +465,7 @@
             this.blueButton.Name = "blueButton";
             this.blueButton.Size = new System.Drawing.Size(86, 23);
             this.blueButton.TabIndex = 9;
-            this.blueButton.Text = "↓ Snap (B)";
+            this.blueButton.Text = "↓ Snap";
             this.blueButton.UseVisualStyleBackColor = false;
             this.blueButton.Click += new System.EventHandler(this.blueButton_Click);
             // 
@@ -477,7 +477,7 @@
             this.redButton.Name = "redButton";
             this.redButton.Size = new System.Drawing.Size(86, 23);
             this.redButton.TabIndex = 8;
-            this.redButton.Text = "↑ Snap (R)";
+            this.redButton.Text = "↑ Snap";
             this.redButton.UseVisualStyleBackColor = false;
             this.redButton.Click += new System.EventHandler(this.redButton_Click);
             // 
@@ -488,7 +488,7 @@
             this.greenButton.Name = "greenButton";
             this.greenButton.Size = new System.Drawing.Size(86, 23);
             this.greenButton.TabIndex = 7;
-            this.greenButton.Text = "→ Slide (G)";
+            this.greenButton.Text = "→ Slide";
             this.greenButton.UseVisualStyleBackColor = false;
             this.greenButton.Click += new System.EventHandler(this.greenButton_Click);
             // 
@@ -499,7 +499,7 @@
             this.orangeButton.Name = "orangeButton";
             this.orangeButton.Size = new System.Drawing.Size(86, 23);
             this.orangeButton.TabIndex = 6;
-            this.orangeButton.Text = "← Slide (O)";
+            this.orangeButton.Text = "← Slide";
             this.orangeButton.UseVisualStyleBackColor = false;
             this.orangeButton.Click += new System.EventHandler(this.orangeButton_Click);
             // 
@@ -510,7 +510,7 @@
             this.tapButton.Name = "tapButton";
             this.tapButton.Size = new System.Drawing.Size(86, 23);
             this.tapButton.TabIndex = 5;
-            this.tapButton.Text = "Touch (T)";
+            this.tapButton.Text = "Touch";
             this.tapButton.UseVisualStyleBackColor = false;
             this.tapButton.Click += new System.EventHandler(this.tapButton_Click);
             // 

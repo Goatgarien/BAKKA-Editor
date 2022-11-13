@@ -10,7 +10,7 @@ namespace BAKKA_Editor
     {
         internal static string? GetTag(string input, string tag)
         {
-            if(input.Contains(tag))
+            if (input.Contains(tag))
             {
                 return input.Substring(input.IndexOf(tag) + tag.Length);
             }
@@ -177,6 +177,27 @@ namespace BAKKA_Editor
         internal static float GetDist(Point a, Point b)
         {
             return (float)Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
+        }
+
+        internal static string KeyIntToString(int key)
+        {
+            int offset = 0;
+            char ret = '0';
+            if (key >= 48 && key <= 57)
+            {
+                offset = key - 48;
+            }
+            else if (key >= 65 && key <= 90)
+            {
+                offset = key - 65;
+                ret = 'A';
+            }
+            return ((char)(ret + offset)).ToString();
+        }
+
+        internal static void AppendHotkey(this Button button, int key)
+        {
+            button.Text += $" ({KeyIntToString(key)})";
         }
     }
 }

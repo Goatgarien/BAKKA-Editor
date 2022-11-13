@@ -117,6 +117,14 @@ namespace BAKKA_Editor
             highlightViewedNoteToolStripMenuItem.Checked = userSettings.ViewSettings.HighlightViewedNote;
             autoSaveTimer.Interval = userSettings.SaveSettings.AutoSaveInterval * 60000;
             autoSaveTimer.Enabled = true;
+            // Update hotkey labels
+            tapButton.AppendHotkey(userSettings.HotkeySettings.TouchHotkey);
+            orangeButton.AppendHotkey(userSettings.HotkeySettings.SlideLeftHotkey);
+            greenButton.AppendHotkey(userSettings.HotkeySettings.SlideRightHotkey);
+            redButton.AppendHotkey(userSettings.HotkeySettings.SnapUpHotkey);
+            blueButton.AppendHotkey(userSettings.HotkeySettings.SnapDownHotkey);
+            chainButton.AppendHotkey(userSettings.HotkeySettings.ChainHotkey);
+            holdButton.AppendHotkey(userSettings.HotkeySettings.HoldHotkey);
 
             // Look for temp files from previous runs
             var tempFile = Directory.GetFiles(Path.GetTempPath(), "*.bakka");
@@ -1682,41 +1690,6 @@ namespace BAKKA_Editor
 
             switch (keyData)
             {
-                case Keys.T:
-                    if(tapButton.Enabled)
-                        tapButton_Click(sender, e);
-                    tapButton.Focus();
-                    return true;
-                case Keys.O:
-                    if (orangeButton.Enabled)
-                        orangeButton_Click(sender, e);
-                    orangeButton.Focus();
-                    return true;
-                case Keys.G:
-                    if (greenButton.Enabled)
-                        greenButton_Click(sender, e);
-                    greenButton.Focus();
-                    return true;
-                case Keys.R:
-                    if (redButton.Enabled)
-                        redButton_Click(sender, e);
-                    redButton.Focus();
-                    return true;
-                case Keys.B:
-                    if (blueButton.Enabled)
-                        blueButton_Click(sender, e);
-                    blueButton.Focus();
-                    return true;
-                case Keys.Y:
-                    if (chainButton.Enabled)
-                        chainButton_Click(sender, e);
-                    chainButton.Focus();
-                    return true;
-                case Keys.H:
-                    if (holdButton.Enabled)
-                        holdButton_Click(sender, e);
-                    holdButton.Focus();
-                    return true;
                 case Keys.I:
                     if (insertButton.Enabled)
                         insertButton_Click(sender, e);
@@ -1734,6 +1707,55 @@ namespace BAKKA_Editor
                     playbackVolumeChange(keyData == Keys.Up);
                     return true;
                 default:
+                    if (keyData == (Keys)userSettings.HotkeySettings.TouchHotkey)
+                    {
+                        if (tapButton.Enabled)
+                            tapButton_Click(sender, e);
+                        tapButton.Focus();
+                        return true;
+                    }
+                    else if (keyData == (Keys)userSettings.HotkeySettings.SlideLeftHotkey)
+                    {
+                        if (orangeButton.Enabled)
+                            orangeButton_Click(sender, e);
+                        orangeButton.Focus();
+                        return true;
+                    }
+                    else if (keyData == (Keys)userSettings.HotkeySettings.SlideRightHotkey)
+                    {
+                        if (greenButton.Enabled)
+                            greenButton_Click(sender, e);
+                        greenButton.Focus();
+                        return true;
+                    }
+                    else if (keyData == (Keys)userSettings.HotkeySettings.SnapUpHotkey)
+                    {
+                        if (redButton.Enabled)
+                            redButton_Click(sender, e);
+                        redButton.Focus();
+                        return true;
+                    }
+                    else if (keyData == (Keys)userSettings.HotkeySettings.SnapDownHotkey)
+                    {
+                        if (blueButton.Enabled)
+                            blueButton_Click(sender, e);
+                        blueButton.Focus();
+                        return true;
+                    }
+                    else if (keyData == (Keys)userSettings.HotkeySettings.ChainHotkey)
+                    {
+                        if (chainButton.Enabled)
+                            chainButton_Click(sender, e);
+                        chainButton.Focus();
+                        return true;
+                    }
+                    else if (keyData == (Keys)userSettings.HotkeySettings.HoldHotkey)
+                    {
+                        if (holdButton.Enabled)
+                            holdButton_Click(sender, e);
+                        holdButton.Focus();
+                        return true;
+                    }
                     break;
             }
 
