@@ -1249,9 +1249,10 @@ namespace BAKKA_Editor
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"BAKKA Editor\n\n" +
+            MessageBox.Show(
                 $"Authors: Goatgarien and VeroxZik\n" +
-                $"Contributions: Yellowberry, Farex-GH", 
+                $"Contributions: Yellowberry, Farex-GH\n" +
+                $"Icon: IPIhypster", 
                 $"BAKKA Editor {fileVersion}");
         }
 

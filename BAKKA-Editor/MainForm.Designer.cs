@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.circlePanel = new System.Windows.Forms.Panel();
@@ -703,7 +704,7 @@
             // 
             this.trackBarVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarVolume.Location = new System.Drawing.Point(588, 51);
-            this.trackBarVolume.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.trackBarVolume.Margin = new System.Windows.Forms.Padding(2);
             this.trackBarVolume.Maximum = 100;
             this.trackBarVolume.Name = "trackBarVolume";
             this.trackBarVolume.Size = new System.Drawing.Size(137, 45);
@@ -1362,6 +1363,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.circlePanel);
             this.Controls.Add(this.menuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.MinimumSize = new System.Drawing.Size(1154, 812);
             this.Name = "MainForm";

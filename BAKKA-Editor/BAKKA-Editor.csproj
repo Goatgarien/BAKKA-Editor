@@ -13,10 +13,14 @@
     <Company>Goatgarien</Company>
     <Copyright>2022</Copyright>
     <StartupObject>BAKKA_Editor.Program</StartupObject>
-    <ApplicationIcon />
+    <ApplicationIcon>icon.ico</ApplicationIcon>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\README.md">
