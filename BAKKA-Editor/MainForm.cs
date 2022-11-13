@@ -898,12 +898,15 @@ namespace BAKKA_Editor
                 songFilePath = openSongDialog.FileName;
                 songFileLabel.Text = songFilePath;
                 currentSong = soundEngine.Play2D(songFilePath, true, true);
-                /* Volume is represented as a float from 0-1. */
-                currentSong.Volume = (float)trackBarVolume.Value / (float)trackBarVolume.Maximum;
+                if (currentSong != null)
+                {
+                    /* Volume is represented as a float from 0-1. */
+                    currentSong.Volume = (float)trackBarVolume.Value / (float)trackBarVolume.Maximum;
 
-                songTrackBar.Value = 0;
-                songTrackBar.Maximum = (int)currentSong.PlayLength;
-                playButton.Enabled = true;
+                    songTrackBar.Value = 0;
+                    songTrackBar.Maximum = (int)currentSong.PlayLength;
+                    playButton.Enabled = true;
+                }
             }
         }
 
@@ -1246,10 +1249,9 @@ namespace BAKKA_Editor
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"VeroxZik's C# port of Goatgarien's BAKKA Editor.\n\n" +
-                $"Original C++ version: Goatgarien\n" +
-                $"Initial C# port: VeroxZik\n" +
-                $"UI Inspiration: Yellowberry", 
+            MessageBox.Show($"BAKKA Editor\n\n" +
+                $"Authors: Goatgarien and VeroxZik\n" +
+                $"Contributions: Yellowberry, Farex-GH", 
                 $"BAKKA Editor {fileVersion}");
         }
 

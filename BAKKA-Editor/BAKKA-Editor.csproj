@@ -7,9 +7,9 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>$(VersionPrefix)2.0.0-rc8</Version>
+    <Version>$(VersionPrefix)2.0.0</Version>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0-rc8</FileVersion>
+    <FileVersion>2.0.0</FileVersion>
     <Company>Goatgarien</Company>
     <Copyright>2022</Copyright>
     <StartupObject>BAKKA_Editor.Program</StartupObject>
