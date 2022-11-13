@@ -138,8 +138,11 @@ namespace BAKKA_Editor.Operations
             {
                 case NoteType.HoldStartNoBonus:
                 case NoteType.HoldStartBonusFlair:
-                    nextNote.PrevNote = null;
-                    nextNote.NoteType = Note.NoteType;
+                    if (nextNote != null)
+                    {
+                        nextNote.PrevNote = null;
+                        nextNote.NoteType = Note.NoteType;
+                    }
                     break;
                 case NoteType.HoldJoint:
                     prevNote.NextNote = nextNote;
@@ -162,8 +165,11 @@ namespace BAKKA_Editor.Operations
             {
                 case NoteType.HoldStartNoBonus:
                 case NoteType.HoldStartBonusFlair:
-                    nextNote.PrevNote = Note;
-                    nextNote.NoteType = nextNoteType;
+                    if (nextNote != null)
+                    {
+                        nextNote.PrevNote = Note;
+                        nextNote.NoteType = nextNoteType;
+                    }
                     break;
                 case NoteType.HoldJoint:
                     prevNote.NextNote = Note;

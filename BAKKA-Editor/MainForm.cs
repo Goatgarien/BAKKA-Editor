@@ -1822,6 +1822,11 @@ namespace BAKKA_Editor
                             SetNonHoldButtonState(true);
                             SetSelectedObject(NoteType.HoldJoint);
                         }
+                        if (isRemoveHold)
+                        {
+                            SetNonHoldButtonState(true);
+                            SetSelectedObject(note.NoteType);
+                        }
                     }
                     else if (note.NoteType == NoteType.HoldJoint)
                     {
