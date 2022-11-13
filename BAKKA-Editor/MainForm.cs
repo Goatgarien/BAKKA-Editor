@@ -1944,5 +1944,17 @@ namespace BAKKA_Editor
                         (trackBarVolume.Maximum - trackBarVolume.Minimum);
             trackBarVolume.Value = (int)val;
         }
+
+        private void trackBarSpeed_ValueChanged(object sender, EventArgs e)
+        {
+            /* No song, nothing to do. */
+            if (currentSong == null)
+            {
+                return;
+            }
+            currentSong.PlaybackSpeed = (trackBarSpeed.Value / (float)trackBarSpeed.Maximum);
+            labelSpeed.Text = $"Speed (x{currentSong.PlaybackSpeed:0.00})";
+        }
+
     }
 }
