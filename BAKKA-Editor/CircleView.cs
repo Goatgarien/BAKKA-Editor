@@ -28,6 +28,7 @@ namespace BAKKA_Editor
         public Pen TickMajorPen { get; set; }
         public SolidBrush HoldBrush { get; set; } = new SolidBrush(Color.FromArgb(170, Color.Yellow));
         public SolidBrush MaskBrush { get; set; } = new SolidBrush(Color.DimGray);
+        public SolidBrush BackgroundBrush { get; set; }
         public Pen HighlightPen { get; set; }
         public Pen FlairPen { get; set; }
         private int CursorTransparency = 110;
@@ -162,8 +163,10 @@ namespace BAKKA_Editor
 
             // Set drawing mode
             bufGraphics.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+            // Remember background color
+            BackgroundBrush = new SolidBrush(color);
             // Draw background
-            bufGraphics.Graphics.FillRectangle(new SolidBrush(color), panelRect);
+            bufGraphics.Graphics.FillRectangle(BackgroundBrush, panelRect);
         }
 
         public void DrawMasks(Chart chart)
@@ -180,6 +183,10 @@ namespace BAKKA_Editor
                                                    x.Position == mask.Position && x.Size == mask.Size);
                     if (rem == null || rem.Measure < mask.Measure)
                         bufGraphics.Graphics.FillPie(MaskBrush, DrawRect.ToInt(), -mask.Position * 6.0f, -mask.Size * 6.0f);
+                }
+                else if (mask.NoteType == NoteType.MaskRemove) // Explicitly draw MaskRemove for edge cases
+                {
+                    bufGraphics.Graphics.FillPie(BackgroundBrush, DrawRect.ToInt(), -mask.Position * 6.0f, -mask.Size * 6.0f);
                 }
             }
         }
