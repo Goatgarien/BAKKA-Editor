@@ -1122,6 +1122,7 @@ namespace BAKKA_Editor
                         {
                             tempNote.NoteType = NoteType.HoldEnd;
                             SetNonHoldButtonState(true);
+                            endHoldCheck.Checked = false;
                             holdButtonClicked();
                         }
                         else
