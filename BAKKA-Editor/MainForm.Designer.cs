@@ -490,7 +490,7 @@
             this.greenButton.Name = "greenButton";
             this.greenButton.Size = new System.Drawing.Size(86, 23);
             this.greenButton.TabIndex = 7;
-            this.greenButton.Text = "→ Slide";
+            this.greenButton.Text = "⤿ Slide";
             this.greenButton.UseVisualStyleBackColor = false;
             this.greenButton.Click += new System.EventHandler(this.greenButton_Click);
             // 
@@ -501,7 +501,7 @@
             this.orangeButton.Name = "orangeButton";
             this.orangeButton.Size = new System.Drawing.Size(86, 23);
             this.orangeButton.TabIndex = 6;
-            this.orangeButton.Text = "← Slide";
+            this.orangeButton.Text = "⤾ Slide";
             this.orangeButton.UseVisualStyleBackColor = false;
             this.orangeButton.Click += new System.EventHandler(this.orangeButton_Click);
             // 
