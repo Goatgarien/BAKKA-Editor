@@ -125,6 +125,7 @@ namespace BAKKA_Editor
             blueButton.AppendHotkey(userSettings.HotkeySettings.SnapDownHotkey);
             chainButton.AppendHotkey(userSettings.HotkeySettings.ChainHotkey);
             holdButton.AppendHotkey(userSettings.HotkeySettings.HoldHotkey);
+            playButton.AppendHotkey(userSettings.HotkeySettings.PlayHotkey);
 
             // Look for temp files from previous runs
             var tempFile = Directory.GetFiles(Path.GetTempPath(), "*.bakka");
@@ -932,14 +933,15 @@ namespace BAKKA_Editor
                 currentSong.Paused = !currentSong.Paused;
                 if (currentSong.Paused)
                 {
-                    playButton.Text = "Play (P)";
+                    playButton.Text = "Play";
                     updateTimer.Enabled = false;
                 }
                 else
                 {
-                    playButton.Text = "Pause (P)";
+                    playButton.Text = "Pause";
                     updateTimer.Enabled = true;
                 }
+                playButton.AppendHotkey(userSettings.HotkeySettings.PlayHotkey);
             }
         }
 
@@ -1695,11 +1697,6 @@ namespace BAKKA_Editor
                         insertButton_Click(sender, e);
                     insertButton.Focus();
                     return true;
-                case Keys.P:
-                    if (playButton.Enabled)
-                        playButton_Click(sender, e);
-                    playButton.Focus();
-                    return true;
                 case Keys.Up | Keys.Shift:
                     /* Fallthrough */
                 case Keys.Down | Keys.Shift:
@@ -1754,6 +1751,13 @@ namespace BAKKA_Editor
                         if (holdButton.Enabled)
                             holdButton_Click(sender, e);
                         holdButton.Focus();
+                        return true;
+                    }
+                    else if (keyData == (Keys)userSettings.HotkeySettings.PlayHotkey)
+                    {
+                        if (playButton.Enabled)
+                            playButton_Click(sender, e);
+                        playButton.Focus();
                         return true;
                     }
                     break;

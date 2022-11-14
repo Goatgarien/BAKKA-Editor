@@ -801,7 +801,7 @@
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(86, 23);
             this.playButton.TabIndex = 0;
-            this.playButton.Text = "Play (P)";
+            this.playButton.Text = "Play";
             this.playButton.UseVisualStyleBackColor = true;
             this.playButton.Click += new System.EventHandler(this.playButton_Click);
             // 

@@ -37,5 +37,6 @@ namespace BAKKA_Editor
         public int SnapDownHotkey { get; set; } = Convert.ToInt32(Keys.D5);
         public int ChainHotkey { get; set; } = Convert.ToInt32(Keys.D6);
         public int HoldHotkey { get; set; } = Convert.ToInt32(Keys.D7);
+        public int PlayHotkey { get; set; } = Convert.ToInt32(Keys.Space);
     }
 }

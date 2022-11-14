@@ -181,18 +181,14 @@ namespace BAKKA_Editor
 
         internal static string KeyIntToString(int key)
         {
-            int offset = 0;
-            char ret = '0';
+            // Gets the key name from the keycode
+            string val = ((Keys)key).ToString();
+            // Converts digit keycode into number instead of key name
             if (key >= 48 && key <= 57)
             {
-                offset = key - 48;
+                val = $"{key - 48}"; 
             }
-            else if (key >= 65 && key <= 90)
-            {
-                offset = key - 65;
-                ret = 'A';
-            }
-            return ((char)(ret + offset)).ToString();
+            return val;
         }
 
         internal static void AppendHotkey(this Button button, int key)
