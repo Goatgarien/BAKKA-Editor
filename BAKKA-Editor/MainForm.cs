@@ -205,6 +205,7 @@ namespace BAKKA_Editor
             chart = new();
             isNewFile = true;
             isRecoveredFile = false;
+            ResetChartTime();
             DeleteAutosaves();
             UpdateNoteLabels(-1);
             UpdateGimmickLabels(-1);
@@ -248,6 +249,7 @@ namespace BAKKA_Editor
                 int timeSigUpper = initTimeSig != null ? initTimeSig.TimeSig.Upper : 4;
                 int timeSigLower = initTimeSig != null ? initTimeSig.TimeSig.Lower : 4;
                 initSettingsForm.SetValues(bpm, timeSigUpper, timeSigLower, chart.Offset, chart.MovieOffset);
+                ResetChartTime();
                 UpdateNoteLabels(chart.Notes.Count > 0 ? 0 : -1);
                 UpdateGimmickLabels(chart.Gimmicks.Count > 0 ? 0 : -1);
                 saveFileDialog.FileName = openFileDialog.FileName;
@@ -595,9 +597,21 @@ namespace BAKKA_Editor
             }
         }
 
+        private void positionNumeric_ValueChanged(object sender, EventArgs e)
+        {
+            positionTrackBar.Value = (int)positionNumeric.Value;
+            circlePanel.Invalidate();
+        }
+
         private void positionTrackBar_ValueChanged(object sender, EventArgs e)
         {
             positionNumeric.Value = positionTrackBar.Value;
+            circlePanel.Invalidate();
+        }
+
+        private void sizeNumeric_ValueChanged(object sender, EventArgs e)
+        {
+            sizeTrackBar.Value = (int)sizeNumeric.Value;
             circlePanel.Invalidate();
         }
 
@@ -1555,6 +1569,14 @@ namespace BAKKA_Editor
             }
         }
 
+        private void ResetChartTime()
+        {
+            measureNumeric.Value = beat1Numeric.Value = 0;
+            positionNumeric.Value = 0;
+            sizeNumeric.Value = 1;
+            updateTime();
+        }
+
         private void notePrevButton_Click(object sender, EventArgs e)
         {
             if (chart.Notes.Count == 0)
@@ -1633,8 +1655,11 @@ namespace BAKKA_Editor
         {
             if (selectedNoteIndex == -1)
                 return;
-
             var currentNote = chart.Notes[selectedNoteIndex];
+
+            if (currentNote.NoteType == NoteType.EndOfChart)
+                return;
+
             var newNote = new Note()
             {
                 BeatInfo = currentNote.BeatInfo,
@@ -1959,6 +1984,5 @@ namespace BAKKA_Editor
             currentSong.PlaybackSpeed = (trackBarSpeed.Value / (float)trackBarSpeed.Maximum);
             labelSpeed.Text = $"Speed (x{currentSong.PlaybackSpeed:0.00})";
         }
-
     }
 }

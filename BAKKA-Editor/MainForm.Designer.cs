@@ -74,11 +74,11 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.currentSelectionLabel = new System.Windows.Forms.Label();
             this.playbackGroupBox = new System.Windows.Forms.GroupBox();
+            this.songFileLabel = new System.Windows.Forms.Label();
             this.labelSpeed = new System.Windows.Forms.Label();
             this.trackBarSpeed = new System.Windows.Forms.TrackBar();
             this.trackBarVolume = new System.Windows.Forms.TrackBar();
             this.labelVolume = new System.Windows.Forms.Label();
-            this.songFileLabel = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.songTrackBar = new System.Windows.Forms.TrackBar();
             this.selectSongButton = new System.Windows.Forms.Button();
@@ -317,6 +317,7 @@
             0,
             0,
             0});
+            this.sizeNumeric.ValueChanged += new System.EventHandler(this.sizeNumeric_ValueChanged);
             // 
             // label2
             // 
@@ -350,6 +351,7 @@
             this.positionNumeric.Name = "positionNumeric";
             this.positionNumeric.Size = new System.Drawing.Size(38, 23);
             this.positionNumeric.TabIndex = 1;
+            this.positionNumeric.ValueChanged += new System.EventHandler(this.positionNumeric_ValueChanged);
             // 
             // label1
             // 
@@ -429,12 +431,15 @@
             // 
             // endChartButton
             // 
+            this.endChartButton.BackColor = System.Drawing.Color.Black;
+            this.endChartButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.endChartButton.ForeColor = System.Drawing.Color.White;
             this.endChartButton.Location = new System.Drawing.Point(6, 225);
             this.endChartButton.Name = "endChartButton";
             this.endChartButton.Size = new System.Drawing.Size(86, 23);
             this.endChartButton.TabIndex = 12;
             this.endChartButton.Text = "End of Chart";
-            this.endChartButton.UseVisualStyleBackColor = true;
+            this.endChartButton.UseVisualStyleBackColor = false;
             this.endChartButton.Click += new System.EventHandler(this.endChartButton_Click);
             // 
             // holdButton
@@ -526,9 +531,9 @@
             this.gimmickTypeGroupBox.Controls.Add(this.timeSigButton);
             this.gimmickTypeGroupBox.Controls.Add(this.bpmChangeButton);
             this.gimmickTypeGroupBox.Controls.Add(this.maskButton);
-            this.gimmickTypeGroupBox.Location = new System.Drawing.Point(127, 30);
+            this.gimmickTypeGroupBox.Location = new System.Drawing.Point(127, 27);
             this.gimmickTypeGroupBox.Name = "gimmickTypeGroupBox";
-            this.gimmickTypeGroupBox.Size = new System.Drawing.Size(124, 249);
+            this.gimmickTypeGroupBox.Size = new System.Drawing.Size(124, 252);
             this.gimmickTypeGroupBox.TabIndex = 5;
             this.gimmickTypeGroupBox.TabStop = false;
             this.gimmickTypeGroupBox.Text = "Gimmick Types";
@@ -688,11 +693,11 @@
             // 
             this.playbackGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.playbackGroupBox.Controls.Add(this.songFileLabel);
             this.playbackGroupBox.Controls.Add(this.labelSpeed);
             this.playbackGroupBox.Controls.Add(this.trackBarSpeed);
             this.playbackGroupBox.Controls.Add(this.trackBarVolume);
             this.playbackGroupBox.Controls.Add(this.labelVolume);
-            this.playbackGroupBox.Controls.Add(this.songFileLabel);
             this.playbackGroupBox.Controls.Add(this.label20);
             this.playbackGroupBox.Controls.Add(this.songTrackBar);
             this.playbackGroupBox.Controls.Add(this.selectSongButton);
@@ -703,6 +708,15 @@
             this.playbackGroupBox.TabIndex = 32;
             this.playbackGroupBox.TabStop = false;
             this.playbackGroupBox.Text = "Playback";
+            // 
+            // songFileLabel
+            // 
+            this.songFileLabel.AutoSize = true;
+            this.songFileLabel.Location = new System.Drawing.Point(98, 81);
+            this.songFileLabel.Name = "songFileLabel";
+            this.songFileLabel.Size = new System.Drawing.Size(134, 15);
+            this.songFileLabel.TabIndex = 33;
+            this.songFileLabel.Text = "Select File (*.ogg, *.wav)";
             // 
             // labelSpeed
             // 
@@ -753,15 +767,6 @@
             this.labelVolume.Size = new System.Drawing.Size(47, 15);
             this.labelVolume.TabIndex = 0;
             this.labelVolume.Text = "Volume";
-            // 
-            // songFileLabel
-            // 
-            this.songFileLabel.AutoSize = true;
-            this.songFileLabel.Location = new System.Drawing.Point(98, 81);
-            this.songFileLabel.Name = "songFileLabel";
-            this.songFileLabel.Size = new System.Drawing.Size(134, 15);
-            this.songFileLabel.TabIndex = 33;
-            this.songFileLabel.Text = "Select File (*.ogg, *.wav)";
             // 
             // label20
             // 

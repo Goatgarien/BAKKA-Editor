@@ -16,6 +16,13 @@ namespace BAKKA_Editor.Operations
         {
             Chart = chart;
             Note = item;
+
+            // Force End of Chart note to be the correct position and size 
+            if (Note.NoteType == NoteType.EndOfChart)
+            {
+                Note.Position = 0;
+                Note.Size = 60;
+            }
         }
 
         public abstract void Redo();

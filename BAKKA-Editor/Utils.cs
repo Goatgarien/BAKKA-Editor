@@ -53,6 +53,8 @@ namespace BAKKA_Editor
                 case NoteType.Chain:
                 case NoteType.ChainBonusFlair:
                     return Color.FromArgb(204, 190, 45);
+                case NoteType.EndOfChart:
+                    return Color.Black;
                 default:
                     return Color.Transparent;
             }
