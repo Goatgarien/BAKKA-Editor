@@ -27,6 +27,7 @@ namespace BAKKA_Editor
         int selectedGimmickIndex = -1;
         int selectedNoteIndex = -1;
         Note lastNote;
+        Note? nextSelectedNote; // so that we know the last newly inserted note
 
         // Music
         ISoundEngine soundEngine = new ISoundEngine();
@@ -80,6 +81,13 @@ namespace BAKKA_Editor
             {
                 chart.Notes = chart.Notes.OrderBy(x => x.Measure).ToList();
                 chart.Gimmicks = chart.Gimmicks.OrderBy(x => x.Measure).ToList();
+                if (nextSelectedNote != null)
+                {
+                    var nextSelectedIndex = chart.Notes.IndexOf(nextSelectedNote);
+                    if (nextSelectedIndex != -1)
+                        selectedNoteIndex = nextSelectedIndex;
+                    nextSelectedNote = null;
+                }
                 if (selectedNoteIndex >= chart.Notes.Count)
                     selectedNoteIndex = chart.Notes.Count - 1;
                 else if (selectedNoteIndex == -1 && chart.Notes.Count > 0)
@@ -1112,6 +1120,8 @@ namespace BAKKA_Editor
                     default:
                         break;
                 }
+                // new object so update the temporary last note to the new one
+                nextSelectedNote = tempNote;
                 chart.Notes.Add(tempNote);
                 chart.IsSaved = false;
                 switch (currentNoteType)
@@ -1126,8 +1136,6 @@ namespace BAKKA_Editor
                         opManager.Push(new InsertNote(chart, tempNote));
                         break;
                 }
-                // new object so update the currently selected note to the new one
-                UpdateNoteLabels(chart.Notes.Count - 1);
             }
         }
 
