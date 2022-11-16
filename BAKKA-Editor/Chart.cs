@@ -114,7 +114,7 @@ namespace BAKKA_Editor
                         break;
                     case GimmickType.TimeSignatureChange:
                         gimmickTemp = new Gimmick(temp.BeatInfo, temp.GimmickType);
-                        gimmickTemp.TimeSig = new TimeSignature() { Upper = Convert.ToInt32(parsed[3]), Lower = Convert.ToInt32(parsed[4]) };
+                        gimmickTemp.TimeSig = new TimeSignature() { Upper = Convert.ToInt32(parsed[3]), Lower = parsed.Length == 5 ? Convert.ToInt32(parsed[4]) : 4 };
                         Gimmicks.Add(gimmickTemp);
                         break;
                     case GimmickType.HiSpeedChange:
