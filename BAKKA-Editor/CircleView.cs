@@ -27,7 +27,7 @@ namespace BAKKA_Editor
         public Pen TickMediumPen { get; set; }
         public Pen TickMajorPen { get; set; }
         public SolidBrush HoldBrush { get; set; } = new SolidBrush(Color.FromArgb(170, Color.Yellow));
-        public SolidBrush MaskBrush { get; set; } = new SolidBrush(Color.DimGray);
+        public SolidBrush MaskBrush { get; set; } = new SolidBrush(Color.FromArgb(90, Color.Black));
         public SolidBrush BackgroundBrush { get; set; }
         public Pen HighlightPen { get; set; }
         public Pen FlairPen { get; set; }
