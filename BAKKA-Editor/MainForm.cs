@@ -123,6 +123,7 @@ namespace BAKKA_Editor
             showCursorToolStripMenuItem.Checked = userSettings.ViewSettings.ShowCursor;
             showCursorDuringPlaybackToolStripMenuItem.Checked = userSettings.ViewSettings.ShowCursorDuringPlayback;
             highlightViewedNoteToolStripMenuItem.Checked = userSettings.ViewSettings.HighlightViewedNote;
+            selectLastInsertedNoteToolStripMenuItem.Checked = userSettings.ViewSettings.SelectLastInsertedNote;
             autoSaveTimer.Interval = userSettings.SaveSettings.AutoSaveInterval * 60000;
             autoSaveTimer.Enabled = true;
             // Update hotkey labels
@@ -1149,7 +1150,8 @@ namespace BAKKA_Editor
                         break;
                 }
                 // new object so update the temporary last note to the new one
-                nextSelectedNote = tempNote;
+                if (selectLastInsertedNoteToolStripMenuItem.Checked)
+                    nextSelectedNote = tempNote;
                 chart.Notes.Add(tempNote);
                 chart.IsSaved = false;
                 switch (currentNoteType)

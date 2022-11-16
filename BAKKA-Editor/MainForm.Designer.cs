@@ -99,6 +99,7 @@
             this.showCursorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showCursorDuringPlaybackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.highlightViewedNoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectLastInsertedNoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.initialChartSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -939,7 +940,8 @@
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showCursorToolStripMenuItem,
             this.showCursorDuringPlaybackToolStripMenuItem,
-            this.highlightViewedNoteToolStripMenuItem});
+            this.highlightViewedNoteToolStripMenuItem,
+            this.selectLastInsertedNoteToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
@@ -968,6 +970,14 @@
             this.highlightViewedNoteToolStripMenuItem.Name = "highlightViewedNoteToolStripMenuItem";
             this.highlightViewedNoteToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.highlightViewedNoteToolStripMenuItem.Text = "Highlight Viewed Note";
+            // selectLastInsertedNoteToolStripMenuItem
+            // 
+            this.selectLastInsertedNoteToolStripMenuItem.Checked = true;
+            this.selectLastInsertedNoteToolStripMenuItem.CheckOnClick = true;
+            this.selectLastInsertedNoteToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.selectLastInsertedNoteToolStripMenuItem.Name = "selectLastInsertedNoteToolStripMenuItem";
+            this.selectLastInsertedNoteToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
+            this.selectLastInsertedNoteToolStripMenuItem.Text = "Select Last Inserted Note";
             // 
             // chartToolStripMenuItem
             // 
@@ -1506,6 +1516,7 @@
         private ToolStripMenuItem showCursorToolStripMenuItem;
         private ToolStripMenuItem showCursorDuringPlaybackToolStripMenuItem;
         private ToolStripMenuItem highlightViewedNoteToolStripMenuItem;
+        private ToolStripMenuItem selectLastInsertedNoteToolStripMenuItem;
         private ToolStripMenuItem chartToolStripMenuItem;
         private ToolStripMenuItem initialChartSettingsToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem;
