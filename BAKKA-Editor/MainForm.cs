@@ -3,6 +3,7 @@ using System.Reflection;
 using IrrKlang;
 using BAKKA_Editor.Operations;
 using Tomlyn;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BAKKA_Editor
 {
@@ -28,6 +29,7 @@ namespace BAKKA_Editor
         int selectedNoteIndex = -1;
         Note lastNote;
         Note? nextSelectedNote; // so that we know the last newly inserted note
+        Note? endOfChartNote;
 
         // Music
         ISoundEngine soundEngine = new ISoundEngine();
@@ -93,6 +95,7 @@ namespace BAKKA_Editor
                 else if (selectedNoteIndex == -1 && chart.Notes.Count > 0)
                     selectedNoteIndex = 0;
                 UpdateNoteLabels();
+                endOfChartNote = chart.Notes.FirstOrDefault(x => x.NoteType == NoteType.EndOfChart);
                 if (selectedGimmickIndex >= chart.Gimmicks.Count)
                     selectedGimmickIndex = chart.Gimmicks.Count - 1;
                 else if (selectedGimmickIndex == -1 && chart.Gimmicks.Count > 0)
@@ -592,6 +595,13 @@ namespace BAKKA_Editor
             if (currentNoteType == NoteType.HoldJoint || currentNoteType == NoteType.HoldEnd)
             {
                 if (lastNote.BeatInfo.MeasureDecimal >= circleView.CurrentMeasure)
+                    insertButton.Enabled = false;
+                else
+                    insertButton.Enabled = true;
+            }
+            else if (endOfChartNote != null)
+            {
+                if (endOfChartNote.BeatInfo.MeasureDecimal <= circleView.CurrentMeasure)
                     insertButton.Enabled = false;
                 else
                     insertButton.Enabled = true;
@@ -1145,6 +1155,22 @@ namespace BAKKA_Editor
                             tempNote.MaskFill = MaskType.CounterClockwise;
                         else
                             tempNote.MaskFill = MaskType.Center;
+                        break;
+                    case NoteType.EndOfChart:
+                        if (endOfChartNote != null)
+                        {
+                            MessageBox.Show("Cannot place more than one 'End of Chart' Note.");
+                            return;
+                        }
+                        if (chart.Notes.Count > 0)
+                        {
+                            var finalNote = chart.Notes.Aggregate((agg, next) => next.BeatInfo.MeasureDecimal > agg.BeatInfo.MeasureDecimal ? next : agg);
+                            if (finalNote != null && finalNote.BeatInfo.MeasureDecimal >= currentBeat.MeasureDecimal)
+                            {
+                                MessageBox.Show("Cannot place 'End of Chart' Note before another note.");
+                                return;
+                            }
+                        }
                         break;
                     default:
                         break;
