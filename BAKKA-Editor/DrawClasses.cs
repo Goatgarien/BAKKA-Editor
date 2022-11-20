@@ -22,10 +22,10 @@ namespace BAKKA_Editor
         {
             StartLane = (position - 15) < 0 ? (position - 15) + 60 : position - 15;
             Size = size;
-            EndLane = StartLane + size + 1;
+            EndLane = (StartLane + size >= 60) ? StartLane + size : StartLane + size + 1;
             StartLane2 = null;
             Size2 = null;
-            if (EndLane >= 60)
+            if (EndLane > 60)
             {
                 StartLane2 = StartLane;
                 StartLane = 0;
