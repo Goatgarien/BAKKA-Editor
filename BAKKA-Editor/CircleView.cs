@@ -26,8 +26,6 @@ namespace BAKKA_Editor
         public Pen TickMinorPen { get; set; }
         public Pen TickMediumPen { get; set; }
         public Pen TickMajorPen { get; set; }
-        public SolidBrush HoldBrush { get; set; } = new SolidBrush(Color.FromArgb(170, Color.Yellow));
-        public SolidBrush MaskBrush { get; set; } = new SolidBrush(Color.FromArgb(90, Color.Black));
         public SolidBrush BackgroundBrush { get; set; }
         public Pen HighlightPen { get; set; }
         public Pen FlairPen { get; set; }
@@ -182,7 +180,7 @@ namespace BAKKA_Editor
                     var rem = masks.FirstOrDefault(x => x.NoteType == NoteType.MaskRemove &&
                                                    x.Position == mask.Position && x.Size == mask.Size);
                     if (rem == null || rem.Measure < mask.Measure)
-                        bufGraphics.Graphics.FillPie(MaskBrush, DrawRect.ToInt(), -mask.Position * 6.0f, -mask.Size * 6.0f);
+                        bufGraphics.Graphics.FillPie(PlotBrush.MaskBrush, DrawRect.ToInt(), -mask.Position * 6.0f, -mask.Size * 6.0f);
                 }
                 else if (mask.NoteType == NoteType.MaskRemove) // Explicitly draw MaskRemove for edge cases
                 {
@@ -247,7 +245,7 @@ namespace BAKKA_Editor
             ArcInfo currentInfo = GetScaledRect(CurrentMeasure);
             ArcInfo endInfo = GetScaledRect(CurrentMeasure + TotalMeasureShowNotes);
 
-            // First, draw holes that start before the viewpoint and have nodes that end after
+            // First, draw holds that start before the viewpoint and have nodes that end after
             List<Note> holdNotes = chart.Notes.Where(
                 x => x.Measure < CurrentMeasure
                 && x.NextNote != null
@@ -297,7 +295,7 @@ namespace BAKKA_Editor
                 GraphicsPath path = new GraphicsPath();
                 path.AddArc(currentInfo.Rect, startAngle, arcLength);
                 path.AddArc(endInfo.Rect, startAngle2 + arcLength2, -arcLength2);
-                bufGraphics.Graphics.FillPath(HoldBrush, path);
+                bufGraphics.Graphics.FillPath(PlotBrush.HoldBrush, path);
             }
 
             // Second, draw all the notes on-screen
@@ -332,7 +330,7 @@ namespace BAKKA_Editor
                     GraphicsPath path = new GraphicsPath();
                     path.AddArc(info.Rect, info.StartAngle, info.ArcLength);
                     path.AddArc(currentInfo.Rect, startAngle + arcLength, -arcLength);
-                    bufGraphics.Graphics.FillPath(HoldBrush, path);
+                    bufGraphics.Graphics.FillPath(PlotBrush.HoldBrush, path);
                 }
 
                 // If the next note is on-screen, this case handles that
@@ -342,7 +340,7 @@ namespace BAKKA_Editor
                     GraphicsPath path = new GraphicsPath();
                     path.AddArc(info.Rect, info.StartAngle, info.ArcLength);
                     path.AddArc(nextInfo.Rect, nextInfo.StartAngle + nextInfo.ArcLength, -nextInfo.ArcLength);
-                    bufGraphics.Graphics.FillPath(HoldBrush, path);
+                    bufGraphics.Graphics.FillPath(PlotBrush.HoldBrush, path);
                 }
 
                 // If the next note is off-screen, this case handles that
@@ -368,7 +366,7 @@ namespace BAKKA_Editor
                     GraphicsPath path = new GraphicsPath();
                     path.AddArc(endInfo.Rect, startAngle, arcLength);
                     path.AddArc(info.Rect, info.StartAngle + info.ArcLength, -info.ArcLength);
-                    bufGraphics.Graphics.FillPath(HoldBrush, path);
+                    bufGraphics.Graphics.FillPath(PlotBrush.HoldBrush, path);
                 }
 
                 // Draw note

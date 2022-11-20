@@ -49,6 +49,9 @@ namespace BAKKA_Editor
         GimmickForm gimmickForm;
         InitChartSettingsForm initSettingsForm;
 
+        // View Forms
+        LinearViewForm linearForm;
+
         // Program info
         string fileVersion = "";
         UserSettings userSettings;
@@ -74,6 +77,10 @@ namespace BAKKA_Editor
             // Tool Forms
             gimmickForm = new GimmickForm();
             initSettingsForm = new InitChartSettingsForm();
+
+            // View Forms
+            linearForm = new();
+            linearForm.Chart = chart;
 
             //Set Initial Song File :)
             SetInitialSong();
@@ -103,6 +110,7 @@ namespace BAKKA_Editor
                 UpdateGimmickLabels();
                 SetText();
                 circlePanel.Invalidate();
+                linearForm.Update();
             };
 
             // Program info
@@ -224,6 +232,7 @@ namespace BAKKA_Editor
             SetText();
             opManager.Clear();
             circlePanel.Invalidate();
+            linearForm.Chart = chart;
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -270,6 +279,7 @@ namespace BAKKA_Editor
                 SetText();
             }
             circlePanel.Invalidate();
+            linearForm.Chart = chart;
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2022,6 +2032,11 @@ namespace BAKKA_Editor
             }
             currentSong.PlaybackSpeed = (trackBarSpeed.Value / (float)trackBarSpeed.Maximum);
             labelSpeed.Text = $"Speed (x{currentSong.PlaybackSpeed:0.00})";
+        }
+
+        private void linearViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            linearForm.Show();
         }
     }
 }

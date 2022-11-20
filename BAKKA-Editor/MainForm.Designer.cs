@@ -140,6 +140,8 @@
             this.noteNextButton = new System.Windows.Forms.Button();
             this.notePrevButton = new System.Windows.Forms.Button();
             this.autoSaveTimer = new System.Windows.Forms.Timer(this.components);
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.linearViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.beat2Numeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.beat1Numeric)).BeginInit();
@@ -941,7 +943,9 @@
             this.showCursorToolStripMenuItem,
             this.showCursorDuringPlaybackToolStripMenuItem,
             this.highlightViewedNoteToolStripMenuItem,
-            this.selectLastInsertedNoteToolStripMenuItem});
+            this.selectLastInsertedNoteToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.linearViewToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
@@ -970,13 +974,14 @@
             this.highlightViewedNoteToolStripMenuItem.Name = "highlightViewedNoteToolStripMenuItem";
             this.highlightViewedNoteToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.highlightViewedNoteToolStripMenuItem.Text = "Highlight Viewed Note";
+            // 
             // selectLastInsertedNoteToolStripMenuItem
             // 
             this.selectLastInsertedNoteToolStripMenuItem.Checked = true;
             this.selectLastInsertedNoteToolStripMenuItem.CheckOnClick = true;
             this.selectLastInsertedNoteToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.selectLastInsertedNoteToolStripMenuItem.Name = "selectLastInsertedNoteToolStripMenuItem";
-            this.selectLastInsertedNoteToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
+            this.selectLastInsertedNoteToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.selectLastInsertedNoteToolStripMenuItem.Text = "Select Last Inserted Note";
             // 
             // chartToolStripMenuItem
@@ -1389,6 +1394,18 @@
             // 
             this.autoSaveTimer.Tick += new System.EventHandler(this.autoSaveTimer_Tick);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(227, 6);
+            // 
+            // linearViewToolStripMenuItem
+            // 
+            this.linearViewToolStripMenuItem.Name = "linearViewToolStripMenuItem";
+            this.linearViewToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.linearViewToolStripMenuItem.Text = "Linear View";
+            this.linearViewToolStripMenuItem.Click += new System.EventHandler(this.linearViewToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1561,5 +1578,7 @@
         private TrackBar trackBarVolume;
         private Label labelSpeed;
         private TrackBar trackBarSpeed;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem linearViewToolStripMenuItem;
     }
 }
