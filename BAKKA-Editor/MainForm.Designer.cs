@@ -437,7 +437,7 @@
             this.endChartButton.ForeColor = System.Drawing.Color.White;
             this.endChartButton.Location = new System.Drawing.Point(6, 225);
             this.endChartButton.Name = "endChartButton";
-            this.endChartButton.Size = new System.Drawing.Size(86, 23);
+            this.endChartButton.Size = new System.Drawing.Size(97, 23);
             this.endChartButton.TabIndex = 12;
             this.endChartButton.Text = "End of Chart";
             this.endChartButton.UseVisualStyleBackColor = false;
@@ -448,7 +448,7 @@
             this.holdButton.BackColor = System.Drawing.Color.Yellow;
             this.holdButton.Location = new System.Drawing.Point(6, 196);
             this.holdButton.Name = "holdButton";
-            this.holdButton.Size = new System.Drawing.Size(86, 23);
+            this.holdButton.Size = new System.Drawing.Size(97, 23);
             this.holdButton.TabIndex = 11;
             this.holdButton.Text = "Hold";
             this.holdButton.UseVisualStyleBackColor = false;
@@ -459,7 +459,7 @@
             this.chainButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(190)))), ((int)(((byte)(45)))));
             this.chainButton.Location = new System.Drawing.Point(6, 167);
             this.chainButton.Name = "chainButton";
-            this.chainButton.Size = new System.Drawing.Size(86, 23);
+            this.chainButton.Size = new System.Drawing.Size(97, 23);
             this.chainButton.TabIndex = 10;
             this.chainButton.Text = "Chain";
             this.chainButton.UseVisualStyleBackColor = false;
@@ -471,7 +471,7 @@
             this.blueButton.ForeColor = System.Drawing.SystemColors.ControlText;
             this.blueButton.Location = new System.Drawing.Point(6, 138);
             this.blueButton.Name = "blueButton";
-            this.blueButton.Size = new System.Drawing.Size(86, 23);
+            this.blueButton.Size = new System.Drawing.Size(97, 23);
             this.blueButton.TabIndex = 9;
             this.blueButton.Text = "↓ Snap";
             this.blueButton.UseVisualStyleBackColor = false;
@@ -483,7 +483,7 @@
             this.redButton.ForeColor = System.Drawing.Color.White;
             this.redButton.Location = new System.Drawing.Point(6, 109);
             this.redButton.Name = "redButton";
-            this.redButton.Size = new System.Drawing.Size(86, 23);
+            this.redButton.Size = new System.Drawing.Size(97, 23);
             this.redButton.TabIndex = 8;
             this.redButton.Text = "↑ Snap";
             this.redButton.UseVisualStyleBackColor = false;
@@ -494,7 +494,7 @@
             this.greenButton.BackColor = System.Drawing.Color.Lime;
             this.greenButton.Location = new System.Drawing.Point(6, 80);
             this.greenButton.Name = "greenButton";
-            this.greenButton.Size = new System.Drawing.Size(86, 23);
+            this.greenButton.Size = new System.Drawing.Size(97, 23);
             this.greenButton.TabIndex = 7;
             this.greenButton.Text = "⤿ Slide";
             this.greenButton.UseVisualStyleBackColor = false;
@@ -505,7 +505,7 @@
             this.orangeButton.BackColor = System.Drawing.Color.Orange;
             this.orangeButton.Location = new System.Drawing.Point(6, 51);
             this.orangeButton.Name = "orangeButton";
-            this.orangeButton.Size = new System.Drawing.Size(86, 23);
+            this.orangeButton.Size = new System.Drawing.Size(97, 23);
             this.orangeButton.TabIndex = 6;
             this.orangeButton.Text = "⤾ Slide";
             this.orangeButton.UseVisualStyleBackColor = false;
@@ -516,7 +516,7 @@
             this.tapButton.BackColor = System.Drawing.Color.Fuchsia;
             this.tapButton.Location = new System.Drawing.Point(6, 22);
             this.tapButton.Name = "tapButton";
-            this.tapButton.Size = new System.Drawing.Size(86, 23);
+            this.tapButton.Size = new System.Drawing.Size(97, 23);
             this.tapButton.TabIndex = 5;
             this.tapButton.Text = "Touch";
             this.tapButton.UseVisualStyleBackColor = false;
@@ -970,13 +970,14 @@
             this.highlightViewedNoteToolStripMenuItem.Name = "highlightViewedNoteToolStripMenuItem";
             this.highlightViewedNoteToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.highlightViewedNoteToolStripMenuItem.Text = "Highlight Viewed Note";
+            // 
             // selectLastInsertedNoteToolStripMenuItem
             // 
             this.selectLastInsertedNoteToolStripMenuItem.Checked = true;
             this.selectLastInsertedNoteToolStripMenuItem.CheckOnClick = true;
             this.selectLastInsertedNoteToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.selectLastInsertedNoteToolStripMenuItem.Name = "selectLastInsertedNoteToolStripMenuItem";
-            this.selectLastInsertedNoteToolStripMenuItem.Size = new System.Drawing.Size(285, 26);
+            this.selectLastInsertedNoteToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.selectLastInsertedNoteToolStripMenuItem.Text = "Select Last Inserted Note";
             // 
             // chartToolStripMenuItem
@@ -1409,7 +1410,7 @@
             this.Controls.Add(this.menuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
-            this.MinimumSize = new System.Drawing.Size(1154, 812);
+            this.MinimumSize = new System.Drawing.Size(1158, 826);
             this.Name = "MainForm";
             this.Text = "BAKKA Editor - [New File]";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
