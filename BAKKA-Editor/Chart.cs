@@ -80,6 +80,9 @@ namespace BAKKA_Editor
             Dictionary<int, int> refByLine = new();
             for (int i = index; i < file.Length; i++)
             {
+                if (String.IsNullOrWhiteSpace(file[i]))
+                    continue;
+
                 var parsed = file[i].Split(new string[] {" "}, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
                 NoteBase temp = new();
                 temp.BeatInfo = new BeatInfo(Convert.ToInt32(parsed[0]), Convert.ToInt32(parsed[1]));
