@@ -30,6 +30,7 @@ namespace BAKKA_Editor
         Note lastNote;
         Note? nextSelectedNote; // so that we know the last newly inserted note
         Note? endOfChartNote;
+        bool isInsertingHold = false;
 
         // Music
         ISoundEngine soundEngine = new ISoundEngine();
@@ -728,6 +729,10 @@ namespace BAKKA_Editor
 
         private void holdButtonClicked()
         {
+            // don't reset hold state if we're already inserting a hold
+            if (isInsertingHold)
+                return;
+            
             if (noBonusRadio.Checked)
                 SetSelectedObject(NoteType.HoldStartNoBonus);
             else if (bonusRadio.Checked)
@@ -1197,6 +1202,8 @@ namespace BAKKA_Editor
 
         private void SetNonHoldButtonState(bool state)
         {
+            isInsertingHold = !state;
+            
             tapButton.Enabled = state;
             orangeButton.Enabled = state;
             greenButton.Enabled = state;
