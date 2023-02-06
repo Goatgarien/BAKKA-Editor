@@ -1732,7 +1732,26 @@ namespace BAKKA_Editor
 
             int delIndex = selectedNoteIndex;
             NoteOperation op = chart.Notes[selectedNoteIndex].IsHold ? new RemoveHoldNote(chart, chart.Notes[selectedNoteIndex]) : new RemoveNote(chart, chart.Notes[selectedNoteIndex]);
+            NoteOperation op2 = null;
+            if (chart.Notes[selectedNoteIndex].NoteType == NoteType.HoldStartBonusFlair || chart.Notes[selectedNoteIndex].NoteType == NoteType.HoldStartNoBonus)
+            {
+                if(chart.Notes[selectedNoteIndex].NextNote.NoteType == NoteType.HoldEnd)
+                {
+                    op2 = new RemoveHoldNote(chart, chart.Notes[selectedNoteIndex].NextNote);
+                }
+            }
+            if (chart.Notes[selectedNoteIndex].NoteType == NoteType.HoldEnd)
+            {
+                if (chart.Notes[selectedNoteIndex].PrevNote.NoteType == NoteType.HoldStartBonusFlair || chart.Notes[selectedNoteIndex].PrevNote.NoteType == NoteType.HoldStartNoBonus)
+                {
+                    op2 = new RemoveHoldNote(chart, chart.Notes[selectedNoteIndex].PrevNote);
+                }
+            }
             opManager.InvokeAndPush(op);
+            if (op2 != null)
+            {
+                opManager.InvokeAndPush(op2);
+            }
             UpdateControlsFromOperation(op, OperationDirection.Redo);
             if (selectedNoteIndex == delIndex)
             {
@@ -1853,6 +1872,17 @@ namespace BAKKA_Editor
                 if (op != null)
                 {
                     UpdateControlsFromOperation(op, OperationDirection.Undo);
+                    if (op.GetType() == typeof(RemoveHoldNote))
+                    {
+                        foreach (var note in chart.Notes)
+                        {
+                            if (note.IsHold && note.NextNote == null && note.PrevNote == null)
+                            {
+                                undoToolStripMenuItem_Click(sender, e);
+                                return;
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -148,7 +148,8 @@ namespace BAKKA_Editor.Operations
                     if (nextNote != null)
                     {
                         nextNote.PrevNote = null;
-                        nextNote.NoteType = Note.NoteType;
+                        if (nextNote.NoteType == NoteType.HoldJoint)
+                            nextNote.NoteType = Note.NoteType;
                     }
                     break;
                 case NoteType.HoldJoint:
@@ -157,8 +158,11 @@ namespace BAKKA_Editor.Operations
                         nextNote.PrevNote = prevNote;
                     break;
                 case NoteType.HoldEnd:
-                    prevNote.NextNote = null;
-                    prevNote.NoteType = NoteType.HoldEnd;
+                    if (prevNote != null)
+                    {
+                        prevNote.NextNote = null;
+                        prevNote.NoteType = NoteType.HoldEnd;
+                    }
                     break;
                 default:
                     break;
@@ -184,13 +188,20 @@ namespace BAKKA_Editor.Operations
                         nextNote.PrevNote = Note;
                     break;
                 case NoteType.HoldEnd:
-                    prevNote.NextNote = Note;
-                    prevNote.NoteType = prevNoteType;
+                    if (prevNote != null)
+                    {
+                        prevNote.NextNote = Note;
+                        prevNote.NoteType = prevNoteType;
+                    }
                     break;
                 default:
                     break;
             }
             Chart.Notes.Add(Note);
+            if (nextNote == null && prevNote == null)
+            {
+                //popAgain = true;
+            }
         }
     }
 }
