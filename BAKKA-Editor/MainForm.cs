@@ -284,16 +284,23 @@ namespace BAKKA_Editor
 
             if (result == DialogResult.OK)
             {
-                chart.WriteFile(saveFileDialog.FileName);
-                isNewFile = false;
-                if (isRecoveredFile)
+                if (CurrentlyInsertingHold())
                 {
-                    DeleteAutosaves();
-                    autosaveFile = "";
+                    MessageBox.Show("Cannot save while inserting holds\n Please finish the hold before saving", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                isRecoveredFile = false;
-                File.WriteAllText(tempStatusPath, "false");
-                SetText();
+                else
+                {
+                    chart.WriteFile(saveFileDialog.FileName);
+                    isNewFile = false;
+                    if (isRecoveredFile)
+                    {
+                        DeleteAutosaves();
+                        autosaveFile = "";
+                    }
+                    isRecoveredFile = false;
+                    File.WriteAllText(tempStatusPath, "false");
+                    SetText();
+                }
             }
             return result;
         }
@@ -382,6 +389,7 @@ namespace BAKKA_Editor
                         updateLabel("Hold Middle");
                     break;
                 case NoteType.HoldEnd:
+                    endHoldCheck.Checked = true;
                     updateLabel("Hold End");
                     break;
                 case NoteType.MaskAdd:
@@ -1881,6 +1889,11 @@ namespace BAKKA_Editor
                         {
                             if (note.NextNote == null)
                             {
+                                SetNonHoldButtonState(false);
+                                SetSelectedObject(NoteType.HoldJoint);
+                            }
+                            else
+                            {
                                 SetNonHoldButtonState(true);
                                 SetSelectedObject(note.NoteType);
                             }
@@ -1890,6 +1903,7 @@ namespace BAKKA_Editor
                     {
                         if (isInsertHold)
                         {
+                            SetSelectedObject(note.NoteType);
                             lastNote = note.PrevNote;
                         }
                     }
@@ -1898,14 +1912,14 @@ namespace BAKKA_Editor
                         if (isInsertHold)
                         {
                             SetNonHoldButtonState(false);
-                            SetSelectedObject(note.NoteType);
+                            SetSelectedObject(NoteType.HoldJoint);
                             lastNote = note.PrevNote;
                         }
                     }
                     updateTime();
                 }
             }
-            else
+            else //dir == OperationDirection.Redo
             {
                 bool isInsertHold = op.GetType() == typeof(InsertHoldNote);
                 bool isRemoveHold = op.GetType() == typeof(RemoveHoldNote);
@@ -1916,7 +1930,7 @@ namespace BAKKA_Editor
                     {
                         if (isInsertHold)
                         {
-                            SetNonHoldButtonState(true);
+                            SetNonHoldButtonState(false);
                             SetSelectedObject(NoteType.HoldJoint);
                         }
                         if (isRemoveHold)
@@ -1937,6 +1951,7 @@ namespace BAKKA_Editor
                         if (isInsertHold)
                         {
                             SetNonHoldButtonState(true);
+                            endHoldCheck.Checked = false;
                             SetSelectedObject(flairRadio.Checked ? NoteType.HoldStartBonusFlair : NoteType.HoldStartNoBonus);
                             lastNote = note;
                         }
@@ -1987,13 +2002,25 @@ namespace BAKKA_Editor
 
             if ((chart.Notes.Count > 0 || chart.Gimmicks.Count > 0) && !chart.IsSaved)
             {
-                chart.WriteFile(tempFilePath, false);
-                File.WriteAllLines(tempStatusPath, new string[] { "true", DateTime.Now.ToString("yyyy-MM-dd HH:mm") });
+                if (!CurrentlyInsertingHold())
+                {
+                    chart.WriteFile(tempFilePath, false);
+                    File.WriteAllLines(tempStatusPath, new string[] { "true", DateTime.Now.ToString("yyyy-MM-dd HH:mm") });
+                }
             }
             else
             {
                 DeleteAutosaves(tempFilePath);
             }
+        }
+
+        bool CurrentlyInsertingHold()
+        {
+            if(currentNoteType == NoteType.HoldJoint || currentNoteType == NoteType.HoldEnd)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void DeleteAutosaves(string keep = "")
