@@ -198,10 +198,6 @@ namespace BAKKA_Editor.Operations
                     break;
             }
             Chart.Notes.Add(Note);
-            if (nextNote == null && prevNote == null)
-            {
-                //popAgain = true;
-            }
         }
     }
 }
