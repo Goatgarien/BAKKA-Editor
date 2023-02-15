@@ -89,10 +89,21 @@ namespace BAKKA_Editor
             return EndMeasure.MeasureDecimal - CurrentMeasure;
         }
 
+        private float GetNoteScaleFromMeasure(Chart chart, float objectTime)
+        {
+            // Scale from 0-1
+            float objectTimeAsTime      = chart.GetTime(new BeatInfo(objectTime));
+            float currentTime           = chart.GetTime(new BeatInfo(CurrentMeasure));
+            float totalTimeDisplayed    = chart.GetTime(new BeatInfo(CurrentMeasure + GetTotalMeasureShowNotes(chart))) - currentTime;
+            float notescaleInit = 1 - ((objectTimeAsTime - currentTime) * (1 / totalTimeDisplayed));
+            return notescaleInit;
+        }
+
         private ArcInfo GetScaledRect(Chart chart, float objectTime)
         {
             ArcInfo info = new();
-            float notescaleInit = 1 - ((objectTime - CurrentMeasure) * (1 / GetTotalMeasureShowNotes(chart)));  // Scale from 0-1
+
+            float notescaleInit = GetNoteScaleFromMeasure(chart, objectTime);
             info.NoteScale = (float)Math.Pow(10.0f, notescaleInit) / 10.0f;
             float scaledRectSize = DrawRect.Width * info.NoteScale;
             float scaledRadius = scaledRectSize / 2.0f;
