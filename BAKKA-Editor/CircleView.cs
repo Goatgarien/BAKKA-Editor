@@ -242,6 +242,26 @@ namespace BAKKA_Editor
             }
         }
 
+        public void DrawGimmicks(Chart chart, bool showGimmicks, int selectedGimmickIndex)
+        {
+            if (showGimmicks)
+            {
+                List<Gimmick> drawGimmicks = chart.Gimmicks.Where(
+                x => x.Measure >= CurrentMeasure
+                && x.Measure <= (CurrentMeasure + TotalMeasureShowNotes)).ToList();
+
+                foreach (var gimmick in drawGimmicks)
+                {
+                    var info = GetScaledRect(gimmick.Measure);
+
+                    if (info.Rect.Width >= 1)
+                    {
+                        bufGraphics.Graphics.DrawEllipse(GetPen(gimmick), info.Rect);
+                    }
+                }
+            }
+        }
+
         public void DrawHolds(Chart chart, bool highlightSelectedNote, int selectedNoteIndex)
         {
             ArcInfo currentInfo = GetScaledRect(CurrentMeasure);
@@ -449,6 +469,11 @@ namespace BAKKA_Editor
         public Pen GetPen(NoteType noteType)
         {
             return new Pen(Color.FromArgb(CursorTransparency, Utils.NoteTypeToColor(noteType)), PanelSize.Width * 24.0f / 600.0f);
+        }
+
+        public Pen GetPen(Gimmick gimmick)
+        {
+            return new Pen(Utils.GimmickTypeToColor(gimmick.GimmickType), PanelSize.Width * 1.0f / 600.0f);
         }
     }
 

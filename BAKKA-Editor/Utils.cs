@@ -60,6 +60,30 @@ namespace BAKKA_Editor
             }
         }
 
+        internal static Color GimmickTypeToColor(GimmickType type)
+        {
+            switch (type)
+            {
+                case GimmickType.NoGimmick:
+                    return Color.Transparent;
+                case GimmickType.BpmChange:
+                    return Color.FromArgb(200, 0, 255, 255);
+                case GimmickType.TimeSignatureChange:
+                    return Color.FromArgb(200, 160, 255, 160);
+                case GimmickType.HiSpeedChange:
+                    return Color.FromArgb(200, 0, 255, 0);
+                case GimmickType.ReverseStart:
+                case GimmickType.ReverseMiddle:
+                case GimmickType.ReverseEnd:
+                    return Color.FromArgb(200, 255, 255, 0);
+                case GimmickType.StopStart:
+                case GimmickType.StopEnd:
+                    return Color.FromArgb(200, 255, 0, 0);
+                default:
+                    return Color.Transparent;
+            }
+        }
+
         internal static void InvokeIfRequired(this Control control, MethodInvoker action)
         {
             if (control.InvokeRequired)

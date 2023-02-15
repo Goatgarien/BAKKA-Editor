@@ -19,6 +19,7 @@ namespace BAKKA_Editor
         public bool ShowCursorDuringPlayback { get; set; } = false;
         public bool HighlightViewedNote { get; set; } = true;
         public bool SelectLastInsertedNote { get; set; } = true;
+        public bool ShowGimmicks { get; set; } = true;
     }
 
     internal class SaveSettings

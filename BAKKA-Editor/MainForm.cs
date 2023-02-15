@@ -124,11 +124,12 @@ namespace BAKKA_Editor
                 File.WriteAllText("settings.toml", Toml.FromModel(userSettings));
             }
             // Apply settings
-            showCursorToolStripMenuItem.Checked = userSettings.ViewSettings.ShowCursor;
-            showCursorDuringPlaybackToolStripMenuItem.Checked = userSettings.ViewSettings.ShowCursorDuringPlayback;
-            highlightViewedNoteToolStripMenuItem.Checked = userSettings.ViewSettings.HighlightViewedNote;
-            selectLastInsertedNoteToolStripMenuItem.Checked = userSettings.ViewSettings.SelectLastInsertedNote;
-            autoSaveTimer.Interval = userSettings.SaveSettings.AutoSaveInterval * 60000;
+            showCursorToolStripMenuItem.Checked                 = userSettings.ViewSettings.ShowCursor;
+            showCursorDuringPlaybackToolStripMenuItem.Checked   = userSettings.ViewSettings.ShowCursorDuringPlayback;
+            highlightViewedNoteToolStripMenuItem.Checked        = userSettings.ViewSettings.HighlightViewedNote;
+            showGimmicksInCircleViewToolStripMenuItem.Checked   = userSettings.ViewSettings.ShowGimmicks;
+            selectLastInsertedNoteToolStripMenuItem.Checked     = userSettings.ViewSettings.SelectLastInsertedNote;
+            autoSaveTimer.Interval                              = userSettings.SaveSettings.AutoSaveInterval * 60000;
             autoSaveTimer.Enabled = true;
             // Update hotkey labels
             tapButton.AppendHotkey(userSettings.HotkeySettings.TouchHotkey);
@@ -345,6 +346,16 @@ namespace BAKKA_Editor
                 File.Delete(tempStatusPath);
             if (tempFilePath != "")
                 File.Delete(tempFilePath);
+            // Apply settings
+            userSettings.ViewSettings.ShowCursor                = showCursorToolStripMenuItem.Checked;
+            userSettings.ViewSettings.ShowCursorDuringPlayback  = showCursorDuringPlaybackToolStripMenuItem.Checked;
+            userSettings.ViewSettings.HighlightViewedNote       = highlightViewedNoteToolStripMenuItem.Checked;
+            userSettings.ViewSettings.ShowGimmicks              = showGimmicksInCircleViewToolStripMenuItem.Checked;
+            userSettings.ViewSettings.SelectLastInsertedNote    = selectLastInsertedNoteToolStripMenuItem.Checked;
+            userSettings.SaveSettings.AutoSaveInterval          = autoSaveTimer.Interval / 60000;
+            //Update user settings.toml
+            if (File.Exists("settings.toml"))
+                File.WriteAllText("settings.toml", Toml.FromModel(userSettings));
         }
 
         private void SetSelectedObject(NoteType type)
@@ -533,6 +544,9 @@ namespace BAKKA_Editor
 
             // Draw degree lines
             circleView.DrawDegreeLines();
+
+            // Draw Gimmicks
+            circleView.DrawGimmicks(chart, showGimmicksInCircleViewToolStripMenuItem.Checked, selectedGimmickIndex);
 
             // Draw holds
             circleView.DrawHolds(chart, highlightViewedNoteToolStripMenuItem.Checked, selectedNoteIndex);
@@ -1375,6 +1389,11 @@ namespace BAKKA_Editor
         }
 
         private void showCursorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            circlePanel.Invalidate();
+        }
+        
+        private void showGimmicksInCircleViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             circlePanel.Invalidate();
         }
