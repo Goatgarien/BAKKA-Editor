@@ -193,11 +193,29 @@ namespace BAKKA_Editor
 
         internal static Tuple<int, int> GetQuantization(int val, int min)
         {
-            while (!HasDecimal((double)(val * min) / 1920.0))
+            int numerator = val;
+            int denominator = 1920;
+
+            int gcd = GetGcd(numerator, denominator);
+
+            numerator /= gcd;
+            denominator /= gcd;
+
+            denominator = Math.Max(denominator, min);
+
+            return Tuple.Create(numerator, denominator);
+        }
+
+        private static int GetGcd(int a, int b)
+        {
+            while (b != 0)
             {
-                min *= 2;
+                int temp = b;
+                b = a % b;
+                a = temp;
             }
-            return new Tuple<int, int>((int)(val * min / 1920.0), min);
+
+            return a;
         }
 
         internal static float GetDist(Point a, Point b)
