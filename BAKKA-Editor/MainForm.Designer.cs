@@ -100,6 +100,7 @@
             this.showCursorDuringPlaybackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.highlightViewedNoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectLastInsertedNoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showGimmicksInCircleViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.initialChartSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -140,7 +141,6 @@
             this.noteNextButton = new System.Windows.Forms.Button();
             this.notePrevButton = new System.Windows.Forms.Button();
             this.autoSaveTimer = new System.Windows.Forms.Timer(this.components);
-            this.showGimmicksInCircleViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.beat2Numeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.beat1Numeric)).BeginInit();
@@ -846,12 +846,13 @@
             // 
             this.visualHispeedNumeric.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.visualHispeedNumeric.DecimalPlaces = 2;
+            this.visualHispeedNumeric.DecimalPlaces = 1;
+            this.visualHispeedNumeric.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.visualHispeedNumeric.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
-            131072});
+            65536});
             this.visualHispeedNumeric.Location = new System.Drawing.Point(6, 37);
             this.visualHispeedNumeric.Maximum = new decimal(new int[] {
             500,
@@ -862,12 +863,13 @@
             1,
             0,
             0,
-            196608});
+            65536});
             this.visualHispeedNumeric.Name = "visualHispeedNumeric";
-            this.visualHispeedNumeric.Size = new System.Drawing.Size(102, 23);
+            this.visualHispeedNumeric.Size = new System.Drawing.Size(102, 29);
             this.visualHispeedNumeric.TabIndex = 11;
+            this.visualHispeedNumeric.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.visualHispeedNumeric.Value = new decimal(new int[] {
-            5,
+            15,
             0,
             0,
             65536});
@@ -981,6 +983,16 @@
             this.selectLastInsertedNoteToolStripMenuItem.Name = "selectLastInsertedNoteToolStripMenuItem";
             this.selectLastInsertedNoteToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
             this.selectLastInsertedNoteToolStripMenuItem.Text = "Select Last Inserted Note";
+            // 
+            // showGimmicksInCircleViewToolStripMenuItem
+            // 
+            this.showGimmicksInCircleViewToolStripMenuItem.Checked = true;
+            this.showGimmicksInCircleViewToolStripMenuItem.CheckOnClick = true;
+            this.showGimmicksInCircleViewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showGimmicksInCircleViewToolStripMenuItem.Name = "showGimmicksInCircleViewToolStripMenuItem";
+            this.showGimmicksInCircleViewToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.showGimmicksInCircleViewToolStripMenuItem.Text = "Show Gimmicks In Circle View";
+            this.showGimmicksInCircleViewToolStripMenuItem.Click += new System.EventHandler(this.showGimmicksInCircleViewToolStripMenuItem_Click);
             // 
             // chartToolStripMenuItem
             // 
@@ -1391,16 +1403,6 @@
             // autoSaveTimer
             // 
             this.autoSaveTimer.Tick += new System.EventHandler(this.autoSaveTimer_Tick);
-            // 
-            // showGimmicksInCircleViewToolStripMenuItem
-            // 
-            this.showGimmicksInCircleViewToolStripMenuItem.Checked = true;
-            this.showGimmicksInCircleViewToolStripMenuItem.CheckOnClick = true;
-            this.showGimmicksInCircleViewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.showGimmicksInCircleViewToolStripMenuItem.Name = "showGimmicksInCircleViewToolStripMenuItem";
-            this.showGimmicksInCircleViewToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
-            this.showGimmicksInCircleViewToolStripMenuItem.Text = "Show Gimmicks In Circle View";
-            this.showGimmicksInCircleViewToolStripMenuItem.Click += new System.EventHandler(this.showGimmicksInCircleViewToolStripMenuItem_Click);
             // 
             // MainForm
             // 

@@ -257,10 +257,14 @@ namespace BAKKA_Editor
             TimeEvents[0].StartTime = Offset * 1000.0;
             for (int i = 1; i < TimeEvents.Count; i++)
             {
-                TimeEvents[i].StartTime = ((TimeEvents[i].Measure - TimeEvents[i - 1].Measure) * 4 * TimeEvents[i - 1].TimeSig.Ratio * (60000.0 / TimeEvents[i].BPM)) + TimeEvents[i - 1].StartTime;
+                TimeEvents[i].StartTime = ((TimeEvents[i].Measure - TimeEvents[i - 1].Measure) * (4.0f * TimeEvents[i - 1].TimeSig.Ratio * (60000.0 / TimeEvents[i - 1].BPM))) + TimeEvents[i - 1].StartTime;
             }
         }
-
+        /*
+        ((60000.0 / evt.BPM) * 4.0 * evt.TimeSig.Ratio) * measure = time
+        time / ((60000.0 / evt.BPM) * 4.0 * evt.TimeSig.Ratio) = measure
+        */
+        
         /// <summary>
         /// Translate clock time to beats
         /// </summary>
@@ -274,7 +278,7 @@ namespace BAKKA_Editor
             var evt = TimeEvents.Where(x => time >= x.StartTime).LastOrDefault();
             if (evt == null)
                 evt = TimeEvents[0];
-            return new BeatInfo((float)(evt.BPM * (time - evt.StartTime) / (60000.0f * evt.TimeSig.Ratio * 4)) + evt.Measure);
+            return new BeatInfo((float)((time - evt.StartTime) / ((60000.0 / evt.BPM) * 4.0f * evt.TimeSig.Ratio) + evt.Measure));
         }
 
         /// <summary>
@@ -290,7 +294,7 @@ namespace BAKKA_Editor
             var evt = TimeEvents.Where(x => beat.MeasureDecimal >= x.Measure).LastOrDefault();
             if (evt == null)
                 evt = TimeEvents[0];
-            return (int)((60000.0 * 4.0 * evt.TimeSig.Ratio / evt.BPM) * (beat.MeasureDecimal - evt.Measure) + evt.StartTime);
+            return (int)(((60000.0 / evt.BPM) * 4.0f * evt.TimeSig.Ratio) * (beat.MeasureDecimal - evt.Measure) + evt.StartTime);
         }
     }
 }

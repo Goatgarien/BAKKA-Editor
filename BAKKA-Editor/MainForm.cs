@@ -129,6 +129,7 @@ namespace BAKKA_Editor
             highlightViewedNoteToolStripMenuItem.Checked        = userSettings.ViewSettings.HighlightViewedNote;
             showGimmicksInCircleViewToolStripMenuItem.Checked   = userSettings.ViewSettings.ShowGimmicks;
             selectLastInsertedNoteToolStripMenuItem.Checked     = userSettings.ViewSettings.SelectLastInsertedNote;
+            visualHispeedNumeric.Value                          = (decimal)userSettings.ViewSettings.HispeedSetting;
             autoSaveTimer.Interval                              = userSettings.SaveSettings.AutoSaveInterval * 60000;
             autoSaveTimer.Enabled = true;
             // Update hotkey labels
@@ -352,6 +353,7 @@ namespace BAKKA_Editor
             userSettings.ViewSettings.HighlightViewedNote       = highlightViewedNoteToolStripMenuItem.Checked;
             userSettings.ViewSettings.ShowGimmicks              = showGimmicksInCircleViewToolStripMenuItem.Checked;
             userSettings.ViewSettings.SelectLastInsertedNote    = selectLastInsertedNoteToolStripMenuItem.Checked;
+            userSettings.ViewSettings.HispeedSetting            = circleView.Hispeed;
             userSettings.SaveSettings.AutoSaveInterval          = autoSaveTimer.Interval / 60000;
             //Update user settings.toml
             if (File.Exists("settings.toml"))
@@ -540,7 +542,7 @@ namespace BAKKA_Editor
             circleView.DrawMasks(chart);
 
             // Draw base and measure circle.
-            circleView.DrawCircle();
+            circleView.DrawCircle(chart);
 
             // Draw degree lines
             circleView.DrawDegreeLines();
@@ -975,6 +977,8 @@ namespace BAKKA_Editor
                     songTrackBar.Value = 0;
                     songTrackBar.Maximum = (int)currentSong.PlayLength;
                     playButton.Enabled = true;
+                    measureNumeric.Value = 0;
+                    beat1Numeric.Value = 0;
                 }
             }
         }
@@ -1022,14 +1026,6 @@ namespace BAKKA_Editor
                 measureNumeric.Value = info.Measure;
                 beat1Numeric.Value = (int)((float)info.Beat / 1920.0f * (float)beat2Numeric.Value);
                 circleView.CurrentMeasure = info.MeasureDecimal;
-
-                // TODO Fix hi-speed (it needs to be able to display multiple hi-speeds in the circle view at once)
-                //// Change hi-speed, if applicable
-                //var hispeed = chart.Gimmicks.Where(x => x.Measure <= info.Measure && x.GimmickType == GimmickType.HiSpeedChange).LastOrDefault();
-                //if (hispeed != null && hispeed.HiSpeed != circleView.TotalMeasureShowNotes)
-                //{
-                //    visualHispeedNumeric.Value = (decimal)hispeed.HiSpeed;
-                //}
             }
             circlePanel.Invalidate();
         }
@@ -1126,7 +1122,7 @@ namespace BAKKA_Editor
 
         private void visualHispeedNumeric_ValueChanged(object sender, EventArgs e)
         {
-            circleView.TotalMeasureShowNotes = (float)visualHispeedNumeric.Value;
+            circleView.Hispeed = (float)visualHispeedNumeric.Value;
             circlePanel.Invalidate();
         }
 
