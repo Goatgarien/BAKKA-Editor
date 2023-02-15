@@ -1405,6 +1405,29 @@ namespace BAKKA_Editor
             UpdateGimmickLabels();
         }
 
+        private void gimmickJumpToCurrTimeButton_Click(object sender, EventArgs e)
+        {
+            if (chart.Gimmicks.Count == 0)
+                return;
+
+            float currentMeasure = circleView.CurrentMeasure;
+            var gimmick = chart.Gimmicks.FirstOrDefault(x => x.BeatInfo.MeasureDecimal >= currentMeasure);
+            if (gimmick != null)
+            {
+                selectedGimmickIndex = chart.Gimmicks.IndexOf(gimmick);
+            }
+            else
+            {
+                gimmick = chart.Gimmicks.FirstOrDefault(x => x.BeatInfo.MeasureDecimal <= currentMeasure);
+                if (gimmick != null)
+                {
+                    selectedGimmickIndex = chart.Gimmicks.IndexOf(gimmick);
+                }
+            }
+            circlePanel.Invalidate();
+            UpdateGimmickLabels();
+        }
+
         private void gimmickEditButton_Click(object sender, EventArgs e)
         {
             if (selectedGimmickIndex == -1)
@@ -1659,43 +1682,20 @@ namespace BAKKA_Editor
             UpdateNoteLabels();
         }
 
-        private void notePrevMeasureButton_Click(object sender, EventArgs e)
+        private void noteJumpToCurrTimeButton_Click(object sender, EventArgs e)
         {
             if (chart.Notes.Count == 0)
                 return;
 
-            int lastMeasure = chart.Notes[selectedNoteIndex].BeatInfo.Measure;
-            var note = chart.Notes.LastOrDefault(x => x.BeatInfo.Measure < lastMeasure);
+            float currentMeasure = circleView.CurrentMeasure;
+            var note = chart.Notes.FirstOrDefault(x => x.BeatInfo.MeasureDecimal >= currentMeasure);
             if (note != null)
             {
                 selectedNoteIndex = chart.Notes.IndexOf(note);
             }
             else
             {
-                note = chart.Notes.LastOrDefault(x => x.BeatInfo.Measure > lastMeasure);
-                if (note != null)
-                {
-                    selectedNoteIndex = chart.Notes.IndexOf(note);
-                }
-            }
-            circlePanel.Invalidate();
-            UpdateNoteLabels();
-        }
-
-        private void noteNextMeasureButton_Click(object sender, EventArgs e)
-        {
-            if (chart.Notes.Count == 0)
-                return;
-
-            int lastMeasure = chart.Notes[selectedNoteIndex].BeatInfo.Measure;
-            var note = chart.Notes.FirstOrDefault(x => x.BeatInfo.Measure > lastMeasure);
-            if (note != null)
-            {
-                selectedNoteIndex = chart.Notes.IndexOf(note);
-            }
-            else
-            {
-                note = chart.Notes.FirstOrDefault(x => x.BeatInfo.Measure < lastMeasure);
+                note = chart.Notes.FirstOrDefault(x => x.BeatInfo.MeasureDecimal <= currentMeasure);
                 if (note != null)
                 {
                     selectedNoteIndex = chart.Notes.IndexOf(note);

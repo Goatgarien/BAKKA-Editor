@@ -125,8 +125,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.noteSizeLabel = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.noteNextMeasureButton = new System.Windows.Forms.Button();
-            this.notePrevMeasureButton = new System.Windows.Forms.Button();
+            this.noteJumpToCurrTimeButton = new System.Windows.Forms.Button();
             this.noteDeleteSelectedButton = new System.Windows.Forms.Button();
             this.noteEditSelectedButton = new System.Windows.Forms.Button();
             this.noteBeatLabel = new System.Windows.Forms.Label();
@@ -140,6 +139,7 @@
             this.noteNextButton = new System.Windows.Forms.Button();
             this.notePrevButton = new System.Windows.Forms.Button();
             this.autoSaveTimer = new System.Windows.Forms.Timer(this.components);
+            this.gimmickJumpToCurrTimeButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.beat2Numeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.beat1Numeric)).BeginInit();
@@ -1047,6 +1047,7 @@
             // groupBox6
             // 
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.gimmickJumpToCurrTimeButton);
             this.groupBox6.Controls.Add(this.gimmickDeleteButton);
             this.groupBox6.Controls.Add(this.gimmickEditButton);
             this.groupBox6.Controls.Add(this.gimmickBeatLabel);
@@ -1059,9 +1060,9 @@
             this.groupBox6.Controls.Add(this.label5);
             this.groupBox6.Controls.Add(this.gimmickNextButton);
             this.groupBox6.Controls.Add(this.gimmickPrevButton);
-            this.groupBox6.Location = new System.Drawing.Point(874, 633);
+            this.groupBox6.Location = new System.Drawing.Point(874, 602);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(256, 142);
+            this.groupBox6.Size = new System.Drawing.Size(256, 173);
             this.groupBox6.TabIndex = 33;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Gimmick View";
@@ -1069,7 +1070,7 @@
             // gimmickDeleteButton
             // 
             this.gimmickDeleteButton.ForeColor = System.Drawing.Color.Red;
-            this.gimmickDeleteButton.Location = new System.Drawing.Point(134, 109);
+            this.gimmickDeleteButton.Location = new System.Drawing.Point(134, 139);
             this.gimmickDeleteButton.Name = "gimmickDeleteButton";
             this.gimmickDeleteButton.Size = new System.Drawing.Size(113, 23);
             this.gimmickDeleteButton.TabIndex = 11;
@@ -1079,7 +1080,7 @@
             // 
             // gimmickEditButton
             // 
-            this.gimmickEditButton.Location = new System.Drawing.Point(6, 109);
+            this.gimmickEditButton.Location = new System.Drawing.Point(6, 139);
             this.gimmickEditButton.Name = "gimmickEditButton";
             this.gimmickEditButton.Size = new System.Drawing.Size(113, 23);
             this.gimmickEditButton.TabIndex = 10;
@@ -1090,7 +1091,7 @@
             // gimmickBeatLabel
             // 
             this.gimmickBeatLabel.AutoSize = true;
-            this.gimmickBeatLabel.Location = new System.Drawing.Point(173, 47);
+            this.gimmickBeatLabel.Location = new System.Drawing.Point(173, 78);
             this.gimmickBeatLabel.Name = "gimmickBeatLabel";
             this.gimmickBeatLabel.Size = new System.Drawing.Size(36, 15);
             this.gimmickBeatLabel.TabIndex = 9;
@@ -1099,7 +1100,7 @@
             // gimmickValueLabel
             // 
             this.gimmickValueLabel.AutoSize = true;
-            this.gimmickValueLabel.Location = new System.Drawing.Point(76, 89);
+            this.gimmickValueLabel.Location = new System.Drawing.Point(76, 120);
             this.gimmickValueLabel.Name = "gimmickValueLabel";
             this.gimmickValueLabel.Size = new System.Drawing.Size(36, 15);
             this.gimmickValueLabel.TabIndex = 8;
@@ -1108,7 +1109,7 @@
             // gimmickTypeLabel
             // 
             this.gimmickTypeLabel.AutoSize = true;
-            this.gimmickTypeLabel.Location = new System.Drawing.Point(76, 68);
+            this.gimmickTypeLabel.Location = new System.Drawing.Point(76, 99);
             this.gimmickTypeLabel.Name = "gimmickTypeLabel";
             this.gimmickTypeLabel.Size = new System.Drawing.Size(36, 15);
             this.gimmickTypeLabel.TabIndex = 7;
@@ -1117,7 +1118,7 @@
             // gimmickMeasureLabel
             // 
             this.gimmickMeasureLabel.AutoSize = true;
-            this.gimmickMeasureLabel.Location = new System.Drawing.Point(76, 47);
+            this.gimmickMeasureLabel.Location = new System.Drawing.Point(76, 78);
             this.gimmickMeasureLabel.Name = "gimmickMeasureLabel";
             this.gimmickMeasureLabel.Size = new System.Drawing.Size(36, 15);
             this.gimmickMeasureLabel.TabIndex = 6;
@@ -1127,7 +1128,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(128, 45);
+            this.label8.Location = new System.Drawing.Point(128, 76);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(39, 17);
             this.label8.TabIndex = 5;
@@ -1137,7 +1138,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(24, 87);
+            this.label7.Location = new System.Drawing.Point(24, 118);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(46, 17);
             this.label7.TabIndex = 4;
@@ -1147,7 +1148,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(29, 66);
+            this.label6.Location = new System.Drawing.Point(29, 97);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 17);
             this.label6.TabIndex = 3;
@@ -1157,7 +1158,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(6, 45);
+            this.label5.Location = new System.Drawing.Point(6, 76);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 17);
             this.label5.TabIndex = 2;
@@ -1190,8 +1191,7 @@
             this.noteViewGroupBox.Controls.Add(this.label9);
             this.noteViewGroupBox.Controls.Add(this.noteSizeLabel);
             this.noteViewGroupBox.Controls.Add(this.label17);
-            this.noteViewGroupBox.Controls.Add(this.noteNextMeasureButton);
-            this.noteViewGroupBox.Controls.Add(this.notePrevMeasureButton);
+            this.noteViewGroupBox.Controls.Add(this.noteJumpToCurrTimeButton);
             this.noteViewGroupBox.Controls.Add(this.noteDeleteSelectedButton);
             this.noteViewGroupBox.Controls.Add(this.noteEditSelectedButton);
             this.noteViewGroupBox.Controls.Add(this.noteBeatLabel);
@@ -1204,7 +1204,7 @@
             this.noteViewGroupBox.Controls.Add(this.label16);
             this.noteViewGroupBox.Controls.Add(this.noteNextButton);
             this.noteViewGroupBox.Controls.Add(this.notePrevButton);
-            this.noteViewGroupBox.Location = new System.Drawing.Point(874, 420);
+            this.noteViewGroupBox.Location = new System.Drawing.Point(874, 389);
             this.noteViewGroupBox.Name = "noteViewGroupBox";
             this.noteViewGroupBox.Size = new System.Drawing.Size(256, 207);
             this.noteViewGroupBox.TabIndex = 34;
@@ -1249,25 +1249,15 @@
             this.label17.TabIndex = 14;
             this.label17.Text = "Size:";
             // 
-            // noteNextMeasureButton
+            // noteJumpToCurrTimeButton
             // 
-            this.noteNextMeasureButton.Location = new System.Drawing.Point(134, 48);
-            this.noteNextMeasureButton.Name = "noteNextMeasureButton";
-            this.noteNextMeasureButton.Size = new System.Drawing.Size(116, 23);
-            this.noteNextMeasureButton.TabIndex = 13;
-            this.noteNextMeasureButton.Text = "Next Measure >>";
-            this.noteNextMeasureButton.UseVisualStyleBackColor = true;
-            this.noteNextMeasureButton.Click += new System.EventHandler(this.noteNextMeasureButton_Click);
-            // 
-            // notePrevMeasureButton
-            // 
-            this.notePrevMeasureButton.Location = new System.Drawing.Point(6, 48);
-            this.notePrevMeasureButton.Name = "notePrevMeasureButton";
-            this.notePrevMeasureButton.Size = new System.Drawing.Size(116, 23);
-            this.notePrevMeasureButton.TabIndex = 12;
-            this.notePrevMeasureButton.Text = "<< Prev Measure";
-            this.notePrevMeasureButton.UseVisualStyleBackColor = true;
-            this.notePrevMeasureButton.Click += new System.EventHandler(this.notePrevMeasureButton_Click);
+            this.noteJumpToCurrTimeButton.Location = new System.Drawing.Point(7, 48);
+            this.noteJumpToCurrTimeButton.Name = "noteJumpToCurrTimeButton";
+            this.noteJumpToCurrTimeButton.Size = new System.Drawing.Size(243, 23);
+            this.noteJumpToCurrTimeButton.TabIndex = 13;
+            this.noteJumpToCurrTimeButton.Text = "Jump To Nearest Note @ Current Time";
+            this.noteJumpToCurrTimeButton.UseVisualStyleBackColor = true;
+            this.noteJumpToCurrTimeButton.Click += new System.EventHandler(this.noteJumpToCurrTimeButton_Click);
             // 
             // noteDeleteSelectedButton
             // 
@@ -1389,6 +1379,16 @@
             // autoSaveTimer
             // 
             this.autoSaveTimer.Tick += new System.EventHandler(this.autoSaveTimer_Tick);
+            // 
+            // gimmickJumpToCurrTimeButton
+            // 
+            this.gimmickJumpToCurrTimeButton.Location = new System.Drawing.Point(7, 48);
+            this.gimmickJumpToCurrTimeButton.Name = "gimmickJumpToCurrTimeButton";
+            this.gimmickJumpToCurrTimeButton.Size = new System.Drawing.Size(243, 23);
+            this.gimmickJumpToCurrTimeButton.TabIndex = 14;
+            this.gimmickJumpToCurrTimeButton.Text = "Jump To Nearest Gimmick @ Current Time";
+            this.gimmickJumpToCurrTimeButton.UseVisualStyleBackColor = true;
+            this.gimmickJumpToCurrTimeButton.Click += new System.EventHandler(this.gimmickJumpToCurrTimeButton_Click);
             // 
             // MainForm
             // 
@@ -1540,8 +1540,7 @@
         private Label label9;
         private Label noteSizeLabel;
         private Label label17;
-        private Button noteNextMeasureButton;
-        private Button notePrevMeasureButton;
+        private Button noteJumpToCurrTimeButton;
         private Button noteDeleteSelectedButton;
         private Button noteEditSelectedButton;
         private Label noteBeatLabel;
@@ -1562,5 +1561,6 @@
         private TrackBar trackBarVolume;
         private Label labelSpeed;
         private TrackBar trackBarSpeed;
+        private Button gimmickJumpToCurrTimeButton;
     }
 }
