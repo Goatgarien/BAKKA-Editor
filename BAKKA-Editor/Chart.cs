@@ -257,7 +257,7 @@ namespace BAKKA_Editor
             TimeEvents[0].StartTime = Offset * 1000.0;
             for (int i = 1; i < TimeEvents.Count; i++)
             {
-                TimeEvents[i].StartTime = ((TimeEvents[i].Measure - TimeEvents[i - 1].Measure) * 4 * TimeEvents[i - 1].TimeSig.Ratio * 60000.0 / TimeEvents[i].BPM) + TimeEvents[i - 1].StartTime;
+                TimeEvents[i].StartTime = ((TimeEvents[i].Measure - TimeEvents[i - 1].Measure) * 4 * TimeEvents[i - 1].TimeSig.Ratio * (60000.0 / TimeEvents[i].BPM)) + TimeEvents[i - 1].StartTime;
             }
         }
 
