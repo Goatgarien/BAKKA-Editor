@@ -36,7 +36,7 @@ namespace BAKKA_Editor
         internal DialogResult Show(
             Gimmick baseGimmick, FormReason reason, Gimmick? gim1 = null, Gimmick? gim2 = null)
         {
-            var quant = Utils.GetQuantization(baseGimmick.BeatInfo.Beat, 16);
+            var quant = Utils.GetQuantization(baseGimmick.BeatInfo.Beat, 12);
 
             gimmick = new Gimmick();
             gimmick.BeatInfo = new BeatInfo(baseGimmick.BeatInfo);
@@ -46,15 +46,15 @@ namespace BAKKA_Editor
             {
                 case GimmickType.BpmChange:
                     startMeasureNumeric.Value = gimmick.BeatInfo.Measure;
-                    startBeat1Numeric.Value = quant.Item1;
                     startBeat2Numeric.Value = quant.Item2;
+                    startBeat1Numeric.Value = quant.Item1;
                     if (reason == FormReason.Edit)
                         gimmickBpmNumeric.Value = (decimal)baseGimmick.BPM;
                     break;
                 case GimmickType.TimeSignatureChange:
                     startMeasureNumeric.Value = gimmick.BeatInfo.Measure;
-                    startBeat1Numeric.Value = quant.Item1;
                     startBeat2Numeric.Value = quant.Item2;
+                    startBeat1Numeric.Value = quant.Item1;
                     if (reason == FormReason.Edit)
                     {
                         timeSig1Numeric.Value = baseGimmick.TimeSig.Upper;
@@ -63,73 +63,73 @@ namespace BAKKA_Editor
                     break;
                 case GimmickType.HiSpeedChange:
                     startMeasureNumeric.Value = gimmick.BeatInfo.Measure;
-                    startBeat1Numeric.Value = quant.Item1;
                     startBeat2Numeric.Value = quant.Item2;
+                    startBeat1Numeric.Value = quant.Item1;
                     if (reason == FormReason.Edit)
                         hiSpeedNumeric.Value = (decimal)baseGimmick.HiSpeed;
                     break;
                 case GimmickType.ReverseStart:
                     startMeasureNumeric.Value = gimmick.BeatInfo.Measure;
-                    startBeat1Numeric.Value = quant.Item1;
                     startBeat2Numeric.Value = quant.Item2;
+                    startBeat1Numeric.Value = quant.Item1;
                     if (reason == FormReason.Edit && gim1 != null && gim2 != null)
                     {
-                        var quantMid1 = Utils.GetQuantization(gim1.BeatInfo.Beat, 16);
-                        var quantEnd1 = Utils.GetQuantization(gim2.BeatInfo.Beat, 16);
+                        var quantMid1 = Utils.GetQuantization(gim1.BeatInfo.Beat, 12);
+                        var quantEnd1 = Utils.GetQuantization(gim2.BeatInfo.Beat, 12);
                         revEnd1MeasureNumeric.Value = gim1.BeatInfo.Measure;
-                        revEnd1Beat1Numeric.Value = quantMid1.Item1;
                         revEnd1Beat2Numeric.Value = quantMid1.Item2;
+                        revEnd1Beat1Numeric.Value = quantMid1.Item1;
                         revEnd2MeasureNumeric.Value = gim2.BeatInfo.Measure;
-                        revEnd2Beat1Numeric.Value = quantEnd1.Item1;
                         revEnd2Beat2Numeric.Value = quantEnd1.Item2;
+                        revEnd2Beat1Numeric.Value = quantEnd1.Item1;
                     }
                     break;
                 case GimmickType.ReverseMiddle:
-                    var quantStart2 = Utils.GetQuantization(gim1.BeatInfo.Beat, 16);
-                    var quantEnd2 = Utils.GetQuantization(gim2.BeatInfo.Beat, 16);
-                    startMeasureNumeric.Value = gim1.BeatInfo.Measure; 
-                    startBeat1Numeric.Value = quantStart2.Item1;
+                    var quantStart2 = Utils.GetQuantization(gim1.BeatInfo.Beat, 12);
+                    var quantEnd2 = Utils.GetQuantization(gim2.BeatInfo.Beat, 12);
+                    startMeasureNumeric.Value = gim1.BeatInfo.Measure;
                     startBeat2Numeric.Value = quantStart2.Item2;
+                    startBeat1Numeric.Value = quantStart2.Item1;
                     revEnd1MeasureNumeric.Value = gimmick.BeatInfo.Measure;
-                    revEnd1Beat1Numeric.Value = quant.Item1;
                     revEnd1Beat2Numeric.Value = quant.Item2;
+                    revEnd1Beat1Numeric.Value = quant.Item1;
                     revEnd2MeasureNumeric.Value = gim2.BeatInfo.Measure;
-                    revEnd2Beat1Numeric.Value = quantEnd2.Item1;
                     revEnd2Beat2Numeric.Value = quantEnd2.Item2;
+                    revEnd2Beat1Numeric.Value = quantEnd2.Item1;
                     break;
                 case GimmickType.ReverseEnd:
-                    var quantStart3 = Utils.GetQuantization(gim1.BeatInfo.Beat, 16);
-                    var quantMid3 = Utils.GetQuantization(gim2.BeatInfo.Beat, 16);
+                    var quantStart3 = Utils.GetQuantization(gim1.BeatInfo.Beat, 12);
+                    var quantMid3 = Utils.GetQuantization(gim2.BeatInfo.Beat, 12);
                     startMeasureNumeric.Value = gim1.BeatInfo.Measure;
-                    startBeat1Numeric.Value = quantStart3.Item1;
                     startBeat2Numeric.Value = quantStart3.Item2;
-                    revEnd1MeasureNumeric.Value = gim2.BeatInfo.Measure; 
-                    revEnd1Beat1Numeric.Value = quantMid3.Item1;
+                    startBeat1Numeric.Value = quantStart3.Item1;
+                    revEnd1MeasureNumeric.Value = gim2.BeatInfo.Measure;
                     revEnd1Beat2Numeric.Value = quantMid3.Item2;
+                    revEnd1Beat1Numeric.Value = quantMid3.Item1;
                     revEnd2MeasureNumeric.Value = gimmick.BeatInfo.Measure;
-                    revEnd2Beat1Numeric.Value = quant.Item1;
                     revEnd2Beat2Numeric.Value = quant.Item2;
+                    revEnd2Beat1Numeric.Value = quant.Item1;
                     break;
                 case GimmickType.StopStart:
                     startMeasureNumeric.Value = gimmick.BeatInfo.Measure;
-                    startBeat1Numeric.Value = quant.Item1;
                     startBeat2Numeric.Value = quant.Item2;
+                    startBeat1Numeric.Value = quant.Item1;
                     if (reason == FormReason.Edit)
                     {
-                        var stopEnd = Utils.GetQuantization(gim1.BeatInfo.Beat, 16);
+                        var stopEnd = Utils.GetQuantization(gim1.BeatInfo.Beat, 12);
                         stopEndMeasureNumeric.Value = gim1.BeatInfo.Measure;
-                        stopEndBeat1Numeric.Value = stopEnd.Item1;
                         stopEndBeat2Numeric.Value = stopEnd.Item2;
+                        stopEndBeat1Numeric.Value = stopEnd.Item1;
                     }
                     break;
                 case GimmickType.StopEnd:
-                    var stopStart = Utils.GetQuantization(gim1.BeatInfo.Beat, 16);
+                    var stopStart = Utils.GetQuantization(gim1.BeatInfo.Beat, 12);
                     startMeasureNumeric.Value = gim1.BeatInfo.Measure;
-                    startBeat1Numeric.Value = stopStart.Item1;
                     startBeat2Numeric.Value = stopStart.Item2;
+                    startBeat1Numeric.Value = stopStart.Item1;
                     stopEndMeasureNumeric.Value = gimmick.BeatInfo.Measure;
-                    stopEndBeat1Numeric.Value = quant.Item1;
                     stopEndBeat2Numeric.Value = quant.Item2;
+                    stopEndBeat1Numeric.Value = quant.Item1;
                     break;
                 default:
                     break;

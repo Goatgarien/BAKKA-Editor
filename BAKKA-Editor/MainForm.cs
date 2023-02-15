@@ -1584,7 +1584,7 @@ namespace BAKKA_Editor
             var gimmick = chart.Gimmicks[selectedGimmickIndex];
 
             gimmickMeasureLabel.Text = gimmick.BeatInfo.Measure.ToString();
-            var quant = Utils.GetQuantization(gimmick.BeatInfo.Beat, 16);
+            var quant = Utils.GetQuantization(gimmick.BeatInfo.Beat, 12);
             gimmickBeatLabel.Text = $"{quant.Item1} / {quant.Item2}";
             gimmickTypeLabel.Text = gimmick.GimmickType.ToLabel();
             switch (gimmick.GimmickType)
@@ -1639,7 +1639,7 @@ namespace BAKKA_Editor
             var note = chart.Notes[selectedNoteIndex];
 
             noteMeasureLabel.Text = note.BeatInfo.Measure.ToString();
-            var quant = Utils.GetQuantization(note.BeatInfo.Beat, 16);
+            var quant = Utils.GetQuantization(note.BeatInfo.Beat, 12);
             noteBeatLabel.Text = $"{quant.Item1} / {quant.Item2}";
             noteTypeLabel.Text = note.NoteType.ToLabel();
             notePositionLabel.Text = note.Position.ToString();
