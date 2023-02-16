@@ -1708,8 +1708,8 @@ namespace BAKKA_Editor
         private void ResetChartTime()
         {
             measureNumeric.Value = beat1Numeric.Value = 0;
-            positionNumeric.Value = 0;
-            sizeNumeric.Value = 1;
+            positionNumeric.Value = positionNumeric.Minimum;
+            sizeNumeric.Value = sizeNumeric.Minimum;
             updateTime();
         }
 
