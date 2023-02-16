@@ -365,43 +365,57 @@ namespace BAKKA_Editor
         private void SetSelectedObject(NoteType type)
         {
             currentNoteType = type;
+            int minSize = 1;
             switch (type)
             {
                 case NoteType.TouchNoBonus:
                     updateLabel("Touch");
+                    minSize = 4;
                     break;
                 case NoteType.TouchBonus:
                     updateLabel("Touch [Bonus]");
+                    minSize = 5;
                     break;
                 case NoteType.SnapRedNoBonus:
                     updateLabel("Snap (R)");
+                    minSize = 6;
                     break;
                 case NoteType.SnapBlueNoBonus:
                     updateLabel("Snap (B)");
+                    minSize = 6;
                     break;
                 case NoteType.SlideOrangeNoBonus:
                     updateLabel("Slide (O)");
+                    minSize = 5;
                     break;
                 case NoteType.SlideOrangeBonus:
                     updateLabel("Slide (O) [Bonus]");
+                    minSize = 7;
                     break;
                 case NoteType.SlideGreenNoBonus:
                     updateLabel("Slide (G)");
+                    minSize = 5;
                     break;
                 case NoteType.SlideGreenBonus:
                     updateLabel("Slide (G) [Bonus]");
+                    minSize = 7;
                     break;
                 case NoteType.HoldStartNoBonus:
                     updateLabel("Hold Start");
+                    minSize = 2;
                     break;
                 case NoteType.HoldJoint:
                     if (endHoldCheck.Checked)
                     {
                         updateLabel("Hold End");
                         currentNoteType = NoteType.HoldEnd;
+                        minSize = 1;
                     }
                     else
+                    {
                         updateLabel("Hold Middle");
+                        minSize = 0;
+                    }
                     break;
                 case NoteType.HoldEnd:
                     endHoldCheck.Checked = true;
@@ -414,6 +428,7 @@ namespace BAKKA_Editor
                         updateLabel("Mask Add (Counter-Clockwise)");
                     else
                         updateLabel("Mask Add (From Center)");
+                    minSize = 1;
                     break;
                 case NoteType.MaskRemove:
                     if (clockwiseMaskRadio.Checked)
@@ -422,38 +437,53 @@ namespace BAKKA_Editor
                         updateLabel("Mask Remove (Counter-Clockwise)");
                     else
                         updateLabel("Mask Remove (From Center)");
+                    minSize = 1;
                     break;
                 case NoteType.EndOfChart:
                     updateLabel("End of Chart");
+                    minSize = 60;
                     break;
                 case NoteType.Chain:
                     updateLabel("Chain");
+                    minSize = 4;
                     break;
                 case NoteType.TouchBonusFlair:
                     updateLabel("Touch [R Note]");
+                    minSize = 6;
                     break;
                 case NoteType.SnapRedBonusFlair:
                     updateLabel("Snap (R) [R Note]");
+                    minSize = 8;
                     break;
                 case NoteType.SnapBlueBonusFlair:
                     updateLabel("Snap (B) [R Note]");
+                    minSize = 8;
                     break;
                 case NoteType.SlideOrangeBonusFlair:
                     updateLabel("Slide (O) [R Note]");
+                    minSize = 10;
                     break;
                 case NoteType.SlideGreenBonusFlair:
                     updateLabel("Slide (G) [R Note]");
+                    minSize = 10;
                     break;
                 case NoteType.HoldStartBonusFlair:
                     updateLabel("Hold Start [R Note]");
+                    minSize = 8;
                     break;
                 case NoteType.ChainBonusFlair:
                     updateLabel("Chain [R Note]");
+                    minSize = 10;
                     break;
                 default:
                     updateLabel("None Selected");
+                    minSize = 1;
                     break;
             }
+            if (sizeNumeric.Value < minSize)    sizeNumeric.Value = minSize;
+            if (sizeTrackBar.Value < minSize)   sizeTrackBar.Value = minSize;
+            sizeNumeric.Minimum = minSize;
+            sizeTrackBar.Minimum = minSize;
             circlePanel.Invalidate();
         }
 
@@ -1097,6 +1127,8 @@ namespace BAKKA_Editor
                 return;
             }
 
+            int initialSize = (int)sizeNumeric.Value;
+
             // X and Y are relative to the upper left of the panel
             float xCen = e.X - (circlePanel.Width / 2);
             float yCen = -(e.Y - (circlePanel.Height / 2));
@@ -1106,24 +1138,28 @@ namespace BAKKA_Editor
             if (theta == circleView.mouseDownPos)
             {
                 positionNumeric.Value = circleView.mouseDownPos;
-                sizeNumeric.Value = 1;
+                initialSize = 1;
             }
             else if ((theta > circleView.mouseDownPos || circleView.rolloverPos) && !circleView.rolloverNeg)
             {
                 positionNumeric.Value = circleView.mouseDownPos;
                 if (circleView.rolloverPos)
-                    sizeNumeric.Value = (int)Math.Min(theta + 60 - circleView.mouseDownPos + 1, 60);
+                    initialSize = (int)Math.Min(theta + 60 - circleView.mouseDownPos + 1, 60);
                 else
-                    sizeNumeric.Value = theta - circleView.mouseDownPos + 1;
+                    initialSize = theta - circleView.mouseDownPos + 1;
             }
             else if (theta < circleView.mouseDownPos || circleView.rolloverNeg)
             {
                 positionNumeric.Value = theta;
                 if (circleView.rolloverNeg)
-                    sizeNumeric.Value = (int)Math.Min(circleView.mouseDownPos + 60 - theta + 1, 60);
+                    initialSize = (int)Math.Min(circleView.mouseDownPos + 60 - theta + 1, 60);
                 else
-                    sizeNumeric.Value = circleView.mouseDownPos - theta + 1;
+                    initialSize = circleView.mouseDownPos - theta + 1;
             }
+
+            if (initialSize < sizeNumeric.Minimum) sizeNumeric.Value = sizeNumeric.Minimum;
+            else if (initialSize > 60) sizeNumeric.Value = 60;
+            else sizeNumeric.Value = initialSize;
 
             circlePanel.Invalidate();
         }
