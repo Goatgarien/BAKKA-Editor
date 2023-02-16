@@ -96,6 +96,11 @@
             0,
             0,
             0});
+            this.initOffsetNumeric.Minimum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            -2147483648});
             this.initOffsetNumeric.Name = "initOffsetNumeric";
             this.initOffsetNumeric.Size = new System.Drawing.Size(100, 23);
             this.initOffsetNumeric.TabIndex = 26;

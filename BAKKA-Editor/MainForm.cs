@@ -599,7 +599,13 @@ namespace BAKKA_Editor
             }
             updateTime();
             if (currentSong != null && !IsSongPlaying() && valueTriggerEvent != EventSource.TrackBar)
-                songTrackBar.Value = chart.GetTime(new BeatInfo((int)measureNumeric.Value, (int)beat1Numeric.Value * 1920 / (int)beat2Numeric.Value));
+            {
+                int time = chart.GetTime(new BeatInfo((int)measureNumeric.Value, (int)beat1Numeric.Value * 1920 / (int)beat2Numeric.Value));
+                if (time < 0)
+                    songTrackBar.Value = 0;
+                else
+                    songTrackBar.Value = time;
+            }
 
             valueTriggerEvent = EventSource.None;
         }

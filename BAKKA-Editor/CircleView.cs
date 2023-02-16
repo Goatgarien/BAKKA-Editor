@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing.Drawing2D;
 using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using System.ComponentModel;
 
 namespace BAKKA_Editor
 {
@@ -77,15 +78,67 @@ namespace BAKKA_Editor
             //Convert hispeed to frames
             float displayFrames = 73.0f - ((Hispeed - 1.5f) * 10.0f);
             //Account for hispeed gimmick
-            var LatestHispeedChange = chart.Gimmicks.Where(x => x.GimmickType == GimmickType.HiSpeedChange && CurrentMeasure >= x.Measure).LastOrDefault();
-            if (LatestHispeedChange != null)
+            List<Gimmick> HispeedChanges = new List<Gimmick>();
+            Gimmick InitialSpeed = chart.Gimmicks.Where(x => x.GimmickType == GimmickType.HiSpeedChange && CurrentMeasure > x.Measure).LastOrDefault();
+            //Add initial hispeed to list
+            if (InitialSpeed == null)
             {
-                displayFrames = displayFrames / (float)LatestHispeedChange.HiSpeed;
+                InitialSpeed = new Gimmick();
+                InitialSpeed.HiSpeed = 1.0;
             }
-            //Add frame time to current time
-            float EndTimeDisplay = chart.GetTime(new BeatInfo(CurrentMeasure)) + ((displayFrames / 60.0f) * 1000.0f);
-            //convert time back to a measureDecimal
-            BeatInfo EndMeasure = chart.GetBeat(EndTimeDisplay);
+            HispeedChanges.Add(InitialSpeed);
+            //add all hispeed changes to list that happen within the current total time to show notes
+            float tempTotalTime = ((displayFrames / 60.0f) * 1000.0f);
+            float currentTime = chart.GetTime(new BeatInfo(CurrentMeasure));
+            float tempEndTime = currentTime + tempTotalTime;
+            HispeedChanges.AddRange(chart.Gimmicks.Where(
+                x => x.Measure >= CurrentMeasure
+                && chart.GetTime(new BeatInfo(x.Measure)) < tempEndTime
+                && x.GimmickType == GimmickType.HiSpeedChange).ToList());
+            if (HispeedChanges.Count > 1)
+            {
+                for (int i = 0; i < HispeedChanges.Count; i++)
+                {
+                    float timeDiff;
+                    float itemTime;
+                    float modifiedTime;
+                    if (chart.GetTime(HispeedChanges[i].BeatInfo) <= (tempTotalTime + currentTime))
+                    {
+                        if (i == 0)
+                            itemTime = currentTime;
+                        else
+                            itemTime = chart.GetTime(HispeedChanges[i].BeatInfo);
+                        if (i != HispeedChanges.Count - 1)
+                        {
+                            float tempTestITimeDiff = (currentTime + tempTotalTime) - itemTime;
+                            float tempTestIModifiedTime = (tempTestITimeDiff) / (float)(HispeedChanges[i].HiSpeed);
+                            if ((currentTime + tempTotalTime - tempTestITimeDiff + tempTestIModifiedTime) < chart.GetTime(HispeedChanges[i + 1].BeatInfo))
+                            {
+                                timeDiff = (currentTime + tempTotalTime) - itemTime;
+                                modifiedTime = timeDiff / (float)HispeedChanges[i].HiSpeed;
+                            }
+                            else
+                            {
+                                timeDiff = chart.GetTime(HispeedChanges[i + 1].BeatInfo) - itemTime;
+                                modifiedTime = timeDiff / (float)HispeedChanges[i].HiSpeed;
+                            }
+                        }
+                        else
+                        {
+                            timeDiff = (currentTime + tempTotalTime) - itemTime;
+                            modifiedTime = timeDiff / (float)HispeedChanges[i].HiSpeed;
+                        }
+                        tempTotalTime = tempTotalTime - timeDiff + modifiedTime;
+                    }
+                }
+            }
+            else
+            {
+                tempTotalTime /= (float)HispeedChanges[0].HiSpeed;
+            }
+            //convert total time to total measure
+            tempEndTime = currentTime + tempTotalTime;
+            BeatInfo EndMeasure = chart.GetBeat(tempEndTime);
             return EndMeasure.MeasureDecimal - CurrentMeasure;
         }
 
@@ -94,8 +147,21 @@ namespace BAKKA_Editor
             // Scale from 0-1
             float objectTimeAsTime      = chart.GetTime(new BeatInfo(objectTime));
             float currentTime           = chart.GetTime(new BeatInfo(CurrentMeasure));
-            float totalTimeDisplayed    = chart.GetTime(new BeatInfo(CurrentMeasure + GetTotalMeasureShowNotes(chart))) - currentTime;
-            float notescaleInit = 1 - ((objectTimeAsTime - currentTime) * (1 / totalTimeDisplayed));
+            float EndTimeShowNotes    = chart.GetTime(new BeatInfo(CurrentMeasure + GetTotalMeasureShowNotes(chart)));
+            float notescaleInit;
+            var LatestHispeedChange = chart.Gimmicks.Where(x => x.GimmickType == GimmickType.HiSpeedChange && CurrentMeasure >= x.Measure).LastOrDefault();
+            if (LatestHispeedChange != null && LatestHispeedChange.HiSpeed < 0.0)
+            {
+                //Reverse
+                notescaleInit = (objectTimeAsTime - currentTime) / (EndTimeShowNotes - currentTime);
+            }
+            else
+            {
+                //Normal
+                notescaleInit = 1 - ((objectTimeAsTime - currentTime) / (EndTimeShowNotes - currentTime));
+            }
+            //Scale math
+            notescaleInit = 0.001f + (float)Math.Pow(notescaleInit, 3.0f) - (0.501f * (float)Math.Pow(notescaleInit, 2.0f)) + (0.5f * notescaleInit);
             return notescaleInit;
         }
 
@@ -103,8 +169,7 @@ namespace BAKKA_Editor
         {
             ArcInfo info = new();
 
-            float notescaleInit = GetNoteScaleFromMeasure(chart, objectTime);
-            info.NoteScale = (float)Math.Pow(10.0f, notescaleInit) / 10.0f;
+            info.NoteScale = GetNoteScaleFromMeasure(chart, objectTime);
             float scaledRectSize = DrawRect.Width * info.NoteScale;
             float scaledRadius = scaledRectSize / 2.0f;
             info.Rect = new RectangleF(
