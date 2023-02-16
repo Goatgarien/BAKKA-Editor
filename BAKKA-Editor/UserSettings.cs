@@ -21,6 +21,7 @@ namespace BAKKA_Editor
         public bool SelectLastInsertedNote { get; set; } = true;
         public bool ShowGimmicks { get; set; } = true;
         public float HispeedSetting { get; set; } = 1.5f;
+        public int Volume { get; set; } = 100;
     }
 
     internal class SaveSettings

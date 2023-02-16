@@ -130,6 +130,7 @@ namespace BAKKA_Editor
             showGimmicksInCircleViewToolStripMenuItem.Checked   = userSettings.ViewSettings.ShowGimmicks;
             selectLastInsertedNoteToolStripMenuItem.Checked     = userSettings.ViewSettings.SelectLastInsertedNote;
             visualHispeedNumeric.Value                          = (decimal)userSettings.ViewSettings.HispeedSetting;
+            trackBarVolume.Value                                = userSettings.ViewSettings.Volume;
             autoSaveTimer.Interval                              = userSettings.SaveSettings.AutoSaveInterval * 60000;
             autoSaveTimer.Enabled = true;
             // Update hotkey labels
@@ -354,6 +355,7 @@ namespace BAKKA_Editor
             userSettings.ViewSettings.ShowGimmicks              = showGimmicksInCircleViewToolStripMenuItem.Checked;
             userSettings.ViewSettings.SelectLastInsertedNote    = selectLastInsertedNoteToolStripMenuItem.Checked;
             userSettings.ViewSettings.HispeedSetting            = circleView.Hispeed;
+            userSettings.ViewSettings.Volume                    = trackBarVolume.Value;
             userSettings.SaveSettings.AutoSaveInterval          = autoSaveTimer.Interval / 60000;
             //Update user settings.toml
             if (File.Exists("settings.toml"))
