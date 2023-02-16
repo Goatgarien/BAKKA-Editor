@@ -290,12 +290,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sizeTrackBar.Location = new System.Drawing.Point(50, 81);
             this.sizeTrackBar.Maximum = 60;
-            this.sizeTrackBar.Minimum = 1;
+            this.sizeTrackBar.Minimum = 4;
             this.sizeTrackBar.Name = "sizeTrackBar";
             this.sizeTrackBar.Size = new System.Drawing.Size(183, 45);
             this.sizeTrackBar.TabIndex = 5;
             this.sizeTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.sizeTrackBar.Value = 1;
+            this.sizeTrackBar.Value = 4;
             this.sizeTrackBar.ValueChanged += new System.EventHandler(this.sizeTrackBar_ValueChanged);
             // 
             // sizeNumeric
@@ -307,7 +307,7 @@
             0,
             0});
             this.sizeNumeric.Minimum = new decimal(new int[] {
-            1,
+            4,
             0,
             0,
             0});
@@ -315,7 +315,7 @@
             this.sizeNumeric.Size = new System.Drawing.Size(38, 23);
             this.sizeNumeric.TabIndex = 4;
             this.sizeNumeric.Value = new decimal(new int[] {
-            1,
+            4,
             0,
             0,
             0});
