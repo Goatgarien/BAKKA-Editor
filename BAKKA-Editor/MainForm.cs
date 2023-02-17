@@ -1061,7 +1061,7 @@ namespace BAKKA_Editor
             var info = chart.GetBeat(currentSong.PlayPosition);
             if (info != null && info.Measure != -1)
             {
-                measureNumeric.Value = info.Measure;
+                 measureNumeric.Value = info.Measure;
                 beat1Numeric.Value = (int)((float)info.Beat / 1920.0f * (float)beat2Numeric.Value);
                 circleView.CurrentMeasure = info.MeasureDecimal;
             }
@@ -1080,7 +1080,8 @@ namespace BAKKA_Editor
             if (info != null && info.Measure != -1 && valueTriggerEvent != EventSource.MouseWheel)
             {
                 valueTriggerEvent = EventSource.TrackBar;
-                measureNumeric.Value = info.Measure;
+                if (info.Measure < 0) measureNumeric.Value = 0;
+                else measureNumeric.Value = info.Measure;
                 beat1Numeric.Value = (int)((float)info.Beat / 1920.0f * (float)beat2Numeric.Value);
                 circleView.CurrentMeasure = info.MeasureDecimal;
             }
@@ -1794,16 +1795,22 @@ namespace BAKKA_Editor
             NoteOperation op2 = null;
             if (chart.Notes[selectedNoteIndex].NoteType == NoteType.HoldStartBonusFlair || chart.Notes[selectedNoteIndex].NoteType == NoteType.HoldStartNoBonus)
             {
-                if(chart.Notes[selectedNoteIndex].NextNote.NoteType == NoteType.HoldEnd)
+                if(chart.Notes[selectedNoteIndex].NextNote != null)
                 {
-                    op2 = new RemoveHoldNote(chart, chart.Notes[selectedNoteIndex].NextNote);
+                    if (chart.Notes[selectedNoteIndex].NextNote.NoteType == NoteType.HoldEnd)
+                    {
+                        op2 = new RemoveHoldNote(chart, chart.Notes[selectedNoteIndex].NextNote);
+                    }
                 }
             }
             if (chart.Notes[selectedNoteIndex].NoteType == NoteType.HoldEnd)
             {
-                if (chart.Notes[selectedNoteIndex].PrevNote.NoteType == NoteType.HoldStartBonusFlair || chart.Notes[selectedNoteIndex].PrevNote.NoteType == NoteType.HoldStartNoBonus)
+                if(chart.Notes[selectedNoteIndex].PrevNote != null)
                 {
-                    op2 = new RemoveHoldNote(chart, chart.Notes[selectedNoteIndex].PrevNote);
+                    if (chart.Notes[selectedNoteIndex].PrevNote.NoteType == NoteType.HoldStartBonusFlair || chart.Notes[selectedNoteIndex].PrevNote.NoteType == NoteType.HoldStartNoBonus)
+                    {
+                        op2 = new RemoveHoldNote(chart, chart.Notes[selectedNoteIndex].PrevNote);
+                    }
                 }
             }
             opManager.InvokeAndPush(op);
@@ -1931,19 +1938,33 @@ namespace BAKKA_Editor
                 if (op != null)
                 {
                     UpdateControlsFromOperation(op, OperationDirection.Undo);
+                    //check for if it's a segment hold, if so treat them as 1 object by doing everything twice
                     if (op.GetType() == typeof(RemoveHoldNote))
                     {
                         foreach (var note in chart.Notes)
                         {
                             if (note.IsHold && note.NextNote == null && note.PrevNote == null)
                             {
-                                undoToolStripMenuItem_Click(sender, e);
+                                if (opManager.CanUndo)
+                                {
+                                    var op2 = opManager.Undo();
+                                    if (op2 != null)
+                                    {
+                                        UpdateControlsFromOperation(op2, OperationDirection.Undo);
+                                        //check for the edge case of someone placing a hold start then deleting it
+                                        if (op2.GetType() == typeof(InsertHoldNote))
+                                        {
+                                            redoToolStripMenuItem_Click(sender, e);
+                                        }
+                                    }
+                                }
                                 return;
                             }
                         }
                     }
                 }
             }
+            return;
         }
 
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1954,8 +1975,33 @@ namespace BAKKA_Editor
                 if (op != null)
                 {
                     UpdateControlsFromOperation(op, OperationDirection.Redo);
+                    //check for if it's a segment hold, if so treat them as 1 object by doing everything twice
+                    if (op.GetType() == typeof(RemoveHoldNote))
+                    {
+                        foreach (var note in chart.Notes)
+                        {
+                            if (note.IsHold && note.NextNote == null && note.PrevNote == null)
+                            {
+                                if (opManager.CanRedo)
+                                {
+                                    var op2 = opManager.Redo();
+                                    if (op2 != null)
+                                    {
+                                        UpdateControlsFromOperation(op2, OperationDirection.Redo);
+                                        //check for the edge case of someone placing a hold start then deleting it
+                                        if (op2.GetType() == typeof(InsertHoldNote))
+                                        {
+                                            undoToolStripMenuItem_Click(sender, e);
+                                        }
+                                    }
+                                }
+                                return;
+                            }
+                        }
+                    }
                 }
             }
+            return;
         }
 
         private void UpdateControlsFromOperation(IOperation op, OperationDirection dir)
