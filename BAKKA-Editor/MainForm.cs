@@ -1061,7 +1061,8 @@ namespace BAKKA_Editor
             var info = chart.GetBeat(currentSong.PlayPosition);
             if (info != null && info.Measure != -1)
             {
-                 measureNumeric.Value = info.Measure;
+                if (info.Measure < 0) measureNumeric.Value = 0;
+                else measureNumeric.Value = info.Measure;
                 beat1Numeric.Value = (int)((float)info.Beat / 1920.0f * (float)beat2Numeric.Value);
                 circleView.CurrentMeasure = info.MeasureDecimal;
             }
