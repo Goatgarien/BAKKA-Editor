@@ -87,6 +87,11 @@ namespace BAKKA_Editor
                 InitialSpeed.HiSpeed = 1.0;
             }
             HispeedChanges.Add(InitialSpeed);
+            //Random todos that im too lazy to put in applicable locations
+            //TODO: Add option to disable hispeed gimmick in visual
+            //TODO: add "time" to notes so we can compare against it every time instead of always calculating what time a note is at
+            //TODO: add function to reevaluate the time of every note when bpm or TS is added/removed.
+            
             //add all hispeed changes to list that happen within the current total time to show notes
             float tempTotalTime = ((displayFrames / 60.0f) * 1000.0f);
             float currentTime = chart.GetTime(new BeatInfo(CurrentMeasure));
@@ -100,14 +105,13 @@ namespace BAKKA_Editor
                 for (int i = 0; i < HispeedChanges.Count; i++)
                 {
                     float timeDiff;
-                    float itemTime;
+                    float itemTime = chart.GetTime(HispeedChanges[i].BeatInfo);
                     float modifiedTime;
-                    if (chart.GetTime(HispeedChanges[i].BeatInfo) <= (tempTotalTime + currentTime))
+                    if (itemTime <= (tempTotalTime + currentTime))
                     {
                         if (i == 0)
                             itemTime = currentTime;
-                        else
-                            itemTime = chart.GetTime(HispeedChanges[i].BeatInfo);
+                        
                         if (i != HispeedChanges.Count - 1)
                         {
                             float tempTestITimeDiff = (currentTime + tempTotalTime) - itemTime;
