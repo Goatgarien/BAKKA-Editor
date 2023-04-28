@@ -18,6 +18,7 @@ namespace BAKKA_Editor
         public float Radius { get; private set; }
         public float CurrentMeasure { get; set; }
         public float Hispeed { get; set; } = 1.5f;
+        public bool showHispeed { get; set; } = true;
 
         // Pens and Brushes
         public Pen BasePen { get; set; }
@@ -77,71 +78,73 @@ namespace BAKKA_Editor
         {
             //Convert hispeed to frames
             float displayFrames = 73.0f - ((Hispeed - 1.5f) * 10.0f);
-            //Account for hispeed gimmick
-            List<Gimmick> HispeedChanges = new List<Gimmick>();
-            Gimmick InitialSpeed = chart.Gimmicks.Where(x => x.GimmickType == GimmickType.HiSpeedChange && CurrentMeasure > x.Measure).LastOrDefault();
-            //Add initial hispeed to list
-            if (InitialSpeed == null)
-            {
-                InitialSpeed = new Gimmick();
-                InitialSpeed.HiSpeed = 1.0;
-            }
-            HispeedChanges.Add(InitialSpeed);
-            //Random todos that im too lazy to put in applicable locations
-            //TODO: Add option to disable hispeed gimmick in visual
-            //TODO: add "time" to notes so we can compare against it every time instead of always calculating what time a note is at
-            //TODO: add function to reevaluate the time of every note when bpm or TS is added/removed.
-            
-            //add all hispeed changes to list that happen within the current total time to show notes
             float tempTotalTime = ((displayFrames / 60.0f) * 1000.0f);
             float currentTime = chart.GetTime(new BeatInfo(CurrentMeasure));
             float tempEndTime = currentTime + tempTotalTime;
-            HispeedChanges.AddRange(chart.Gimmicks.Where(
-                x => x.Measure >= CurrentMeasure
-                && chart.GetTime(new BeatInfo(x.Measure)) < tempEndTime
-                && x.GimmickType == GimmickType.HiSpeedChange).ToList());
-            if (HispeedChanges.Count > 1)
+            if (showHispeed) 
             {
-                for (int i = 0; i < HispeedChanges.Count; i++)
+                //Account for hispeed gimmick
+                List<Gimmick> HispeedChanges = new List<Gimmick>();
+                Gimmick InitialSpeed = chart.Gimmicks.Where(x => x.GimmickType == GimmickType.HiSpeedChange && CurrentMeasure > x.Measure).LastOrDefault();
+                //Add initial hispeed to list
+                if (InitialSpeed == null)
                 {
-                    float timeDiff;
-                    float itemTime = chart.GetTime(HispeedChanges[i].BeatInfo);
-                    float modifiedTime;
-                    if (itemTime <= (tempTotalTime + currentTime))
+                    InitialSpeed = new Gimmick();
+                    InitialSpeed.HiSpeed = 1.0;
+                }
+                HispeedChanges.Add(InitialSpeed);
+                //Random todos that im too lazy to put in applicable locations
+                //TODO: add "time" to notes so we can compare against it every time instead of always calculating what time a note is at
+                //TODO: add function to reevaluate the time of every note when bpm or TS is added/removed.
+            
+                //add all hispeed changes to list that happen within the current total time to show notes
+                HispeedChanges.AddRange(chart.Gimmicks.Where(
+                    x => x.Measure >= CurrentMeasure
+                    && chart.GetTime(new BeatInfo(x.Measure)) < tempEndTime
+                    && x.GimmickType == GimmickType.HiSpeedChange).ToList());
+                if (HispeedChanges.Count > 1)
+                {
+                    for (int i = 0; i < HispeedChanges.Count; i++)
                     {
-                        if (i == 0)
-                            itemTime = currentTime;
-                        
-                        if (i != HispeedChanges.Count - 1)
+                        float timeDiff;
+                        float itemTime = chart.GetTime(HispeedChanges[i].BeatInfo);
+                        float modifiedTime;
+                        if (itemTime <= (tempTotalTime + currentTime))
                         {
-                            float tempTestITimeDiff = (currentTime + tempTotalTime) - itemTime;
-                            float tempTestIModifiedTime = (tempTestITimeDiff) / (float)(HispeedChanges[i].HiSpeed);
-                            if ((currentTime + tempTotalTime - tempTestITimeDiff + tempTestIModifiedTime) < chart.GetTime(HispeedChanges[i + 1].BeatInfo))
+                            if (i == 0)
+                                itemTime = currentTime;
+                        
+                            if (i != HispeedChanges.Count - 1)
+                            {
+                                float tempTestITimeDiff = (currentTime + tempTotalTime) - itemTime;
+                                float tempTestIModifiedTime = (tempTestITimeDiff) / (float)(HispeedChanges[i].HiSpeed);
+                                if ((currentTime + tempTotalTime - tempTestITimeDiff + tempTestIModifiedTime) < chart.GetTime(HispeedChanges[i + 1].BeatInfo))
+                                {
+                                    timeDiff = (currentTime + tempTotalTime) - itemTime;
+                                    modifiedTime = timeDiff / (float)HispeedChanges[i].HiSpeed;
+                                }
+                                else
+                                {
+                                    timeDiff = chart.GetTime(HispeedChanges[i + 1].BeatInfo) - itemTime;
+                                    modifiedTime = timeDiff / (float)HispeedChanges[i].HiSpeed;
+                                }
+                            }
+                            else
                             {
                                 timeDiff = (currentTime + tempTotalTime) - itemTime;
                                 modifiedTime = timeDiff / (float)HispeedChanges[i].HiSpeed;
                             }
-                            else
-                            {
-                                timeDiff = chart.GetTime(HispeedChanges[i + 1].BeatInfo) - itemTime;
-                                modifiedTime = timeDiff / (float)HispeedChanges[i].HiSpeed;
-                            }
+                            tempTotalTime = tempTotalTime - timeDiff + modifiedTime;
                         }
-                        else
-                        {
-                            timeDiff = (currentTime + tempTotalTime) - itemTime;
-                            modifiedTime = timeDiff / (float)HispeedChanges[i].HiSpeed;
-                        }
-                        tempTotalTime = tempTotalTime - timeDiff + modifiedTime;
                     }
                 }
-            }
-            else
-            {
-                tempTotalTime /= (float)HispeedChanges[0].HiSpeed;
+                else
+                {
+                    tempTotalTime /= (float)HispeedChanges[0].HiSpeed;
+                }
+                tempEndTime = currentTime + tempTotalTime;
             }
             //convert total time to total measure
-            tempEndTime = currentTime + tempTotalTime;
             BeatInfo EndMeasure = chart.GetBeat(tempEndTime);
             return EndMeasure.MeasureDecimal - CurrentMeasure;
         }

@@ -128,6 +128,7 @@ namespace BAKKA_Editor
             showCursorDuringPlaybackToolStripMenuItem.Checked   = userSettings.ViewSettings.ShowCursorDuringPlayback;
             highlightViewedNoteToolStripMenuItem.Checked        = userSettings.ViewSettings.HighlightViewedNote;
             showGimmicksInCircleViewToolStripMenuItem.Checked   = userSettings.ViewSettings.ShowGimmicks;
+            showGimmicksDuringPlaybackToolStripMenuItem.Checked = userSettings.ViewSettings.ShowGimmicksDuringPlayback;
             selectLastInsertedNoteToolStripMenuItem.Checked     = userSettings.ViewSettings.SelectLastInsertedNote;
             visualHispeedNumeric.Value                          = (decimal)userSettings.ViewSettings.HispeedSetting;
             trackBarVolume.Value                                = userSettings.ViewSettings.Volume;
@@ -349,14 +350,15 @@ namespace BAKKA_Editor
             if (tempFilePath != "")
                 File.Delete(tempFilePath);
             // Apply settings
-            userSettings.ViewSettings.ShowCursor                = showCursorToolStripMenuItem.Checked;
-            userSettings.ViewSettings.ShowCursorDuringPlayback  = showCursorDuringPlaybackToolStripMenuItem.Checked;
-            userSettings.ViewSettings.HighlightViewedNote       = highlightViewedNoteToolStripMenuItem.Checked;
-            userSettings.ViewSettings.ShowGimmicks              = showGimmicksInCircleViewToolStripMenuItem.Checked;
-            userSettings.ViewSettings.SelectLastInsertedNote    = selectLastInsertedNoteToolStripMenuItem.Checked;
-            userSettings.ViewSettings.HispeedSetting            = circleView.Hispeed;
-            userSettings.ViewSettings.Volume                    = trackBarVolume.Value;
-            userSettings.SaveSettings.AutoSaveInterval          = autoSaveTimer.Interval / 60000;
+            userSettings.ViewSettings.ShowCursor                    = showCursorToolStripMenuItem.Checked;
+            userSettings.ViewSettings.ShowCursorDuringPlayback      = showCursorDuringPlaybackToolStripMenuItem.Checked;
+            userSettings.ViewSettings.HighlightViewedNote           = highlightViewedNoteToolStripMenuItem.Checked;
+            userSettings.ViewSettings.ShowGimmicks                  = showGimmicksInCircleViewToolStripMenuItem.Checked;
+            userSettings.ViewSettings.ShowGimmicksDuringPlayback    = showGimmicksDuringPlaybackToolStripMenuItem.Checked;
+            userSettings.ViewSettings.SelectLastInsertedNote        = selectLastInsertedNoteToolStripMenuItem.Checked;
+            userSettings.ViewSettings.HispeedSetting                = circleView.Hispeed;
+            userSettings.ViewSettings.Volume                        = trackBarVolume.Value;
+            userSettings.SaveSettings.AutoSaveInterval              = autoSaveTimer.Interval / 60000;
             //Update user settings.toml
             if (File.Exists("settings.toml"))
                 File.WriteAllText("settings.toml", Toml.FromModel(userSettings));
@@ -2192,6 +2194,12 @@ namespace BAKKA_Editor
             }
             currentSong.PlaybackSpeed = (trackBarSpeed.Value / (float)trackBarSpeed.Maximum);
             labelSpeed.Text = $"Speed (x{currentSong.PlaybackSpeed:0.00})";
+        }
+
+        private void showGimmicksDuringPlaybackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            circleView.showHispeed = showGimmicksDuringPlaybackToolStripMenuItem.Checked;
+            circlePanel.Invalidate();
         }
     }
 }

@@ -22,6 +22,7 @@ namespace BAKKA_Editor
         public bool HighlightViewedNote { get; set; } = true;
         public bool SelectLastInsertedNote { get; set; } = true;
         public bool ShowGimmicks { get; set; } = true;
+        public bool ShowGimmicksDuringPlayback { get; set; } = true;
         public float HispeedSetting { get; set; } = 1.5f;
         public int Volume { get; set; } = 100;
     }

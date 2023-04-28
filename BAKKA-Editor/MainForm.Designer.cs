@@ -101,6 +101,7 @@
             this.highlightViewedNoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectLastInsertedNoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showGimmicksInCircleViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showGimmicksDuringPlaybackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.initialChartSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -945,7 +946,8 @@
             this.showCursorDuringPlaybackToolStripMenuItem,
             this.highlightViewedNoteToolStripMenuItem,
             this.selectLastInsertedNoteToolStripMenuItem,
-            this.showGimmicksInCircleViewToolStripMenuItem});
+            this.showGimmicksInCircleViewToolStripMenuItem,
+            this.showGimmicksDuringPlaybackToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
@@ -956,14 +958,14 @@
             this.showCursorToolStripMenuItem.CheckOnClick = true;
             this.showCursorToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.showCursorToolStripMenuItem.Name = "showCursorToolStripMenuItem";
-            this.showCursorToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.showCursorToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
             this.showCursorToolStripMenuItem.Text = "Show Cursor";
             this.showCursorToolStripMenuItem.Click += new System.EventHandler(this.showCursorToolStripMenuItem_Click);
             // 
             // showCursorDuringPlaybackToolStripMenuItem
             // 
             this.showCursorDuringPlaybackToolStripMenuItem.Name = "showCursorDuringPlaybackToolStripMenuItem";
-            this.showCursorDuringPlaybackToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.showCursorDuringPlaybackToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
             this.showCursorDuringPlaybackToolStripMenuItem.Text = "Show Cursor During Playback";
             // 
             // highlightViewedNoteToolStripMenuItem
@@ -972,7 +974,7 @@
             this.highlightViewedNoteToolStripMenuItem.CheckOnClick = true;
             this.highlightViewedNoteToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.highlightViewedNoteToolStripMenuItem.Name = "highlightViewedNoteToolStripMenuItem";
-            this.highlightViewedNoteToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.highlightViewedNoteToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
             this.highlightViewedNoteToolStripMenuItem.Text = "Highlight Viewed Note";
             // 
             // selectLastInsertedNoteToolStripMenuItem
@@ -981,7 +983,7 @@
             this.selectLastInsertedNoteToolStripMenuItem.CheckOnClick = true;
             this.selectLastInsertedNoteToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.selectLastInsertedNoteToolStripMenuItem.Name = "selectLastInsertedNoteToolStripMenuItem";
-            this.selectLastInsertedNoteToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.selectLastInsertedNoteToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
             this.selectLastInsertedNoteToolStripMenuItem.Text = "Select Last Inserted Note";
             // 
             // showGimmicksInCircleViewToolStripMenuItem
@@ -990,9 +992,17 @@
             this.showGimmicksInCircleViewToolStripMenuItem.CheckOnClick = true;
             this.showGimmicksInCircleViewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.showGimmicksInCircleViewToolStripMenuItem.Name = "showGimmicksInCircleViewToolStripMenuItem";
-            this.showGimmicksInCircleViewToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.showGimmicksInCircleViewToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
             this.showGimmicksInCircleViewToolStripMenuItem.Text = "Show Gimmicks In Circle View";
             this.showGimmicksInCircleViewToolStripMenuItem.Click += new System.EventHandler(this.showGimmicksInCircleViewToolStripMenuItem_Click);
+            // 
+            // showGimmicksDuringPlaybackToolStripMenuItem
+            // 
+            this.showGimmicksDuringPlaybackToolStripMenuItem.CheckOnClick = true;
+            this.showGimmicksDuringPlaybackToolStripMenuItem.Name = "showGimmicksDuringPlaybackToolStripMenuItem";
+            this.showGimmicksDuringPlaybackToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
+            this.showGimmicksDuringPlaybackToolStripMenuItem.Text = "Show Gimmicks During Playback";
+            this.showGimmicksDuringPlaybackToolStripMenuItem.Click += new System.EventHandler(this.showGimmicksDuringPlaybackToolStripMenuItem_Click);
             // 
             // chartToolStripMenuItem
             // 
@@ -1577,5 +1587,6 @@
         private TrackBar trackBarSpeed;
         private Button gimmickJumpToCurrTimeButton;
         private ToolStripMenuItem showGimmicksInCircleViewToolStripMenuItem;
+        private ToolStripMenuItem showGimmicksDuringPlaybackToolStripMenuItem;
     }
 }
