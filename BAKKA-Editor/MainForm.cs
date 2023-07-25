@@ -2207,11 +2207,6 @@ namespace BAKKA_Editor
             circlePanel.Invalidate();
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void UpdateNotesOnBeat()
         {
             // Fill list of notes on beat
@@ -2225,7 +2220,6 @@ namespace BAKKA_Editor
 
                 return listItem;
             }).ToArray();
-
 
             notesOnBeat.Items.AddRange(notes);
         }
@@ -2241,6 +2235,7 @@ namespace BAKKA_Editor
 
             float currentMeasure = circleView.CurrentMeasure;
 
+            // Find the matching selected note
             var noteInChart = chart.Notes.FirstOrDefault(x => x.BeatInfo.MeasureDecimal == currentMeasure && 
                 x.NoteType.ToLabel() == noteType &&
                 x.Position == position &&
