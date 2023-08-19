@@ -147,6 +147,8 @@
             Type = new ColumnHeader();
             Position = new ColumnHeader();
             Size = new ColumnHeader();
+            toolStripSeparator1 = new ToolStripSeparator();
+            dragPlaceNoteToolStripMenuItem = new ToolStripMenuItem();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)beat2Numeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)beat1Numeric).BeginInit();
@@ -970,7 +972,7 @@
             // 
             // editToolStripMenuItem
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { undoToolStripMenuItem, redoToolStripMenuItem });
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { undoToolStripMenuItem, redoToolStripMenuItem , toolStripSeparator1, dragPlaceNoteToolStripMenuItem });
             editToolStripMenuItem.Name = "editToolStripMenuItem";
             editToolStripMenuItem.Size = new Size(39, 20);
             editToolStripMenuItem.Text = "Edit";
@@ -979,7 +981,7 @@
             // 
             undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             undoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-            undoToolStripMenuItem.Size = new Size(144, 22);
+            undoToolStripMenuItem.Size = new Size(180, 22);
             undoToolStripMenuItem.Text = "Undo";
             undoToolStripMenuItem.Click += undoToolStripMenuItem_Click;
             // 
@@ -987,7 +989,7 @@
             // 
             redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             redoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
-            redoToolStripMenuItem.Size = new Size(144, 22);
+            redoToolStripMenuItem.Size = new Size(180, 22);
             redoToolStripMenuItem.Text = "Redo";
             redoToolStripMenuItem.Click += redoToolStripMenuItem_Click;
             // 
@@ -1380,6 +1382,20 @@
             Size.Text = "Size";
             Size.Width = 50;
             // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(177, 6);
+            // 
+            // dragPlaceNoteToolStripMenuItem
+            // 
+            dragPlaceNoteToolStripMenuItem.Checked = true;
+            dragPlaceNoteToolStripMenuItem.CheckOnClick = true;
+            dragPlaceNoteToolStripMenuItem.CheckState = CheckState.Checked;
+            dragPlaceNoteToolStripMenuItem.Name = "dragPlaceNoteToolStripMenuItem";
+            dragPlaceNoteToolStripMenuItem.Size = new Size(180, 22);
+            dragPlaceNoteToolStripMenuItem.Text = "Place Note on Drag";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1560,5 +1576,7 @@
         private ColumnHeader Type;
         private ColumnHeader Position;
         private ColumnHeader Size;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem dragPlaceNoteToolStripMenuItem;
     }
 }

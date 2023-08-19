@@ -1121,7 +1121,7 @@ namespace BAKKA_Editor
             }
 
             var dist = Utils.GetDist(e.Location, circleView.mouseDownPt);
-            if (dist > 5.0f)
+            if (dist > 5.0f && dragPlaceNoteToolStripMenuItem.Checked)
                 InsertObject();
             circleView.UpdateMouseUp();
             circlePanel.Invalidate();
