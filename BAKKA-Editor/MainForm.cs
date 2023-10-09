@@ -4,6 +4,7 @@ using IrrKlang;
 using BAKKA_Editor.Operations;
 using Tomlyn;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 
 namespace BAKKA_Editor
 {
@@ -124,15 +125,15 @@ namespace BAKKA_Editor
                 File.WriteAllText("settings.toml", Toml.FromModel(userSettings));
             }
             // Apply settings
-            showCursorToolStripMenuItem.Checked                 = userSettings.ViewSettings.ShowCursor;
-            showCursorDuringPlaybackToolStripMenuItem.Checked   = userSettings.ViewSettings.ShowCursorDuringPlayback;
-            highlightViewedNoteToolStripMenuItem.Checked        = userSettings.ViewSettings.HighlightViewedNote;
-            showGimmicksInCircleViewToolStripMenuItem.Checked   = userSettings.ViewSettings.ShowGimmicks;
+            showCursorToolStripMenuItem.Checked = userSettings.ViewSettings.ShowCursor;
+            showCursorDuringPlaybackToolStripMenuItem.Checked = userSettings.ViewSettings.ShowCursorDuringPlayback;
+            highlightViewedNoteToolStripMenuItem.Checked = userSettings.ViewSettings.HighlightViewedNote;
+            showGimmicksInCircleViewToolStripMenuItem.Checked = userSettings.ViewSettings.ShowGimmicks;
             showGimmicksDuringPlaybackToolStripMenuItem.Checked = userSettings.ViewSettings.ShowGimmicksDuringPlayback;
-            selectLastInsertedNoteToolStripMenuItem.Checked     = userSettings.ViewSettings.SelectLastInsertedNote;
-            visualHispeedNumeric.Value                          = (decimal)userSettings.ViewSettings.HispeedSetting;
-            trackBarVolume.Value                                = userSettings.ViewSettings.Volume;
-            autoSaveTimer.Interval                              = userSettings.SaveSettings.AutoSaveInterval * 60000;
+            selectLastInsertedNoteToolStripMenuItem.Checked = userSettings.ViewSettings.SelectLastInsertedNote;
+            visualHispeedNumeric.Value = (decimal)userSettings.ViewSettings.HispeedSetting;
+            trackBarVolume.Value = userSettings.ViewSettings.Volume;
+            autoSaveTimer.Interval = userSettings.SaveSettings.AutoSaveInterval * 60000;
             autoSaveTimer.Enabled = true;
             // Update hotkey labels
             tapButton.AppendHotkey(userSettings.HotkeySettings.TouchHotkey);
@@ -350,15 +351,15 @@ namespace BAKKA_Editor
             if (tempFilePath != "")
                 File.Delete(tempFilePath);
             // Apply settings
-            userSettings.ViewSettings.ShowCursor                    = showCursorToolStripMenuItem.Checked;
-            userSettings.ViewSettings.ShowCursorDuringPlayback      = showCursorDuringPlaybackToolStripMenuItem.Checked;
-            userSettings.ViewSettings.HighlightViewedNote           = highlightViewedNoteToolStripMenuItem.Checked;
-            userSettings.ViewSettings.ShowGimmicks                  = showGimmicksInCircleViewToolStripMenuItem.Checked;
-            userSettings.ViewSettings.ShowGimmicksDuringPlayback    = showGimmicksDuringPlaybackToolStripMenuItem.Checked;
-            userSettings.ViewSettings.SelectLastInsertedNote        = selectLastInsertedNoteToolStripMenuItem.Checked;
-            userSettings.ViewSettings.HispeedSetting                = circleView.Hispeed;
-            userSettings.ViewSettings.Volume                        = trackBarVolume.Value;
-            userSettings.SaveSettings.AutoSaveInterval              = autoSaveTimer.Interval / 60000;
+            userSettings.ViewSettings.ShowCursor = showCursorToolStripMenuItem.Checked;
+            userSettings.ViewSettings.ShowCursorDuringPlayback = showCursorDuringPlaybackToolStripMenuItem.Checked;
+            userSettings.ViewSettings.HighlightViewedNote = highlightViewedNoteToolStripMenuItem.Checked;
+            userSettings.ViewSettings.ShowGimmicks = showGimmicksInCircleViewToolStripMenuItem.Checked;
+            userSettings.ViewSettings.ShowGimmicksDuringPlayback = showGimmicksDuringPlaybackToolStripMenuItem.Checked;
+            userSettings.ViewSettings.SelectLastInsertedNote = selectLastInsertedNoteToolStripMenuItem.Checked;
+            userSettings.ViewSettings.HispeedSetting = circleView.Hispeed;
+            userSettings.ViewSettings.Volume = trackBarVolume.Value;
+            userSettings.SaveSettings.AutoSaveInterval = autoSaveTimer.Interval / 60000;
             //Update user settings.toml
             if (File.Exists("settings.toml"))
                 File.WriteAllText("settings.toml", Toml.FromModel(userSettings));
@@ -482,8 +483,8 @@ namespace BAKKA_Editor
                     minSize = 1;
                     break;
             }
-            if (sizeNumeric.Value < minSize)    sizeNumeric.Value = minSize;
-            if (sizeTrackBar.Value < minSize)   sizeTrackBar.Value = minSize;
+            if (sizeNumeric.Value < minSize) sizeNumeric.Value = minSize;
+            if (sizeTrackBar.Value < minSize) sizeTrackBar.Value = minSize;
             sizeNumeric.Minimum = minSize;
             sizeTrackBar.Minimum = minSize;
             circlePanel.Invalidate();
@@ -655,6 +656,8 @@ namespace BAKKA_Editor
             {
                 circleView.CurrentMeasure = (float)measureNumeric.Value + ((float)beat1Numeric.Value / (float)beat2Numeric.Value);
                 circlePanel.Invalidate();
+
+                UpdateNotesOnBeat();
             }
 
             if (currentNoteType == NoteType.HoldJoint || currentNoteType == NoteType.HoldEnd)
@@ -676,7 +679,7 @@ namespace BAKKA_Editor
                 insertButton.Enabled = false;
             }
             else
-            { 
+            {
                 insertButton.Enabled = true;
             }
         }
@@ -796,7 +799,7 @@ namespace BAKKA_Editor
             // don't reset hold state if we're already inserting a hold
             if (isInsertingHold)
                 return;
-            
+
             if (noBonusRadio.Checked)
                 SetSelectedObject(NoteType.HoldStartNoBonus);
             else if (bonusRadio.Checked)
@@ -818,7 +821,7 @@ namespace BAKKA_Editor
 
         private void endHoldCheck_CheckedChanged(object sender, EventArgs e)
         {
-            if(endHoldCheck.Checked && currentNoteType == NoteType.HoldJoint)
+            if (endHoldCheck.Checked && currentNoteType == NoteType.HoldJoint)
             {
                 SetSelectedObject(NoteType.HoldEnd);
             }
@@ -1044,6 +1047,7 @@ namespace BAKKA_Editor
                 {
                     playButton.Text = "Pause";
                     updateTimer.Enabled = true;
+                    notesOnBeat.Items.Clear();
                 }
                 playButton.AppendHotkey(userSettings.HotkeySettings.PlayHotkey);
             }
@@ -1117,7 +1121,7 @@ namespace BAKKA_Editor
             }
 
             var dist = Utils.GetDist(e.Location, circleView.mouseDownPt);
-            if (dist > 5.0f)
+            if (dist > 5.0f && dragPlaceNoteToolStripMenuItem.Checked)
                 InsertObject();
             circleView.UpdateMouseUp();
             circlePanel.Invalidate();
@@ -1250,6 +1254,7 @@ namespace BAKKA_Editor
                 if (selectLastInsertedNoteToolStripMenuItem.Checked)
                     nextSelectedNote = tempNote;
                 chart.Notes.Add(tempNote);
+                UpdateNotesOnBeat();
                 chart.IsSaved = false;
                 switch (currentNoteType)
                 {
@@ -1269,7 +1274,7 @@ namespace BAKKA_Editor
         private void SetNonHoldButtonState(bool state)
         {
             isInsertingHold = !state;
-            
+
             tapButton.Enabled = state;
             orangeButton.Enabled = state;
             greenButton.Enabled = state;
@@ -1388,13 +1393,13 @@ namespace BAKKA_Editor
             MessageBox.Show(
                 $"Authors: Goatgarien and VeroxZik\n" +
                 $"Contributions: Yellowberry, Farex-GH\n" +
-                $"Icon: IPIhypster", 
+                $"Icon: IPIhypster",
                 $"BAKKA Editor {fileVersion}");
         }
 
         private void initialChartSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowInitialSettings();   
+            ShowInitialSettings();
         }
 
         private void ShowInitialSettings()
@@ -1436,7 +1441,7 @@ namespace BAKKA_Editor
         {
             circlePanel.Invalidate();
         }
-        
+
         private void showGimmicksInCircleViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             circlePanel.Invalidate();
@@ -1654,7 +1659,7 @@ namespace BAKKA_Editor
             }
 
             // Prevent deletetion of initial BPM and time signature
-            if (chart.Gimmicks.Count == 0 
+            if (chart.Gimmicks.Count == 0
                 || (gimmick.Measure == 0 && (gimmick.GimmickType == GimmickType.BpmChange || gimmick.GimmickType == GimmickType.TimeSignatureChange)))
             {
                 gimmickDeleteButton.Enabled = false;
@@ -1669,7 +1674,7 @@ namespace BAKKA_Editor
         {
             if (val != -2)
                 selectedNoteIndex = val;
-            if(selectedNoteIndex == -1)
+            if (selectedNoteIndex == -1)
             {
                 noteMeasureLabel.Text = "None";
                 noteBeatLabel.Text = "None";
@@ -1798,7 +1803,7 @@ namespace BAKKA_Editor
             NoteOperation op2 = null;
             if (chart.Notes[selectedNoteIndex].NoteType == NoteType.HoldStartBonusFlair || chart.Notes[selectedNoteIndex].NoteType == NoteType.HoldStartNoBonus)
             {
-                if(chart.Notes[selectedNoteIndex].NextNote != null)
+                if (chart.Notes[selectedNoteIndex].NextNote != null)
                 {
                     if (chart.Notes[selectedNoteIndex].NextNote.NoteType == NoteType.HoldEnd)
                     {
@@ -1808,7 +1813,7 @@ namespace BAKKA_Editor
             }
             if (chart.Notes[selectedNoteIndex].NoteType == NoteType.HoldEnd)
             {
-                if(chart.Notes[selectedNoteIndex].PrevNote != null)
+                if (chart.Notes[selectedNoteIndex].PrevNote != null)
                 {
                     if (chart.Notes[selectedNoteIndex].PrevNote.NoteType == NoteType.HoldStartBonusFlair || chart.Notes[selectedNoteIndex].PrevNote.NoteType == NoteType.HoldStartNoBonus)
                     {
@@ -1836,7 +1841,7 @@ namespace BAKKA_Editor
             {
                 val = trackBarVolume.Maximum - trackBarVolume.Value;
             }
-            else if (!increase && (trackBarVolume.Value - val<trackBarVolume.Minimum))
+            else if (!increase && (trackBarVolume.Value - val < trackBarVolume.Minimum))
             {
                 val = trackBarVolume.Value - trackBarVolume.Minimum;
             }
@@ -1865,7 +1870,7 @@ namespace BAKKA_Editor
                     insertButton.Focus();
                     return true;
                 case Keys.Up | Keys.Shift:
-                    /* Fallthrough */
+                /* Fallthrough */
                 case Keys.Down | Keys.Shift:
                     keyData &= ~Keys.Shift;
                     playbackVolumeChange(keyData == Keys.Up);
@@ -2099,7 +2104,7 @@ namespace BAKKA_Editor
             }
         }
 
-        
+
         private void trackBarVolume_ValueChanged(object sender, EventArgs e)
         {
             /* No song, nothing to do. */
@@ -2108,7 +2113,7 @@ namespace BAKKA_Editor
                 return;
             }
             /* Volume is represented as a float from 0-1. */
-            currentSong.Volume = (float) trackBarVolume.Value / (float) trackBarVolume.Maximum;
+            currentSong.Volume = (float)trackBarVolume.Value / (float)trackBarVolume.Maximum;
             circlePanel.Invalidate();
         }
 
@@ -2154,7 +2159,7 @@ namespace BAKKA_Editor
 
         bool CurrentlyInsertingHold()
         {
-            if(currentNoteType == NoteType.HoldJoint || currentNoteType == NoteType.HoldEnd)
+            if (currentNoteType == NoteType.HoldJoint || currentNoteType == NoteType.HoldEnd)
             {
                 return true;
             }
@@ -2200,6 +2205,49 @@ namespace BAKKA_Editor
         {
             circleView.showHispeed = showGimmicksDuringPlaybackToolStripMenuItem.Checked;
             circlePanel.Invalidate();
+        }
+
+        private void UpdateNotesOnBeat()
+        {
+            // Fill list of notes on beat
+            notesOnBeat.Items.Clear();
+
+            var notes = chart.Notes.Where(n => n.BeatInfo.MeasureDecimal == circleView.CurrentMeasure).Select(n =>
+            {
+                var listItem = new ListViewItem(n.NoteType.ToLabel());
+                listItem.SubItems.Add(n.Position.ToString());
+                listItem.SubItems.Add(n.Size.ToString());
+
+                return listItem;
+            }).ToArray();
+
+            notesOnBeat.Items.AddRange(notes);
+        }
+
+        private void notesOnBeat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (notesOnBeat.SelectedItems.Count != 1) return; 
+
+            var selectedNote = notesOnBeat.SelectedItems[0];
+            var noteType = selectedNote.Text;
+            var position = float.Parse(selectedNote.SubItems[1].Text);
+            var size = float.Parse(selectedNote.SubItems[2].Text);
+
+            float currentMeasure = circleView.CurrentMeasure;
+
+            // Find the matching selected note
+            var noteInChart = chart.Notes.FirstOrDefault(x => x.BeatInfo.MeasureDecimal == currentMeasure && 
+                x.NoteType.ToLabel() == noteType &&
+                x.Position == position &&
+                x.Size == size
+            );
+
+            if (noteInChart != null)
+            {
+                selectedNoteIndex = chart.Notes.IndexOf(noteInChart);
+                circlePanel.Invalidate();
+                UpdateNoteLabels();
+            }
         }
     }
 }
